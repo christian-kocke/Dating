@@ -2,35 +2,24 @@
 
 /* App Module */
 
-var newsApp = angular.module('newsApp', [
+var datingApp = angular.module('datingApp', [
     'ngRoute',
-    'newsControllers',
-    'newsServices',
+    'datingControllers',
+    'datingServices',
     'ngToast',
-    'newsFilters',
-    'newsDirectives'
+    'datingFilters',
+    'datingDirectives',
+    'datingAnimations'
     ]);
 
-newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
-    function($routeProvider, USER_ROLES, $locationProvider, $rootScope) {
+datingApp.config(['$routeProvider', /*'USER_ROLES',*/ '$locationProvider',
+    function($routeProvider, $locationProvider, $rootScope) {
 
         $routeProvider.
-        when('/admin', {
-            templateUrl: '/news/app/partials/admin.html',
-            data: {
-                authorizedRoles: [USER_ROLES.admin]
-            },
-            resolve: {
-                auth: function resolveAuthentication(AuthResolver) { 
-                    return AuthResolver.resolve(false, '/');
-                }
-            }
-        }).
         when('/', {
-            templateUrl: '/news/app/partials/registration.html',
+            templateUrl: 'partials/login.html',
             url: '/protected',
-            controller: 'RegistrarCtrl',
-            resolve: {
+            /*resolve: {
                 session: function resolveSession(SessionResolver) {
                     return SessionResolver.resolve();
                 },
@@ -39,64 +28,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
                 if(AuthService.isAuthenticated()){
                     return '/client/0';
                 }
-            }],
-        }).
-        when('/profil', {
-            templateUrl: 'partials/userProfil.html',
-            controller: "ProfilCtrl",
-            data: {
-                authorizedRoles: [USER_ROLES.admin, USER_ROLES.client]
-            },
-            resolve: {
-                auth: function resolveAuthentication(AuthResolver) { 
-                    return AuthResolver.resolve(false, '/');
-                },
-                session: function resolveSession(SessionResolver) {
-                    return SessionResolver.resolve();
-                }
-            }
-        }).
-        when('/client/:categorie', {
-            templateUrl: '/news/app/partials/client-news-feed.html',
-            controller: 'NewsCtrl',
-            data: {
-                authorizedRoles: [USER_ROLES.client, USER_ROLES.admin]
-            },
-            resolve: {
-                auth: function resolveAuthentication(AuthResolver) { 
-                    return AuthResolver.resolve(false, '/');
-                },
-                session: function resolveSession(SessionResolver) {
-                    return SessionResolver.resolve();
-                }
-            }
-        }).
-        when('/activation/:token', {
-            templateUrl: '/news/app/partials/client-activation.html',
-            controller: 'RegistrarCtrl',
-            resolve: {
-                auth: function resolveAuthentication(AuthResolver) { 
-                    return AuthResolver.resolve('/client/0', false);
-                }
-            }
-        }).
-        when('/reset-password', {
-            templateUrl: '/news/app/partials/reset-password.html',
-            controller: 'ResetPasswordCtrl',
-            resolve: {
-                auth: function resolveAuthentication(AuthResolver) { 
-                    return AuthResolver.resolve('/client/0', false);
-                }
-            }
-        }).
-        when('/reset-password/:token', {
-            templateUrl: '/news/app/partials/change-password.html',
-            controller: 'ResetPasswordCtrl',
-            resolve: {
-                auth: function resolveAuthentication(AuthResolver) { 
-                    return AuthResolver.resolve('/client/0', false);
-                },
-            }
+            }],*/
         }).
         otherwise({
             redirectTo: '/',
@@ -105,7 +37,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
         $locationProvider.html5Mode(false);
     }
 
-    ]).run(function ($rootScope, AUTH_EVENTS, ARTICLE_EVENTS, FILE_EVENTS, USER_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector) {
+    ]).run(/*function ($rootScope, AUTH_EVENTS, ARTICLE_EVENTS, FILE_EVENTS, USER_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector) {
 
         $rootScope.deferred = $q.defer();
 
@@ -319,15 +251,15 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
                 content: 'Your account is not activated, check your mailbox !'
             });
         });
-    });
+    }*/);
 
-newsApp.config(function ($httpProvider) {
+/*datingApp.config(function ($httpProvider) {
     $httpProvider.interceptors.push(['$injector', function ($injector) {
         return $injector.get('AuthInterceptor');
     }]);
 });
 
-newsApp.config(['ngToastProvider', function(ngToast) {
+datingApp.config(['ngToastProvider', function(ngToast) {
 
     ngToast.configure({
         verticalPosition: 'top',
@@ -340,7 +272,7 @@ newsApp.config(['ngToastProvider', function(ngToast) {
     });
 }]);
 
-newsApp.constant('AUTH_EVENTS', {
+datingApp.constant('AUTH_EVENTS', {
     loginSuccess: 'auth-login-success',
     loginFailed: 'auth-login-failed',
     logoutSuccess: 'auth-logout-success',
@@ -379,4 +311,4 @@ newsApp.constant('AUTH_EVENTS', {
     resetExpired: "password-reset-expired",
     accountNotActivated: "account-not-activated",
     activationFailed: "account-activation-failed",
-});
+});*/

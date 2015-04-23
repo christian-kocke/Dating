@@ -1,1 +1,1 @@
-var newsAnimations = angular.module('newsAnimations', ['ngAnimate']);
+var datingAnimation = angular.module('datingAnimations', ['ngAnimate']);

@@ -1,179 +1,54 @@
-@media (max-width: 767px) {
-    .navbar-text {
-        margin-left: 15px;
-    }
-    .dropImg {
-        border-radius: 50%;
-        width: 100px;
-        height: 100px;
-        margin: auto;
-        box-shadow: 8px 8px 8px grey;
-    }
-    .thumbnail img.img-responsive {
-        max-width: 290px;
-    }
-    .footer {
-        display: none;
-    }
+.row {
+	margin: 0;
+}
+img[alt="Dating"] {
+	height: 50px;
 }
 
-@media (min-width: 768px) {
-    .navbar {
-        border-radius: 0;
-    }
-    .dropImg {
-        border-radius: 50%;
-        width: 140px;
-        height: 140px;
-        margin: auto;
-        box-shadow: 6px 6px 8px grey;
-    }
-    .container {
-        width: 90%;
-    }
+.navbar-white {
+	background-color: white;
+	margin: 0;
+	padding-left: 25vh;
+	padding-right: 25vh;
+	border-radius: 0;
 }
 
-body {
-    background: url(../img/blur.jpg) center center no-repeat fixed;
-    width: 100%;
+
+
+.navbar-btn:hover, .navbar-btn.activeLink {
+	color: white;
+	background-color: #E54C4B;
 }
 
-.view-container {
-
-    margin-bottom: 50px;
+.navbar-btn {
+	position: relative;
+	color: #656565;
 }
 
-.navbar-default.footer {
-    background-color: transparent;
-    border-color: transparent;
+.navbar-btn.activeLink:after {
+	top: 128%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: #FF5967;
+	border-top-color: white;
+	border-width: 1vh;
+	margin-left: -1vh;
 }
 
-.navbar {
-    box-shadow: 4px 4px 6px grey;
-    margin: 0;
+.pinkBG {
+	background-color: #FF5967;
+	color: white;
+	padding-left: 35vh;
+	padding-top: 5vh;
+	padding-bottom: 5vh;
+	border-bottom: 1vh solid #E54C4B;
 }
 
-.navbar-text {
-    font-size: 100%;
-}
-
-.page-header.secondaire  {
-    margin-top: 0;
-}
-
-.fgtpwd {
-    font-size: 100%;
-    margin-top: 1em;
-}
-
-.alert {
-    margin-bottom: 0;
-}
-
-.ng-toast__message.alert.alert-dismissible {
-    padding: 0;
-}
-
-.srchContainer {
-    margin-top: 6vh;
-    margin-bottom: 2vh;
-}
-
-.searchInput {
-    width: 80%;
-}
-
-.newsFeedContainer {
-    max-height: 90vh;
-    overflow: hidden;
-}
-
-.newsContent {
-    max-height: 70vh;
-    overflow: auto;
-    -moz-overflow: auto;
-}
-
-.jumbotron p.contentFullView {
-    font-size: 100%;
-}
-
-p.lead.contentMinView {
-    font-size: 100%;
-}
-
-.authorImg {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    box-shadow: 4px 4px 6px grey;
-}
-
-.authorNames {
-    margin-top: 2em;
-}
-
-.authorNames p.lead {
-    margin: 0;
-}
-
-.usernameUpdate {
-    margin: 1.5em auto 1em auto;
-    width: 50%;
-}
-
-.deleteButton {
-    margin-top: 1em;
-}
-
-.rowForm {
-    margin-bottom: 1em;
-}
-
-.side-bar {
-    margin-top: 10vh;
-}
-
-.dropzone.lead {
-    border: 1px solid grey;
-    border-radius: 50%;
-    width: 140px;
-    height: 140px;
-    margin: auto;
-    font-size: 120%;
-    padding-top: 3.5em;
-}
-
-.drop-box {
-    width: 140px;
-    height: 140px;
-    margin: auto;
-}
-
-.dragover {
-    opacity: 0.4;
-}
-
-form[name="signUpForm"] .has-feedback .form-control-feedback, form[name=changePasswordForm] .has-feedback .form-control-feedback{
-    top: 25px;
-    z-index: 2;
-}
-.has-feedback .form-control-feedback {
-    /*top: 0px;*/
-    z-index: 2;
-}
-
-.validationError {
-    color: red;
-    display: block;
-}
-
-.navbar-text {
-    display: inline-block;
-    float:none;
-}
-
-div.nav.navbar-right.hidden-xs.ng-scope {
-    width:70%;
-    text-align: right;
+.pinkBG h1 {
+	text-shadow: 2px 2px #E54C4B;
 }
