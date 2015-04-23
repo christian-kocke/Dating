@@ -1,0 +1,101 @@
+<div class="container text-center" ng-controller="ProfilCtrl">
+	
+	<div class="page-header">
+		<h1> Edit your profil ! </h1>
+	</div>
+
+	<div class="container">
+		
+		<div class="row">
+			<div class="col-md-12">
+
+				<!-- Drag & Drop Zone -->
+				<div ng-file-drop class="drop-box" ng-file-select ng-model="files" allow-dir="true" accept="image/*,application/pdf">
+					<p class="dropzone lead" drag-over-class="dragover" ng-hide="currentUser.img"> Drop or click ! <span class="glyphicon glyphicon-cloud-download"></span></p>
+					<img class="dropImg" ng-show="currentUser.img" ng-src="{{currentUser.img}}"/>
+				</div><!-- class drop-box -->
+
+				<!-- Username / Upadate -->
+				<h6 class="text-info" ng-show="currentUser.img"><em>* Click on your picture / username to Edit it! </em></h6>
+				<p class="lead" ng-hide="updateLogin || !currentUser.username" ng-click="showInput()"> {{currentUser.username | uppercase}} </p>
+				<div class="input-group col-md-4 col-md-offset-4 usernameUpdate" ng-show="updateLogin || !currentUser.username">
+					<input ng-model="user.username" ng-blur="updateLogin = false; loginUpdate()" value="" class="form-control lead" type="text" placeholder="New Username..." focus/>
+					<span class="input-group-btn">
+						<button class="btn btn-info" ui-keypress="{13: updateLogin = false}"><span class="glyphicon glyphicon-ok"></span></button>
+					</span><!-- class input-group-btn -->
+				</div><!-- /input-group -->
+
+			</div><!-- class col-md-12 -->
+		</div><!-- class row -->
+
+		<!-- MOBILE VERSION -->
+		<div class="row visible-xs">
+
+			<div class="btn-group" role="group" aria-label="...">
+				<a class="btn btn-default" ng-class="{'active': clicked1}" ng-click="clicked1 = !clicked1; clicked2 = false" aria-expanded="false" aria-controls="infos"> Profil Informations </a>
+				<a class="btn btn-default" ng-class="{'active': clicked2}" ng-click="clicked2 = !clicked2; clicked1 = false" aria-expanded="false" aria-controls="changePwd"> Change Password </a>
+			</div><!-- class btn-group -->
+
+			<div class="jumbotron" id="infos" ng-show="clicked1">
+				<p class="text-left"> {{currentUser.firstname}} </p>
+				<p class="text-left"> {{currentUser.lastname | uppercase}} </p>
+				<p class="text-left"> {{currentUser.email}} </p>
+			</div><!-- class jumbotron -->
+
+			<div class="jumbotron" id="changePwd" ng-show="clicked2">
+				<ng-include src="'partials/update-password.html'"></ng-include>
+			</div><!-- class jumbotron -->
+
+		</div><!-- class row visible-xs -->
+
+		<div class="row hidden-xs">
+			<div class="col-md-12">
+
+				<!-- Informations part -->
+				<div class="col-md-5 col-md-offset-1">
+
+					<div class="page-header secondaire">
+						<h1 class="text-left"><small> Informations : </small></h1>
+					</div><!-- class page-header secondaire -->
+
+					<div class="col-md-10">
+						<label for="firstname"> First name </label>
+						<p class="text-left well well-sm" id="firstname"> {{currentUser.firstname}} </p>
+					</div><!-- class col-md-10 -->
+
+					<div class="col-md-10">
+						<label for="lastname"> Last name </label>
+						<p class="text-left well well-sm" id="lastname"> {{currentUser.lastname | uppercase}} </p>
+					</div><!-- class col-md-10 -->
+
+					<div class="col-md-10">
+						<label for="email"> Email </label>
+						<p class="text-left well well-sm" id="email"> {{currentUser.email}} </p>
+					</div><!-- class col-md-10 -->
+
+				</div><!-- class col-md-5 col-md-offset-1 -->
+
+				<!-- Change password part -->
+				<div class="col-md-5 col-md-offset-1">
+					
+					<div class="page-header secondaire">
+						<h1 class="text-left"><small> Change your password : </small></h1>
+					</div><!-- class page-header secondaire -->
+					
+					<ng-include src="'partials/update-password.html'"></ng-include>
+
+				</div><!-- class col-md-5 col-md-offset-1 -->
+
+			</div><!-- col-md-12 -->
+		</div><!-- class row -->
+
+		<div class="row deleteButton">
+			<div class="col-md-12">
+				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteAccountModal"> Delete Account </button>
+				<h6 class="text-danger"><em> * Account created {{currentUser.created_at}} </em></h6>
+			</div>
+		</div>
+
+	</div><!-- class container -->
+
+</div><!-- class container text-center -->

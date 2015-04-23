@@ -1,0 +1,153 @@
+<div class="container text-center" ng-controller="RegistrarCtrl">
+	<div class="container" ng-hide="submitted">
+		
+		<div class="page-header">
+			<h1> Welcome </h1>
+			<p class="lead"> Please create an account or log in to enjoy our news feeds. </p>
+		</div>
+
+		<form name="signUpForm" ng-submit="signUpForm.$valid && register(user)" novalidate ng-hide="loading">
+			
+			<div class="row">	
+				
+				<!-- Firstname -->
+				<div class="col-md-5 col-md-offset-1">
+					<div class="form-group has-feedback" ng-class="{'has-success': signUpForm.firstname.$valid, 'has-error': signUpForm.firstname.$invalid && signUpForm.firstname.$dirty}">
+					<label for="firstname"> Firstname </label>
+						<div class="input-group">
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-hand-right"></span>
+							</span>
+							<input type="text" class="form-control" ng-model="user.firstname" name="firstname" id="firstname" placeholder="Firstname..." ng-minlength="2" ng-maxlength="60" aria-describedby="firstnameStatus" required>
+						</div><!-- class input-group -->
+						<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="signUpForm.firstname.$valid" aria-hidden="true"></span>
+						<span id="firstnameStatus" class="sr-only">(success)</span>
+						<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="signUpForm.firstname.$invalid && signUpForm.firstname.$dirty" aria-hidden="true"></span>
+						<span id="firstnameStatus" class="sr-only">(warning)</span>
+						<span class="validationError" ng-show="signUpForm.firstname.$error.minlength">* The firstname has to be a least 2 characters</span>
+						<span class="validationError" ng-show="signUpForm.firstname.$error.maxlength">* The firstname can't be more than 60 characters</span>
+						<span class="validationError" ng-show="signUpForm.firstname.$error.required && signUpForm.firstname.$dirty">* The firstname is required</span>
+					</div><!-- class form-group -->
+				</div><!-- class col-md-5 col-md-offset-1 -->
+
+				<!-- Lastname -->
+				<div class="col-md-5">
+					<div class="form-group has-feedback" ng-class="{'has-success': signUpForm.lastname.$valid, 'has-error': signUpForm.lastname.$invalid && signUpForm.lastname.$dirty}">
+						<label for="lastname"> Lastname </label>
+						<div class="input-group">
+							<span class="input-group-addon"><span class="glyphicon glyphicon-hand-right"></span></span>
+							<input type="text" class="form-control" ng-model="user.lastname" name="lastname" id="lastname" placeholder="Lastname..." ng-minlength="2" ng-maxlength="60" required>
+						</div><!-- class input-group -->
+						<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="signUpForm.lastname.$valid" aria-hidden="true"></span>
+						<span id="lastnameStatus" class="sr-only">(success)</span>
+						<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="signUpForm.lastname.$invalid && signUpForm.lastname.$dirty" aria-hidden="true"></span>
+						<span id="lastnameStatus" class="sr-only">(warning)</span>
+						<span class="validationError" ng-show="signUpForm.lastname.$error.minlength">* The lastname has to be a least 2 characters</span>
+						<span class="validationError" ng-show="signUpForm.lastname.$error.maxlength">* The lastname can't be more than 60 characters</span>
+						<span class="validationError" ng-show="signUpForm.lastname.$error.required && signUpForm.lastname.$dirty">* The lastname is required</span>
+					</div><!-- class form-group -->
+				</div><!-- class col-md-5 -->
+
+			</div><!-- class row -->
+
+			<div class="row">
+
+				<!-- Email -->
+				<div class="col-md-5 col-md-offset-1">
+					<div class="form-group has-feedback" ng-class="{'has-success': signUpForm.email.$valid, 'has-error': signUpForm.email.$invalid && signUpForm.email.$dirty}">
+						<label for="email"> Email </label>
+						<div class="input-group">
+							<span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+							<input type="email" class="form-control" ng-model="user.email" name="email" id="email" placeholder="Email..." ng-maxlength="255" required email-check>
+						</div><!-- class input-group -->
+						<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="signUpForm.email.$valid" aria-hidden="true"></span>
+						<span id="emailStatus" class="sr-only">(success)</span>
+						<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="signUpForm.email.$invalid && signUpForm.email.$dirty && !signUpForm.email.$pending.emailcheck" aria-hidden="true"></span>
+						<span id="emailStatus" class="sr-only">(warning)</span>
+						<span class="validationError" ng-show="signUpForm.email.$error.required && signUpForm.email.$dirty">* The email address is required</span>
+						<span class="validationError" ng-show="signUpForm.email.$error.emailcheck && signUpForm.email.$dirty">* This email is already registered</span>
+						<span class="form-control-feedback" ng-show="signUpForm.email.$pending.emailcheck"><i class="fa fa-circle-o-notch fa-spin"></i></span>
+					</div><!-- class form-group -->
+				</div><!-- class col-md-5 col-md-offset-1 -->
+
+				<!-- Username -->
+				<div class="col-md-5">
+					<div class="form-group has-feedback" ng-class="{'has-success': signUpForm.username.$valid, 'has-error': signUpForm.username.$invalid && signUpForm.username.$dirty}">
+						<label for="username"> Username </label>
+						<div class="input-group">
+							<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+							<input type="text" class="form-control" ng-model="user.username" name="username" id="username" placeholder="Username..." ng-minlength="2" ng-maxlength="60" required>
+						</div><!-- class input-group -->
+						<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="signUpForm.username.$valid" aria-hidden="true"></span>
+						<span id="usernameStatus" class="sr-only">(success)</span>
+						<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="signUpForm.username.$invalid && signUpForm.username.$dirty" aria-hidden="true"></span>
+						<span id="usernameStatus" class="sr-only">(warning)</span>
+						<span class="validationError" ng-show="signUpForm.username.$error.minlength">* The username has to be a least 2 characters</span>
+						<span class="validationError" ng-show="signUpForm.username.$error.maxlength">* The username can't be more than 60 characters</span>
+						<span class="validationError" ng-show="signUpForm.username.$error.required && signUpForm.username.$dirty">* The username is required</span>
+					</div><!-- class form-groupe -->
+				</div><!-- class col-md-5 -->
+			</div>
+			<div class="row">
+				<!-- Password -->						
+				<div class="col-md-5 col-md-offset-1">
+					<div class="form-group has-feedback" ng-class="{'has-success': signUpForm.password.$valid, 'has-error': signUpForm.password.$invalid && signUpForm.password.$dirty}">
+						<label for="password"> Password </label>
+						<div class="input-group">
+							<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+							<input type="password" class="form-control" ng-model="user.password" name="password" id="password" placeholder="Password..." ng-minlength="8" ng-maxlength="100" required>
+						</div><!-- class input-group -->
+						<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="signUpForm.password.$valid" aria-hidden="true"></span>
+						<span id="passwordStatus" class="sr-only">(success)</span>
+						<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="signUpForm.password.$invalid && signUpForm.password.$dirty" aria-hidden="true"></span>
+						<span id="passwordStatus" class="sr-only">(warning)</span>
+						<span class="validationError" ng-show="signUpForm.password.$error.minlength">* The password has to be a least 8 characters</span>
+						<span class="validationError" ng-show="signUpForm.password.$error.maxlength">* The password can't be more than 100 characters</span>
+					</div><!-- class form-group -->
+				</div><!-- class col-md-5 col-md-offset-1 -->
+
+				<!-- Confirmation -->
+				<div class="col-md-5">
+					<div class="form-group has-feedback" ng-class="{'has-success': signUpForm.password_confirmation.$valid, 'has-error': signUpForm.password_confirmation.$invalid && signUpForm.password_confirmation.$dirty}">
+						<label for="password_confirmation"> Confirm </label>
+						<div class="input-group">
+							<span class="input-group-addon"><span class="glyphicon glyphicon-repeat"></span></span>
+							<input type="password" class="form-control" ng-model="user.password_confirmation" name="password_confirmation" id="password_confirmation" placeholder="Confirm..." ng-minlength="8" ng-maxlength="100" required password-match="{{user.password}}">
+						</div><!-- class input-group -->
+						<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="signUpForm.password_confirmation.$valid" aria-hidden="true"></span>
+						<span id="password_confirmationStatus" class="sr-only">(success)</span>
+						<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="signUpForm.password_confirmation.$invalid && signUpForm.password_confirmation.$dirty" aria-hidden="true"></span>
+						<span id="password_confirmationStatus" class="sr-only">(warning)</span>
+						<span class="validationError" ng-show="signUpForm.password_confirmation.$error.minlength">* The password has to be a least 8 characters</span>
+						<span class="validationError" ng-show="signUpForm.password_confirmation.$error.passwordmatch && signUpForm.password_confirmation.$dirty">* The two passwords have to match</span>
+						<span class="validationError" ng-show="signUpForm.password_confirmation.$error.maxlength">* The password can't be more than 100 characters</span>
+					</div><!-- form-groupe -->
+				</div><!-- class col-md-5 -->
+				<!-- Submit -->
+				<div class="col-md-4 col-md-offset-4">
+					<button class="btn btn-primary" type="submit"> Sign Up </button>
+				</div><!-- class col-md-6 -->
+
+			</div><!-- class row -->
+		</form><!-- named signUpForm -->
+
+		<div class="col-md-12">
+			<p class="lead fgtpwd"><a href="#/reset-password"> Forgot your password ? Click here ! </a></p>
+		</div>
+
+	</div><!-- class container -->
+
+	<div ng-show="submitted">
+
+		<div class="page-header">
+			<h1> Check your mailbox ! </h1>
+			<p class="lead"> We sent you an email with a link to activate your account ! </p>
+		</div>
+
+	</div>
+
+	<div class="col-md-4 col-md-offset-4" ng-show="loading && !submitted">
+		<i class="fa fa-circle-o-notch fa-spin fa-4x"></i>
+	</div>
+
+</div><!-- class container text-center -->
