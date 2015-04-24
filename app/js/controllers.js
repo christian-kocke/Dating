@@ -4,7 +4,7 @@
 
 var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast']);
 
-datingControllers.controller('AuthCtrl', function ($scope, $log, $rootScope, $route, $location, AUTH_EVENTS, AuthService, AuthInterceptor) {
+datingController.controller('AuthCtrl', function ($scope, $log, $rootScope, $route, $location, AUTH_EVENTS, AuthService, AuthInterceptor) {
 
 	$scope.credentials = {
 		email: '',

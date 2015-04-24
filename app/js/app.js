@@ -12,7 +12,7 @@ var datingApp = angular.module('datingApp', [
     'datingAnimations'
     ]);
 
-datingApp.config(['$routeProvider', /*'USER_ROLES',*/ '$locationProvider',
+datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
     function($routeProvider, $locationProvider, $rootScope) {
 
         $routeProvider.
@@ -37,7 +37,7 @@ datingApp.config(['$routeProvider', /*'USER_ROLES',*/ '$locationProvider',
         $locationProvider.html5Mode(false);
     }
 
-    ]).run(function ($rootScope, AUTH_EVENTS, ARTICLE_EVENTS, FILE_EVENTS, USER_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector) {
+    ]).run(function ($rootScope, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector, $window) {
 
         $rootScope.deferred = $q.defer();
 
@@ -131,36 +131,6 @@ datingApp.config(['$routeProvider', /*'USER_ROLES',*/ '$locationProvider',
             var aToast = ngToast.create({
                 className: 'danger',
                 content: 'You are not authorized !'
-            });
-        });
-
-
-        // Article Post
-        $rootScope.$on(ARTICLE_EVENTS.postSuccess, function () {
-            var aToast = ngToast.create({
-                className: 'success',
-                content: 'Your article has been posted !'
-            });
-        });
-        $rootScope.$on(ARTICLE_EVENTS.postFailed, function () {
-            var aToast = ngToast.create({
-                className: 'warning',
-                content: 'Your article can\'t be posted, please try again!'
-            });
-        });
-
-
-        // Article Delete
-        $rootScope.$on(ARTICLE_EVENTS.deleteSuccess, function () {
-            var aToast = ngToast.create({
-                className: 'success',
-                content: 'Your article has been deleted !'
-            });
-        });
-        $rootScope.$on(ARTICLE_EVENTS.deleteFailed, function () {
-            var aToast = ngToast.create({
-                className: 'warning',
-                content: 'Your article can\'t be deleted, please try again !'
             });
         });
 
