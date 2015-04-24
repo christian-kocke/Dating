@@ -2,6 +2,18 @@
 	margin: 0;
 }
 
+/* FORM VALIDATOR */
+.has-feedback .form-control-feedback {
+    top: 0px;
+    right: 2vh;
+    z-index: 2;
+}
+.validationError {
+    color: red;
+    display: block;
+}
+/* ./ Form Validator */
+
 /* NAVBAR SETTINGS */
 img[alt="Dating"] {
 	height: 50px;
@@ -16,7 +28,7 @@ img[alt="Dating"] {
 .navbar-btn {
 	position: relative;
 	color: #656565;
-	font-size: 80%;
+	font-size: 90%;
 }
 .navbar-btn:hover, .navbar-btn.activeLink {
 	color: white;
@@ -36,7 +48,7 @@ img[alt="Dating"] {
 	border-width: 1vh;
 	margin-left: -1vh;
 }
-/* ./Navbar Settings */
+/* ./ Navbar Settings */
 
 /* FOOTER SETTINGS */
 .navbar-grey {
@@ -70,7 +82,8 @@ ul.list-inline.navbar-right {
 	margin-bottom: 0;
 }
 
-/* ./Footer Settings */
+/* ./ Footer Settings */
+
 /* LOGIN.HTML SETTINGS */
 .pinkBG {
 	background-color: #FF5967;
@@ -153,4 +166,4 @@ legend.or {
 	color: #ddd;
 	font-size: 100%;
 }
-/* ./Login.html Settings */
+/* ./ Login.html Settings */

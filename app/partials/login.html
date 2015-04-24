@@ -10,28 +10,42 @@
 	</div><!-- class container-fluid -->
 
 	<div class="col-md-3 col-md-offset-9 loginFormContainer">
-		<form name="loginForm" novalidate>
+		<form name="loginForm" novalidate role="login" ng-submit="login(credentials)">
 			
 			<!-- Username Input -->
-			<div class="col-md-12 form-group">
+			<div class="col-md-12 form-group has-feedback" ng-class="{'has-success': loginForm.username.$valid, 'has-error': loginForm.username.$invalid && loginForm.username.$dirty}"> 
 				<label class="sr-only" for="username"> Username </label>
 				<div class="input-group">
 					<span class="input-group-addon">
 						<i class="fa fa-user"></i>
 					</span>
-					<input type="text" class="form-control" ng-model="loginInputs.username" name="username" id="username" placeholder="Username..." required>
+					<input type="text" class="form-control" ng-model="credentials.username" name="username" id="username" placeholder="Username..." ng-minlength="2" ng-maxlength="60" required>
 				</div><!-- class input-group -->
+				<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="loginForm.username.$valid" aria-hidden="true"></span>
+				<span id="username" class="sr-only"> (success) </span>
+				<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="loginForm.username.$invalid && loginForm.username.$dirty" aria-hidden="true"></span>
+				<span id="username" class="sr-only"> (warning) </span>
+				<span class="validationError" ng-show="loginForm.username.$error.minlength"> * The username has to be a least 2 characters </span>
+				<span class="validationError" ng-show="loginForm.username.$error.maxlength"> * The username can't be more than 60 characters </span>
+				<span class="validationError" ng-show="loginForm.username.$error.required && loginForm.username.$dirty"> *The username is required </span>
 			</div><!-- class col-md-12 -->
 
 			<!-- Password Input -->
-			<div class="col-md-12 form-group">
+			<div class="col-md-12 form-group has-feedback" ng-class="{'has-success': loginForm.password.$valid, 'has-error': loginForm.password.$invalid && loginForm.password.$dirty}">
 				<label class="sr-only" for="password"> Password </label>
 				<div class="input-group">
 					<span class="input-group-addon">
 						<i class="fa fa-lock"></i>
 					</span>
-					<input type="text" class="form-control" ng-model="loginInputs.password" name="password" id="password" placeholder="Password..." required>
+					<input type="text" class="form-control" ng-model="credentials.password" name="password" id="password" placeholder="Password..." ng-minlength="8" ng-maxlength="100" required>
 				</div><!-- class input-group -->
+				<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="loginForm.password.$valid" aria-hidden="true"></span>
+				<span id="passwordStatus" class="sr-only">(success)</span>
+				<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="loginForm.password.$invalid && loginForm.password.$dirty" aria-hidden="true"></span>
+				<span id="passwordStatus" class="sr-only">(warning)</span>
+				<span class="validationError" ng-show="loginForm.password.$error.minlength"> * The password has to be a least 8 characters </span>
+				<span class="validationError" ng-show="loginForm.password.$error.maxlength"> * The password can't be more than 100 characters </span>
+				<span class="validationError" ng-show="loginForm.password.$error.required && loginForm.password.$dirty"> * The password is required </span>
 			</div><!-- class col-md-12 -->
 
 			<!-- Sign in as Checkboxes -->
