@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="components/angular-toast/dist/ngToast.min.css">
     <link rel="stylesheet" href="components/font-awesome/css/font-awesome.min.css">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
 </head>
 
 <body ng-cloak>
@@ -30,10 +31,10 @@
                 </div><!-- class navbar-header -->
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="Menu">
-
+                    
                     <div class="nav navbar-right">
-                        <a class="btn navbar-btn" ng-click="addClass1 = !addClass1; addClass2 = false; addClass3 = false;" ng-class="{activeLink: addClass1}"> Login </a>
-                        <a class="btn navbar-btn" ng-click="addClass2 = !addClass2; addClass1 = false; addClass3 = false;" ng-class="{activeLink: addClass2}"> Sign up </a>
+                        <a href="#/" class="btn navbar-btn" ng-click="addClass1 = !addClass1; addClass2 = false; addClass3 = false;" ng-class="{activeLink: addClass1}"> Login </a>
+                        <a href="#/signup" class="btn navbar-btn" ng-click="addClass2 = !addClass2; addClass1 = false; addClass3 = false;" ng-class="{activeLink: addClass2}"> Sign up </a>
                         <a class="btn navbar-btn" ng-click="addClass3 = !addClass3; addClass2 = false; addClass1 = false;" ng-class="{activeLink: addClass3}"> Champion Someone ! </a>
                     </div><!-- class nav navbar-right -->
 

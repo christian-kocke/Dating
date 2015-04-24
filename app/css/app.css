@@ -2,16 +2,26 @@
 	margin: 0;
 }
 
+.FormContainer {
+	position: fixed;
+	top: 10vh;
+	right: 25vh;
+	padding: 4vh 1vh 4vh 1vh;
+	border-radius: 5px;
+	background-color: white;
+}
+
 /* FORM VALIDATOR */
 .has-feedback .form-control-feedback {
-    top: 0px;
-    right: 2vh;
-    z-index: 2;
+	top: 0px;
+	right: 2vh;
+	z-index: 2;
 }
 .validationError {
-    color: red;
-    display: block;
+	color: red;
+	display: block;
 }
+
 /* ./ Form Validator */
 
 /* NAVBAR SETTINGS */
@@ -35,7 +45,7 @@ img[alt="Dating"] {
 	background-color: #E54C4B;
 }
 .navbar-btn.activeLink:after {
-	top: 145%;
+	top: 135%;
 	left: 50%;
 	border: solid transparent;
 	content: " ";
@@ -110,14 +120,6 @@ img[alt="Angels Waiting For You"] {
 	height: 371px;
 	width: 616px;
 }
-.loginFormContainer {
-	position: fixed;
-	top: 10vh;
-	right: 25vh;
-	padding: 4vh 1vh 4vh 1vh;
-	border-radius: 5px;
-	background-color: white;
-}
 legend.signInAs {
 	width: inherit; /* Or auto */
 	padding: 3vh 2vh 0 2vh;
@@ -167,3 +169,48 @@ legend.or {
 	font-size: 100%;
 }
 /* ./ Login.html Settings */
+
+/* SIGN UP SETTINGS */
+img[alt="Mobile Version"] {
+	width: 159px;
+	height: 293px;
+}
+.whyUs {
+	margin-top: -3vh;
+}
+.whyUs h2 {
+	margin-top: 0;
+	margin-bottom: 2vh;
+	color: #E54C4B;
+	font-size: 180%;
+}
+.iconCell {
+	padding-right: 2vh;
+	color: #E54C4B;
+}
+.txtCell {
+	padding-top: 2vh;
+}
+.greenBtn {
+	background-color: #00A651;
+	color: white;
+	padding-left: 2vh;
+	padding-right: 2vh;
+	margin-top: 2vh;
+}
+.red {
+	color: red;
+}
+label[for="birthDate"] {
+	color: #AEAEAE;
+	font-weight: bold;
+}
+.btnGroup h5{
+	color: #AEAEAE;
+	font-weight: bold;
+}
+.btnGender:hover, .btnPinked {
+	background-color: #E54C4B;
+	color: white;
+}
+/* ./ Sign Up Settings */

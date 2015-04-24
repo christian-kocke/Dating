@@ -30,6 +30,9 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
                 }
             }],*/
         }).
+        when('/signup', {
+            templateUrl: 'partials/registration.html'
+        }).
         otherwise({
             redirectTo: '/',
         });
