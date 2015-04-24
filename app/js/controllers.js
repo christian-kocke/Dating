@@ -4,6 +4,13 @@
 
 var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast']);
 
+datingController.controller('NavCtrl', function ($scope, $log, $location) {
+
+	$scope.getClass = function(path) {
+		return ($location.path() === path) ? "activeLink" : "";
+	};
+}); // End NavCtrl
+
 datingController.controller('AuthCtrl', function ($scope, $log, $rootScope, $route, $location, AUTH_EVENTS, AuthService, FacebookAuthService, AuthInterceptor) {
 
 	$scope.credentials = {
@@ -25,7 +32,7 @@ datingController.controller('AuthCtrl', function ($scope, $log, $rootScope, $rou
 			$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
 		});
 
-	};// End login()
+	}; // End login()
 
 	// Logout user
 	$scope.logout = function () {
@@ -34,7 +41,7 @@ datingController.controller('AuthCtrl', function ($scope, $log, $rootScope, $rou
 			$location.path('/');
 		});
 
-	};// End logout()
+	}; // End logout()
 
 	$scope.facebookLogout = function () {
 		FacebookAuthService.logout().then(function (res) {
@@ -42,4 +49,4 @@ datingController.controller('AuthCtrl', function ($scope, $log, $rootScope, $rou
 		});
 	}
 
-});// End AuthCtrl
+}); // End AuthCtrl

@@ -1,2 +1,16 @@
-<div class="container text-center">
-</div><!-- class container text-center -->
+<div class="row" ng-init="activate()" >
+	
+	<div class="container-fluid pinkBG" ng-show="activated">
+		<h1> ACTIVATION SUCCESS </h1>
+		<p><em> Your account has been activated you can now log in. </em></p>
+	</div><!-- class container-fluid -->
+	
+	<div class="container-fluid pinkBG" ng-hide="activated">
+		<h1> ACTIVATION FAILURE </h1>
+		<p><em> There was a problem activating you're account. </em></p>
+	</div><!-- class container-fluid -->
+
+	<div class="container-fluid greyBG">
+	</div><!-- class container-fluid -->
+	
+</div><!-- class row -->
