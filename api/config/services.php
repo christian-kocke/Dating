@@ -34,5 +34,10 @@ return [
 		'key' => '',
 		'secret' => '',
 	],
+	'facebook' => [
+		'appId': '460736787423295',
+		'version': '2.3',
+		'secret': 'baeb57c6a221c47709fe5aa3d927ad6b'
+	]
 
 ];

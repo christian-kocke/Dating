@@ -90,7 +90,7 @@ class UserController extends Controller {
 	 */
 	public function authenticate()
 	{
-		if(Auth::attempt(['email' => $this->_request->input('email'), 'password' => $this->_request->input('password')]))
+		if(Auth::attempt(['email' => $this->_request->input('email'), 'password' => $this->_request->input('password')], $this->_request->input('remember')))
 		{
 			$this->_user = Auth::user();
 			if(!$this->_user->activation_token)

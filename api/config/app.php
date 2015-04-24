@@ -195,4 +195,17 @@ return [
 
 	],
 
+	/*
+	|--------------------------------------------------------------------------
+	| Soial Authentication
+	|--------------------------------------------------------------------------
+	| include the social authentication dependencies.
+	| 
+	| 
+	| 
+	|
+	*/
+	
+	'Socialize' => 'Laravel\Socialite\Facades\Socialite',
+
 ];

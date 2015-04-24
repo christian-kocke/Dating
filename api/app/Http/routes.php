@@ -11,20 +11,18 @@
 |
 */
 
-Route::post('/user/auth', 'UserController@authenticate');
-Route::post('user/validation/email', 'UserValidationController@email');
+Route::post('user/auth', 'UserController@authenticate');
 Route::post('user/activate', 'UserController@activate');
+
+Route::post('user/validation/email', 'UserValidationController@email');
+
 Route::resource('user','UserController', ['only' => ['store', 'index']]);
 
 Route::group(['middleware' => ['auth']], function()
 {
 	Route::post('user/validation/password', 'UserValidationController@password');
-	Route::post('user/upload', 'UserController@setPicture');
-	Route::get('user/get', 'UserController@getPicture');
 	Route::get('user/logout', 'UserController@logout');
-	Route::post('api/article/display', 'ArticleController@index');
-	Route::post('api/article/setPicture', 'ArticleController@setPicture');
-	Route::resource('api/article','ArticleController');
+	Route::resource('user/file', 'UserFileController');
 	Route::resource('user','UserController', ['except' => ['store', 'index']]);	
 
 });

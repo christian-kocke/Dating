@@ -37,7 +37,7 @@ datingApp.config(['$routeProvider', /*'USER_ROLES',*/ '$locationProvider',
         $locationProvider.html5Mode(false);
     }
 
-    ]).run(/*function ($rootScope, AUTH_EVENTS, ARTICLE_EVENTS, FILE_EVENTS, USER_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector) {
+    ]).run(function ($rootScope, AUTH_EVENTS, ARTICLE_EVENTS, FILE_EVENTS, USER_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector) {
 
         $rootScope.deferred = $q.defer();
 
@@ -73,6 +73,25 @@ datingApp.config(['$routeProvider', /*'USER_ROLES',*/ '$locationProvider',
                 }
             }
         });
+
+        // Facebook sdk initialisation
+        $window.fbAsyncInit = function() {
+            FB.init({ 
+              appId: '460736787423295',
+              status: true, 
+              cookie: true, 
+              xfbml: true,
+              version: 'v2.3'
+          });
+
+            (function(d, s, id){
+               var js, fjs = d.getElementsByTagName(s)[0];
+               if (d.getElementById(id)) {return;}
+               js = d.createElement(s); js.id = id;
+               js.src = "//connect.facebook.net/en_US/sdk.js";
+               fjs.parentNode.insertBefore(js, fjs);
+           }(document, 'script', 'facebook-jssdk'));
+        };
 
 
         // Session
@@ -251,9 +270,9 @@ datingApp.config(['$routeProvider', /*'USER_ROLES',*/ '$locationProvider',
                 content: 'Your account is not activated, check your mailbox !'
             });
         });
-    }*/);
+    });
 
-/*datingApp.config(function ($httpProvider) {
+datingApp.config(function ($httpProvider) {
     $httpProvider.interceptors.push(['$injector', function ($injector) {
         return $injector.get('AuthInterceptor');
     }]);
@@ -283,13 +302,6 @@ datingApp.constant('AUTH_EVENTS', {
     all: '*',
     admin: 'admin',
     client: 'client',
-}).constant('ARTICLE_EVENTS', {
-    postSuccess: 'post-article-success',
-    postFailed: 'post-article-failed',
-    deleteSuccess: 'delete-article-success',
-    deleteFailed: 'delete-article-failed',
-    selectSuccess: 'select-article-success',
-    selectFailed: 'select-article-failed'
 }).constant('FILE_EVENTS', {
     uploadSuccess: 'upload-file-success',
     uploadFailed: 'upload-file-failed',
@@ -311,4 +323,8 @@ datingApp.constant('AUTH_EVENTS', {
     resetExpired: "password-reset-expired",
     accountNotActivated: "account-not-activated",
     activationFailed: "account-activation-failed",
-});*/
+}).constant('RESOURCE', {
+ user: '/dating/api/public/user',
+ templates: '/dating/app/partials'
+});
+
