@@ -122,26 +122,9 @@ datingService.factory('AuthService', function ($http, Session, $log, $rootScope,
 /*
 	Handle every aspect of user authentification via the Facebook app. 
 	*/
-datingService.factory('FacebookAuthService', function ($http, $q, Session) {
+datingService.factory('FacebookAuthService', function ($http, $q, Session, $rootScope) {
 
 	var facebookAuthService = {};
-	var _self = this;
-
-	facebookAuthService.WatchAuthStatusChange = function () {
-		FB.Event.subscribe('auth.authResponseChange', function (response) {
-			if (!response || response.error) {
-                deferred.reject('Error occured');
-            } else if (response.status === 'connected') {
-            	_self.retrieveUser().then(function (user) {
-            		$rootScope.currentUser = user;
-            	});
-            } else if (response.status === 'not_authorized') {
-            	
-            } else {
-            	deferred.reject('not connected');
-            }
-		},  {scope: 'email,user_likes,public_profile', return_scopes: true});
-	};
 
 	facebookAuthService.logout = function () {
 		var deferred = $q.defer();
@@ -159,12 +142,12 @@ datingService.factory('FacebookAuthService', function ($http, $q, Session) {
 		var deferred = $q.defer();
 		facebookAuthService.authStatus().then(function (auth) {
 			if(auth.status === 'connected') {
-				FB.api('/me', function (user) {
+				FB.api('/me', function (response) {
 					if (!response || response.error) {
 		                deferred.reject('Error occured');
 		            } else {
 		            	Session.create(auth.authResponse.accessToken, auth.authResponse.userID, 'client');
-		                deferred.resolve(user);
+		                deferred.resolve(response);
 		            }
 				});
 			} else {
@@ -184,6 +167,24 @@ datingService.factory('FacebookAuthService', function ($http, $q, Session) {
             }
 		});
 		return deferred.promise;
+	};
+
+	facebookAuthService.WatchAuthStatusChange = function () {
+		FB.Event.subscribe('auth.authResponseChange', function (response) {
+			if (!response || response.error) {
+                deferred.reject('Error occured');
+            } else if (response.status === 'connected') {
+            	facebookAuthService.retrieveUser().then(function (user) {
+            		console.log("connected to facebook")
+            		$rootScope.currentUser = user;
+            		console.log($rootScope.currentUser);
+            	});
+            } else {
+            	console.log("not connected to facebook")
+            	Session.destroy();
+            	$rootScope.currentUser = null;
+            } 
+		},  {scope: 'email,user_likes,public_profile', return_scopes: true});
 	};
 
 	return facebookAuthService;
