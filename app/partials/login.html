@@ -5,4 +5,92 @@
 		<p><em> Meet people championed by their family and friends </em></p>
 	</div><!-- class container-fluid -->
 
+	<div class="container-fluid greyBG">
+		<img class="img-responsive" src="img/angels_waiting_for_you.png" alt="Angels Waiting For You">
+	</div><!-- class container-fluid -->
+
+	<div class="col-md-3 col-md-offset-9 loginFormContainer">
+		<form name="loginForm" novalidate>
+			
+			<!-- Username Input -->
+			<div class="col-md-12 form-group">
+				<label class="sr-only" for="username"> Username </label>
+				<div class="input-group">
+					<span class="input-group-addon">
+						<i class="fa fa-user"></i>
+					</span>
+					<input type="text" class="form-control" ng-model="loginInputs.username" name="username" id="username" placeholder="Username..." required>
+				</div><!-- class input-group -->
+			</div><!-- class col-md-12 -->
+
+			<!-- Password Input -->
+			<div class="col-md-12 form-group">
+				<label class="sr-only" for="password"> Password </label>
+				<div class="input-group">
+					<span class="input-group-addon">
+						<i class="fa fa-lock"></i>
+					</span>
+					<input type="text" class="form-control" ng-model="loginInputs.password" name="password" id="password" placeholder="Password..." required>
+				</div><!-- class input-group -->
+			</div><!-- class col-md-12 -->
+
+			<!-- Sign in as Checkboxes -->
+			<div class="col-md-12">
+				<fieldset class="fieldset-border text-center">
+					<legend class="signInAs"> SIGN IN AS </legend>
+					<div class="control-group">
+						<label class="checkbox-inline" ng-class="{pinkLabel: addPinkClass1}">
+							<input type="checkbox" ng-click="addPinkClass1 = !addPinkClass1" name="angel" id="angel" value="1"> Angel
+						</label>
+						<label class="radio-inline" ng-class="{pinkLabel: addPinkClass2}">
+							<input type="checkbox" ng-click="addPinkClass2 = !addPinkClass2" name="hero" id="hero" value="2"> Heroes/Heroines
+						</label>
+					</div>
+				</fieldset>
+			</div><!-- class col-md-12 -->
+
+			<!-- Tip text -->
+			<div class="col-md-10 col-md-offset-1">
+				<h6 class="greyText"><em> Any Angel can also have a Heroe/Heroine role and vice/versa </em></h6>
+			</div><!-- class col-md-12 -->
+
+			<!-- Remember Me checkbox -->
+			<div class="col-md-12">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="rememberMe" id="rememberMe" value="1"> Remember Me
+					</label>
+				</div>
+			</div><!-- class col-md-12 -->
+
+			<!-- Submit button -->
+			<div class="col-md-8 col-md-offset-2">
+				<button type="submit" class="btn btn-lg center-block pinkBtn"> Login </button>
+			</div><!-- class col-md-8 col-md-offset-2 -->
+
+			<!-- Forget password Link -->
+			<div class="col-md-6 col-md-offset-3">
+				<a class="center-block btn btn-link"> Forgot password ? </a>
+			</div><!-- class col-md-6 col-md-offset-3 -->
+
+			<!-- Don't have an account ? Link -->
+			<div class="col-md-10 col-md-offset-1">
+				<p> Do you have an account ? <a> Sign Up now ! </a></p>
+			</div><!-- class col-md-10 col-md-offset-1 -->
+
+			<!-- Or separation -->
+			<div class="col-md-12">
+				<fieldset class="line-border">
+					<legend class="or"><em> or </em></legend>
+				</fieldset>
+			</div><!-- class col-md-12 -->
+
+			<!-- Facebook button -->
+			<div class="col-md-12">
+				<fb:login-button show-faces="true" max-rows="1" size="large"></fb:login-button>
+			</div><!-- class col-md-12 -->
+
+		</form><!-- loginForm -->
+	</div><!-- class col-md-4 col-md-offset-8 -->
+
 </div><!-- container text-center -->

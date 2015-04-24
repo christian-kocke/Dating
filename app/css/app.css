@@ -1,32 +1,29 @@
 .row {
 	margin: 0;
 }
+
+/* NAVBAR SETTINGS */
 img[alt="Dating"] {
 	height: 50px;
 }
-
 .navbar-white {
 	background-color: white;
 	margin: 0;
-	padding-left: 25vh;
-	padding-right: 25vh;
+	padding-left: 20vh;
+	padding-right: 20vh;
 	border-radius: 0;
 }
-
-
-
+.navbar-btn {
+	position: relative;
+	color: #656565;
+	font-size: 80%;
+}
 .navbar-btn:hover, .navbar-btn.activeLink {
 	color: white;
 	background-color: #E54C4B;
 }
-
-.navbar-btn {
-	position: relative;
-	color: #656565;
-}
-
 .navbar-btn.activeLink:after {
-	top: 128%;
+	top: 145%;
 	left: 50%;
 	border: solid transparent;
 	content: " ";
@@ -39,16 +36,121 @@ img[alt="Dating"] {
 	border-width: 1vh;
 	margin-left: -1vh;
 }
+/* ./Navbar Settings */
 
+/* FOOTER SETTINGS */
+.navbar-grey {
+	background-color: #474A54;
+	padding: 0 20vh;
+	color: white;
+	font-size: 80%;
+}
+
+ul.list-inline.navbar-right li {
+	padding: 0;
+}
+.navbar-default .navbar-text {
+	color: white;
+}
+a.navbar-text {
+	margin-left: 0;
+	margin-right: 0;
+	padding-left: 1vh;
+	padding-right: 1vh;
+}
+.side-borders {
+	border-right: 1px solid white;
+	border-left: 1px solid white;
+	margin-left: 0;
+	margin-right: 0;
+	padding-left: 1vh;
+	padding-right: 1vh;
+}
+ul.list-inline.navbar-right {
+	margin-bottom: 0;
+}
+
+/* ./Footer Settings */
+/* LOGIN.HTML SETTINGS */
 .pinkBG {
 	background-color: #FF5967;
 	color: white;
-	padding-left: 35vh;
+	padding-left: 25vh;
 	padding-top: 5vh;
 	padding-bottom: 5vh;
 	border-bottom: 1vh solid #E54C4B;
 }
-
 .pinkBG h1 {
-	text-shadow: 2px 2px #E54C4B;
+	text-shadow: 3px 3px #E54C4B;
+	font-size: 200%;
 }
+.pinkBG p {
+	color: #FEE8EA;
+}
+.greyBG {
+	padding-left: 20vh;
+	padding-top: 13vh;
+	height: 70vh;
+	background-color: #F4F4F4;
+}
+img[alt="Angels Waiting For You"] {
+	height: 371px;
+	width: 616px;
+}
+.loginFormContainer {
+	position: fixed;
+	top: 10vh;
+	right: 25vh;
+	padding: 4vh 1vh 4vh 1vh;
+	border-radius: 5px;
+	background-color: white;
+}
+legend.signInAs {
+	width: inherit; /* Or auto */
+	padding: 3vh 2vh 0 2vh;
+	margin-left: 11vh;
+	margin-bottom: 2vh;
+	border-bottom: none;
+	color: #FF6D7A;
+	font-size: 120%;
+}
+fieldset.fieldset-border {
+	border: 1px solid #ddd !important;
+	border-radius: 5px;
+	padding: 0 1vh 2vh 1vh !important;
+	margin: 0;
+	font-size: 100%;
+	-webkit-box-shadow:  0px 0px 0px 0px #000;
+	box-shadow:  0px 0px 0px 0px #000;
+}
+.pinkLabel {
+	color: #FF6D7A;
+}
+.greyText {
+	color: #B5B5B5;
+}
+.pinkBtn {
+	margin-top: 2vh;
+	color: white;
+	padding-left: 8vh;
+	padding-right: 8vh;
+	background-color: #FF5967;
+}
+fieldset.line-border {
+	border-top: 1px solid #ddd !important;
+	padding: 0 1vh 2vh 1vh !important;
+	margin: 0;
+	font-size: 100%;
+	-webkit-box-shadow:  0px 0px 0px 0px #000;
+	box-shadow:  0px 0px 0px 0px #000;
+}
+legend.or {
+	width: inherit; /* Or auto */
+	padding: 1vh 3vh 0 3vh;
+	margin-left: 15vh;
+	margin-bottom: 2vh;
+	border-bottom: none;
+	color: #ddd;
+	font-size: 100%;
+}
+/* ./Login.html Settings */
