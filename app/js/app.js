@@ -37,7 +37,7 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
         $locationProvider.html5Mode(false);
     }
 
-    ]).run(function ($rootScope, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector, $window) {
+    ]).run(function ($rootScope, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector, $window, FacebookAuthService) {
 
         $rootScope.deferred = $q.defer();
 
@@ -74,25 +74,27 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
             }
         });
 
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
         // Facebook sdk initialisation
         $window.fbAsyncInit = function() {
             FB.init({ 
-              appId: '460736787423295',
-              status: true, 
-              cookie: true, 
-              xfbml: true,
-              version: 'v2.3'
-          });
-
-            (function(d, s, id){
-               var js, fjs = d.getElementsByTagName(s)[0];
-               if (d.getElementById(id)) {return;}
-               js = d.createElement(s); js.id = id;
-               js.src = "//connect.facebook.net/en_US/sdk.js";
-               fjs.parentNode.insertBefore(js, fjs);
-           }(document, 'script', 'facebook-jssdk'));
+                appId: '460763907420583',
+                channelUrl: '../channel.html',
+                status: true, 
+                cookie: true, 
+                xfbml: true,
+                version: 'v2.3'
+            });
         };
 
+        
 
         // Session
         $rootScope.$on(AUTH_EVENTS.sessionTimeout, function () {
@@ -294,7 +296,7 @@ datingApp.constant('AUTH_EVENTS', {
     accountNotActivated: "account-not-activated",
     activationFailed: "account-activation-failed",
 }).constant('RESOURCE', {
- user: '/dating/api/public/user',
- templates: '/dating/app/partials'
+   user: '/dating/api/public/user',
+   templates: '/dating/app/partials'
 });
 

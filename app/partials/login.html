@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-controller="AuthCtrl">
 
 	<div class="container-fluid pinkBG">
 		<h1> DATING, MADE TRUSTFULLY SOCIAL </h1>
@@ -101,7 +101,7 @@
 
 			<!-- Facebook button -->
 			<div class="col-md-12">
-				<fb:login-button show-faces="true" max-rows="1" size="large"></fb:login-button>
+				<fb:login-button max-rows="1" size="large" ng-click="facebookLogin()"></fb:login-button>
 			</div><!-- class col-md-12 -->
 
 		</form><!-- loginForm -->

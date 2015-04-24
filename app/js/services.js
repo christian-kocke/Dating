@@ -7,51 +7,51 @@ var datingService = angular.module('datingServices', ['ngResource']);
 /*
 	Handle basic user lifecycle action. 
 	*/
-	datingService.factory('UserService', function ($http, RESOURCE) {
+datingService.factory('UserService', function ($http, RESOURCE) {
 
-		var userService = {};
+	var userService = {};
 
-		userService.create = function (user) {
-			return $http
-			.post(RESOURCE.user, user)
-			.then(function (res) {
-				return res.data;
-			});
-		}
+	userService.create = function (user) {
+		return $http
+		.post(RESOURCE.user, user)
+		.then(function (res) {
+			return res.data;
+		});
+	}
 
-		userService.update = function (data, id) {
-			return $http
-			.put(RESOURCE.user.concat(id), data)
-			.then(function (res) {
-				return res.data;
-			});
-		};
+	userService.update = function (data, id) {
+		return $http
+		.put(RESOURCE.user.concat(id), data)
+		.then(function (res) {
+			return res.data;
+		});
+	};
 
-		userService.activate = function (token) {
-			return $http
-			.post(RESOURCE.user+'activate', token)
-			.then(function (res) {
-				return res.data;
-			});
-		}
+	userService.activate = function (token) {
+		return $http
+		.post(RESOURCE.user+'activate', token)
+		.then(function (res) {
+			return res.data;
+		});
+	}
 
-		userService.destroy = function (id) {
-			return $http
-			.delete(RESOURCE.user.concat(id))
-			.then(function (res) {
-				return res.data;
-			});
-		};
+	userService.destroy = function (id) {
+		return $http
+		.delete(RESOURCE.user.concat(id))
+		.then(function (res) {
+			return res.data;
+		});
+	};
 
-		return userService;
-	});
+	return userService;
+});
 
 /*
 	Handle every aspect of user authentification. 
 	*/
-	datingService.factory('AuthService', function ($http, Session, $log, $rootScope, AuthInterceptor, RESOURCE) {
+datingService.factory('AuthService', function ($http, Session, $log, $rootScope, AuthInterceptor, RESOURCE) {
 
-		var authService = {};
+	var authService = {};
 
 	// Login
 	authService.login = function (credentials) {
@@ -118,12 +118,84 @@ var datingService = angular.module('datingServices', ['ngResource']);
 
 });// End AuthService
 
+
+/*
+	Handle every aspect of user authentification via the Facebook app. 
+	*/
+datingService.factory('FacebookAuthService', function ($http, $q, Session) {
+
+	var facebookAuthService = {};
+	var _self = this;
+
+	facebookAuthService.WatchAuthStatusChange = function () {
+		FB.Event.subscribe('auth.authResponseChange', function (response) {
+			if (!response || response.error) {
+                deferred.reject('Error occured');
+            } else if (response.status === 'connected') {
+            	_self.retrieveUser().then(function (user) {
+            		$rootScope.currentUser = user;
+            	});
+            } else if (response.status === 'not_authorized') {
+            	
+            } else {
+            	deferred.reject('not connected');
+            }
+		},  {scope: 'email,user_likes,public_profile', return_scopes: true});
+	};
+
+	facebookAuthService.logout = function () {
+		var deferred = $q.defer();
+		FB.logout(function (response) {
+			if (!response || response.error) {
+                deferred.reject('Error occured');
+            } else {
+                deferred.resolve(response);
+            }
+		});
+		return deferred.promise;
+	};
+
+	facebookAuthService.retrieveUser = function () {
+		var deferred = $q.defer();
+		facebookAuthService.authStatus().then(function (auth) {
+			if(auth.status === 'connected') {
+				FB.api('/me', function (user) {
+					if (!response || response.error) {
+		                deferred.reject('Error occured');
+		            } else {
+		            	Session.create(auth.authResponse.accessToken, auth.authResponse.userID, 'client');
+		                deferred.resolve(user);
+		            }
+				});
+			} else {
+				deferred.reject(auth.status);
+			}
+		});
+		return deferred.promise;
+	};
+
+	facebookAuthService.authStatus = function () {
+		var deferred = $q.defer();
+		FB.getLoginStatus(function (response) {
+			if (!response || response.error) {
+                deferred.reject('Error occured');
+            } else {
+                deferred.resolve(response);
+            }
+		});
+		return deferred.promise;
+	};
+
+	return facebookAuthService;
+
+});// End FacebookAuthService
+
 datingService.factory('Session', function () {
 
 	var Session = {};
 
 	Session.create = function (sessionId, userId, userRole) {
-		
+
 		Session.id = sessionId;
 		Session.userId = userId;
 		Session.userRole = userRole;
@@ -132,9 +204,7 @@ datingService.factory('Session', function () {
 
 	Session.destroy = function () {
 
-		Session.id = null;
-		Session.userId = null;
-		Session.userRole = null;
+		Session = {};
 
 	}; // End destroy()
 
@@ -143,56 +213,30 @@ datingService.factory('Session', function () {
 }); // End Session
 
 
-/*
-	Handle every aspect of user authentification via the Facebook app. 
-	*/
-	datingService.factory('FacebookAuthService', function () {
-
-		var facebookAuthService = {};
-
-		facebookAuthService.login = function () {
-
-		};
-
-		facebookAuthService.logout = function () {
-
-		};
-
-		facebookAuthService.retrieveUser = function () {
-
-		};
-
-		facebookAuthService.authStatus = function () {
-
-		};
-
-		return facebookAuthService;
-
-});// End FacebookAuthService
 
 
-	datingService.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS) {
+datingService.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS) {
 
-		return {
+	return {
 
-			responseError: function (response) { 
+		responseError: function (response) { 
 
-				$rootScope.$broadcast({
-					401: AUTH_EVENTS.notAuthenticated,
-					403: AUTH_EVENTS.notAuthorized,
-					419: AUTH_EVENTS.sessionTimeout,
-					440: AUTH_EVENTS.sessionTimeout,
-					441: FILE_EVENTS.uploadFailed,
-					442: FILE_EVENTS.getFailed,
-					460: USER_EVENTS.passwordFailed,
-					461: USER_EVENTS.updateFailed,
-					462: USER_EVENTS.deleteFailed,
-					463: USER_EVENTS.registrationFailed,
-					464: USER_EVENTS.activationFailed,
-					465: USER_EVENTS.accountNotActivated,
-				}[response.status], response);
+			$rootScope.$broadcast({
+				401: AUTH_EVENTS.notAuthenticated,
+				403: AUTH_EVENTS.notAuthorized,
+				419: AUTH_EVENTS.sessionTimeout,
+				440: AUTH_EVENTS.sessionTimeout,
+				441: FILE_EVENTS.uploadFailed,
+				442: FILE_EVENTS.getFailed,
+				460: USER_EVENTS.passwordFailed,
+				461: USER_EVENTS.updateFailed,
+				462: USER_EVENTS.deleteFailed,
+				463: USER_EVENTS.registrationFailed,
+				464: USER_EVENTS.activationFailed,
+				465: USER_EVENTS.accountNotActivated,
+			}[response.status], response);
 
-				return $q.reject(response);
+			return $q.reject(response);
 		}// End responseError
 
 	};// End Return
@@ -200,32 +244,32 @@ datingService.factory('Session', function () {
 });// End AuthInterceptor
 
 
-	datingService.factory('AuthResolver', function ($q, $rootScope, $location, $log) {
-		return {
+datingService.factory('AuthResolver', function ($q, $rootScope, $location, $log) {
+	return {
 
-			resolve: function (redirectAuth, redirectNotAuth) {
+		resolve: function (redirectAuth, redirectNotAuth) {
 
-				var deferred = $q.defer();
-				var unwatch = $rootScope.$watch('currentUser', function (currentUser) {
+			var deferred = $q.defer();
+			var unwatch = $rootScope.$watch('currentUser', function (currentUser) {
 
-					if (angular.isDefined(currentUser)) {
+				if (angular.isDefined(currentUser)) {
 
-						if (currentUser) {
-							deferred.resolve(currentUser);
-							if(angular.isString(redirectAuth)) $location.path(redirectAuth);
-						} else {
-							if(angular.isString(redirectNotAuth)) {
-								deferred.reject();
-								$location.path(redirectNotAuth);
-							} else if(redirectNotAuth) {
-								$location.path('/');
-							}else {
-								deferred.resolve();
-							}
+					if (currentUser) {
+						deferred.resolve(currentUser);
+						if(angular.isString(redirectAuth)) $location.path(redirectAuth);
+					} else {
+						if(angular.isString(redirectNotAuth)) {
+							deferred.reject();
+							$location.path(redirectNotAuth);
+						} else if(redirectNotAuth) {
+							$location.path('/');
+						}else {
+							deferred.resolve();
 						}
-
-						unwatch();
 					}
+
+					unwatch();
+				}
 
 			});// End watch()
 

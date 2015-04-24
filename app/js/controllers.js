@@ -4,7 +4,7 @@
 
 var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast']);
 
-datingController.controller('AuthCtrl', function ($scope, $log, $rootScope, $route, $location, AUTH_EVENTS, AuthService, AuthInterceptor) {
+datingController.controller('AuthCtrl', function ($scope, $log, $rootScope, $route, $location, AUTH_EVENTS, AuthService, FacebookAuthService, AuthInterceptor) {
 
 	$scope.credentials = {
 		email: '',
@@ -35,5 +35,11 @@ datingController.controller('AuthCtrl', function ($scope, $log, $rootScope, $rou
 		});
 
 	};// End logout()
+
+	$scope.facebookLogout = function () {
+		FacebookAuthService.logout().then(function (res) {
+			console.log(res);
+		});
+	}
 
 });// End AuthCtrl
