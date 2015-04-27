@@ -19,6 +19,7 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
         when('/', {
             templateUrl: 'partials/login.html',
             url: '/protected',
+            controller: 'AuthCtrl'
             /*resolve: {
                 session: function resolveSession(SessionResolver) {
                     return SessionResolver.resolve();
@@ -32,6 +33,10 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
         }).
         when('/signup', {
             templateUrl: 'partials/registration.html'
+        }).
+        when('/profil', {
+            templateUrl: 'partials/userProfil.html',
+            controller: 'ProfilCtrl'
         }).
         otherwise({
             redirectTo: '/',

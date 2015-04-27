@@ -4,6 +4,10 @@
 
 var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast']);
 
+datingController.controller('ProfilCtrl', function ($scope, $log) {
+
+});
+
 datingController.controller('NavCtrl', function ($scope, $log, $location) {
 
 	$scope.getClass = function(path) {
