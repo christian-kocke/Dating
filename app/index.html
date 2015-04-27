@@ -16,7 +16,7 @@
 <body ng-cloak>
 
     <header>
-        <nav class="navbar navbar-default navbar-white" role="navigation">
+        <nav class="navbar navbar-default navbar-white" role="navigation" ng-controller="NavCtrl">
             <div class="container-fluid">
 
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -33,9 +33,9 @@
                 <div class="collapse navbar-collapse" id="Menu">
                     
                     <div class="nav navbar-right">
-                        <a href="#/" class="btn navbar-btn" ng-click="addClass1 = !addClass1; addClass2 = false; addClass3 = false;" ng-class="{activeLink: addClass1}"> Login </a>
-                        <a href="#/signup" class="btn navbar-btn" ng-click="addClass2 = !addClass2; addClass1 = false; addClass3 = false;" ng-class="{activeLink: addClass2}"> Sign up </a>
-                        <a class="btn navbar-btn" ng-click="addClass3 = !addClass3; addClass2 = false; addClass1 = false;" ng-class="{activeLink: addClass3}"> Champion Someone ! </a>
+                        <a href="#/" class="btn navbar-btn" ng-class="getClass('/')"> Login </a>
+                        <a href="#/signup" class="btn navbar-btn" ng-class="getClass('/signup')"> Sign up </a>
+                        <a class="btn navbar-btn"> Champion Someone ! </a>
                     </div><!-- class nav navbar-right -->
 
                 </div><!-- class collapse navbar-collapse -->
