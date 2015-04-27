@@ -300,7 +300,7 @@ datingApp.constant('AUTH_EVENTS', {
     accountNotActivated: "account-not-activated",
     activationFailed: "account-activation-failed",
 }).constant('RESOURCE', {
-   user: '/dating/api/public/user',
+   user: '/api/public/user',
    templates: '/dating/app/partials'
 });
 

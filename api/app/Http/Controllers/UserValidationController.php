@@ -1,9 +1,9 @@
-<?php namespace App\Http\Controllers;
+<?php namespace Api\Http\Controllers;
 
 use Auth;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use Api\Http\Requests;
+use Api\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 

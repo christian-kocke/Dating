@@ -29,7 +29,7 @@ datingService.factory('UserService', function ($http, RESOURCE) {
 
 	userService.activate = function (token) {
 		return $http
-		.post(RESOURCE.user+'activate', token)
+		.post(RESOURCE.user+'/activate', token)
 		.then(function (res) {
 			return res.data;
 		});
@@ -55,8 +55,9 @@ datingService.factory('AuthService', function ($http, Session, $log, $rootScope,
 
 	// Login
 	authService.login = function (credentials) {
+		console.log(credentials);
 		return $http
-		.post(RESOURCE.user+'login', credentials)
+		.post(RESOURCE.user+'/auth', credentials)
 		.then(function (res) {
 			console.log(res);
 			Session.create(res.data.id, res.data.user.id, res.data.user.role);
@@ -69,7 +70,7 @@ datingService.factory('AuthService', function ($http, Session, $log, $rootScope,
 	authService.logout = function () {
 		
 		return $http
-		.get(RESOURCE.user+'logout')
+		.get(RESOURCE.user+'/logout')
 		.then(function (res) {
 			$rootScope.currentUser = null;
 			Session.destroy();

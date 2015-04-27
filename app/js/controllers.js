@@ -6,10 +6,7 @@ var datingController = angular.module('datingControllers', ['angularFileUpload',
 
 datingController.controller('AuthCtrl', function ($scope, $log, $rootScope, $route, $location, AUTH_EVENTS, AuthService, FacebookAuthService, AuthInterceptor) {
 
-	$scope.credentials = {
-		email: '',
-		password: ''
-	};
+	$scope.credentials = {};
 
 	// Authenticate user
 	$scope.login = function (credentials) {
