@@ -58,6 +58,12 @@ img[alt="Dating"] {
 	border-width: 1vh;
 	margin-left: -1vh;
 }
+.pinkBtn {
+	background-color: #E54C4B;
+	color: white;
+	padding-left: 2vh;
+	padding-right: 2vh;
+}
 /* ./ Navbar Settings */
 
 /* FOOTER SETTINGS */
@@ -144,7 +150,7 @@ fieldset.fieldset-border {
 .greyText {
 	color: #B5B5B5;
 }
-.pinkBtn {
+.pinkBtnLg {
 	margin-top: 2vh;
 	color: white;
 	padding-left: 8vh;
@@ -217,3 +223,20 @@ label[for="birthDate"] {
 	color: white;
 }
 /* ./ Sign Up Settings */
+
+/* USERPROFIL.HTML SETTINGS */
+.pinkBGCarousel {
+	background-color: #FF5967;
+	color: white;
+	padding-left: 25vh;
+	padding-top: 5vh;
+	padding-bottom: 5vh;
+	border-bottom: 1vh solid #E54C4B;
+}
+
+.pinkWell {
+	background-color: #FF7A85;
+	border: none;
+}
+
+/* ./ UserProfil.html Setting */
