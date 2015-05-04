@@ -54,7 +54,7 @@ return [
 	|
 	*/
 
-	'from' => ['address' => 'reset-password@dating.com', 'name' => 'Dating'],
+	'from' => ['address' => 'dating@dating.com', 'name' => 'Dating'],
 
 	/*
 	|--------------------------------------------------------------------------

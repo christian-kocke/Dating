@@ -20,14 +20,20 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
             templateUrl: 'partials/login.html',
             url: '/protected',
             controller: 'AuthCtrl',
-            redirection: ['AuthService', '$log', function (AuthService, $log) {
+            redirection: ['AuthService', '$log', function (AuthService) {
                 if(AuthService.isAuthenticated()){
-                    return '/profil';
+                     return '/profil';
                 }
             }],
         }).
         when('/signup', {
-            templateUrl: 'partials/registration.html'
+            templateUrl: 'partials/registration.html',
+            controller: 'RegistrarCtrl',
+            resolve: {
+                auth: function resolveAuthentication(AuthResolver) { 
+                    return AuthResolver.resolve('/profil', false);
+                }
+            }
         }).
         when('/profil', {
             templateUrl: 'partials/userProfil.html',
@@ -38,14 +44,23 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
                 }
             }
         }).
+        when('/activation/:token', {
+            templateUrl: 'partials/client-activation.html',
+            controller: 'RegistrarCtrl',
+            resolve: {
+                auth: function resolveAuthentication(AuthResolver) { 
+                    return AuthResolver.resolve('/profil', false);
+                }
+            }
+        }).
         when('/reset/password', {
             templateUrl: 'partials/send-link.html',
             controller: 'ResetPasswordCtrl',
-            /*resolve: {
+            resolve: {
                 auth: function resolveAuthentication(AuthResolver) { 
-                    return AuthResolver.resolve('/client/0', false);
+                    return AuthResolver.resolve('/profil', false);
                 }
-            }*/
+            }
         }).
         otherwise({
             redirectTo: '/',
@@ -84,11 +99,11 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
                 $rootScope.currentUser = user;
                 $rootScope.deferred.resolve("normal success");
             } else {
+                $rootScope.currentUser = null;
                 $rootScope.deferred.reject("normal echec");
             }
 
             $rootScope.$on('$routeChangeStart', function (event, next, current) {
-                console.log("route change started");
                 if(next && next.data){
                     var authorizedRoles = next.data.authorizedRoles;
                     if (!AuthService.isAuthorized(authorizedRoles)) {
@@ -106,7 +121,6 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
         });
 
         $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
-            console.log("route change success");
             if(next && next.$$route){
                 var redirectionFunction = next.$$route.redirection;
                 if(redirectionFunction){

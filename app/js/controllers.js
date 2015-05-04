@@ -9,15 +9,15 @@ datingController.controller('ApplicationController', function (ngToast, $scope, 
 
 	$scope.userRoles = USER_ROLES;
 	$scope.isAuthorized = AuthService.isAuthorized;
-	$scope.pending = false;
+	//$scope.pending = false;
 
-	$rootScope.$on('$routeChangeStart', function () {
+	/*$rootScope.$on('$routeChangeStart', function () {
 		$scope.pending = true;
 	});
 
 	$rootScope.$on('$routeChangeSuccess', function () {
 		$scope.pending = false;
-	});
+	});*/
 
 	// Logout user
 	$scope.logout = function () {
@@ -43,6 +43,45 @@ datingController.controller('ApplicationController', function (ngToast, $scope, 
 });// End ApplicationController
 
 datingController.controller('ProfilCtrl', function ($scope, $log) {
+
+});
+
+datingController.controller('RegistrarCtrl', function (UserService, $rootScope, $scope, $log, $route, $location, USER_EVENTS, $routeParams) {
+
+	$scope.submitted = false;
+	$scope.loading = false;
+	$scope.activated = false;
+
+	$scope.register = function (user) {
+		$scope.loading = true;
+		user.dob = user.year+"-"+user.month+"-"+user.day;
+		console.log(user);
+		UserService.create(user).then(function (res) {
+			if(parseInt(res)){
+				$rootScope.$broadcast(USER_EVENTS.registrationSuccess);
+				$scope.user = {};
+				$scope.signUpForm.$setPristine();
+				$scope.submitted = true;
+			}else{
+				$rootScope.$broadcast(USER_EVENTS.registrationFailed);
+			}
+		}, function () {
+			$rootScope.$broadcast(USER_EVENTS.registrationFailed);
+		}).finally(function () {
+			$scope.loading = false;
+		});
+		console.log(user);
+	};
+
+	$scope.activate = function () {
+		if($routeParams.token.length === 20) {
+			UserService.activate($routeParams).then(function (res) {
+				if(res) {
+					$scope.activated = true;
+				}
+			});
+		}
+	}
 
 });
 

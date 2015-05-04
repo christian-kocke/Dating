@@ -262,7 +262,9 @@ datingService.factory('Session', function () {
 
 	Session.destroy = function () {
 
-		Session = {};
+		Session.id = null;
+		Session.userId = null;
+		Session.userRole = null;
 
 	}; // End destroy()
 
@@ -311,7 +313,6 @@ datingService.factory('AuthResolver', function ($q, $rootScope, $location, $log)
 			var unwatch = $rootScope.$watch('currentUser', function (currentUser) {
 
 				if (angular.isDefined(currentUser)) {
-
 					if (currentUser) {
 						deferred.resolve(currentUser);
 						if(angular.isString(redirectAuth)) $location.path(redirectAuth);
