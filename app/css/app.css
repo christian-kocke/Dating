@@ -1,5 +1,17 @@
+@font-face {
+	font-family: 'Open Sans';
+	font-style: normal;
+	font-weight: 100;
+	src: url(fonts/Open_Sans/OpenSans-Regular.ttf);
+}
 .row {
 	margin: 0;
+}
+.container-fluid {
+	padding: 0;
+}
+body {
+	font-family: "Open Sans", Arial, sans-serif;
 }
 
 .FormContainer {
@@ -31,8 +43,6 @@ img[alt="Dating"] {
 .navbar-white {
 	background-color: white;
 	margin: 0;
-	padding-left: 20vh;
-	padding-right: 20vh;
 	border-radius: 0;
 }
 .navbar-btn {
@@ -117,7 +127,6 @@ ul.list-inline.navbar-right {
 	color: #FEE8EA;
 }
 .greyBG {
-	padding-left: 20vh;
 	padding-top: 10vh;
 	height: 80vh;
 	background-color: #F4F4F4;
@@ -227,9 +236,6 @@ label[for="birthDate"] {
 /* USERPROFIL.HTML SETTINGS */
 .pinkBGCarousel {
 	background-color: #FF5967;
-	padding-left: 20vh;
-	padding-right: 20vh;
-	padding-top: 2vh;
 	border-bottom: 1vh solid #E54C4B;
 }
 
@@ -237,6 +243,8 @@ label[for="birthDate"] {
 	background-color: #FF7A85;
 	border: none;
 	padding: 0;
+	margin-bottom: 2vh;
+	margin-top: 2vh;
 }
 .pinkWell .list-inline {
 	margin: 0;
@@ -265,8 +273,8 @@ label[for="birthDate"] {
 .whiteBG {
 	background-color: #FFFFFF;
 	border-radius: 5px;
-	padding-top: 3vh;
-	padding-bottom: 3vh;
+	padding: 3vh 0;
+	margin-top: 3vh;
 }
 .progress-bar {
 	background-color: #E54C4B;
@@ -280,18 +288,27 @@ label[for="birthDate"] {
 }
 .pinkTxt {
 	color: #FF5A69;
+	margin-top: 0;
 }
 .pinkBtnMd {
 	margin-bottom: 2vh;
+	margin-top: 2vh;
 	color: white;
 	text-align: center;
 	background-color: #FF5967;
 }
 .greyBGProfil {
-	padding-left: 20vh;
-	padding-top: 5vh;
 	height: 80vh;
 	background-color: #F4F4F4;
+}
+.darkGreyBG {
+	background-color: #555555;
+	padding: 0;
+}
+.photoSticky {
+	padding: 0;
+	width: 80px;
+	height: 80px;
 }
 
 /* ./ UserProfil.html Setting */
