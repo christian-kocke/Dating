@@ -119,7 +119,7 @@ ul.list-inline.navbar-right {
 .greyBG {
 	padding-left: 20vh;
 	padding-top: 10vh;
-	height: 70vh;
+	height: 80vh;
 	background-color: #F4F4F4;
 }
 img[alt="Angels Waiting For You"] {
@@ -227,16 +227,71 @@ label[for="birthDate"] {
 /* USERPROFIL.HTML SETTINGS */
 .pinkBGCarousel {
 	background-color: #FF5967;
-	color: white;
-	padding-left: 25vh;
-	padding-top: 5vh;
-	padding-bottom: 5vh;
+	padding-left: 20vh;
+	padding-right: 20vh;
+	padding-top: 2vh;
 	border-bottom: 1vh solid #E54C4B;
 }
 
 .pinkWell {
 	background-color: #FF7A85;
 	border: none;
+	padding: 0;
+}
+.pinkWell .list-inline {
+	margin: 0;
+	padding-top: 1vh;
+}
+.smallProfil {
+	border-radius: 5px;
+	width: 80px;
+	height: 80px;
+}
+.scrollProfilsArrow {
+	height: 80px;
+	width: 40px;
+	background-color: #CC626A;
+	color: #E6B1B5;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	margin-top: 1vh;
+	padding-top: 2vh;
+}
+.imgProfilRounded {
+	border-radius: 50%;
+	width: 140px;
+	height: 140px;
+}
+.whiteBG {
+	background-color: #FFFFFF;
+	border-radius: 5px;
+	padding-top: 3vh;
+	padding-bottom: 3vh;
+}
+.progress-bar {
+	background-color: #E54C4B;
+}
+.progress {
+	border-radius: 10px;
+	border: 1px solid #D8D8D8;
+}
+.pinkIcon {
+	color: #E54C4B;
+}
+.pinkTxt {
+	color: #FF5A69;
+}
+.pinkBtnMd {
+	margin-bottom: 2vh;
+	color: white;
+	text-align: center;
+	background-color: #FF5967;
+}
+.greyBGProfil {
+	padding-left: 20vh;
+	padding-top: 5vh;
+	height: 80vh;
+	background-color: #F4F4F4;
 }
 
 /* ./ UserProfil.html Setting */
