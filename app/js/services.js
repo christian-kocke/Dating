@@ -4,6 +4,58 @@
 
 var datingService = angular.module('datingServices', ['ngResource']);
 
+
+datingService.factory('ResetService', function ($http, RESOURCE) {
+	var resetService = {};
+
+	resetService.request = function (email) {
+		return $http
+		.post(RESOURCE.resetPassword+'/email', email)
+		.then(function (res) {
+			return res.data;
+		});
+	};
+
+	resetService.reset = function (credentials) {
+		return $http
+		.post(RESOURCE.resetPassword+'/reset', credentials)
+		.then(function (res) {
+			return res.data;
+		});
+	};
+
+	return resetService;
+});
+
+datingService.factory('ValidationService', function ($http, RESOURCE) {
+	var validationService = {};
+
+	validationService.checkEmail = function (email) {
+		return $http
+		.post(RESOURCE.user+'/validation/email', email)
+		.then(function (res) {
+			return res.data;
+		}, function () {
+			return false;
+		});
+	};
+
+	validationService.checkPassword = function (password) {
+		return $http
+		.post(RESOURCE.user+'/validation/password', password)
+		.then(function (res) {
+			return !!res.data;
+		}, function () {
+			return false;
+		});
+	};
+
+	return validationService;
+
+});
+
+
+
 /*
 	Handle basic user lifecycle action. 
 	*/
@@ -129,12 +181,16 @@ datingService.factory('FacebookAuthService', function ($http, $q, Session, $root
 
 	facebookAuthService.logout = function () {
 		var deferred = $q.defer();
-		FB.logout(function (response) {
-			if (!response || response.error) {
-                deferred.reject('Error occured');
-            } else {
-                deferred.resolve(response);
-            }
+		facebookAuthService.authStatus().then(function (response) {
+			if(response.status === "connected") {
+				FB.logout(function (response) {
+					if (!response || response.error) {
+		                deferred.reject('Error occured');
+		            } else {
+		                deferred.resolve(response);
+		            }
+				});
+			}
 		});
 		return deferred.promise;
 	};
@@ -172,18 +228,18 @@ datingService.factory('FacebookAuthService', function ($http, $q, Session, $root
 
 	facebookAuthService.WatchAuthStatusChange = function () {
 		FB.Event.subscribe('auth.authResponseChange', function (response) {
-			if (!response || response.error) {
-                deferred.reject('Error occured');
-            } else if (response.status === 'connected') {
+			console.log(response);
+			if (response.status === 'connected') {
             	facebookAuthService.retrieveUser().then(function (user) {
-            		console.log("connected to facebook")
-            		$rootScope.currentUser = user;
-            		console.log($rootScope.currentUser);
+            		if(user) {
+            			$rootScope.currentUser = user;
+            			$rootScope.deferredFB.resolve("fb success");
+            		} else {
+            			$rootScope.deferredFB.reject("fb echec");
+            		}
             	});
             } else {
-            	console.log("not connected to facebook")
-            	Session.destroy();
-            	$rootScope.currentUser = null;
+            	$rootScope.deferredFB.reject("fb echec");
             } 
 		},  {scope: 'email,user_likes,public_profile', return_scopes: true});
 	};
@@ -281,3 +337,39 @@ datingService.factory('AuthResolver', function ($q, $rootScope, $location, $log)
 	};// End return
 
 });// End AuthResolver
+
+
+datingService.factory('SessionResolver', function ($q, $rootScope, $location, $log, Session) {
+	
+	return {
+		
+		resolve: function () {
+			var retrieved = $q.defer();
+
+			$rootScope.deferred.promise.then(function (res) {
+				console.log(res);
+				retrieved.resolve();
+			}, function (res) {
+				console.log(res);
+				$rootScope.deferredFB.promise.then(function (res) {
+					console.log(res);
+					retrieved.resolve()
+				}, function (res) {
+					console.log(res);
+					retrieved.reject();
+				});
+			});
+			
+			retrieved.promise.finally(function () {
+				console.log("retrieved finally");
+				console.log(retrieved.promise);
+				$rootScope.$broadcast('$routeChangeStart');
+			});
+
+			return retrieved.promise;
+
+		}// End resolve
+
+	};// End return
+
+});// End SessionResolver

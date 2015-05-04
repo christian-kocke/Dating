@@ -13,24 +13,24 @@
 		<form name="loginForm" novalidate role="login" ng-submit="login(credentials)">
 			
 			<!-- Username Input -->
-			<div class="col-md-12 form-group has-feedback" ng-class="{'has-success': loginForm.username.$valid, 'has-error': loginForm.username.$invalid && loginForm.username.$dirty}"> 
+			<div class="col-md-12 form-group has-feedback" ng-class="{'has-success': loginForm.email.$valid, 'has-error': loginForm.email.$invalid && loginForm.email.$dirty}"> 
 
-				<label class="sr-only" for="username"> Username </label>
+				<label class="sr-only" for="email"> email </label>
 				<div class="input-group">
 					<span class="input-group-addon">
 						<i class="fa fa-user"></i>
 					</span>
-					<input type="text" class="form-control" ng-model="credentials.username" aria-describedby="usernameStatus" name="username" id="username" placeholder="Username" ng-minlength="2" ng-maxlength="60" required>
+					<input type="text" class="form-control" ng-model="credentials.email" aria-describedby="emailStatus" name="email" id="email" placeholder="email" ng-minlength="2" ng-maxlength="60" required>
 				</div><!-- class input-group -->
 				
 				<!-- Errors -->
-				<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="loginForm.username.$valid" aria-hidden="true"></span>
-				<span id="usernameStatus" class="sr-only"> (success) </span>
-				<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="loginForm.username.$invalid && loginForm.username.$dirty" aria-hidden="true"></span>
-				<span id="usernameStatus" class="sr-only"> (warning) </span>
-				<span class="validationError" ng-show="loginForm.username.$error.minlength"> * The username has to be a least 2 characters </span>
-				<span class="validationError" ng-show="loginForm.username.$error.maxlength"> * The username can't be more than 60 characters </span>
-				<span class="validationError" ng-show="loginForm.username.$error.required && loginForm.username.$dirty"> *The username is required </span>
+				<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="loginForm.email.$valid" aria-hidden="true"></span>
+				<span id="emailStatus" class="sr-only"> (success) </span>
+				<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="loginForm.email.$invalid && loginForm.email.$dirty" aria-hidden="true"></span>
+				<span id="emailStatus" class="sr-only"> (warning) </span>
+				<span class="validationError" ng-show="loginForm.email.$error.minlength"> * The email has to be a least 2 characters </span>
+				<span class="validationError" ng-show="loginForm.email.$error.maxlength"> * The email can't be more than 60 characters </span>
+				<span class="validationError" ng-show="loginForm.email.$error.required && loginForm.email.$dirty"> *The email is required </span>
 
 			</div><!-- class col-md-12 -->
 
@@ -86,7 +86,7 @@
 				
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" name="rememberMe" id="rememberMe" value="1"> Remember Me
+						<input type="checkbox" name="rememberMe" id="rememberMe" value="1" ng-model="credentials.remember"> Remember Me
 					</label>
 				</div><!-- class checkbox -->
 			
@@ -94,12 +94,12 @@
 
 			<!-- Submit button -->
 			<div class="col-md-8 col-md-offset-2">
-				<a type="submit" class="btn btn-lg center-block pinkBtnLg"> Login </a>
+				<button type="submit" class="btn btn-lg center-block pinkBtnLg"> Login </button>
 			</div><!-- class col-md-8 col-md-offset-2 -->
 
 			<!-- Forget password Link -->
 			<div class="col-md-6 col-md-offset-3">
-				<a class="center-block btn btn-link"> Forgot password ? </a>
+				<a class="center-block btn btn-link" href="#/reset/password"> Forgot password ? </a>
 			</div><!-- class col-md-6 col-md-offset-3 -->
 
 			<!-- Don't have an account ? Link -->
@@ -118,7 +118,7 @@
 
 			<!-- Facebook button -->
 			<div class="col-md-12 text-center">
-				<fb:login-button max-rows="1" size="large" ng-click="facebookLogin()"> Log in with Facebook </fb:login-button>
+				<fb:login-button autologoutlink="true" max-rows="1" size="large"> Log in with Facebook </fb:login-button>
 			</div><!-- class col-md-12 -->
 
 		</form><!-- loginForm -->

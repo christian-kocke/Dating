@@ -19,24 +19,33 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
         when('/', {
             templateUrl: 'partials/login.html',
             url: '/protected',
-            controller: 'AuthCtrl'
-            /*resolve: {
-                session: function resolveSession(SessionResolver) {
-                    return SessionResolver.resolve();
-                },
-            },
+            controller: 'AuthCtrl',
             redirection: ['AuthService', '$log', function (AuthService, $log) {
                 if(AuthService.isAuthenticated()){
-                    return '/client/0';
+                    return '/profil';
                 }
-            }],*/
+            }],
         }).
         when('/signup', {
             templateUrl: 'partials/registration.html'
         }).
         when('/profil', {
             templateUrl: 'partials/userProfil.html',
-            controller: 'ProfilCtrl'
+            controller: 'ProfilCtrl',
+            resolve: {
+                auth: function resolveAuthentication(AuthResolver) { 
+                    return AuthResolver.resolve(false, '/');
+                }
+            }
+        }).
+        when('/reset/password', {
+            templateUrl: 'partials/send-link.html',
+            controller: 'ResetPasswordCtrl',
+            /*resolve: {
+                auth: function resolveAuthentication(AuthResolver) { 
+                    return AuthResolver.resolve('/client/0', false);
+                }
+            }*/
         }).
         otherwise({
             redirectTo: '/',
@@ -65,17 +74,21 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
                 xfbml: true,
                 version: 'v2.3'
             });
-            
             FacebookAuthService.WatchAuthStatusChange();
         };
-
+        $rootScope.deferredFB = $q.defer();
         $rootScope.deferred = $q.defer();
 
         AuthService.retrieveUser().then(function (user) {
-            $rootScope.currentUser = user;
-            $rootScope.deferred.resolve();
+            if(user) {
+                $rootScope.currentUser = user;
+                $rootScope.deferred.resolve("normal success");
+            } else {
+                $rootScope.deferred.reject("normal echec");
+            }
 
             $rootScope.$on('$routeChangeStart', function (event, next, current) {
+                console.log("route change started");
                 if(next && next.data){
                     var authorizedRoles = next.data.authorizedRoles;
                     if (!AuthService.isAuthorized(authorizedRoles)) {
@@ -93,6 +106,7 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
         });
 
         $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
+            console.log("route change success");
             if(next && next.$$route){
                 var redirectionFunction = next.$$route.redirection;
                 if(redirectionFunction){
@@ -306,6 +320,7 @@ datingApp.constant('AUTH_EVENTS', {
     activationFailed: "account-activation-failed",
 }).constant('RESOURCE', {
    user: '/api/public/user',
+   resetPassword: '/api/public/password',
    templates: '/dating/app/partials'
 });
 

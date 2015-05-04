@@ -4,9 +4,87 @@
 
 var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast']);
 
+
+datingController.controller('ApplicationController', function (ngToast, $scope, USER_ROLES, AuthService, $location, $log, Session, UserService, $rootScope, $route, USER_EVENTS, AUTH_EVENTS, FacebookAuthService) {
+
+	$scope.userRoles = USER_ROLES;
+	$scope.isAuthorized = AuthService.isAuthorized;
+	$scope.pending = false;
+
+	$rootScope.$on('$routeChangeStart', function () {
+		$scope.pending = true;
+	});
+
+	$rootScope.$on('$routeChangeSuccess', function () {
+		$scope.pending = false;
+	});
+
+	// Logout user
+	$scope.logout = function () {
+		AuthService.logout().then(function (res) {
+			$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+			$location.path('/');
+		});
+		FacebookAuthService.logout();
+	}; // End logout()
+
+
+	$scope.deleteAccount = function () {
+		UserService.destroy($rootScope.currentUser.id).then(function (res) {
+			$rootScope.currentUser = null;
+			Session.destroy();
+			$route.reload();
+			$rootScope.$broadcast(USER_EVENTS.deleteSuccess);
+		}, function () {
+			$rootScope.$broadcast(USER_EVENTS.deleteFailed);
+		});
+	};
+
+});// End ApplicationController
+
 datingController.controller('ProfilCtrl', function ($scope, $log) {
 
 });
+
+datingController.controller('ResetPasswordCtrl', function ($rootScope, $scope, $location, $routeParams, ResetService, USER_EVENTS, AuthService) {
+
+	$scope.sendEmail = function (email) {
+		$scope.loading = true;
+		ResetService.request(email).then(function (res) {
+			if(parseInt(res)) {
+				$rootScope.$broadcast(USER_EVENTS.emailSuccess);
+				$scope.sent = true;
+			} else {
+				$rootScope.$broadcast(USER_EVENTS.emailFailed);
+			}
+		}, function () {
+			$rootScope.$broadcast(USER_EVENTS.emailFailed);
+			$scope.error = true;
+		}).finally(function () {
+			$scope.loading = false;
+		});
+	};
+
+	$scope.resetPassword = function (credentials) {
+		credentials.token = $routeParams.token;
+		ResetService.reset(credentials).then(function (res) {
+			if(parseInt(res) === 1) {
+				AuthService.retrieveUser().then(function (res) {
+					$rootScope.currentUser = res;
+					$rootScope.$broadcast(USER_EVENTS.resetSuccess);
+					$location.path('/');
+				});
+			} else if(parseInt(res) === 2) {
+				$rootScope.$broadcast(USER_EVENTS.resetExpired);
+			} else {
+				$rootScope.$broadcast(USER_EVENTS.resetFailed);
+			}
+		}, function () {
+			$rootScope.$broadcast(USER_EVENTS.resetFailed);
+		});
+	};
+});
+
 
 datingController.controller('NavCtrl', function ($scope, $log, $location) {
 
@@ -34,15 +112,6 @@ datingController.controller('AuthCtrl', function ($scope, $log, $rootScope, $rou
 		});
 
 	}; // End login()
-
-	// Logout user
-	$scope.logout = function () {
-		AuthService.logout().then(function (res) {
-			$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
-			$location.path('/');
-		});
-
-	}; // End logout()
 
 	$scope.facebookLogout = function () {
 		FacebookAuthService.logout().then(function (res) {

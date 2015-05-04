@@ -101,7 +101,7 @@ class UserController extends Controller {
 			$this->_user = null;
 			return response(465, 465);
 		}
-		return 0;
+		return response("Echec");
 	}
 
 	public function logout()

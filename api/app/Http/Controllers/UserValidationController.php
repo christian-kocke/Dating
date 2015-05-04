@@ -1,6 +1,7 @@
 <?php namespace Api\Http\Controllers;
 
 use Auth;
+use DB;
 
 use Api\Http\Requests;
 use Api\Http\Controllers\Controller;
