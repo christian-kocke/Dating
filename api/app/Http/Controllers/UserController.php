@@ -57,7 +57,6 @@ class UserController extends Controller {
 	 */
 	public function store()
 	{	
-		error_log(print_r($this->_request->all(), true));
 		$validator = $this->_registrar->validator($this->_request->all());
 		if($validator->passes())
 		{
