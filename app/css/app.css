@@ -255,6 +255,10 @@ label[for="birthDate"] {
 	width: 80px;
 	height: 80px;
 }
+.mediumProfil {
+	width: 140px;
+	height: 120px;
+}
 .scrollProfilsArrow {
 	height: 80px;
 	width: 40px;
@@ -307,8 +311,11 @@ label[for="birthDate"] {
 }
 .photoSticky {
 	padding: 0;
-	width: 80px;
-	height: 80px;
+	width: 120px;
+	height: 120px;
+}
+.thinBorders {
+	border: 0.1vh solid #F6F6F6;
 }
 
 /* ./ UserProfil.html Setting */
