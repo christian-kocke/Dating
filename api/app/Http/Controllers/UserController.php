@@ -56,8 +56,7 @@ class UserController extends Controller {
 	 * @return Response
 	 */
 	public function store()
-	{	
-		error_log(print_r($this->_request->all(), true));
+	{
 		$validator = $this->_registrar->validator($this->_request->all());
 		if($validator->passes())
 		{
@@ -67,7 +66,7 @@ class UserController extends Controller {
 				$token = str_random(20);
 				Mail::send('emails.activation', ['token' => $token], function($message)
 				{
-				    $message->to($this->_user->email, $this->_user->firstname." ".$this->_user->lastname)->subject('Activate your account !');
+					$message->to($this->_user->email, $this->_user->firstname." ".$this->_user->lastname)->subject('Activate your account !');
 				});	
 				return response(DB::update('update users set activation_token = ? where id = ?', [$token, $this->_user->id]));
 			}
@@ -191,5 +190,29 @@ class UserController extends Controller {
 		}
 		return response("Delete Account Failed", 462);
 	}
+
+	public function setPicture(Request $request)
+	{
+		if($request->file('file')->isValid() && Auth::check())
+		{
+			$filePath = 'imgDrop/ProfilPictures/user_'.$this->_user->id.".".$request->file('file')->guessExtension();
+			if($request->file('file')->move('../../app/imgDrop/ProfilPictures/', $filePath))
+			{
+				DB::update('update profils set profil_path = ? where id = ?', [$filePath, $this->_user->id]);
+				return response($filePath);	
+			}
+		}
+		return response("upload failure.", 441);
+	}
+
+	public function getProfil(Request $request)
+	{
+		if(Auth::check()) {
+			$infos = DB::select('select p.*, u.dob age from profils p inner join users u on u.id = p.user_id where user_id = ?',[$this->_request->input('id')]);
+			$infos[0]->age = date("Y") - substr($infos[0]->age, 0, 4);
+			return response()->json($infos[0]);
+		}
+	}
+
 
 }

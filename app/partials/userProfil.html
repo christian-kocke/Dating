@@ -1,4 +1,4 @@
-<div class="row" ng-controller="ProfilCtrl">
+<div class="row" ng-controller="ProfilCtrl" ng-init="loadProfil()">
 
 	<div class="container-fluid pinkBGCarousel">
 
@@ -38,12 +38,17 @@
 
 						<!-- Profil Picture -->
 						<div class="row">
-							<img class="img-responsive center-block imgProfilRounded" src="img/bigProfil.png">
+							<!-- Drag & Drop Zone -->
+							<div ng-file-drop class="drop-box" ng-file-select ng-model="files" allow-dir="true" accept="image/*,application/pdf">
+								<p class="dropzone lead" drag-over-class="dragover" ng-hide="currentProfil.profil_path"> Drop or click ! <span class="glyphicon glyphicon-cloud-download"></span></p>
+								<img class="dropImg" ng-show="currentProfil.profil_path" ng-src="{{currentProfil.profil_path}}"/>
+								<h6 class="text-info" ng-show="imgIsEnable"><em> * Click on your picture to Edit it! </em></h6>
+							</div><!-- class drop-box -->
 						</div><!-- class row -->
 
 						<!-- Name , Age -->
 						<div class="row">
-							<p class="lead"> Shara, 22 </p>
+							<p class="lead"> {{currentUser.username | capitalize}}, {{currentProfil.age}} </p>
 						</div><!-- class row -->
 
 						<!-- Popularity -->
@@ -128,7 +133,7 @@
 
 					<div class="row">
 						
-						<div class="col-md-6 thinBorders">
+						<div class="col-md-5 thinBorders">
 							<div class="col-md-6" style="padding-top: 1vh;">
 								<p class="text-left greyText"> Location : <span class="pinkTxt"> Singapore </span></p>
 							</div><!-- class col-md-6 -->
@@ -137,7 +142,7 @@
 							</div><!-- class col-md-6 -->
 						</div><!-- class col-md-5 -->
 						
-						<div class="col-md-3 thinBorders">
+						<div class="col-md-4 thinBorders">
 							<p class="pinkTxt" style="padding-top: 1vh;"> Profil score : <span class="badge"> 9 </span></p>
 						</div><!-- col-md-3 -->
 
@@ -148,13 +153,26 @@
 					</div><!-- class row -->
 
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-5" ng-hide="hideMap">
 							<div class="embed-responsive embed-responsive-4by3">
-								<iframe class="embed-responsive-item" width="325" height="250" frameborder="0" scrolling="no" src="https://encrypted.google.com/maphp?ie=UTF8&amp;ll=21.030273,105.782683&amp;spn=0.014761,0.022724&amp;t=m&amp;z=16&amp;output=embed"></iframe>
-
-
+								<iframe class="embed-responsive-item" width="325" height="250" frameborder="0" scrolling="no" style="margin-top:2vh;"src="https://encrypted.google.com/maphp?ie=UTF8&amp;ll=21.030273,105.782683&amp;spn=0.014761,0.022724&amp;t=m&amp;z=16&amp;output=embed"></iframe>
 							</div>
 						</div><!-- class col-md-6 -->
+						<div class="col-md-7 thinBorders" style="padding:0;">
+							<div class="row">
+								<div class="col-md-7 thinBorders text-center">
+									<p> Add 3 photos showing only you and find out how many people likes </p>
+									<a class="btn btn-default"> Add Photos </a>
+								</div>
+								<div class="col-md-5 thinBorders">
+									<p> You don't have any award yet. Find out how to get them. </p>
+									<a class="btn btn-default"> Get Award </a>
+								</div>
+								<div class="col-md-12 thinBorders">
+									<p class="pinkTxt" style="padding-top: 1vh;"> Recommended by <span class="badge"> 8 </span></p>
+								</div>
+							</div><!-- class row -->
+						</div>
 					</div><!-- class row -->
 
 				</div><!-- class col-md-9 -->

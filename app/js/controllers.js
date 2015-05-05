@@ -42,9 +42,35 @@ datingController.controller('ApplicationController', function (ngToast, $scope, 
 
 });// End ApplicationController
 
-datingController.controller('ProfilCtrl', function ($scope, $log) {
+datingController.controller('ProfilCtrl', function ($scope, $log, $upload, FileService, $rootScope, FILE_EVENTS, RESOURCE, ProfilService) {
 
-});
+	$scope.loadProfil = function () {
+		ProfilService.get($rootScope.currentUser).then(function (profil) {
+			$rootScope.currentProfil = profil;
+		}, function () {
+			$log.log("info user non-loadées");
+		});
+	};
+	
+	// Waiting for a Drop
+	$scope.$watch('files', function () {
+		$scope.upload();
+	});
+
+	// When an element is dropped
+	$scope.upload = function () {
+		angular.forEach(FileService.update($scope.files, RESOURCE.user+'/setPicture'), function (promise) {
+			promise.then(function (res) {
+				$rootScope.currentProfil.profil_path = res.data + '?decache=' + Math.random();
+				$rootScope.$broadcast(FILE_EVENTS.uploadSuccess);
+			}, function () {
+				$rootScope.$broadcast(FILE_EVENTS.updateFailed);
+			});
+		});
+
+	};// End upload()
+
+}); // ./End ProfilCtrl
 
 datingController.controller('RegistrarCtrl', function (UserService, $rootScope, $scope, $log, $route, $location, USER_EVENTS, $routeParams) {
 
@@ -55,7 +81,6 @@ datingController.controller('RegistrarCtrl', function (UserService, $rootScope, 
 	$scope.register = function (user) {
 		$scope.loading = true;
 		user.dob = user.year+"-"+user.month+"-"+user.day;
-		console.log(user);
 		UserService.create(user).then(function (res) {
 			if(parseInt(res)){
 				$rootScope.$broadcast(USER_EVENTS.registrationSuccess);
@@ -70,7 +95,6 @@ datingController.controller('RegistrarCtrl', function (UserService, $rootScope, 
 		}).finally(function () {
 			$scope.loading = false;
 		});
-		console.log(user);
 	};
 
 	$scope.activate = function () {

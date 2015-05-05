@@ -4,6 +4,44 @@
 
 var datingService = angular.module('datingServices', ['ngResource']);
 
+datingService.factory('FileService', function ($http, $log, $rootScope, $upload) {
+
+	var fileService = {};
+
+	// When an image is uploaded
+	fileService.update = function (files, url) {
+		
+		var promises = [];
+
+		if (files && files.length) {
+
+			for (var i = 0; i < files.length; i++) {
+				var file = files[i];
+
+				var promise = $upload.upload({
+					url: url,
+					headers: {
+						nom: file.name
+					},
+					file: file
+				}).progress(function (evt) {
+					var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+					console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+				}).success(function (data, status, headers, config) {
+					console.log('file ' + config.file.name + ' uploaded. Response: ' + data);
+					return data;
+				});
+				promises.push(promise);
+			}
+		}
+		
+		return promises;
+
+	}; // End update()
+
+	return fileService;
+
+}); // End  FileService
 
 datingService.factory('ResetService', function ($http, RESOURCE) {
 	var resetService = {};
@@ -55,7 +93,6 @@ datingService.factory('ValidationService', function ($http, RESOURCE) {
 });
 
 
-
 /*
 	Handle basic user lifecycle action. 
 	*/
@@ -69,7 +106,7 @@ datingService.factory('UserService', function ($http, RESOURCE) {
 		.then(function (res) {
 			return res.data;
 		});
-	}
+	};
 
 	userService.update = function (data, id) {
 		return $http
@@ -85,7 +122,7 @@ datingService.factory('UserService', function ($http, RESOURCE) {
 		.then(function (res) {
 			return res.data;
 		});
-	}
+	};
 
 	userService.destroy = function (id) {
 		return $http
@@ -96,6 +133,21 @@ datingService.factory('UserService', function ($http, RESOURCE) {
 	};
 
 	return userService;
+});
+
+datingService.factory('ProfilService', function ($http, RESOURCE) {
+
+	var profilService = {};
+	
+	profilService.get = function (id) {
+		return $http
+		.post(RESOURCE.user+'/load', id)
+		.then(function (res) {
+			return res.data;
+		});
+	};
+
+	return profilService;
 });
 
 /*

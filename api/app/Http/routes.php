@@ -13,6 +13,8 @@
 
 Route::post('user/auth', 'UserController@authenticate');
 Route::post('user/activate', 'UserController@activate');
+Route::post('user/setPicture', 'UserController@setPicture');
+Route::post('user/load', 'UserController@getProfil');
 
 Route::post('user/validation/email', 'UserValidationController@email');
 

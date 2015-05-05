@@ -12,6 +12,7 @@
 }
 body {
 	font-family: "Open Sans", Arial, sans-serif;
+	overflow: hidden;
 }
 
 .FormContainer {
@@ -128,7 +129,7 @@ ul.list-inline.navbar-right {
 }
 .greyBG {
 	padding-top: 10vh;
-	height: 80vh;
+	height: 70vh;
 	background-color: #F4F4F4;
 }
 img[alt="Angels Waiting For You"] {
@@ -279,6 +280,8 @@ label[for="birthDate"] {
 	border-radius: 5px;
 	padding: 3vh 0;
 	margin-top: 3vh;
+	overflow: auto;
+	max-height: 70vh;
 }
 .progress-bar {
 	background-color: #E54C4B;
@@ -302,8 +305,8 @@ label[for="birthDate"] {
 	background-color: #FF5967;
 }
 .greyBGProfil {
-	height: 80vh;
 	background-color: #F4F4F4;
+	height: 71vh;
 }
 .darkGreyBG {
 	background-color: #555555;
@@ -317,5 +320,28 @@ label[for="birthDate"] {
 .thinBorders {
 	border: 0.1vh solid #F6F6F6;
 }
-
+.dropzone.lead {
+    border: 1px solid grey;
+    border-radius: 50%;
+    width: 140px;
+    height: 140px;
+    margin: auto;
+    font-size: 120%;
+    padding-top: 3.5em;
+}
+.drop-box {
+    width: 170px;
+    height: 170px;
+    margin: auto;
+}
+.dragover {
+    opacity: 0.4;
+}
+.dropImg {
+    border-radius: 50%;
+    width: 140px;
+    height: 140px;
+    margin: auto;
+    box-shadow: 6px 6px 6px grey;
+}
 /* ./ UserProfil.html Setting */

@@ -155,7 +155,7 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
         $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
             var aToast = ngToast.create({
                 className: 'success',
-                content: 'Hello , <strong>'+ $rootScope.currentUser.firstname+'</strong> nice to see you again !'
+                content: 'Hello , <strong>'+ $rootScope.currentUser.username+'</strong> nice to see you again !'
             });
         });
         $rootScope.$on(AUTH_EVENTS.notAuthenticated, function () {
