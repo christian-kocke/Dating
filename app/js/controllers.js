@@ -9,15 +9,6 @@ datingController.controller('ApplicationController', function (ngToast, $scope, 
 
 	$scope.userRoles = USER_ROLES;
 	$scope.isAuthorized = AuthService.isAuthorized;
-	//$scope.pending = false;
-
-	/*$rootScope.$on('$routeChangeStart', function () {
-		$scope.pending = true;
-	});
-
-	$rootScope.$on('$routeChangeSuccess', function () {
-		$scope.pending = false;
-	});*/
 
 	// Logout user
 	$scope.logout = function () {
