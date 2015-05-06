@@ -9,7 +9,7 @@ datingService.factory('FileService', function ($http, $log, $rootScope, $upload)
 	var fileService = {};
 
 	// When an image is uploaded
-	fileService.update = function (files, url) {
+	fileService.update = function (files, url, filePath, fileName) {
 		
 		var promises = [];
 
@@ -21,7 +21,8 @@ datingService.factory('FileService', function ($http, $log, $rootScope, $upload)
 				var promise = $upload.upload({
 					url: url,
 					headers: {
-						nom: file.name
+						name: fileName,
+						path: filePath
 					},
 					file: file
 				}).progress(function (evt) {
@@ -166,7 +167,7 @@ datingService.factory('ProfilService', function ($http, RESOURCE) {
 	
 	profilService.get = function (id) {
 		return $http
-		.post(RESOURCE.user+'/load', id)
+		.get(RESOURCE.profil+'/'+id)
 		.then(function (res) {
 			return res.data;
 		});

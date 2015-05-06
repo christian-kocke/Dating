@@ -1,7 +1,7 @@
 <?php namespace Api\Http\Controllers;
 
 use Auth;
-
+use DB;
 use Api\Http\Requests;
 use Api\Http\Controllers\Controller;
 
@@ -63,10 +63,11 @@ class UserFileController extends Controller {
 	{
 		if($this->_request->file('file')->isValid())
 		{
-			$filePath = '/news/app/imgDrop/Users/user_'.$this->_user->id.".".$request->file('file')->guessExtension();
-			if($request->file('file')->move('../../app/imgDrop/Users/', $filePath))
+			$fileName = $this->_request->header('name').".".$this->_request->file('file')->guessExtension();
+			$filePath = $this->_request->header('path').''.$fileName;
+			if($this->_request->file('file')->move($_SERVER['DOCUMENT_ROOT'].$this->_request->header('path'), $fileName))
 			{
-				DB::update('update users set img = ? where id = ?', [$filePath, $this->_user->id]);
+				DB::update('update profils set profil_path = ? where id = ?', [$filePath, $this->_user->id]);
 				return response($filePath);	
 			}
 		}

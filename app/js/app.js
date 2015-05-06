@@ -343,6 +343,8 @@ datingApp.constant('AUTH_EVENTS', {
     activationFailed: "account-activation-failed",
 }).constant('RESOURCE', {
    user: '/api/public/user',
+   userFiles: '/api/public/user/file',
+   profil: '/api/public/user/profil',
    resetPassword: '/api/public/password',
    templates: '/dating/app/partials'
 });

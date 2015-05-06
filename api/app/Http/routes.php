@@ -13,9 +13,6 @@
 
 Route::post('user/auth', 'UserController@authenticate');
 Route::post('user/activate', 'UserController@activate');
-Route::post('user/setPicture', 'UserController@setPicture');
-Route::post('user/load', 'UserController@getProfil');
-
 Route::post('user/validation/email', 'UserValidationController@email');
 
 Route::resource('user','UserController', ['only' => ['store', 'index']]);
@@ -25,6 +22,7 @@ Route::group(['middleware' => ['auth']], function()
 	Route::post('user/validation/password', 'UserValidationController@password');
 	Route::get('user/logout', 'UserController@logout');
 	Route::resource('user/file', 'UserFileController');
+	Route::resource('user/profil', 'ProfilController');
 	Route::resource('user','UserController', ['except' => ['store', 'index']]);	
 
 });

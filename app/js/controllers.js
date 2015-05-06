@@ -36,7 +36,7 @@ datingController.controller('ApplicationController', function (ngToast, $scope, 
 datingController.controller('ProfilCtrl', function ($scope, $log, $upload, FileService, $rootScope, FILE_EVENTS, RESOURCE, ProfilService) {
 
 	$scope.loadProfil = function () {
-		ProfilService.get($rootScope.currentUser).then(function (profil) {
+		ProfilService.get($rootScope.currentUser.id).then(function (profil) {
 			$rootScope.currentProfil = profil;
 		}, function () {
 			$log.log("info user non-loadées");
@@ -50,9 +50,10 @@ datingController.controller('ProfilCtrl', function ($scope, $log, $upload, FileS
 
 	// When an element is dropped
 	$scope.upload = function () {
-		angular.forEach(FileService.update($scope.files, RESOURCE.user+'/setPicture'), function (promise) {
+		angular.forEach(FileService.update($scope.files, RESOURCE.userFiles, '/app/imgDrop/ProfilPictures/', 'user_'+$rootScope.currentUser.id), function (promise) {
 			promise.then(function (res) {
 				$rootScope.currentProfil.profil_path = res.data + '?decache=' + Math.random();
+				console.log($rootScope.currentProfil);
 				$rootScope.$broadcast(FILE_EVENTS.uploadSuccess);
 			}, function () {
 				$rootScope.$broadcast(FILE_EVENTS.updateFailed);

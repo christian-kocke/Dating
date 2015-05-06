@@ -191,19 +191,6 @@ class UserController extends Controller {
 		return response("Delete Account Failed", 462);
 	}
 
-	public function setPicture(Request $request)
-	{
-		if($request->file('file')->isValid() && Auth::check())
-		{
-			$filePath = 'imgDrop/ProfilPictures/user_'.$this->_user->id.".".$request->file('file')->guessExtension();
-			if($request->file('file')->move('../../app/imgDrop/ProfilPictures/', $filePath))
-			{
-				DB::update('update profils set profil_path = ? where id = ?', [$filePath, $this->_user->id]);
-				return response($filePath);	
-			}
-		}
-		return response("upload failure.", 441);
-	}
 
 	public function getProfil(Request $request)
 	{
