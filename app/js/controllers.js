@@ -36,7 +36,10 @@ datingController.controller('ApplicationController', function (ngToast, $scope, 
 datingController.controller('ProfilCtrl', function ($scope, $log, $upload, FileService, $rootScope, FILE_EVENTS, RESOURCE, ProfilService) {
 
 	$scope.loadProfil = function () {
-		ProfilService.get($rootScope.currentUser.id).then(function (profil) {
+		ProfilService.get($rootScope.currentUser).then(function (profil) {
+			if(profil.location === "") {
+				profil.location = "zoom=0&center=0.0392%2C105.7906";
+			}
 			$rootScope.currentProfil = profil;
 		}, function () {
 			$log.log("info user non-loadées");

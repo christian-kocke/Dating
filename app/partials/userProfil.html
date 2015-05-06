@@ -1,4 +1,4 @@
-<div class="row" ng-controller="ProfilCtrl" ng-init="loadProfil()">
+<div class="row" ng-controller="ProfilCtrl" ng-init="loadProfil(); switchPart = true">
 
 	<div class="container-fluid pinkBGCarousel">
 
@@ -30,30 +30,33 @@
 	</div><!-- class container-fluid -->
 
 	<div class="container-fluid greyBGProfil">
-		<div class="container">
+
+		<!-- Profil Section -->
+		<div class="container" ng-show="switchPart" style="padding:0;">
 			<div class="row">
 				<!-- Information panel -->
 				<div class="col-md-3">
-					<div class="whiteBG text-center">
-
+					<div class="whitePanel text-center">
+						<div ng-class="{blurBG: updateProfil, whiteBG: !updateProfil}"></div>
 						<!-- Profil Picture -->
 						<div class="row">
 							<!-- Drag & Drop Zone -->
 							<div ng-file-drop class="drop-box" ng-file-select ng-model="files" allow-dir="true" accept="image/*,application/pdf">
 								<p class="dropzone lead" drag-over-class="dragover" ng-hide="currentProfil.profil_path"> Drop or click ! <span class="glyphicon glyphicon-cloud-download"></span></p>
 								<img class="dropImg" ng-show="currentProfil.profil_path" ng-src="{{currentProfil.profil_path}}"/>
-								<h6 class="text-info" ng-show="imgIsEnable"><em> * Click on your picture to Edit it! </em></h6>
+								<h6 class="text-info" ng-show="currentProfil.profil_path"><em> * Click to Edit it! </em></h6>
 							</div><!-- class drop-box -->
 						</div><!-- class row -->
 
 						<!-- Name , Age -->
 						<div class="row">
 							<p class="lead"> {{currentUser.username | capitalize}}, {{currentProfil.age}} </p>
+							<input ng-class="{noBlur: updateProfil}" ng-show="updateProfil" ng-model="user.username" value="" class="form-control" type="text" placeholder="New Username..."/>
 						</div><!-- class row -->
 
 						<!-- Popularity -->
 						<div class="row">
-							
+
 							<div class="col-md-12">
 								<div class="progress">
 									<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
@@ -75,12 +78,14 @@
 
 						</div><!-- class row -->
 
+						<!-- Increase your popularity Button -->
 						<div class="row">
 							<div class="col-md-12">
 								<a class="btn pinkBtnMd center-block"> Increase Your Popularity </a>
 							</div><!-- class col-md-12 -->
 						</div><!-- class row -->
 
+						<!-- List of links -->
 						<div class="row">
 							<div class="col-md-10 col-md-offset-2">
 								<ul class="list-unstyled fa-ul text-left">
@@ -92,93 +97,105 @@
 								</ul>
 							</div><!-- class col-md-10 col-md-offset-2 -->
 						</div><!-- class row -->
+					</div>
+				</div><!-- class col-md-3 /. Information panel -->
 
-					</div><!-- class whiteBG text-center -->
-				</div><!-- class col-md-3 -->
+				<!-- Profil Panel -->
+				<div class="col-md-9">
+					<div class="whitePanel">
+						<div ng-class="{blurBG: updateProfil, whiteBG: !updateProfil}"></div>
+						<!-- Header, switch buttons -->
+						<div class="row">
+							<div class="col-md-4">
+								<h1 class="pinkTxt">
+									<i class="fa fa-heart"></i> Profil 
+									<span ng-click="updateProfil = true" ng-hide="updateProfil" class="glyphicon glyphicon-pencil smallIcon"></span>
+								</h1>
+							</div><!-- class col-md-4 -->
+							<div class="col-md-4 col-md-offset-4 text-right">
+								<a class="btn pinkBtnMd" ng-show="updateProfil" ng-click="updateProfil = false" ng-class="{noBlur: updateProfil}"><i class="fa fa-check"></i> Save Changes </a>
+								<a class="btn" ng-click="switchPart = true" ng-class="{pinkBtnMd: switchPart}"><i class="fa fa-user"></i> Profil </a>
+								<a class="btn" ng-click="switchPart = false" ng-class="{pinkBtnMd: !switchPart}"><i class="fa fa-picture-o"></i> Photos </a>
+							</div><!-- class col-md-4 col-md-offset-4 -->
+						</div><!-- class row -->
 
-				<div class="col-md-9 whiteBG">
-					
-					<div class="row">
-						<div class="col-md-4">
-							<h1 class="pinkTxt"><i class="fa fa-heart"></i> Profil </h1>
-						</div><!-- class col-md-4 -->
-						<div class="col-md-4 col-md-offset-4 text-right">
-							<a class="btn pinkBtnMd"><i class="fa fa-user"></i> Profil </a>
-							<a class="btn pinkBtnMd"><i class="fa fa-picture-o"></i> Photos </a>
-						</div><!-- class col-md-4 col-md-offset-4 -->
-					</div><!-- class row -->
-
-					<div class="row">
-						<div class="col-md-2">
-							<p><i class="fa fa-child fa-lg"></i><strong> 8 </strong> Friends </p>
-						</div><!-- class col-md-2 -->
-						<div class="col-md-2">
-							<p><i class="fa fa-info-circle fa-lg"></i><strong> 5 </strong> Interests </p>
-						</div><!-- class col-md-2 -->
-						<div class="col-md-4">
-							<p><i class="fa fa-user-plus fa-lg"></i><strong> 18 </strong> Angel Recommended </p>
-						</div><!-- class col-md-2 -->
-					</div><!-- class row -->
-
-					<div class="row">
-						<div class="col-md-12 darkGreyBG">
-							<div class="col-md-2 photoSticky">
-								<img class="img-responsive mediumProfil" src="img/photo.png">
+						<div class="row">
+							<div class="col-md-2">
+								<p><i class="fa fa-child fa-lg"></i><strong> 8 </strong> Friends </p>
 							</div><!-- class col-md-2 -->
-							<div class="col-md-2 photoSticky">
-								<img class="img-responsive mediumProfil" src="img/photo2.png">
+							<div class="col-md-2">
+								<p><i class="fa fa-info-circle fa-lg"></i><strong> 5 </strong> Interests </p>
 							</div><!-- class col-md-2 -->
-						</div><!-- class container-fluid -->
-					</div><!-- class row -->
+							<div class="col-md-4">
+								<p><i class="fa fa-user-plus fa-lg"></i><strong> 18 </strong> Angel Recommended </p>
+							</div><!-- class col-md-2 -->
+						</div><!-- class row -->
 
-					<div class="row">
-						
-						<div class="col-md-5 thinBorders">
-							<div class="col-md-6" style="padding-top: 1vh;">
-								<p class="text-left greyText"> Location : <span class="pinkTxt"> Singapore </span></p>
+						<div class="row">
+							<div class="col-md-12 darkGreyBG">
+								<div class="col-md-2 photoSticky">
+									<img class="img-responsive mediumProfil" src="img/photo.png">
+								</div><!-- class col-md-2 -->
+								<div class="col-md-2 photoSticky">
+									<img class="img-responsive mediumProfil" src="img/photo2.png">
+								</div><!-- class col-md-2 -->
+							</div><!-- class container-fluid -->
+						</div><!-- class row -->
+
+						<div class="row">
+
+							<div class="col-md-5 thinBorders">
+								<div class="col-md-6" style="padding-top: 1vh;">
+									<p class="text-left greyText"> Location : <span class="pinkTxt"> Singapore </span></p>
+									<input ng-class="{noBlur: updateProfil}" ng-show="updateProfil" ng-model="user.location" value="" class="form-control" type="text" placeholder="Your location..."/>
+								</div><!-- class col-md-6 -->
+
+								<div class="col-md-6 text-right">
+									<a class="btn btn-link" ng-click="hideMap = !hideMap"><i class="fa fa-map-marker"></i> Hide Map </a>
+								</div><!-- class col-md-6 -->
+							</div><!-- class col-md-5 -->
+
+							<div class="col-md-4 thinBorders">
+								<p class="pinkTxt" style="padding-top: 1vh;"> Profil score : <span class="badge"> 9 </span></p>
+							</div><!-- col-md-3 -->
+
+							<div class="col-md-3 thinBorders">
+								<p class="pinkTxt" style="padding-top: 1vh;"> Your References </p>
+							</div><!-- class col-md-3 -->
+
+						</div><!-- class row -->
+
+						<div class="row">
+							<div class="col-md-5" ng-hide="hideMap">
+								<div class="embed-responsive embed-responsive-4by3">
+									<iframe width="330" height="250" frameborder="0" style="border:0" ng-src="{{currentrofil.location}}&key=AIzaSyA0JlBI0dk6qOKMaSuDTkFqkoF1E1jL4Es"></iframe>
+								</div>
 							</div><!-- class col-md-6 -->
-							<div class="col-md-6 text-right">
-								<a class="btn btn-link" ng-click="hideMap = !hideMap"><i class="fa fa-map-marker"></i> Hide Map </a>
-							</div><!-- class col-md-6 -->
-						</div><!-- class col-md-5 -->
-						
-						<div class="col-md-4 thinBorders">
-							<p class="pinkTxt" style="padding-top: 1vh;"> Profil score : <span class="badge"> 9 </span></p>
-						</div><!-- col-md-3 -->
-
-						<div class="col-md-3 thinBorders">
-							<p class="pinkTxt" style="padding-top: 1vh;"> Your References </p>
-						</div><!-- class col-md-3 -->
-
-					</div><!-- class row -->
-
-					<div class="row">
-						<div class="col-md-5" ng-hide="hideMap">
-							<div class="embed-responsive embed-responsive-4by3">
-								<iframe class="embed-responsive-item" width="325" height="250" frameborder="0" scrolling="no" style="margin-top:2vh;"src="https://encrypted.google.com/maphp?ie=UTF8&amp;ll=21.030273,105.782683&amp;spn=0.014761,0.022724&amp;t=m&amp;z=16&amp;output=embed"></iframe>
+							<div class="col-md-7 thinBorders" style="padding:0;">
+								<div class="row">
+									<div class="col-md-7 thinBorders text-center">
+										<p> Add 3 photos showing only you and find out how many people likes </p>
+										<a class="btn btn-default"> Add Photos </a>
+									</div>
+									<div class="col-md-5 thinBorders">
+										<p> You don't have any award yet. Find out how to get them. </p>
+										<a class="btn btn-default"> Get Award </a>
+									</div>
+									<div class="col-md-12 thinBorders">
+										<p class="pinkTxt" style="padding-top: 1vh;"> Recommended by <span class="badge"> 8 </span></p>
+									</div>
+								</div><!-- class row -->
 							</div>
-						</div><!-- class col-md-6 -->
-						<div class="col-md-7 thinBorders" style="padding:0;">
-							<div class="row">
-								<div class="col-md-7 thinBorders text-center">
-									<p> Add 3 photos showing only you and find out how many people likes </p>
-									<a class="btn btn-default"> Add Photos </a>
-								</div>
-								<div class="col-md-5 thinBorders">
-									<p> You don't have any award yet. Find out how to get them. </p>
-									<a class="btn btn-default"> Get Award </a>
-								</div>
-								<div class="col-md-12 thinBorders">
-									<p class="pinkTxt" style="padding-top: 1vh;"> Recommended by <span class="badge"> 8 </span></p>
-								</div>
-							</div><!-- class row -->
-						</div>
-					</div><!-- class row -->
-
+						</div><!-- class row -->
+					</div>
 				</div><!-- class col-md-9 -->
 
 			</div><!-- class row -->
-		</div><!-- class container -->
+		</div><!-- class container /. Profil Section -->
+
+		<!-- Photos Section -->
+		<div class="container" ng-show="!switchPart">
+		</div><!-- class container /. Photos Section -->
 	</div><!-- class container-fluid -->
 
 </div><!-- container text-center -->
