@@ -1,0 +1,112 @@
+<form name="loginForm" novalidate role="login" ng-submit="login(credentials)">
+
+	<!-- Username Input -->
+	<div class="col-md-12 form-group has-feedback" ng-class="{'has-success': loginForm.email.$valid, 'has-error': loginForm.email.$invalid && loginForm.email.$dirty}"> 
+
+		<label class="sr-only" for="email"> Email </label>
+		<div class="input-group">
+			<span class="input-group-addon">
+				<i class="fa fa-user"></i>
+			</span>
+			<input type="text" class="form-control" ng-model="credentials.email" aria-describedby="emailStatus" name="email" id="email" placeholder="Email" ng-minlength="2" ng-maxlength="60" required>
+		</div><!-- class input-group -->
+
+		<!-- Errors -->
+		<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="loginForm.email.$valid" aria-hidden="true"></span>
+		<span id="emailStatus" class="sr-only"> (success) </span>
+		<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="loginForm.email.$invalid && loginForm.email.$dirty" aria-hidden="true"></span>
+		<span id="emailStatus" class="sr-only"> (warning) </span>
+		<span class="validationError" ng-show="loginForm.email.$error.minlength"> * The email has to be a least 2 characters </span>
+		<span class="validationError" ng-show="loginForm.email.$error.maxlength"> * The email can't be more than 60 characters </span>
+		<span class="validationError" ng-show="loginForm.email.$error.required && loginForm.email.$dirty"> *The email is required </span>
+
+	</div><!-- class col-md-12 -->
+
+	<!-- Password Input -->
+	<div class="col-md-12 form-group has-feedback" ng-class="{'has-success': loginForm.password.$valid, 'has-error': loginForm.password.$invalid && loginForm.password.$dirty}">
+
+		<label class="sr-only" for="password"> Password </label>
+		<div class="input-group">
+			<span class="input-group-addon">
+				<i class="fa fa-lock"></i>
+			</span>
+			<input type="password" class="form-control" ng-model="credentials.password" aria-describedby="passwordStatus" name="password" id="password" placeholder="Password" ng-minlength="8" ng-maxlength="100" required>
+		</div><!-- class input-group -->
+
+		<!-- Errors -->
+		<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="loginForm.password.$valid" aria-hidden="true"></span>
+		<span id="passwordStatus" class="sr-only">(success)</span>
+		<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="loginForm.password.$invalid && loginForm.password.$dirty" aria-hidden="true"></span>
+		<span id="passwordStatus" class="sr-only">(warning)</span>
+		<span class="validationError" ng-show="loginForm.password.$error.minlength"> * The password has to be a least 8 characters </span>
+		<span class="validationError" ng-show="loginForm.password.$error.maxlength"> * The password can't be more than 100 characters </span>
+		<span class="validationError" ng-show="loginForm.password.$error.required && loginForm.password.$dirty"> * The password is required </span>
+
+	</div><!-- class col-md-12 -->
+
+	<!-- Sign in as Checkboxes -->
+	<div class="col-md-12">
+		<fieldset class="fieldset-border text-center">
+
+			<legend class="signInAs"> SIGN IN AS </legend>	
+			<div class="control-group">
+
+				<label class="checkbox-inline" ng-class="{pinkLabel: addPinkClass1}">
+					<input type="checkbox" ng-click="addPinkClass1 = !addPinkClass1" name="angel" id="angel" value="1"> Angel
+				</label>
+
+				<label class="radio-inline" ng-class="{pinkLabel: addPinkClass2}">
+					<input type="checkbox" ng-click="addPinkClass2 = !addPinkClass2" name="hero" id="hero" value="2"> Heroes/Heroines
+				</label>
+
+			</div><!-- class control-group -->
+
+		</fieldset><!-- class fieldset-border -->
+	</div><!-- class col-md-12 -->
+
+	<!-- Tip text -->
+	<div class="col-md-10 col-md-offset-1">
+		<h6 class="greyText"><em> Any Angel can also have a Heroe/Heroine role and vice/versa </em></h6>
+	</div><!-- class col-md-12 -->
+
+	<!-- Remember Me checkbox -->
+	<div class="col-md-12">
+
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" name="rememberMe" id="rememberMe" value="1" ng-model="credentials.remember"> Remember Me
+			</label>
+		</div><!-- class checkbox -->
+
+	</div><!-- class col-md-12 -->
+
+	<!-- Submit button -->
+	<div class="col-md-8 col-md-offset-2">
+		<button type="submit" class="btn btn-lg center-block pinkBtnLg"> Login </button>
+	</div><!-- class col-md-8 col-md-offset-2 -->
+
+	<!-- Forget password Link -->
+	<div class="col-md-6 col-md-offset-3">
+		<a class="center-block btn btn-link" href="#/reset/password"> Forgot password ? </a>
+	</div><!-- class col-md-6 col-md-offset-3 -->
+
+	<!-- Don't have an account ? Link -->
+	<div class="col-md-10 col-md-offset-1">
+		<p> Do you have an account ? <a href="#/signup"> Sign Up now ! </a></p>
+	</div><!-- class col-md-10 col-md-offset-1 -->
+
+	<!-- Or separation -->
+	<div class="col-md-12">
+
+		<fieldset class="line-border">
+			<legend class="or"><em> or </em></legend>
+		</fieldset><!-- class line-border -->
+
+	</div><!-- class col-md-12 -->
+
+	<!-- Facebook button -->
+	<div class="col-md-12 text-center">
+		<fb:login-button autologoutlink="true" max-rows="1" size="large"> Log in with Facebook </fb:login-button>
+	</div><!-- class col-md-12 -->
+
+</form><!-- loginForm -->

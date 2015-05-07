@@ -5,10 +5,21 @@
 var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast']);
 
 
-datingController.controller('ApplicationController', function (ngToast, $scope, USER_ROLES, AuthService, $location, $log, Session, UserService, $rootScope, $route, USER_EVENTS, AUTH_EVENTS, FacebookAuthService) {
+datingController.controller('ApplicationController',['$scope','USER_ROLES','AuthService','$location','$log','Session','UserService','$rootScope','$route','USER_EVENTS','AUTH_EVENTS','FacebookAuthService','$window', function ($scope, USER_ROLES, AuthService, $location, $log, Session, UserService, $rootScope, $route, USER_EVENTS, AUTH_EVENTS, FacebookAuthService, $window) {
 
 	$scope.userRoles = USER_ROLES;
 	$scope.isAuthorized = AuthService.isAuthorized;
+	$rootScope.screenSize = "";
+
+	$scope.onload = function() {
+		if($window.innerWidth > 767) {
+			$rootScope.screenSize = 'large';
+		} else {
+			$rootScope.screenSize = 'small';
+		}
+	};
+
+	$scope.onload();
 
 	// Logout user
 	$scope.logout = function () {
@@ -31,7 +42,7 @@ datingController.controller('ApplicationController', function (ngToast, $scope, 
 		});
 	};
 
-});// End ApplicationController
+}]);// End ApplicationController
 
 datingController.controller('MapCtrl', function ($scope, $rootScope, MAP_EVENTS, USER_EVENTS, ProfilService) {
 

@@ -12,7 +12,10 @@
 }
 body {
 	font-family: "Open Sans", Arial, sans-serif;
-	overflow: hidden;
+	margin-top: 50px;
+}
+.view-container {
+	margin-bottom: 50px;
 }
 .blurBG {
 	opacity: 0.9;
@@ -46,7 +49,6 @@ body {
 	color: red;
 	display: block;
 }
-
 /* ./ Form Validator */
 
 /* NAVBAR SETTINGS */
@@ -127,8 +129,8 @@ ul.list-inline.navbar-right {
 .pinkBG {
 	background-color: #FF5967;
 	color: white;
-	padding-left: 25vh;
 	padding-top: 5vh;
+	padding-left: 25vh;
 	padding-bottom: 5vh;
 	border-bottom: 1vh solid #E54C4B;
 }
@@ -366,3 +368,28 @@ label[for="birthDate"] {
 	color: #CCCCCC;
 }
 /* ./ UserProfil.html Setting */
+@media (max-width: 767px) {
+	.FormMobile {
+		padding-top: 3vh;
+	}
+	.pinkBG {
+		padding: 1vh 5vh 1vh 5vh;
+	}
+	.fb {
+		margin-top: 3vh;
+	}
+	.pinkBtnLg {
+		margin-top: 0;
+	}
+	.navbar-grey {
+		background-color: #474A54;
+		padding: 0;
+		color: white;
+		font-size: 80%;
+	}
+}
+@media (min-width: 768px) and (max-width: 1200px) {
+	.pinkBG {
+		padding: 1% 0 1% 10%;
+	}
+}

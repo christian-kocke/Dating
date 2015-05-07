@@ -80,6 +80,16 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
 
     ]).run(function ($rootScope, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS, MAP_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector, $window, FacebookAuthService) {
          
+        window.addEventListener('resize', function () {
+            console.log($window.innerWidth);
+            if($window.innerWidth > 767) {
+                $rootScope.screenSize = 'large';
+            } else {
+                $rootScope.screenSize = 'small';
+            }
+            $rootScope.$apply();
+        });
+
         (function(d, s, id){
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) {return;}
@@ -141,7 +151,7 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
             }
         });
         
-
+    
         // Session
         $rootScope.$on(AUTH_EVENTS.sessionTimeout, function () {
             var aToast = ngToast.create({
