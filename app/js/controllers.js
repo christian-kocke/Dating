@@ -33,16 +33,87 @@ datingController.controller('ApplicationController', function (ngToast, $scope, 
 
 });// End ApplicationController
 
-datingController.controller('ProfilCtrl', function ($scope, $log, $upload, FileService, $rootScope, FILE_EVENTS, RESOURCE, ProfilService) {
+datingController.controller('MapCtrl', function ($scope, $rootScope, MAP_EVENTS, USER_EVENTS, ProfilService) {
+
+	$scope.geocoder;
+	$scope.map;
+
+	$scope.initialize = function () {
+		$scope.geocoder = new google.maps.Geocoder();
+		var latlng = new google.maps.LatLng($rootScope.currentProfil.location.A, $rootScope.currentProfil.location.F);
+		console.log();
+		var mapOptions = {
+          center: latlng,
+          zoom: 8,
+          scrollwheel: false
+        };
+		$scope.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+		var marker = new google.maps.Marker({
+		    map: $scope.map,
+		    position: latlng
+		});
+	};
+
+	$scope.$on(USER_EVENTS.profilLoadSucces, function (event) {
+		console.log("charger");
+		event.currentScope.initialize();
+	});
+
+
+	$scope.codeAddress = function (address) {
+		$scope.geocoder.geocode( { 'address': address}, function(results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+				$scope.map.setCenter(results[0].geometry.location);
+				var marker = new google.maps.Marker({
+				    map: $scope.map,
+				    position: results[0].geometry.location
+				});
+				console.log(results[0].geometry.location);
+				ProfilService.update({location: marker.position}).then(function (res) {
+
+				});
+			} else {
+				$rootScope.$broadcast(MAP_EVENTS.mapError, status);
+			}
+		});
+	};
+
+	$scope.geolocate = function () {
+		// Try HTML5 geolocation
+		if(navigator.geolocation) {
+	    	navigator.geolocation.getCurrentPosition(function(position) {
+
+				var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+				var marker = new google.maps.Marker({
+				    map: $scope.map,
+				    position: pos
+				});
+
+				$scope.map.setCenter(pos);
+
+			}, function() {
+				$rootScope.$broadcast(MAP_EVENTS.geolocationFailed);
+			});
+
+		} else {
+			// Browser doesn't support Geolocation
+			$rootScope.$broadcast(MAP_EVENTS.geolocationNotSupported);
+		}
+	};
+
+});
+
+datingController.controller('ProfilCtrl', function ($scope, $log, $upload, FileService, $rootScope, FILE_EVENTS, USER_EVENTS, RESOURCE, ProfilService) {
 
 	$scope.loadProfil = function () {
-		ProfilService.get($rootScope.currentUser).then(function (profil) {
-			if(profil.location === "") {
-				profil.location = "zoom=0&center=0.0392%2C105.7906";
-			}
+		ProfilService.show($rootScope.currentUser.id).then(function (profil) {
+			profil.location = JSON.parse(profil.location);
 			$rootScope.currentProfil = profil;
+			$rootScope.$broadcast(USER_EVENTS.profilLoadSucces);
 		}, function () {
-			$log.log("info user non-loadées");
+			$rootScope.$broadcast(USER_EVENTS.profilLoadFailed);
 		});
 	};
 	
@@ -64,6 +135,10 @@ datingController.controller('ProfilCtrl', function ($scope, $log, $upload, FileS
 		});
 
 	};// End upload()
+
+	$scope.update = function () {
+
+	};
 
 }); // ./End ProfilCtrl
 

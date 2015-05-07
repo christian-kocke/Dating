@@ -141,7 +141,7 @@ class UserController extends Controller {
 	 */
 	public function update($id)
 	{
-		if((($cpt = count($this->_request->input())) > 0 ) && Auth::check())
+		if((($cpt = count($this->_request->input())) > 0 ))
 		{
 			if(count(array_intersect_key($this->_request->all(), array('username' => "", 'current' => "", 'password' => "", 'confirm' => ""))) === count($this->_request->all()))
 			{

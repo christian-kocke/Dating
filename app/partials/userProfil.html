@@ -102,7 +102,7 @@
 
 				<!-- Profil Panel -->
 				<div class="col-md-9">
-					<div class="whitePanel">
+					<div class="whitePanel" ng-controller="MapCtrl">
 						<div ng-class="{blurBG: updateProfil, whiteBG: !updateProfil}"></div>
 						<!-- Header, switch buttons -->
 						<div class="row">
@@ -147,7 +147,8 @@
 							<div class="col-md-5 thinBorders">
 								<div class="col-md-6" style="padding-top: 1vh;">
 									<p class="text-left greyText"> Location : <span class="pinkTxt"> Singapore </span></p>
-									<input ng-class="{noBlur: updateProfil}" ng-show="updateProfil" ng-model="user.location" value="" class="form-control" type="text" placeholder="Your location..."/>
+									<button ng-click="geolocate()">Geolocate Me !</button>
+									<input ng-class="{noBlur: updateProfil}" ng-show="updateProfil" ng-model="user.location" ng-blur="codeAddress(user.location)" value="" class="form-control" type="text" placeholder="Your location..."/>
 								</div><!-- class col-md-6 -->
 
 								<div class="col-md-6 text-right">
@@ -167,9 +168,7 @@
 
 						<div class="row">
 							<div class="col-md-5" ng-hide="hideMap">
-								<div class="embed-responsive embed-responsive-4by3">
-									<iframe width="330" height="250" frameborder="0" style="border:0" ng-src="{{currentrofil.location}}&key=AIzaSyA0JlBI0dk6qOKMaSuDTkFqkoF1E1jL4Es"></iframe>
-								</div>
+								<div id="map-canvas" style="height:200px; width:300px"></div>
 							</div><!-- class col-md-6 -->
 							<div class="col-md-7 thinBorders" style="padding:0;">
 								<div class="row">

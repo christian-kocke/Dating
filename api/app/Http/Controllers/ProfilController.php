@@ -9,6 +9,32 @@ use Illuminate\Http\Request;
 
 class ProfilController extends Controller {
 
+
+	/**
+	 * The user instance.
+	 */
+	protected $_user;
+
+	/**
+	 * The current request instance.
+	 */
+	protected $_request;
+
+	/**
+	 * Populate the class attributes.
+	 *
+	 * @param Request
+	 */
+	public function __construct(Request $request)
+	{
+		
+		// We assign the value of the current request.
+		$this->_request = $request;
+
+		// if the user is authenticated we return the instance otherwise we return null.
+		$this->_user = (Auth::check()) ? Auth::user() : null;
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -47,12 +73,9 @@ class ProfilController extends Controller {
 	 */
 	public function show($id)
 	{
-		if(Auth::check()) {
-			$infos = DB::select('select p.*, u.dob age from profils p inner join users u on u.id = p.user_id where user_id = ?',[$id]);
-			error_log(print_r($infos, true));
-			$infos[0]->age = date("Y") - substr($infos[0]->age, 0, 4);
-			return response()->json($infos[0]);
-		}
+		$infos = DB::select('select p.*, u.dob age from profils p inner join users u on u.id = p.user_id where user_id = ?',[$id]);
+		$infos[0]->age = date("Y") - substr($infos[0]->age, 0, 4);
+		return response()->json($infos[0]);	
 	}
 
 	/**
@@ -74,7 +97,16 @@ class ProfilController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+		if(count(array_intersect_key($this->_request->all(), array('location' => "", 'profil_path' => "", 'id' => ""))) === count($this->_request->all()))
+		{
+			$set = '';
+			if(array_key_exists('location', $this->_request->all())) $this->_request['location'] = json_encode($this->_request->input('location'));	
+			foreach ($this->_request->all() as $key => $value) {
+				$set .= "{$key}=? ";
+			}
+			$set = str_replace(" ", ", ", trim($set));
+			DB::update("UPDATE profils SET {$set} WHERE id = ?", array_merge(array_values($this->_request->all()), [$id]));
+		}
 	}
 
 	/**

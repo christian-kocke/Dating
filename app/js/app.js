@@ -78,7 +78,7 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
         $locationProvider.html5Mode(false);
     }
 
-    ]).run(function ($rootScope, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector, $window, FacebookAuthService) {
+    ]).run(function ($rootScope, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS, MAP_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector, $window, FacebookAuthService) {
          
         (function(d, s, id){
             var js, fjs = d.getElementsByTagName(s)[0];
@@ -288,6 +288,15 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
                 content: 'Your account is not activated, check your mailbox !'
             });
         });
+
+        //map events
+        $rootScope.$on(MAP_EVENTS.mapError, function (event, status) {
+            console.log("ok");
+            var aToast = ngToast.create({
+                className: 'danger',
+                content: 'map error'
+            });
+        });
     });
 
 datingApp.config(function ($httpProvider) {
@@ -341,6 +350,12 @@ datingApp.constant('AUTH_EVENTS', {
     resetExpired: "password-reset-expired",
     accountNotActivated: "account-not-activated",
     activationFailed: "account-activation-failed",
+    profilLoadSuccess: "user-profil-load-success",
+    profilLoadFailed: "user-profil-load-failed"
+}).constant('MAP_EVENTS', {
+    mapError: 'map-error',
+    geolocationFailed: 'map-geolocation-failed',
+    geolocationNotSupported: 'map-geolocation-not-supported'
 }).constant('RESOURCE', {
    user: '/api/public/user',
    userFiles: '/api/public/user/file',

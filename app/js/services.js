@@ -161,13 +161,21 @@ datingService.factory('UserService', function ($http, RESOURCE) {
 	return userService;
 });
 
-datingService.factory('ProfilService', function ($http, RESOURCE) {
+datingService.factory('ProfilService', function ($http, RESOURCE, $rootScope) {
 
 	var profilService = {};
 	
-	profilService.get = function (id) {
+	profilService.show = function (id) {
 		return $http
 		.get(RESOURCE.profil+'/'+id)
+		.then(function (res) {
+			return res.data;
+		});
+	};
+
+	profilService.update = function (profil) {
+		return $http
+		.put(RESOURCE.profil+'/'+$rootScope.currentProfil.id, profil)
 		.then(function (res) {
 			return res.data;
 		});
