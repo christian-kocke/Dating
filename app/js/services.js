@@ -184,6 +184,17 @@ datingService.factory('ProfilService', function ($http, RESOURCE, $rootScope) {
 	return profilService;
 });
 
+datingService.factory('ToastService', function (ngToast) {
+	return {
+		show: function (message, type) {
+			var aToast = ngToast.create({
+                className: type,
+                content: message
+            });
+		}
+	};
+});
+
 /*
 	Handle every aspect of user authentification. 
 	*/

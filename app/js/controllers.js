@@ -5,7 +5,7 @@
 var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast']);
 
 
-datingController.controller('ApplicationController',['$scope','USER_ROLES','AuthService','$location','$log','Session','UserService','$rootScope','$route','USER_EVENTS','AUTH_EVENTS','FacebookAuthService','$window', function ($scope, USER_ROLES, AuthService, $location, $log, Session, UserService, $rootScope, $route, USER_EVENTS, AUTH_EVENTS, FacebookAuthService, $window) {
+datingController.controller('ApplicationController',['$scope','USER_ROLES','AuthService','$location','Session','UserService','$rootScope','FacebookAuthService','$window', 'ToastService', function ($scope, USER_ROLES, AuthService, $location, Session, UserService, $rootScope, FacebookAuthService, $window, ToastService) {
 
 	$scope.userRoles = USER_ROLES;
 	$scope.isAuthorized = AuthService.isAuthorized;
@@ -24,7 +24,7 @@ datingController.controller('ApplicationController',['$scope','USER_ROLES','Auth
 	// Logout user
 	$scope.logout = function () {
 		AuthService.logout().then(function (res) {
-			$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+			ToastService.show('You are logged out !', 'danger');
 			$location.path('/');
 		});
 		FacebookAuthService.logout();
@@ -35,28 +35,29 @@ datingController.controller('ApplicationController',['$scope','USER_ROLES','Auth
 		UserService.destroy($rootScope.currentUser.id).then(function (res) {
 			$rootScope.currentUser = null;
 			Session.destroy();
-			$route.reload();
-			$rootScope.$broadcast(USER_EVENTS.deleteSuccess);
+			$location.path('/');
+			ToastService.show('Your account has been deleted !', 'success');
 		}, function () {
-			$rootScope.$broadcast(USER_EVENTS.deleteFailed);
+			ToastService.show('Sorry, we were unable to delete your account, please try again !', 'warning');
 		});
 	};
 
 }]);// End ApplicationController
 
-datingController.controller('MapCtrl', function ($scope, $rootScope, MAP_EVENTS, USER_EVENTS, ProfilService) {
+datingController.controller('MapCtrl', function ($scope, $rootScope, ToastService, MAP_EVENTS, USER_EVENTS, ProfilService) {
 
 	$scope.geocoder;
 	$scope.map;
+	$scope.loading = false;
 
 	$scope.initialize = function () {
 		$scope.geocoder = new google.maps.Geocoder();
 		var latlng = new google.maps.LatLng($rootScope.currentProfil.location.A, $rootScope.currentProfil.location.F);
-		console.log();
 		var mapOptions = {
           center: latlng,
           zoom: 8,
-          scrollwheel: false
+          scrollwheel: false,
+          draggable: false
         };
 		$scope.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
@@ -64,15 +65,20 @@ datingController.controller('MapCtrl', function ($scope, $rootScope, MAP_EVENTS,
 		    map: $scope.map,
 		    position: latlng
 		});
+
+		google.maps.event.addListener($scope.map, 'bounds_changed', function() {
+			$scope.loading = false;
+			$scope.$apply();
+		});
 	};
 
 	$scope.$on(USER_EVENTS.profilLoadSucces, function (event) {
-		console.log("charger");
 		event.currentScope.initialize();
 	});
 
 
 	$scope.codeAddress = function (address) {
+		$scope.loading = true;
 		$scope.geocoder.geocode( { 'address': address}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
 				$scope.map.setCenter(results[0].geometry.location);
@@ -93,6 +99,7 @@ datingController.controller('MapCtrl', function ($scope, $rootScope, MAP_EVENTS,
 	$scope.geolocate = function () {
 		// Try HTML5 geolocation
 		if(navigator.geolocation) {
+			$scope.loading = true;
 	    	navigator.geolocation.getCurrentPosition(function(position) {
 
 				var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -104,9 +111,9 @@ datingController.controller('MapCtrl', function ($scope, $rootScope, MAP_EVENTS,
 
 				$scope.map.setCenter(pos);
 
-			}, function() {
-				$rootScope.$broadcast(MAP_EVENTS.geolocationFailed);
-			});
+			}, function(error) {
+				$scope.$emit(MAP_EVENTS.geolocationFailed);
+			}, {timeout: 5000});
 
 		} else {
 			// Browser doesn't support Geolocation

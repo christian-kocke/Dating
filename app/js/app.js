@@ -78,7 +78,7 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
         $locationProvider.html5Mode(false);
     }
 
-    ]).run(function ($rootScope, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS, MAP_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector, $window, FacebookAuthService) {
+    ]).run(function ($rootScope, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS, MAP_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector, $window, FacebookAuthService, ToastService) {
          
         window.addEventListener('resize', function () {
             console.log($window.innerWidth);
@@ -159,12 +159,7 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
                 content: 'Your session timed out, please reconnect !'
             });
         });
-        $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
-            var aToast = ngToast.create({
-                className: 'danger',
-                content: 'You are logged out !'
-            });
-        });
+
         $rootScope.$on(AUTH_EVENTS.loginFailed, function () {
             var aToast = ngToast.create({
                 className: 'danger',
@@ -255,20 +250,6 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
             });
         });
 
-        // Delete account
-        $rootScope.$on(USER_EVENTS.deleteSuccess, function () {
-            var aToast = ngToast.create({
-                className: 'danger',
-                content: 'Your account has been remove !'
-            });
-        });
-        $rootScope.$on(USER_EVENTS.deleteFailed, function () {
-            var aToast = ngToast.create({
-                className: 'success',
-                content: 'Sorry, we can\'t remove your account, please try again !'
-            });
-        });
-
         //Reset password
         $rootScope.$on(USER_EVENTS.resetSuccess, function () {
             var aToast = ngToast.create({
@@ -301,11 +282,17 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
 
         //map events
         $rootScope.$on(MAP_EVENTS.mapError, function (event, status) {
-            console.log("ok");
             var aToast = ngToast.create({
                 className: 'danger',
                 content: 'map error'
             });
+        });
+
+        $rootScope.$on(MAP_EVENTS.geolocationFailed, function (event) {
+            console.log("ok");
+            ToastService.show('You have disabled geolocation, please re-activate it', 'warning');
+            event.targetScope.loading = false;
+            event.targetScope.$apply();
         });
     });
 

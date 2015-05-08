@@ -168,7 +168,11 @@
 
 						<div class="row">
 							<div class="col-md-5" ng-hide="hideMap">
-								<div id="map-canvas" style="height:200px; width:300px"></div>
+								<div id="map-canvas" style="height:200px; width:300px" ng-hide="loading"></div>
+								<div ng-show="loading">
+									<i class="fa fa-cog fa-spin fa-4x"></i>
+									<div>Locating ...</div>
+								</div>
 							</div><!-- class col-md-6 -->
 							<div class="col-md-7 thinBorders" style="padding:0;">
 								<div class="row">
