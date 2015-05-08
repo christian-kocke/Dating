@@ -2,7 +2,7 @@
 
 	<div class="row">
 		<!-- Username Input -->
-		<div class="col-xs-12 form-group has-feedback" ng-class="{'has-success': loginForm.email.$valid, 'has-error': loginForm.email.$invalid && loginForm.email.$dirty}"> 
+		<div class="col-xs-12 col-sm-12 form-group has-feedback" ng-class="{'has-success': loginForm.email.$valid, 'has-error': loginForm.email.$invalid && loginForm.email.$dirty}"> 
 
 			<label class="sr-only" for="email"> Email </label>
 			<div class="input-group">
@@ -21,7 +21,7 @@
 			<span class="validationError" ng-show="loginForm.email.$error.maxlength"> * The email can't be more than 60 characters </span>
 			<span class="validationError" ng-show="loginForm.email.$error.required && loginForm.email.$dirty"> *The email is required </span>
 
-		</div><!-- class col-xs-12 -->
+		</div><!-- class col-xs-12 col-sm-12 -->
 
 		<!-- Password Input -->
 		<div class="col-xs-12 form-group has-feedback" ng-class="{'has-success': loginForm.password.$valid, 'has-error': loginForm.password.$invalid && loginForm.password.$dirty}">

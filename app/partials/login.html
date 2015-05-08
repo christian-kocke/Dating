@@ -1,0 +1,22 @@
+<div class="row" ng-controller="AuthCtrl">
+
+	<div class="container-fluid pinkBG">
+		<h1> DATING, MADE TRUSTFULLY SOCIAL </h1>
+		<p><em> Meet people championed by their family and friends </em></p>
+	</div><!-- class container-fluid -->
+
+	<div class="container-fluid visible-xs">
+		<div class="container FormMobile" ng-if="screenSize == 'small'" ng-include="'partials/mobile/loginForm.min.html'"></div>
+	</div><!-- class container-fluid -->
+
+	<div class="container-fluid greyBG hidden-xs">
+		<div class="container">
+			<img class="img-responsive" src="img/angels_waiting_for_you.png" alt="Angels Waiting For You">
+		</div><!-- class container -->
+	</div><!-- class container-fluid -->
+
+	<div class="col-md-3 col-md-offset-9 FormContainer hidden-xs">
+		<div ng-if="screenSize == 'large'" ng-include="'partials/loginForm.html'"></div>
+	</div><!-- class col-md-4 col-md-offset-8 -->
+
+</div><!-- row -->
