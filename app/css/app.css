@@ -1,9 +1,300 @@
+/* Fonts Includes */
 @font-face {
 	font-family: 'Open Sans';
 	font-style: normal;
 	font-weight: 100;
 	src: url(fonts/Open_Sans/OpenSans-Regular.ttf);
 }
+/* End Fonts Includes */
+
+
+
+
+/* Titles Settings */
+h1 {
+	text-shadow: 3px 3px #E54C4B;
+	font-size: 200%;
+}
+h2 {
+	margin-top: 0;
+	margin-bottom: 2vh;
+	font-size: 180%;
+}
+h5{
+	font-weight: bold;
+}
+/* End Titles Settings */
+
+
+
+
+/* Background Colors */
+.whiteBG {
+	background-color: #FFFFFF;
+}
+.greyBG1 {
+	background-color: #474A54;
+}
+.greyBG2 {
+	background-color: #F4F4F4;
+}
+.pinkBG1 {
+	background-color: #FF5967;
+	padding: 1% 10% 1% 10%;
+	border-bottom: 4px solid #E54C4B;
+}
+.greenBG {
+	background-color: #00A651;
+}
+.whitePanel {
+	background-color: #FFFFFF;
+	border-radius: 5px;
+	padding: 3vh 0;
+	margin-top: 3vh;
+	overflow: auto;
+	max-height: 70vh;
+	position: absolute;
+	z-index: 0;
+}
+.pinkWell {
+	background-color: #FF7A85;
+	border: none;
+	padding: 0;
+	margin-bottom: 2vh;
+	margin-top: 2vh;
+}
+.blurBG {
+	opacity: 0.9;
+	z-index: 2;
+	background-color: rgb(255,255,255);
+	position: absolute;
+	width: 100%;
+	height: 70vh;
+	visibility: visible;
+}
+.pinkBGCarousel {
+	background-color: #FF5967;
+	border-bottom: 1vh solid #E54C4B;
+}
+.greyBGProfil {
+	background-color: #F4F4F4;
+	height: 71vh;
+}
+.darkGreyBG {
+	background-color: #555555;
+	padding: 0;
+}
+/* End Background Colors */
+
+
+
+
+/* Text Colors */
+.greyTxt1 {
+	color: #656565;
+}
+.greyTxt2 {
+	color: #AEAEAE;
+}
+.whiteTxt {
+	color: #FFFFFF;
+}
+.red {
+	color: red;
+}
+.pinkIcon {
+	color: #E54C4B;
+}
+.pinkTxt {
+	color: #FF5A69;
+	margin-top: 0;
+}
+.greyText {
+	color: #B5B5B5;
+}
+.pinkBG p {
+	color: #FEE8EA;
+}
+/* End Text Colors */
+
+
+
+
+/* Button Colors */
+.pinkBtn {
+	background-color: #E54C4B;
+	color: #FFFFFF;
+}
+.pinkBtnLg {
+	margin-top: 2vh;
+	color: #FFFFFF;
+	padding-left: 8vh;
+	padding-right: 8vh;
+	background-color: #FF5967;
+}
+.fbBtn {
+	background-color: #3C57A2;
+}
+.pinkBtnMd {
+	margin-bottom: 2vh;
+	margin-top: 2vh;
+	color: #FFFFFF;
+	text-align: center;
+	background-color: #FF5967;
+}
+/* End Button Color */
+
+
+
+
+/* Button Sizes & Parameters */
+.largeBtn {
+	width: 80%;
+	padding: 5% 5%;
+	margin: 2% auto;
+}
+.largeBtn:hover, .genderBtn:hover {
+	background-color: #FF5967;
+	color: #FFFFFF;
+}
+.mobileBtn {
+	margin-top: 5%;
+}
+.genderBtn {
+	width: 50%;
+	padding: 2% 0;
+}
+/* End Button Sizes & Parameters */
+
+
+
+
+/* Icons Colors */
+.pinkIcon {
+	color: #E54C4B;
+}
+/* End Icons Colors */
+
+
+
+
+/* Form Setting & Validator */
+.has-feedback .form-control-feedback {
+	top: 0px;
+	right: 2vh;
+	z-index: 2;
+}
+.validationError {
+	color: red;
+	display: block;
+}
+.Form {
+	position: fixed;
+	border-radius: 5px;
+}
+/* End Form Setting & Validator */
+
+
+
+
+/* Img Settings */
+img[alt="Dating"] {
+	height: 50px;
+}
+.imgProfilRounded {
+	border-radius: 50%;
+	width: 140px;
+	height: 140px;
+}
+/* End Img Settings */
+
+
+
+
+/* Navbar Settings */
+.navbar {
+	margin: 0;
+	border-radius: 0;
+	font-size: 100%;
+}
+.navbar-btn {
+	position: relative;
+}
+.navbar-btn:hover, .navbar-btn.activeLink {
+	color: #FFFFFF;
+	background-color: #E54C4B;
+}
+/* End Navbar Settings */
+
+
+
+
+/* Footer Settings */
+.navbar-fixed-bottom {
+	padding: 0 0 0 2vh;
+	font-size: 80%;
+}
+ul.list-inline.navbar-right li {
+	padding: 0;
+}
+.navbar-default .navbar-text {
+	color: #FFFFFF;
+}
+.navbar-text {
+	margin: 15px 0;
+	padding: 0 4px;
+}
+.side-borders {
+	border-right: 1px solid #FFFFFF;
+	border-left: 1px solid #FFFFFF;
+}
+ul.list-inline.navbar-right {
+	margin-bottom: 0;
+}
+/* End Footer Settings */
+
+
+
+
+
+/* Sign In As Settings */
+.signInAs {
+	width: inherit; /* Or auto */
+	padding: 3vh 2vh 0 2vh;
+	margin-left: 30%;
+	margin-right: 30%;
+	margin-bottom: 2vh;
+	border-bottom: none;
+	font-size: 120%;
+}
+.fieldset-border {
+	border: 1px solid #ddd !important;
+	border-radius: 5px;
+	padding: 2% 0 10% 0 !important;
+	margin: 0;
+	font-size: 100%;
+	-webkit-box-shadow:  0px 0px 0px 0px #000;
+	box-shadow:  0px 0px 0px 0px #000;
+}
+/* End Sign In As Settings */
+
+
+
+
+/* Registration Settings */
+.iconCell {
+	padding-right: 2vh;
+	padding-top: 1vh;
+}
+.txtCell {
+	padding-top: 2vh;
+}
+
+/* End Registration Settings */
+
+
+
+
 .row {
 	margin: 0;
 }
@@ -17,249 +308,9 @@ body {
 .view-container {
 	margin-bottom: 50px;
 }
-.blurBG {
-	opacity: 0.9;
-	z-index: 2;
-	background-color: rgb(255,255,255);
-	position: absolute;
-	width: 100%;
-	height: 70vh;
-	visibility: visible;
-}
 .noBlur {
 	z-index: 3;
 	position: absolute;
-}
-.FormContainer {
-	position: fixed;
-	top: 10vh;
-	right: 25vh;
-	padding: 4vh 1vh 4vh 1vh;
-	border-radius: 5px;
-	background-color: white;
-}
-
-/* FORM VALIDATOR */
-.has-feedback .form-control-feedback {
-	top: 0px;
-	right: 2vh;
-	z-index: 2;
-}
-.validationError {
-	color: red;
-	display: block;
-}
-/* ./ Form Validator */
-
-/* NAVBAR SETTINGS */
-img[alt="Dating"] {
-	height: 50px;
-}
-.navbar-white {
-	background-color: white;
-	margin: 0;
-	border-radius: 0;
-}
-.navbar-btn {
-	position: relative;
-	color: #656565;
-	font-size: 90%;
-}
-.navbar-btn:hover, .navbar-btn.activeLink {
-	color: white;
-	background-color: #E54C4B;
-}
-.navbar-btn.activeLink:after {
-	top: 135%;
-	left: 50%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-	border-color: #FF5967;
-	border-top-color: white;
-	border-width: 1vh;
-	margin-left: -1vh;
-}
-.pinkBtn {
-	background-color: #E54C4B;
-	color: white;
-	padding-left: 2vh;
-	padding-right: 2vh;
-}
-/* ./ Navbar Settings */
-
-/* FOOTER SETTINGS */
-.navbar-grey {
-	background-color: #474A54;
-	padding: 0 20vh;
-	color: white;
-	font-size: 80%;
-}
-
-ul.list-inline.navbar-right li {
-	padding: 0;
-}
-.navbar-default .navbar-text {
-	color: white;
-}
-a.navbar-text {
-	margin-left: 0;
-	margin-right: 0;
-	padding-left: 1vh;
-	padding-right: 1vh;
-}
-.side-borders {
-	border-right: 1px solid white;
-	border-left: 1px solid white;
-	margin-left: 0;
-	margin-right: 0;
-	padding-left: 1vh;
-	padding-right: 1vh;
-}
-ul.list-inline.navbar-right {
-	margin-bottom: 0;
-}
-
-/* ./ Footer Settings */
-
-/* LOGIN.HTML SETTINGS */
-.pinkBG {
-	background-color: #FF5967;
-	color: white;
-	padding-top: 5vh;
-	padding-left: 25vh;
-	padding-bottom: 5vh;
-	border-bottom: 1vh solid #E54C4B;
-}
-.pinkBG h1 {
-	text-shadow: 3px 3px #E54C4B;
-	font-size: 200%;
-}
-.pinkBG p {
-	color: #FEE8EA;
-}
-.greyBG {
-	padding-top: 10vh;
-	height: 70vh;
-	background-color: #F4F4F4;
-}
-img[alt="Angels Waiting For You"] {
-	height: 371px;
-	width: 616px;
-}
-legend.signInAs {
-	width: inherit; /* Or auto */
-	padding: 3vh 2vh 0 2vh;
-	margin-left: 11vh;
-	margin-bottom: 2vh;
-	border-bottom: none;
-	color: #FF6D7A;
-	font-size: 120%;
-}
-fieldset.fieldset-border {
-	border: 1px solid #ddd !important;
-	border-radius: 5px;
-	padding: 0 1vh 2vh 1vh !important;
-	margin: 0;
-	font-size: 100%;
-	-webkit-box-shadow:  0px 0px 0px 0px #000;
-	box-shadow:  0px 0px 0px 0px #000;
-}
-.pinkLabel {
-	color: #FF6D7A;
-}
-.greyText {
-	color: #B5B5B5;
-}
-.pinkBtnLg {
-	margin-top: 2vh;
-	color: white;
-	padding-left: 8vh;
-	padding-right: 8vh;
-	background-color: #FF5967;
-}
-fieldset.line-border {
-	border-top: 1px solid #ddd !important;
-	padding: 0 1vh 2vh 1vh !important;
-	margin: 0;
-	font-size: 100%;
-	-webkit-box-shadow:  0px 0px 0px 0px #000;
-	box-shadow:  0px 0px 0px 0px #000;
-}
-legend.or {
-	width: inherit; /* Or auto */
-	padding: 1vh 3vh 0 3vh;
-	margin-left: 15vh;
-	margin-bottom: 2vh;
-	border-bottom: none;
-	color: #ddd;
-	font-size: 100%;
-}
-.fbBtn {
-	background-color: #3C57A2;
-}
-/* ./ Login.html Settings */
-
-/* SIGN UP SETTINGS */
-img[alt="Mobile Version"] {
-	width: 159px;
-	height: 293px;
-}
-.whyUs {
-	margin-top: -3vh;
-}
-.whyUs h2 {
-	margin-top: 0;
-	margin-bottom: 2vh;
-	color: #E54C4B;
-	font-size: 180%;
-}
-.iconCell {
-	padding-right: 2vh;
-	color: #E54C4B;
-}
-.txtCell {
-	padding-top: 2vh;
-}
-.greenBtn {
-	background-color: #00A651;
-	color: white;
-	padding-left: 2vh;
-	padding-right: 2vh;
-	margin-top: 2vh;
-}
-.red {
-	color: red;
-}
-label[for="birthDate"] {
-	color: #AEAEAE;
-	font-weight: bold;
-}
-.btnGroup h5{
-	color: #AEAEAE;
-	font-weight: bold;
-}
-.btnGender:hover, .btnPinked {
-	background-color: #E54C4B;
-	color: white;
-}
-/* ./ Sign Up Settings */
-
-/* USERPROFIL.HTML SETTINGS */
-.pinkBGCarousel {
-	background-color: #FF5967;
-	border-bottom: 1vh solid #E54C4B;
-}
-
-.pinkWell {
-	background-color: #FF7A85;
-	border: none;
-	padding: 0;
-	margin-bottom: 2vh;
-	margin-top: 2vh;
 }
 .pinkWell .list-inline {
 	margin: 0;
@@ -284,52 +335,12 @@ label[for="birthDate"] {
 	margin-top: 1vh;
 	padding-top: 2vh;
 }
-.imgProfilRounded {
-	border-radius: 50%;
-	width: 140px;
-	height: 140px;
-}
-.whitePanel {
-	background-color: #FFFFFF;
-	border-radius: 5px;
-	padding: 3vh 0;
-	margin-top: 3vh;
-	overflow: auto;
-	max-height: 70vh;
-	position: absolute;
-	z-index: 0;
-}
-.whiteBG {
-	visibility: hidden;
-}
 .progress-bar {
 	background-color: #E54C4B;
 }
 .progress {
 	border-radius: 10px;
 	border: 1px solid #D8D8D8;
-}
-.pinkIcon {
-	color: #E54C4B;
-}
-.pinkTxt {
-	color: #FF5A69;
-	margin-top: 0;
-}
-.pinkBtnMd {
-	margin-bottom: 2vh;
-	margin-top: 2vh;
-	color: white;
-	text-align: center;
-	background-color: #FF5967;
-}
-.greyBGProfil {
-	background-color: #F4F4F4;
-	height: 71vh;
-}
-.darkGreyBG {
-	background-color: #555555;
-	padding: 0;
 }
 .photoSticky {
 	padding: 0;
@@ -340,7 +351,7 @@ label[for="birthDate"] {
 	border: 0.1vh solid #F6F6F6;
 }
 .dropzone.lead {
-	border: 1px solid grey;
+	border: 1px solid #A9A9A9;
 	border-radius: 50%;
 	width: 140px;
 	height: 140px;
@@ -361,35 +372,147 @@ label[for="birthDate"] {
 	width: 140px;
 	height: 140px;
 	margin: auto;
-	box-shadow: 6px 6px 6px grey;
+	box-shadow: 6px 6px 6px #A9A9A9;
 }
 .smallIcon {
 	font-size: 20px;
 	color: #CCCCCC;
 }
-/* ./ UserProfil.html Setting */
-@media (max-width: 768px) {
-	.FormMobile {
-		padding-top: 3vh;
-	}
-	.pinkBG {
-		padding: 1vh 5vh 1vh 5vh;
-	}
+.contentBlock {
+	padding: 5% 0;
+}
+
+
+/* Media Queries Mobile */
+@media (max-width: 767px) {
 	.fb {
 		margin-top: 3vh;
 	}
 	.pinkBtnLg {
 		margin-top: 0;
 	}
-	.navbar-grey {
-		background-color: #474A54;
-		padding: 0 0 0 2vh;
-		color: white;
-		font-size: 80%;
+	.pinkBG {
+		padding: 1% 5% 1% 5%;
+	}
+	.loadingLogoContainer {
+		padding-top: 35%;
 	}
 }
-/*@media (min-width: 768px) and (max-width: 1200px) {
-	.pinkBG {
-		padding: 1% 0 1% 10%;
+/* End Media Queries Mobile */
+
+/* Media Queries Tablet */
+@media (min-width: 768px) and (max-width: 991px) {
+	.FormTablet {
+		width: 35%;
+		right: 5%;
+		padding: 3% 0;
 	}
-}*/
+	.LoginTablet {
+		top: 25%;
+	}
+	.RegiTablet {
+		top: 22%;
+	}
+	img[alt="Angels Waiting For You"] {
+		height: 250px;
+		margin-left: 0;
+		margin-top: 10%;
+		margin-left: 3%;
+	}
+	.container {
+		width: auto;
+	}
+	.whyUs {
+		margin-top: 10%;
+	}
+	.loadingLogoContainer {
+		padding-top: 25%;
+	}
+}
+/* End Media Queries Tablet */
+
+/* Media Queries Medium */
+@media (min-width: 992px) and (max-width: 1199px) {
+	img[alt="Angels Waiting For You"] {
+		width: 50%;
+		margin: 8% 5%;
+	}
+	img[alt="Mobile Version"] {
+		width: 180px;
+		height: 320px;
+		margin-top: 20%;
+	}
+	.container {
+		width: auto;
+	}
+	.navbar-btn.activeLink:after {
+		position: absolute;
+		top: 41px;
+		left: 50%;
+		content: "";
+		height: 0;
+		width: 0;
+		pointer-events: none;
+		border: solid transparent;
+		border-color: #FF5967;
+		border-top-color: #FFFFFF;
+		border-width: 1vh;
+		margin-left: -1vh;
+	}
+	.FormMedium {
+		width: 30%;
+		top: 10%;
+		right: 5%;
+		padding: 4vh 1vh 4vh 1vh;
+	}
+	.whyUs {
+		margin-top: 10%;
+	}
+	.loadingLogoContainer {
+		padding-top: 20%;
+	}
+}
+/* End Media Queries Medium */
+
+/* Media Queries Large */
+@media (min-width: 1200px) {
+	img[alt="Angels Waiting For You"] {
+		width: 50%;
+		margin: 4% 5%;
+	}
+	img[alt="Mobile Version"] {
+		width: 200px;
+		height: 350px;
+		margin-top: 20%;
+	}
+	.container {
+		width: auto;
+	}
+	.navbar-btn.activeLink:after {
+		position: absolute;
+		top: 41px;
+		left: 50%;
+		content: "";
+		height: 0;
+		width: 0;
+		pointer-events: none;
+		border: solid transparent;
+		border-color: #FF5967;
+		border-top-color: #FFFFFF;
+		border-width: 1vh;
+		margin-left: -1vh;
+	}
+	.FormLarge {
+		width: 25%;
+		top: 10%;
+		right: 5%;
+		padding: 4vh 1vh 4vh 1vh;
+	}
+	.whyUs {
+		margin-top: 10%;
+	}
+	.loadingLogoContainer {
+		padding-top: 20%;
+	}
+}
+/* End Media Queries Large */

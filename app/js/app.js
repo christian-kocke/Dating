@@ -22,10 +22,10 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
             controller: 'AuthCtrl',
             redirection: ['AuthService', '$log', function (AuthService) {
                 if(AuthService.isAuthenticated()){
-                     return '/profil';
-                }
-            }],
-        }).
+                   return '/profil';
+               }
+           }],
+       }).
         when('/signup', {
             templateUrl: 'partials/registration.html',
             controller: 'RegistrarCtrl',
@@ -81,14 +81,22 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
         $locationProvider.html5Mode(false);
     }
 
+<<<<<<< Updated upstream
     ]).run(function ($rootScope, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS, MAP_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector, $window, FacebookAuthService, ToastService) {
          
+=======
+    ]).run(function ($rootScope, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS, MAP_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector, $window, FacebookAuthService) {
+
+>>>>>>> Stashed changes
         window.addEventListener('resize', function () {
-            console.log($window.innerWidth);
-            if($window.innerWidth > 767) {
-                $rootScope.screenSize = 'large';
+            if($window.innerWidth < 768) {
+                $rootScope.screenSize = 'mobile';
+            } else if($window.innerWidth < 992) {
+                $rootScope.screenSize = 'tablet';
+            } else if($window.innerWidth < 1200) {
+                $rootScope.screenSize = 'medium';
             } else {
-                $rootScope.screenSize = 'small';
+                 $rootScope.screenSize = 'large'
             }
             $rootScope.$apply();
         });
@@ -142,19 +150,19 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
             });
         });
 
-        $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
-            if(next && next.$$route){
-                var redirectionFunction = next.$$route.redirection;
-                if(redirectionFunction){
-                    var route = $injector.invoke(redirectionFunction);
-                    if(route){
-                        $location.path(route);
-                    }
-                }
+$rootScope.$on('$routeChangeSuccess', function (event, next, current) {
+    if(next && next.$$route){
+        var redirectionFunction = next.$$route.redirection;
+        if(redirectionFunction){
+            var route = $injector.invoke(redirectionFunction);
+            if(route){
+                $location.path(route);
             }
-        });
-        
-    
+        }
+    }
+});
+
+
         // Session
         $rootScope.$on(AUTH_EVENTS.sessionTimeout, function () {
             var aToast = ngToast.create({
@@ -357,10 +365,10 @@ datingApp.constant('AUTH_EVENTS', {
     geolocationFailed: 'map-geolocation-failed',
     geolocationNotSupported: 'map-geolocation-not-supported'
 }).constant('RESOURCE', {
-   user: '/api/public/user',
-   userFiles: '/api/public/user/file',
-   profil: '/api/public/user/profil',
-   resetPassword: '/api/public/password',
-   templates: '/dating/app/partials'
+ user: '/api/public/user',
+ userFiles: '/api/public/user/file',
+ profil: '/api/public/user/profil',
+ resetPassword: '/api/public/password',
+ templates: '/dating/app/partials'
 });
 

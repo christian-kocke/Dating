@@ -1,22 +1,45 @@
 <div class="row" ng-controller="AuthCtrl">
 
-	<div class="container-fluid pinkBG">
-		<h1> DATING, MADE TRUSTFULLY SOCIAL </h1>
-		<p><em> Meet people championed by their family and friends </em></p>
+	<div class="container-fluid">
+		<div class="whiteTxt pinkBG1">
+			<h1> DATING, MADE TRUSTFULLY SOCIAL </h1>
+			<p><em> Meet people championed by their family and friends </em></p>
+		</div><!-- class hiteTxt pinkBG -->
 	</div><!-- class container-fluid -->
 
-	<div class="container-fluid visible-xs">
-		<div class="container FormMobile" ng-if="screenSize == 'small'" ng-include="'partials/mobile/loginForm.min.html'"></div>
-	</div><!-- class container-fluid -->
+	<!-- MOBILE -->
+	<div class="container contentBlock whiteBG visible-xs">
+		<div ng-if="screenSize == 'mobile'" ng-include="'partials/mobile/loginForm.mobile.html'"></div>
+	</div><!-- class container contentBlock whiteBG visible-xs -->
 
-	<div class="container-fluid greyBG hidden-xs">
-		<div class="container">
+	<!-- TABLET -->
+	<div class="container-fluid contentBlock visible-sm">
+		<div class="col-sm-12">
 			<img class="img-responsive" src="img/angels_waiting_for_you.png" alt="Angels Waiting For You">
-		</div><!-- class container -->
+		</div><!-- class col-sm-12 -->
+		<div class="Form FormTablet LoginTablet whiteBG">
+			<div ng-if="screenSize == 'tablet'" ng-include="'partials/tablet/loginForm.tablet.html'"></div>
+		</div><!-- class FormTablet whiteBG -->
 	</div><!-- class container-fluid -->
 
-	<div class="col-md-3 col-md-offset-9 FormContainer hidden-xs">
-		<div ng-if="screenSize == 'large'" ng-include="'partials/loginForm.html'"></div>
-	</div><!-- class col-md-4 col-md-offset-8 -->
+	<!-- MEDIUM -->
+	<div class="container-fluid visible-md">
+		<div class="col-md-12">
+			<img class="img-responsive" src="img/angels_waiting_for_you.png" alt="Angels Waiting For You">
+		</div><!-- class col-md-12 -->
+	</div><!-- class container-fluid visible-md -->
+	<div class="Form FormMedium whiteBG visible-md">
+		<div ng-if="screenSize == 'medium'" ng-include="'partials/medium/loginForm.medium.html'"></div>
+	</div><!-- class FormMedium whiteBG visible-md -->
+
+	<!-- LARGE -->
+	<div class="container-fluid visible-lg">
+		<div class="col-md-12">
+			<img class="img-responsive" src="img/angels_waiting_for_you.png" alt="Angels Waiting For You">
+		</div><!-- class col-md-12 -->
+	</div><!-- class container-fluid visible-lg -->
+	<div class="Form FormLarge whiteBG visible-lg">
+		<div ng-if="screenSize == 'large'" ng-include="'partials/large/loginForm.large.html'"></div>
+	</div><!-- class FormLarge whiteBG visible-lg -->
 
 </div><!-- row -->

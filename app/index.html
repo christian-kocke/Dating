@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="components/font-awesome/css/font-awesome.min.css">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
 </head>
-<body ng-cloak ng-controller="ApplicationController">
+<body class="greyBG2" ng-controller="ApplicationController">
     <header>
-        <nav class="navbar navbar-default navbar-white navbar-fixed-top" role="navigation" ng-controller="NavCtrl">
+        <nav class="navbar navbar-default navbar-fixed-top whiteBG" role="navigation" ng-controller="NavCtrl">
             <div class="container">
 
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -28,23 +28,23 @@
                     <a href="#/"><img class="img-responsive" src="img/DatingLogo.png" alt="Dating"></a>
                 </div><!-- class navbar-header -->
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse Top" id="Menu">
+                <div class="collapse navbar-collapse" id="Menu">
 
                     <!-- Logged -->
                     <div class="nav navbar-right" ng-show="currentUser">
-                        <a class="btn navbar-btn" data-toggle="collapse" data-target=".Top"><i class="fa fa-users"></i> People nearby </a>
-                        <a class="btn navbar-btn" data-toggle="collapse" data-target=".Top"><i class="fa fa-random"></i> Encounters </a>
-                        <a class="btn navbar-btn" data-toggle="collapse" data-target=".Top"><i class="fa fa-comments-o"></i> Messages <span class="badge"> 2 </span></a>
-                        <a class="btn btn-default navbar-btn pinkBtn" data-toggle="collapse" data-target=".Top"> Profil </a>
-                        <a class="btn btn defalt navbar-btn pinkBtn" data-toggle="collapse" data-target=".Top"> Help </a>
-                        <a class="btn btn defalt navbar-btn pinkBtn" ng-click="logout()" data-toggle="collapse" data-target=".Top"> Logout </a>
+                        <a class="btn navbar-btn greyTxt1" data-toggle="collapse" data-target="#Menu"><i class="fa fa-users"></i> People nearby </a>
+                        <a class="btn navbar-btn greyTxt1" data-toggle="collapse" data-target="#Menu"><i class="fa fa-random"></i> Encounters </a>
+                        <a class="btn navbar-btn greyTxt1" data-toggle="collapse" data-target="#Menu"><i class="fa fa-comments-o"></i> Messages <span class="badge"> 2 </span></a>
+                        <a class="btn btn-default navbar-btn greyTxt1 pinkBtn" data-toggle="collapse" data-target="#Menu"> Profil </a>
+                        <a class="btn btn defalt navbar-btn greyTxt1 pinkBtn" data-toggle="collapse" data-target="#Menu"> Help </a>
+                        <a class="btn btn defalt navbar-btn greyTxt1 pinkBtn" ng-click="logout()" data-toggle="collapse" data-target="#Menu"> Logout </a>
                     </div><!-- class nav navbar-right -->
 
                     <!-- Not Logged -->
                     <div class="nav navbar-right" ng-hide="currentUser">
-                        <a href="#/" class="btn navbar-btn" ng-class="getClass('/')" data-toggle="collapse" data-target=".Top"> Login </a>
-                        <a href="#/signup" class="btn navbar-btn" ng-class="getClass('/signup')" data-toggle="collapse" data-target=".Top"> Sign up </a>
-                        <a href="#/profil" class="btn navbar-btn" data-toggle="collapse" data-target=".Top"> Champion Someone ! </a>
+                        <a href="#/" class="btn navbar-btn greyTxt1" ng-class="getClass('/')" data-toggle="collapse" data-target="#Menu"> Login </a>
+                        <a href="#/signup" class="btn navbar-btn greyTxt1" ng-class="getClass('/signup')" data-toggle="collapse" data-target="#Menu"> Sign up </a>
+                        <a href="#/profil" class="btn navbar-btn greyTxt1" data-toggle="collapse" data-target="#Menu"> Champion Someone ! </a>
                     </div><!-- class nav navbar-right -->
 
                 </div><!-- class collapse navbar-collapse -->
@@ -60,7 +60,8 @@
     <div id="fb-root"></div>
 
     <footer>
-        <nav class="navbar navbar-default navbar-fixed-bottom navbar-grey visible-xs" role="navigation">
+        <!-- Mobile Version -->
+        <nav class="navbar navbar-default navbar-fixed-bottom greyBG1 visible-xs" role="navigation">
             <div class="container">
 
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -74,21 +75,22 @@
                     <p class="navbar-text"> Copyright @ Dating App 2015 </p>
                 </div><!-- class navbar-header -->
 
-                <div class="collapse navbar-collapse footer" id="BottomMenu">
+                <div class="collapse navbar-collapse" id="BottomMenu">
                     <div class="nav navbar-right">
                         <ul class="list-inline navbar-right">
-                            <a class="navbar-text btn navbar-btn" data-toggle="collapse" data-target=".footer"> Top </a>
-                            <a class="navbar-text btn navbar-btn" data-toggle="collapse" data-target=".footer"> About Us </a>
-                            <a class="navbar-text btn navbar-btn" data-toggle="collapse" data-target=".footer"> Site Map </a>
-                            <a class="navbar-text btn navbar-btn" data-toggle="collapse" data-target=".footer"> Terms of use </a>
-                            <a class="navbar-text btn navbar-btn" data-toggle="collapse" data-target=".footer"> Policy </a>
+                            <a class="navbar-text btn navbar-btn" data-toggle="collapse" data-target="#BottomMenu"> Top </a>
+                            <a class="navbar-text btn navbar-btn" data-toggle="collapse" data-target="#BottomMenu"> About Us </a>
+                            <a class="navbar-text btn navbar-btn" data-toggle="collapse" data-target="#BottomMenu"> Site Map </a>
+                            <a class="navbar-text btn navbar-btn" data-toggle="collapse" data-target="#BottomMenu"> Terms of use </a>
+                            <a class="navbar-text btn navbar-btn" data-toggle="collapse" data-target="#BottomMenu"> Policy </a>
                         </ul><!-- class nav navbar-right -->
                     </div><!-- class nav navbar-right -->
                 </div><!-- class collapse navbar-collapse -->
             </div><!-- container -->
         </nav><!-- class navbar navbar-default -->
 
-        <nav class="navbar navbar-default navbar-fixed-bottom navbar-grey hidden-xs" role="navigation">
+        <!-- Large Version -->
+        <nav class="navbar navbar-default navbar-fixed-bottom greyBG1 hidden-xs" role="navigation">
             <div class="container">
 
                 <!-- Brand and toggle get grouped for better mobile display -->

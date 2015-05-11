@@ -12,10 +12,14 @@ datingController.controller('ApplicationController',['$scope','USER_ROLES','Auth
 	$rootScope.screenSize = "";
 
 	$scope.onload = function() {
-		if($window.innerWidth > 767) {
-			$rootScope.screenSize = 'large';
+		if($window.innerWidth < 768) {
+			$rootScope.screenSize = 'mobile';
+		} else if($window.innerWidth < 992) {
+			$rootScope.screenSize = 'tablet';
+		} else if($window.innerWidth < 1200) {
+			$rootScope.screenSize = 'medium';
 		} else {
-			$rootScope.screenSize = 'small';
+			$rootScope.screenSize = 'large'
 		}
 	};
 
@@ -54,17 +58,24 @@ datingController.controller('MapCtrl', function ($scope, $rootScope, ToastServic
 		$scope.geocoder = new google.maps.Geocoder();
 		var latlng = new google.maps.LatLng($rootScope.currentProfil.location.A, $rootScope.currentProfil.location.F);
 		var mapOptions = {
+<<<<<<< Updated upstream
           center: latlng,
           zoom: 11,
           minZoom:10,
           scrollwheel: false,
           draggable: false
         };
+=======
+			center: latlng,
+			zoom: 8,
+			scrollwheel: false
+		};
+>>>>>>> Stashed changes
 		$scope.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
 		var marker = new google.maps.Marker({
-		    map: $scope.map,
-		    position: latlng
+			map: $scope.map,
+			position: latlng
 		});
 
 		google.maps.event.addListener($scope.map, 'bounds_changed', function() {
@@ -85,8 +96,8 @@ datingController.controller('MapCtrl', function ($scope, $rootScope, ToastServic
 			if (status == google.maps.GeocoderStatus.OK) {
 				$scope.map.setCenter(results[0].geometry.location);
 				var marker = new google.maps.Marker({
-				    map: $scope.map,
-				    position: results[0].geometry.location
+					map: $scope.map,
+					position: results[0].geometry.location
 				});
 				console.log(results[0].geometry.location);
 				ProfilService.update({location: marker.position}).then(function (res) {
@@ -101,14 +112,18 @@ datingController.controller('MapCtrl', function ($scope, $rootScope, ToastServic
 	$scope.geolocate = function () {
 		// Try HTML5 geolocation
 		if(navigator.geolocation) {
+<<<<<<< Updated upstream
 			$scope.loading = true;
 	    	navigator.geolocation.getCurrentPosition(function(position) {
+=======
+			navigator.geolocation.getCurrentPosition(function(position) {
+>>>>>>> Stashed changes
 
 				var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
 				var marker = new google.maps.Marker({
-				    map: $scope.map,
-				    position: pos
+					map: $scope.map,
+					position: pos
 				});
 
 				$scope.map.setCenter(pos);
@@ -193,8 +208,6 @@ datingController.controller('RegistrarCtrl', function (UserService, $rootScope, 
 		UserService.create(user).then(function (res) {
 			if(parseInt(res)){
 				$rootScope.$broadcast(USER_EVENTS.registrationSuccess);
-				$scope.user = {};
-				$scope.signUpForm.$setPristine();
 				$scope.submitted = true;
 			}else{
 				$rootScope.$broadcast(USER_EVENTS.registrationFailed);
@@ -203,6 +216,7 @@ datingController.controller('RegistrarCtrl', function (UserService, $rootScope, 
 			$rootScope.$broadcast(USER_EVENTS.registrationFailed);
 		}).finally(function () {
 			$scope.loading = false;
+			console.log($scope.submitted);
 		});
 	};
 

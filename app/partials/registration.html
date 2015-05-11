@@ -1,62 +1,154 @@
 <div class="row" ng-controller="RegistrarCtrl">
 
-	<div class="container-fluid pinkBG" ng-hide="submitted">
-		<h1> CREATE AN ACCOUNT </h1>
-		<p><em> Meet people championed by their family and friends </em></p>
+	<div class="container-fluid" ng-hide="loading || submitted">
+		<div class="whiteTxt pinkBG1">
+			<h1> CREATE AN ACCOUNT </h1>
+			<p><em> Meet people championed by their family and friends </em></p>
+		</div><!-- class whiteTxt pinkBG -->
 	</div><!-- class container-fluid -->
 
-	<div class="container-fluid pinkBG" ng-show="submitted">
-		<h1> CHECK YOUR MAILBOX ! </h1>
-		<p><em> We sent you an email with a link to activate your account ! </em></p>
-	</div><!-- class container-fluid -->
+	<div class="container-fluid" ng-show="submitted">
+		<div class="whiteTxt pinkBG1">
+			<h1> CHECK YOUR MAILBOX ! </h1>
+			<p><em> We sent you an email with a link to activate your account ! </em></p>
+		</div><!-- whiteTxt pinkBG -->
+	</div><!-- class container-fluid pinkBG -->
 
-	<div class="container-fluid visible-xs">
-		<div class="container FormMobile" ng-if="screenSize == 'small'" ng-include="'partials/mobile/registrationForm.min.html'"></div>
-	</div><!-- class container-fluid -->
+	<!-- MOBILE -->
+	<div class="container contentBlock whiteBG visible-xs" ng-hide="loading || submitted">
+		<div ng-if="screenSize == 'mobile'" ng-include="'partials/mobile/registrationForm.mobile.html'"></div>
+	</div><!-- class container contentBlock whiteBG visible-xs -->
+	<div class="col-xs-12 text-center loadingLogoContainer visible-xs" ng-show="loading && !submitted">
+		<i class="fa fa-circle-o-notch fa-spin fa-4x"></i>
+	</div><!-- class col-xs-12 -->
 
-	<div class="container-fluid greyBG hidden-xs">
-		<div class="container" ng-hide="submitted">
-			<div class="col-md-2">
-				<img class="img-responsive" src="img/mobileVersion.png" alt="Mobile Version">
-			</div><!-- class col-md-6 -->
-			
-			<div class="col-md-4 whyUs">
-				
-				<h2> WHY US ? </h2>
-				<ul class="nav nav-pills">
-					<li>
-						<table>
-							<td class="iconCell"><i class="fa fa-check-circle-o fa-2x"></i></td>
-							<td class="txtCell"><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hac habitasse platea dictumst. </p></td>
-						</table>
-					</li>
-					<li>
-						<table>
-							<td class="iconCell"><i class="fa fa-check-circle-o fa-2x"></i></td>
-							<td class="txtCell"><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hac habitasse platea dictumst. </p></td>
-						</table>
-					</li>
-					<li>
-						<table>
-							<td class="iconCell"><i class="fa fa-check-circle-o fa-2x"></i></td>
-							<td class="txtCell"><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hac habitasse platea dictumst. </p></td>
-						</table>
-					</li>
-					<li>
-						<button class="btn btn-default greenBtn" role="navigation"> Mobile Version </button>
-					</li>
-				</ul><!-- class nav nav-pills -->
-
-			</div><!-- class col-md-6 -->
+	<!-- TABLET -->
+	<div class="container-fluid contentBlock visible-sm">
+		<div class="container">
+			<div class="col-sm-12" ng-hide="loading || submitted">
+				<div class="col-sm-7 whyUs">
+					<h2 class="pinkTxt"> WHY US ? </h2>
+					<ul class="nav nav-pills">
+						<li>
+							<table>
+								<td class="iconCell pinkIcon"><i class="fa fa-check-circle-o fa-2x"></i></td>
+								<td class="txtCell"><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hac habitasse platea dictumst. </p></td>
+							</table>
+						</li>
+						<li>
+							<table>
+								<td class="iconCell pinkIcon"><i class="fa fa-check-circle-o fa-2x"></i></td>
+								<td class="txtCell"><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hac habitasse platea dictumst. </p></td>
+							</table>
+						</li>
+						<li>
+							<table>
+								<td class="iconCell pinkIcon"><i class="fa fa-check-circle-o fa-2x"></i></td>
+								<td class="txtCell"><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hac habitasse platea dictumst. </p></td>
+							</table>
+						</li>
+					</ul><!-- class nav nav-pills -->
+					<button class="btn btn-default center-block mobileBtn greenBG whiteTxt" role="navigation"> Mobile Version </button>
+				</div><!-- class col-sm-4 -->
+			</div><!-- class col-sm-12 -->
+			<div class="col-sm-12" ng-show="loading && !submitted">
+				<div class="col-sm-4 col-sm-offset-4 text-center loadingLogoContainer">
+					<i class="fa fa-circle-o-notch fa-spin fa-4x"></i>
+				</div><!-- class col-sm-4 col-sm-offset-4 text-center loadingLogoContainer -->
+			</div><!-- class col-sm-12 -->
 		</div><!-- class container -->
+		<div class="Form FormTablet RegiTablet whiteBG" ng-hide="loading || submitted">
+			<div ng-if="screenSize == 'tablet'" ng-include="'partials/tablet/registrationForm.tablet.html'"></div>
+		</div><!-- class col-sm-6 FormTablet -->
+	</div><!-- class container-fluid contentBlock visible-sm -->
 
-		<div class="col-md-4 col-md-offset-4" ng-show="loading && !submitted">
-			<i class="fa fa-circle-o-notch fa-spin fa-4x"></i>
-		</div>
-
+	<!-- MEDIUM -->
+	<div class="container-fluid content-block visible-md">
+		<div class="container">
+			<div class="col-md-12" ng-hide="loading || submitted">
+				<div class="col-md-9">
+					<div class="col-md-4">
+						<img class="img-responsive" src="img/mobileVersion.png" alt="Mobile Version">
+					</div><!-- class col-md-4 -->
+					<div class="col-md-6 whyUs">
+						<h2 class="pinkTxt"> WHY US ? </h2>
+						<ul class="nav nav-pills">
+							<li>
+								<table>
+									<td class="iconCell pinkIcon"><i class="fa fa-check-circle-o fa-2x"></i></td>
+									<td class="txtCell"><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hac habitasse platea dictumst. </p></td>
+								</table>
+							</li>
+							<li>
+								<table>
+									<td class="iconCell pinkIcon"><i class="fa fa-check-circle-o fa-2x"></i></td>
+									<td class="txtCell"><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hac habitasse platea dictumst. </p></td>
+								</table>
+							</li>
+							<li>
+								<table>
+									<td class="iconCell pinkIcon"><i class="fa fa-check-circle-o fa-2x"></i></td>
+									<td class="txtCell"><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hac habitasse platea dictumst. </p></td>
+								</table>
+							</li>
+						</ul><!-- class nav nav-pills -->
+						<button class="btn btn-default center-block mobileBtn greenBG whiteTxt" role="navigation"> Mobile Version </button>
+					</div><!-- class col-md-6 whyUs -->
+				</div><!-- class col-md-9 -->
+			</div><!-- class col-md-12 -->
+			<div class="col-md-12" ng-show="loading && !submitted">
+				<div class="col-sm-4 col-sm-offset-4 text-center loadingLogoContainer">
+					<i class="fa fa-circle-o-notch fa-spin fa-4x"></i>
+				</div><!-- class col-sm-4 col-sm-offset-4 text-center loadingLogoContainer -->
+			</div><!-- class col-md-12 -->
+		</div><!-- class container -->
 	</div><!-- class container-fluid -->
+	<div class="col-md-3 col-md-offset-9 Form FormMedium whiteBG visible-md" ng-hide="loading || submitted">
+		<div ng-if="screenSize == 'medium'" ng-include="'partials/medium/registrationForm.medium.html'"></div>
+	</div><!-- class col-md-4 col-md-offset-8 -->
 
-	<div class="col-md-3 col-md-offset-9 FormContainer hidden-xs" ng-hide="submitted">
-		<div ng-if="screenSize == 'large'" ng-include="'partials/registrationForm.html'"></div>
+	<!-- LARGE -->
+	<div class="container-fluid content-block visible-lg">
+		<div class="container">
+			<div class="col-md-12" ng-hide="loading || submitted">
+				<div class="col-md-9">
+					<div class="col-md-4">
+						<img class="img-responsive" src="img/mobileVersion.png" alt="Mobile Version">
+					</div><!-- class col-md-4 -->
+					<div class="col-md-6 whyUs">
+						<h2 class="pinkTxt"> WHY US ? </h2>
+						<ul class="nav nav-pills">
+							<li>
+								<table>
+									<td class="iconCell pinkIcon"><i class="fa fa-check-circle-o fa-2x"></i></td>
+									<td class="txtCell"><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hac habitasse platea dictumst. </p></td>
+								</table>
+							</li>
+							<li>
+								<table>
+									<td class="iconCell pinkIcon"><i class="fa fa-check-circle-o fa-2x"></i></td>
+									<td class="txtCell"><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hac habitasse platea dictumst. </p></td>
+								</table>
+							</li>
+							<li>
+								<table>
+									<td class="iconCell pinkIcon"><i class="fa fa-check-circle-o fa-2x"></i></td>
+									<td class="txtCell"><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hac habitasse platea dictumst. </p></td>
+								</table>
+							</li>
+						</ul><!-- class nav nav-pills -->
+						<button class="btn btn-default center-block mobileBtn greenBG whiteTxt" role="navigation"> Mobile Version </button>
+					</div><!-- class col-md-6 whyUs -->
+				</div><!-- class col-md-9 -->
+			</div><!-- class col-md-12 -->
+			<div class="col-md-12" ng-show="loading && !submitted">
+				<div class="col-sm-4 col-sm-offset-4 text-center loadingLogoContainer">
+					<i class="fa fa-circle-o-notch fa-spin fa-4x"></i>
+				</div><!-- class col-sm-4 col-sm-offset-4 text-center loadingLogoContainer -->
+			</div><!-- class col-md-12 -->
+		</div><!-- class container -->
+	</div><!-- class container-fluid -->
+	<div class="col-md-3 col-md-offset-9 Form FormLarge whiteBG visible-lg" ng-hide="loading || submitted">
+		<div ng-if="screenSize == 'large'" ng-include="'partials/large/registrationForm.large.html'"></div>
 	</div><!-- class col-md-4 col-md-offset-8 -->
 </div><!-- container text-center -->
