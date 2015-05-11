@@ -71,6 +71,7 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
     $locationProvider.html5Mode(false);
 
 }]).run(['$rootScope','AUTH_EVENTS','FILE_EVENTS','USER_EVENTS','MAP_EVENTS','ngToast','AuthService','$log','Session','$q','$location','$injector','$window','FacebookAuthService','ToastService', function ($rootScope, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS, MAP_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector, $window, FacebookAuthService, ToastService) {
+
     window.addEventListener('resize', function () {
         if($window.innerWidth < 768) {
             $rootScope.screenSize = 'mobile';
@@ -83,6 +84,14 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
         }
         $rootScope.$apply();
     });
+
+
+    Dropzone.options.zone = {
+        paramName: "file",
+        init: function() {
+            this.on("addedfile", function(file) { alert("Added file."); });
+          }
+    };
 
     (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];

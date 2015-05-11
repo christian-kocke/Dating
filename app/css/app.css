@@ -180,14 +180,12 @@ img[alt="Dating"] {
 
 /* Dropzone Settings */
 .dropzone {
-	border: 1px solid #A9A9A9;
 	border-radius: 50%;
-	width: 140px;
-	height: 140px;
-	margin: 0 auto;
+	width: 150px;
+	margin: auto;
 }
 .dropTxt {
-	margin: 40% auto 0 auto;
+	margin: 35% auto 0 auto;
 	font-size: 120%;
 }
 /* Dropzone Settings */
@@ -349,6 +347,10 @@ body {
 	height: 200px;
 }
 /* End Map Settings */
+
+
+
+
 .noBlur {
 	z-index: 3;
 	position: absolute;

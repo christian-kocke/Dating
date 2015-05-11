@@ -4,6 +4,22 @@
 
 var datingService = angular.module('datingServices', ['ngResource']);
 
+
+datingService.factory('UtilityService', function () {
+
+	return {
+		randomAlphaNumeric: function randString (x) {
+		    var s = "";
+		    while(s.length<x&&x>0){
+		        var r = Math.random();
+		        s+= (r<0.1?Math.floor(r*100):String.fromCharCode(Math.floor(r*26) + (r>0.5?97:65)));
+		    }
+		    return s;
+		}
+	};
+});
+
+
 datingService.factory('FileService',['$http','$rootScope','$upload', function ($http, $rootScope, $upload) {
 
 	var fileService = {};
@@ -16,7 +32,8 @@ datingService.factory('FileService',['$http','$rootScope','$upload', function ($
 		if (files && files.length) {
 
 			for (var i = 0; i < files.length; i++) {
-				var file = files[i];
+				console.log(files);
+				var file = jic.compress(files[i], 100, 'png');
 
 				var promise = $upload.upload({
 					url: url,

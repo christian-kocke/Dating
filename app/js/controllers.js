@@ -105,6 +105,7 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 		if(navigator.geolocation) {
 			$scope.loading = true;
 	    	navigator.geolocation.getCurrentPosition(function(position) {
+
 				var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
 				var marker = new google.maps.Marker({
@@ -126,7 +127,8 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 
 }]); // End MapCtrl
 
-datingController.controller('ProfilCtrl',['$scope','$upload','FileService','$rootScope','FILE_EVENTS','USER_EVENTS','RESOURCE','$routeParams','ProfilService','$location', function ($scope, $upload, FileService, $rootScope, FILE_EVENTS, USER_EVENTS, RESOURCE, $routeParams, ProfilService, $location) {
+
+datingController.controller('ProfilCtrl',['$scope','$upload','FileService','$rootScope','FILE_EVENTS','USER_EVENTS','RESOURCE','$routeParams','ProfilService','$location', 'UtilityService', function ($scope, $upload, FileService, $rootScope, FILE_EVENTS, USER_EVENTS, RESOURCE, $routeParams, ProfilService, $location, UtilityService) {
 
 	$scope.activeTab = 'profil';
 
@@ -138,36 +140,34 @@ datingController.controller('ProfilCtrl',['$scope','$upload','FileService','$roo
 		$scope.activeTab = path;
 	}; // End setClass()
 
-	$scope.loadProfil = function () {
-		ProfilService.show($rootScope.currentUser.id).then(function (profil) {
-			profil.location = JSON.parse(profil.location);
-			$rootScope.currentProfil = profil;
-			$rootScope.$broadcast(USER_EVENTS.profilLoadSucces);
-		}, function () {
-			$rootScope.$broadcast(USER_EVENTS.profilLoadFailed);
-		});
-	}; // End loadProfil()
 	
 	// Waiting for a Drop
 	$scope.$watch('profilPicture', function () {
-		$scope.upload($scope.profilPicture, RESOURCE.userFiles, '/app/imgDrop/ProfilPictures/', 'user_'+$rootScope.currentUser.id);
+		if(angular.isDefined($rootScope.currentProfil)) {
+			angular.forEach($scope.upload($scope.profilPicture, RESOURCE.userFiles, '/app/imgDrop/ProfilPictures/', 'user_'+$rootScope.currentUser.id), function (promise) {
+				promise.then(function (res) {
+					console.log(res.data);
+				});
+			}); 
+	
+		}
 	});
 
 	$scope.$watch('photos', function () {
-		$scope.upload($scope.photos, RESOURCE.userFiles, '/app/imgDrop/ProfilPictures/', 'user_'+$rootScope.currentUser.id);
+		$scope.upload($scope.photos, RESOURCE.photos, '/app/imgDrop/photos/', 'photo_'+UtilityService.randomAlphaNumeric(10));
 	});
 
 	// When an element is dropped
 	$scope.upload = function (file, route, path, name) {
-		angular.forEach(FileService.upload(file, route, path, name), function (promise) {
-			promise.then(function (res) {
-				$rootScope.currentProfil.profil_path = res.data + '?decache=' + Math.random();
+
+		return angular.forEach(FileService.upload(file, route, path, name), function (promise) {
+			return promise.then(function (res) {
 				$rootScope.$broadcast(FILE_EVENTS.uploadSuccess);
+				return res.data + '?decache=' + Math.random();
 			}, function () {
 				$rootScope.$broadcast(FILE_EVENTS.updateFailed);
 			});
 		});
-
 	}; // End upload()
 
 	$scope.update = function () {
