@@ -66,6 +66,7 @@ class UserController extends Controller {
 				$token = str_random(20);
 				Mail::send('emails.activation', ['token' => $token], function($message)
 				{
+					error_log($this->_user->email);
 					$message->to($this->_user->email, $this->_user->firstname." ".$this->_user->lastname)->subject('Activate your account !');
 				});	
 				return response(DB::update('update users set activation_token = ? where id = ?', [$token, $this->_user->id]));

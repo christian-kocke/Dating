@@ -1,10 +1,10 @@
 <div class="row" ng-controller="AuthCtrl">
 
 	<div class="container-fluid">
-		<div class="whiteTxt pinkBG1">
+		<div class="whiteTxt pinkBG1 headerContainer">
 			<h1> DATING, MADE TRUSTFULLY SOCIAL </h1>
 			<p><em> Meet people championed by their family and friends </em></p>
-		</div><!-- class hiteTxt pinkBG -->
+		</div><!-- class whiteTxt pinkBG headerContainer -->
 	</div><!-- class container-fluid -->
 
 	<!-- MOBILE -->
@@ -16,10 +16,10 @@
 	<div class="container-fluid contentBlock visible-sm">
 		<div class="col-sm-12">
 			<img class="img-responsive" src="img/angels_waiting_for_you.png" alt="Angels Waiting For You">
+			<div class="Form FormTablet LoginTablet whiteBG">
+				<div ng-if="screenSize == 'tablet'" ng-include="'partials/tablet/loginForm.tablet.html'"></div>
+			</div><!-- class FormTablet whiteBG -->
 		</div><!-- class col-sm-12 -->
-		<div class="Form FormTablet LoginTablet whiteBG">
-			<div ng-if="screenSize == 'tablet'" ng-include="'partials/tablet/loginForm.tablet.html'"></div>
-		</div><!-- class FormTablet whiteBG -->
 	</div><!-- class container-fluid -->
 
 	<!-- MEDIUM -->

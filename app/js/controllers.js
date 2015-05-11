@@ -131,7 +131,7 @@ datingController.controller('ProfilCtrl',['$scope','$upload','FileService','$roo
 	$scope.activeTab = 'profil';
 
 	$scope.getClass = function (path) {
-		return ($scope.activeTab === path) ? "pinkBtnMd" : "";
+		return ($scope.activeTab === path) ? "pinkBtn" : "";
 	}; // End getClass()
 
 	$scope.setClass = function (path) {
@@ -262,7 +262,7 @@ datingController.controller('NavCtrl',['$scope','$location', function ($scope, $
 	}; // End getClass()
 }]); // End NavCtrl
 
-datingController.controller('AuthCtrl',['$scope','$rootScope','$route','$location','AUTH_EVENTS','AuthService','FacebookAuthService','AuthInterceptor', function ($scope, $log, $rootScope, $route, $location, AUTH_EVENTS, AuthService, FacebookAuthService, AuthInterceptor) {
+datingController.controller('AuthCtrl',['$scope','$rootScope','$route','$location','AUTH_EVENTS','AuthService','FacebookAuthService','AuthInterceptor', function ($scope, $rootScope, $route, $location, AUTH_EVENTS, AuthService, FacebookAuthService, AuthInterceptor) {
 
 	$scope.credentials = {};
 

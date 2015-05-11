@@ -16,12 +16,11 @@ h1 {
 	font-size: 200%;
 }
 h2 {
-	margin-top: 0;
-	margin-bottom: 2vh;
-	font-size: 180%;
+	margin: 0 0 10% 0;
+	font-size: 200%;
 }
 h5{
-	font-weight: bold;
+	font-weight: normal;
 }
 /* End Titles Settings */
 
@@ -38,30 +37,17 @@ h5{
 .greyBG2 {
 	background-color: #F4F4F4;
 }
+.greyBG3 {
+	background-color: #CC626A;
+}
 .pinkBG1 {
 	background-color: #FF5967;
-	padding: 1% 10% 1% 10%;
-	border-bottom: 4px solid #E54C4B;
+}
+.pinkBG2 {
+	background-color: #FF7A85;
 }
 .greenBG {
 	background-color: #00A651;
-}
-.whitePanel {
-	background-color: #FFFFFF;
-	border-radius: 5px;
-	padding: 3vh 0;
-	margin-top: 3vh;
-	overflow: auto;
-	max-height: 70vh;
-	position: absolute;
-	z-index: 0;
-}
-.pinkWell {
-	background-color: #FF7A85;
-	border: none;
-	padding: 0;
-	margin-bottom: 2vh;
-	margin-top: 2vh;
 }
 .blurBG {
 	opacity: 0.9;
@@ -71,18 +57,6 @@ h5{
 	width: 100%;
 	height: 70vh;
 	visibility: visible;
-}
-.pinkBGCarousel {
-	background-color: #FF5967;
-	border-bottom: 1vh solid #E54C4B;
-}
-.greyBGProfil {
-	background-color: #F4F4F4;
-	height: 71vh;
-}
-.darkGreyBG {
-	background-color: #555555;
-	padding: 0;
 }
 /* End Background Colors */
 
@@ -96,6 +70,12 @@ h5{
 .greyTxt2 {
 	color: #AEAEAE;
 }
+.greyTxt3 {
+	color: #E6B1B5;
+}
+.greyTxt4 {
+	color: #CCCCCC;
+}
 .whiteTxt {
 	color: #FFFFFF;
 }
@@ -107,10 +87,6 @@ h5{
 }
 .pinkTxt {
 	color: #FF5A69;
-	margin-top: 0;
-}
-.greyText {
-	color: #B5B5B5;
 }
 .pinkBG p {
 	color: #FEE8EA;
@@ -135,13 +111,6 @@ h5{
 .fbBtn {
 	background-color: #3C57A2;
 }
-.pinkBtnMd {
-	margin-bottom: 2vh;
-	margin-top: 2vh;
-	color: #FFFFFF;
-	text-align: center;
-	background-color: #FF5967;
-}
 /* End Button Color */
 
 
@@ -153,9 +122,12 @@ h5{
 	padding: 5% 5%;
 	margin: 2% auto;
 }
-.largeBtn:hover, .genderBtn:hover {
+.largeBtn:hover, .genderBtn:hover, .popularityBtn:hover, .sectionBtn:hover {
 	background-color: #FF5967;
 	color: #FFFFFF;
+}
+.popularityBtn {
+	padding: 5% 0;
 }
 .mobileBtn {
 	margin-top: 5%;
@@ -165,15 +137,6 @@ h5{
 	padding: 2% 0;
 }
 /* End Button Sizes & Parameters */
-
-
-
-
-/* Icons Colors */
-.pinkIcon {
-	color: #E54C4B;
-}
-/* End Icons Colors */
 
 
 
@@ -206,7 +169,28 @@ img[alt="Dating"] {
 	width: 140px;
 	height: 140px;
 }
+.carouselPicture {
+	border-radius: 10px;
+	width: 80px;
+	height: 80px;
+}
 /* End Img Settings */
+
+
+
+/* Dropzone Settings */
+.dropzone {
+	border: 1px solid #A9A9A9;
+	border-radius: 50%;
+	width: 140px;
+	height: 140px;
+	margin: 0 auto;
+}
+.dropTxt {
+	margin: 40% auto 0 auto;
+	font-size: 120%;
+}
+/* Dropzone Settings */
 
 
 
@@ -289,12 +273,12 @@ ul.list-inline.navbar-right {
 .txtCell {
 	padding-top: 2vh;
 }
-
 /* End Registration Settings */
 
 
 
 
+/* Containers Settings */
 .row {
 	margin: 0;
 }
@@ -308,32 +292,66 @@ body {
 .view-container {
 	margin-bottom: 50px;
 }
-.noBlur {
-	z-index: 3;
-	position: absolute;
+.headerContainer {
+	padding: 1% 10% 1% 10%;
+	border-bottom: 4px solid #E54C4B;
 }
-.pinkWell .list-inline {
-	margin: 0;
-	padding-top: 1vh;
-}
-.smallProfil {
+.carouselContainer {
 	border-radius: 5px;
-	width: 80px;
-	height: 80px;
+	padding: 1% 0;
 }
-.mediumProfil {
-	width: 140px;
-	height: 120px;
+.carouselArrowContainer {
+	padding: 0;
 }
-.scrollProfilsArrow {
+.carouselArrow {
 	height: 80px;
 	width: 40px;
-	background-color: #CC626A;
-	color: #E6B1B5;
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
 	margin-top: 1vh;
 	padding-top: 2vh;
+}
+.list-inline {
+	margin-bottom: 0;
+	padding-top: 0.5%;
+}
+.panel.panel-default {
+	padding: 5% 0;
+	margin-top: 10%;
+	border: none;
+}
+.profilContainer {
+	padding: 0 10%;
+}
+.iconContainer {
+	padding: 0;
+}
+.contentBlock {
+	padding: 5% 0;
+}
+.linkList {
+	margin-top: 5%;
+}
+.fa-ul li {
+	margin: 4% 0;
+}
+.thinBorders {
+	border: 0.5px solid #F6F6F6;
+	padding: 0;
+}
+/* End Containers Settings */
+
+
+
+/* Map Settings */
+#map-canvas {
+ 	width: 300px;
+	height: 200px;
+}
+/* End Map Settings */
+.noBlur {
+	z-index: 3;
+	position: absolute;
 }
 .progress-bar {
 	background-color: #E54C4B;
@@ -342,44 +360,8 @@ body {
 	border-radius: 10px;
 	border: 1px solid #D8D8D8;
 }
-.photoSticky {
-	padding: 0;
-	width: 120px;
-	height: 120px;
-}
-.thinBorders {
-	border: 0.1vh solid #F6F6F6;
-}
-.dropzone.lead {
-	border: 1px solid #A9A9A9;
-	border-radius: 50%;
-	width: 140px;
-	height: 140px;
-	margin: auto;
-	font-size: 120%;
-	padding-top: 3.5em;
-}
-.drop-box {
-	width: 170px;
-	height: 170px;
-	margin: auto;
-}
-.dragover {
-	opacity: 0.4;
-}
-.dropImg {
-	border-radius: 50%;
-	width: 140px;
-	height: 140px;
-	margin: auto;
-	box-shadow: 6px 6px 6px #A9A9A9;
-}
 .smallIcon {
 	font-size: 20px;
-	color: #CCCCCC;
-}
-.contentBlock {
-	padding: 5% 0;
 }
 
 

@@ -1,217 +1,215 @@
-<div class="row" ng-controller="ProfilCtrl">
+<div class="container-fluid" ng-controller="ProfilCtrl" ng-init="loadProfil()">
 
-	<div class="container-fluid pinkBGCarousel">
+	<div class="container-fluid">
+		<div class="pinkBG1 headerContainer">
 
-		<div class="container well pinkWell">
-			<div class="row">
-
-				<div class="col-md-11">
+			<div class="container pinkBG2 carouselContainer">
+				<div class="col-lg-11">
 					<ul class="list-inline">
-						<li><img class="img-responsive smallProfil" src="img/Profils/profil1.png"></li>
-						<li><img class="img-responsive smallProfil" src="img/Profils/profil2.png"></li>
-						<li><img class="img-responsive smallProfil" src="img/Profils/profil3.png"></li>
-						<li><img class="img-responsive smallProfil" src="img/Profils/profil4.png"></li>
-						<li><img class="img-responsive smallProfil" src="img/Profils/profil5.png"></li>
-						<li><img class="img-responsive smallProfil" src="img/Profils/profil6.png"></li>
-						<li><img class="img-responsive smallProfil" src="img/Profils/profil7.png"></li>
-						<li><img class="img-responsive smallProfil" src="img/Profils/profil8.png"></li>
-						<li><img class="img-responsive smallProfil" src="img/Profils/profil9.png"></li>
-						<li><img class="img-responsive smallProfil" src="img/Profils/profil10.png"></li>
+						<li><img class="img-responsive carouselPicture" src="img/Profils/profil1.png"></li>
+						<li><img class="img-responsive carouselPicture" src="img/Profils/profil2.png"></li>
+						<li><img class="img-responsive carouselPicture" src="img/Profils/profil3.png"></li>
+						<li><img class="img-responsive carouselPicture" src="img/Profils/profil4.png"></li>
+						<li><img class="img-responsive carouselPicture" src="img/Profils/profil5.png"></li>
+						<li><img class="img-responsive carouselPicture" src="img/Profils/profil6.png"></li>
+						<li><img class="img-responsive carouselPicture" src="img/Profils/profil7.png"></li>
+						<li><img class="img-responsive carouselPicture" src="img/Profils/profil8.png"></li>
+						<li><img class="img-responsive carouselPicture" src="img/Profils/profil9.png"></li>
+						<li><img class="img-responsive carouselPicture" src="img/Profils/profil10.png"></li>
+						<li><img class="img-responsive carouselPicture" src="img/Profils/profil10.png"></li>
 					</ul><!-- class list-inline -->
-				</div><!-- class col-md-11 -->
+				</div><!-- class col-lg-11 -->
 
-				<div class="col-md-1 scrollProfilsArrow text-center">
-					<i class="fa fa-caret-right fa-4x"></i>
-				</div><!-- class col-md-1 -->
+				<div class="col-lg-1 carouselArrowContainer">
+					<div class="carouselArrow greyBG3 greyTxt3 text-center">
+						<i class="fa fa-caret-right fa-4x"></i>
+					</div><!-- class carouselArrow greyBG3 greyTxt3 text-center -->
+				</div><!-- class col-lg-1 carouselArrowContainer -->
+			</div><!-- class container-fluid pinkBG2 carouselContainer -->
 
-			</div><!-- class row -->
-		</div><!-- well pinkWell -->
-
+		</div><!-- class pinkBG1 headerContainer -->
 	</div><!-- class container-fluid -->
 
-	<div class="container-fluid greyBGProfil">
+	<div class="container profilContainer">
+		<div class="row">
 
-		<!-- Profil Section -->
-		<div class="container" style="padding:0;">
-			<div class="row">
-				<!-- Information panel -->
-				<div class="col-md-3">
-					<div class="whitePanel text-center">
-						<div ng-class="{blurBG: updateProfil, whiteBG: !updateProfil}"></div>
-						<!-- Profil Picture -->
+			<!-- Informations panel -->
+			<div class="col-lg-3">
+				<div class="panel panel-default text-center">
+					
+					<!-- Profil picture -->
+					<div class="row">
+						<!-- Drag & Drop Zone -->
+						<div class="dropzone" ng-file-drop ng-file-select ng-model="profilPicture" allow-dir="true" accept="image/*,application/pdf">
+							<p class="dropTxt" ng-hide="currentProfil.profil_path"> Drop or click ! <span class="glyphicon glyphicon-cloud-download"></span></p>
+							<img class="dropImg" ng-show="currentProfil.profil_path" ng-src="{{currentProfil.profil_path}}"/>
+							<h6 class="text-info" ng-show="currentProfil.profil_path"><em> * Click to Edit it! </em></h6>
+						</div><!-- class drop-box -->
+					</div><!-- class row -->
+
+					<!-- Name , Age -->
+					<div class="row">
+						<p class="lead"> {{currentUser.username | capitalize}}, {{currentProfil.age}} </p>
+						<input ng-class="{noBlur: updateProfil}" ng-show="updateProfil" ng-model="user.username" value="" class="form-control" type="text" placeholder="New Username..."/>
+					</div><!-- class row -->
+
+					<!-- Popularity -->
+					<div class="row">
+						<div class="progress">
+							<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+							</div><!-- class progress-bar -->
+						</div><!-- class progress -->
+
 						<div class="row">
-							<!-- Drag & Drop Zone -->
-							<div ng-file-drop class="drop-box" ng-file-select ng-model="profilPicture" allow-dir="true" accept="image/*,application/pdf">
-								<p class="dropzone lead" drag-over-class="dragover" ng-hide="currentProfil.profil_path"> Drop or click ! <span class="glyphicon glyphicon-cloud-download"></span></p>
-								<img class="dropImg" ng-show="currentProfil.profil_path" ng-src="{{currentProfil.profil_path}}"/>
-								<h6 class="text-info" ng-show="currentProfil.profil_path"><em> * Click to Edit it! </em></h6>
-							</div><!-- class drop-box -->
-						</div><!-- class row -->
-
-						<!-- Name , Age -->
-						<div class="row">
-							<p class="lead"> {{currentUser.username | capitalize}}, {{currentProfil.age}} </p>
-							<input ng-class="{noBlur: updateProfil}" ng-show="updateProfil" ng-model="user.username" value="" class="form-control" type="text" placeholder="New Username..."/>
-						</div><!-- class row -->
-
-						<!-- Popularity -->
-						<div class="row">
-
-							<div class="col-md-12">
-								<div class="progress">
-									<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-									</div><!-- class progress-bar -->
-								</div><!-- class progress -->
-							</div><!-- class col-md-12 -->
-
-							<div class="col-md-2">
+							<div class="col-lg-1 iconContainer">
 								<i class="fa fa-heart-o"></i>
-							</div><!-- class col-md-2 -->
-
-							<div class="col-md-8">
-								<p> Your Popularity: <strong class="pinkTxt"> LOW </strong></p>
-							</div><!-- class col-md-8 -->
-
-							<div class="col-md-2">
+							</div>
+							<div class="col-lg-10">			
+								<p> Your Popularity : <strong class="pinkTxt"> LOW </strong></p>
+							</div>
+							<div class="col-lg-1 iconContainer">
 								<i class="fa fa-heart pinkIcon"></i>
-							</div><!-- class col-md-2 -->
-
-						</div><!-- class row -->
-
-						<!-- Increase your popularity Button -->
-						<div class="row">
-							<div class="col-md-12">
-								<a class="btn pinkBtnMd center-block"> Increase Your Popularity </a>
-							</div><!-- class col-md-12 -->
-						</div><!-- class row -->
-
-						<!-- List of links -->
-						<div class="row">
-							<div class="col-md-10 col-md-offset-2">
-								<ul class="list-unstyled fa-ul text-left">
-									<li><i class="fa-li fa fa-eye"></i><a> Profil visitors </a></li>
-									<li><i class="fa-li fa fa-thumbs-up"></i><a> Liked You <span class="badge"> 2 </span></a></li>
-									<li><i class="fa-li fa fa-heart"></i><a> Favorites </a></li>
-									<li><i class="fa-li fa fa-comments"></i><a> Comments <span class="badge"> 5 </span></a></li>
-									<li><i class="fa-li fa fa-lock"></i><a> Blocked </a></li>
-								</ul>
-							</div><!-- class col-md-10 col-md-offset-2 -->
-						</div><!-- class row -->
-					</div>
-				</div><!-- class col-md-3 /. Information panel -->
-
-				<!-- Profil Panel -->
-				<div class="col-md-9">
-					<div class="whitePanel" ng-controller="MapCtrl">
-						<div ng-class="{blurBG: updateProfil, whiteBG: !updateProfil}"></div>
-						<!-- Header, switch buttons -->
-						<div class="row">
-							<div class="col-md-4">
-								<h1 class="pinkTxt">
-									<i class="fa fa-heart"></i> {{activeTab | capitalize}} 
-									<span ng-click="updateProfil = true" ng-hide="updateProfil" class="glyphicon glyphicon-pencil smallIcon"></span>
-								</h1>
-							</div><!-- class col-md-4 -->
-							<div class="col-md-4 col-md-offset-4 text-right">
-								<a class="btn pinkBtnMd" ng-show="updateProfil" ng-click="updateProfil = false" ng-class="{noBlur: updateProfil}"><i class="fa fa-check"></i> Save Changes </a>
-								<a class="btn" ng-click="setClass('profil')" ng-class="getClass('profil')"><i class="fa fa-user"></i> Profil </a>
-								<a class="btn" ng-click="setClass('photos')" ng-class="getClass('photos')"><i class="fa fa-picture-o"></i> Photos </a>
-							</div><!-- class col-md-4 col-md-offset-4 -->
-						</div><!-- class row -->
-
-						<div class="row content" ng-show="activeTab === 'profil'">
-							<div class="row">
-								<div class="col-md-2">
-									<p><i class="fa fa-child fa-lg"></i><strong> 8 </strong> Friends </p>
-								</div><!-- class col-md-2 -->
-								<div class="col-md-2">
-									<p><i class="fa fa-info-circle fa-lg"></i><strong> 5 </strong> Interests </p>
-								</div><!-- class col-md-2 -->
-								<div class="col-md-4">
-									<p><i class="fa fa-user-plus fa-lg"></i><strong> 18 </strong> Angel Recommended </p>
-								</div><!-- class col-md-2 -->
-							</div><!-- class row -->
-							
-							<div class="row">
-								<div class="col-md-12 darkGreyBG">
-									<div class="col-md-2 photoSticky">
-										<img class="img-responsive mediumProfil" src="img/photo.png">
-									</div><!-- class col-md-2 -->
-									<div class="col-md-2 photoSticky">
-										<img class="img-responsive mediumProfil" src="img/photo2.png">
-									</div><!-- class col-md-2 -->
-								</div><!-- class container-fluid -->
-							</div><!-- class row -->
-							
-							<div class="row">
-
-								<div class="col-md-5 thinBorders">
-									<div class="col-md-6" style="padding-top: 1vh;">
-										<p class="text-left greyText"> Location : <span class="pinkTxt"> Singapore </span></p>
-										<button ng-click="geolocate()">Geolocate Me !</button>
-										<input ng-class="{noBlur: updateProfil}" ng-show="updateProfil" ng-model="user.location" ng-blur="codeAddress(user.location)" value="" class="form-control" type="text" placeholder="Your location..."/>
-									</div><!-- class col-md-6 -->
-
-									<div class="col-md-6 text-right">
-										<a class="btn btn-link" ng-click="hideMap = !hideMap"><i class="fa fa-map-marker"></i> Hide Map </a>
-									</div><!-- class col-md-6 -->
-								</div><!-- class col-md-5 -->
-
-								<div class="col-md-4 thinBorders">
-									<p class="pinkTxt" style="padding-top: 1vh;"> Profil score : <span class="badge"> 9 </span></p>
-								</div><!-- col-md-3 -->
-
-								<div class="col-md-3 thinBorders">
-									<p class="pinkTxt" style="padding-top: 1vh;"> Your References </p>
-								</div><!-- class col-md-3 -->
-
-							</div><!-- class row -->
-							
-							<div class="row">
-								<div class="col-md-5" ng-hide="hideMap">
-									<div id="map-canvas" style="height:200px; width:300px" ng-hide="loading"></div>
-									<div ng-show="loading">
-										<i class="fa fa-cog fa-spin fa-4x"></i>
-										<div>Locating ...</div>
-									</div>
-								</div><!-- class col-md-6 -->
-								<div class="col-md-7 thinBorders" style="padding:0;">
-									<div class="row">
-										<div class="col-md-7 thinBorders text-center">
-											<p> Add 3 photos showing only you and find out how many people likes </p>
-											<a class="btn btn-default"> Add Photos </a>
-										</div>
-										<div class="col-md-5 thinBorders">
-											<p> You don't have any award yet. Find out how to get them. </p>
-											<a class="btn btn-default"> Get Award </a>
-										</div>
-										<div class="col-md-12 thinBorders">
-											<p class="pinkTxt" style="padding-top: 1vh;"> Recommended by <span class="badge"> 8 </span></p>
-										</div>
-									</div><!-- class row -->
-								</div>
-							</div><!-- class row -->
-						</div><!-- class row content -->
-						<div class="row content" ng-show="activeTab === 'photos'">
-							<div ng-file-drop class="drop-box" ng-file-select ng-model="photos" allow-dir="true" accept="image/*,application/pdf">
-								<p class="dropzone lead" drag-over-class="dragover" ng-hide="currentProfil.profil_path"> Drop or click ! <span class="glyphicon glyphicon-cloud-download"></span></p>
-								<img class="dropImg" ng-show="currentProfil.profil_path" ng-src="{{currentProfil.profil_path}}"/>
-							</div><!-- class drop-box -->
-							<div class="photos-display" ng-repeat="photo in photos">
-								<div>
-									<img ng-src="{{photo.path}}" alt="photo">
-								</div>
 							</div>
 						</div>
-					</div>
-				</div><!-- class col-md-9 -->
+					</div><!-- class row -->
 
-			</div><!-- class row -->
-		</div><!-- class container /. Profil Section -->
+					<!-- Increase your popularity Button -->
+					<div class="row">
+						<div class="col-lg-12">
+							<a class="btn pinkBtn popularityBtn center-block"> Increase Your Popularity </a>
+						</div><!-- class col-lg-12 -->
+					</div><!-- class row -->
 
-		<!-- Photos Section -->
-		<div class="container">
-		</div><!-- class container /. Photos Section -->
-	</div><!-- class container-fluid -->
+					<!-- List of links -->
+					<div class="row">
+						<div class="col-lg-12 linkList">
+							<ul class="list-unstyled fa-ul text-left">
+								<li class="greyTxt1"><i class="fa-li fa fa-eye"></i><a class="greyTxt1"> Profil visitors </a></li>
+								<li class="greyTxt1"><i class="fa-li fa fa-thumbs-up"></i><a class="greyTxt1"> Liked You <span class="badge pinkBG1"> 2 </span></a></li>
+								<li class="greyTxt1"><i class="fa-li fa fa-heart"></i><a class="greyTxt1"> Favorites </a></li>
+								<li class="greyTxt1"><i class="fa-li fa fa-comments"></i><a class="greyTxt1"> Comments <span class="badge pinkBG1"> 5 </span></a></li>
+								<li class="greyTxt1"><i class="fa-li fa fa-lock"></i><a class="greyTxt1"> Blocked </a></li>
+							</ul><!-- class list-unstyled fa-ul text-left -->
+						</div><!-- class col-lg-10 col-lg-offset-2 -->
+					</div><!-- class row -->
 
-</div><!-- container text-center -->
+				</div><!-- class panel panel-default -->
+			</div><!-- class col-lg-3 -->
+
+			<div class="col-lg-9">
+				<div class="panel panel-default" ng-controller="MapCtrl">
+
+					<div class="row">
+						
+						<div class="col-lg-4">
+							<h2 class="pinkTxt">
+								<i class="fa fa-heart"></i> {{activeTab | capitalize}}
+								<span ng-click="updateProfil = true" ng-hide="updateProfil" class="glyphicon glyphicon-pencil greyTxt4 smallIcon"></span>
+							</h2><!-- class pinkTxt -->
+						</div><!-- class col-lg-4 -->
+						
+						<div class="col-lg-4 col-lg-offset-4 text-right">
+							<a class="btn pinkBtn sectionBtn" ng-show="updateProfil" ng-click="updateProfil = false" ng-class="{noBlur: updateProfil}"><i class="fa fa-check"></i> Save Changes </a>
+							<a class="btn sectionBtn" ng-click="setClass('profil')" ng-class="getClass('profil')"><i class="fa fa-user"></i> Profil </a>
+							<a class="btn sectionBtn" ng-click="setClass('photos')" ng-class="getClass('photos')"><i class="fa fa-picture-o"></i> Photos </a>
+						</div><!-- class col-lg-4 col-lg-offset-4 text-right -->
+
+					</div><!-- class row -->
+
+
+					<!-- Profil Section -->
+					<div class="row" ng-show="activeTab === 'profil'">
+						
+						<!-- Numeric informations -->
+						<div class="row">
+							<div class="col-lg-2">
+								<p><i class="fa fa-child fa-lg"></i><strong> 8 </strong> Friends </p>
+							</div><!-- class col-lg-2 -->
+							<div class="col-lg-2">
+								<p><i class="fa fa-info-circle fa-lg"></i><strong> 5 </strong> Interests </p>
+							</div><!-- class col-lg-2 -->
+							<div class="col-lg-4">
+								<p><i class="fa fa-user-plus fa-lg"></i><strong> 18 </strong> Angel Recommended </p>
+							</div><!-- class col-lg-4 -->
+						</div><!-- class row -->
+
+						<!-- Location, Profil Score, References -->
+						<div class="row">
+
+							<div class="col-lg-5 thinBorders">
+								
+								<div class="col-lg-6">
+									<h5 class="text-left greyTxt2"> Location : <span class="pinkTxt"> Singapore </span></h5>
+									<input ng-class="{noBlur: updateProfil}" ng-show="updateProfil" ng-model="user.location" ng-blur="codeAddress(user.location)" value="" class="form-control" type="text" placeholder="Your location..."/>
+									<button ng-click="geolocate()"> Geolocate Me ! </button>
+								</div><!-- class col-lg-6 -->
+
+								<div class="col-lg-6 text-right">
+									<a class="btn btn-link" ng-click="hideMap = !hideMap"><i class="fa fa-map-marker"></i> Hide Map </a>
+								</div><!-- class col-lg-6 -->
+
+							</div><!-- class col-lg-5 -->
+
+							<div class="col-lg-4 thinBorders">
+								<h5 class="text-left pinkTxt"> Profil score : <span class="badge pinkBG1"> 9 </span></h5>
+							</div><!-- class col-lg-4 thinBorders -->
+
+							<div class="col-lg-3 thinBorders">
+								<h5 class="text-left pinkTxt"> Your References </h5>
+							</div><!-- class col-lg-3 thinBorders -->
+
+						</div><!-- class row -->
+
+						<div class="row">
+							
+							<div class="col-lg-5" ng-hide="hideMap">
+								<div id="map-canvas" ng-hide="loading"></div>
+								<div ng-show="loading">
+									<i class="fa fa-cog fa-spin fa-4x"></i>
+									<div> Locating ... </div>
+								</div>
+							</div><!-- class col-lg-5 -->
+
+							<div class="col-lg-7 thinBorders" style="padding:0;">
+								<div class="row">
+									<div class="col-lg-7 thinBorders text-center">
+										<p> Add 3 photos showing only you and find out how many people likes </p>
+										<a class="btn btn-default"> Add Photos </a>
+									</div>
+									<div class="col-lg-5 thinBorders">
+										<p> You don't have any award yet. Find out how to get them. </p>
+										<a class="btn btn-default"> Get Award </a>
+									</div>
+									<div class="col-lg-12 thinBorders">
+										<p class="pinkTxt" style="padding-top: 1vh;"> Recommended by <span class="badge pinkBG1"> 8 </span></p>
+									</div>
+								</div><!-- class row -->
+							</div>
+						</div><!-- class row -->
+
+					</div><!-- class row -->
+
+					<!-- Photos Section -->
+					<div class="row content" ng-show="activeTab === 'photos'">
+						<div ng-file-drop class="drop-box" ng-file-select ng-model="photos" allow-dir="true" accept="image/*,application/pdf">
+							<p class="dropzone lead" drag-over-class="dragover" ng-hide="currentProfil.profil_path"> Drop or click ! <span class="glyphicon glyphicon-cloud-download"></span></p>
+							<img class="dropImg" ng-show="currentProfil.profil_path" ng-src="{{currentProfil.profil_path}}"/>
+						</div><!-- class drop-box -->
+						<div class="photos-display" ng-repeat="photo in photos">
+							<div>
+								<img ng-src="{{photo.path}}" alt="photo">
+							</div>
+						</div><!-- class photo-display -->
+					</div><!-- class row content -->
+
+				</div><!-- class panel panel-default -->
+			</div><!-- class col-lg-9 -->
+
+		</div><!-- class row -->
+	</div><!-- class container -->
+
+	<!-- Photos Section -->
+	<div class="container">
+	</div><!-- class container /. Photos Section -->
+
+</div><!-- class row -->
