@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+
+<meta charset="utf-8">
+
+<title>Dropzone simple example</title>
+
+
+<!--
+  DO NOT SIMPLY COPY THOSE LINES. Download the JS and CSS files from the
+  latest release (https://github.com/enyo/dropzone/releases/latest), and
+  host them yourself!
+-->
+<link rel="stylesheet" href="../components/dropzone/dropzone.css">
+<script src="../components/dropzone/dropzone.js"></script>
+<script src="../js/JIC.js"></script>
+
+<script type="text/javascript">
+	Dropzone.options.zone = {
+		url: '/api/public/user/file',
+		paramName: 'file',
+		uploadMultiple: true,
+		headers: {
+			name: 'photo_34',
+			path: '/app/imgDrop/photos/'
+		},
+		init: function() {
+			this.on("addedfile", function(file) { 
+				console.log(file);
+				var img = new Image();
+				img.src = URL.createObjectURL(file);
+				jic.compress(img, 100, 'png');
+			});
+
+			this.on('sending', function (file, xhr, formData) {
+				console.log(xhr);
+				console.log('sending');
+			});
+		}
+	};
+
+</script>
+<p>
+	This is the most minimal example of Dropzone. The upload in this example
+	doesn't work, because there is no actual server to handle the file upload.
+</p>
+
+<!-- Change /upload-target to your upload address -->
+<img src="" id="display">
+<form action="/upload-target" class="dropzone" id="zone"></form>
