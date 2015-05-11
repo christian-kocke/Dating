@@ -2,316 +2,298 @@
 
 /* App Module */
 
-var datingApp = angular.module('datingApp', [
-    'ngRoute',
-    'datingControllers',
-    'datingServices',
-    'ngToast',
-    'datingFilters',
-    'datingDirectives',
-    'datingAnimations'
-    ]);
+var datingApp = angular.module('datingApp',['ngRoute','datingControllers','datingServices','ngToast','datingFilters','datingDirectives','datingAnimations']);
 
-datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
-    function($routeProvider, $locationProvider, $rootScope) {
+datingApp.config(['$routeProvider','$locationProvider', function($routeProvider, $locationProvider) {
 
-        $routeProvider.
-        when('/', {
-            templateUrl: 'partials/login.html',
-            url: '/protected',
-            controller: 'AuthCtrl',
-            redirection: ['AuthService', '$log', function (AuthService) {
-                if(AuthService.isAuthenticated()){
-                   return '/profil';
-               }
-           }],
-       }).
-        when('/signup', {
-            templateUrl: 'partials/registration.html',
-            controller: 'RegistrarCtrl',
-            resolve: {
-                auth: function resolveAuthentication(AuthResolver) { 
-                    return AuthResolver.resolve('/profil', false);
-                }
+    $routeProvider.
+    when('/', {
+        templateUrl: 'partials/login.html',
+        url: '/protected',
+        controller: 'AuthCtrl',
+        redirection: ['AuthService', function (AuthService) {
+            if(AuthService.isAuthenticated()) {
+                return '/profil';
             }
-        }).
-        when('/profil', {
-            templateUrl: 'partials/userProfil.html',
-            controller: 'ProfilCtrl',
-            resolve: {
-                auth: function resolveAuthentication(AuthResolver) { 
-                    return AuthResolver.resolve(false, '/');
-                },
-                profil: function resolveProfil(ProfilResolver) {
-                    return ProfilResolver.resolve();
-                }
-            }
-        }).
-        when('/activation/:token', {
-            templateUrl: 'partials/client-activation.html',
-            controller: 'RegistrarCtrl',
-            resolve: {
-                auth: function resolveAuthentication(AuthResolver) { 
-                    return AuthResolver.resolve('/profil', false);
-                }
-            }
-        }).
-        when('/reset/password', {
-            templateUrl: 'partials/send-link.html',
-            controller: 'ResetPasswordCtrl',
-            resolve: {
-                auth: function resolveAuthentication(AuthResolver) { 
-                    return AuthResolver.resolve('/profil', false);
-                }
-            }
-        }).
-        when('/reset/password/:token', {
-            templateUrl: 'partials/change-password.html',
-            controller: 'ResetPasswordCtrl',
-            resolve: {
-                auth: function resolveAuthentication(AuthResolver) { 
-                    return AuthResolver.resolve('/profil', false);
-                },
-            }
-        }).
-        otherwise({
-            redirectTo: '/',
+        }],
+    }).
+    when('/signup', {
+        templateUrl: 'partials/registration.html',
+        controller: 'RegistrarCtrl',
+        resolve: {
+            auth: ['AuthResolver', function resolveAuthentication (AuthResolver) { 
+                return AuthResolver.resolve('/profil', false);
+            }]
+        }
+    }).
+    when('/profil', {
+        templateUrl: 'partials/userProfil.html',
+        controller: 'ProfilCtrl',
+        resolve: {
+            auth: ['AuthResolver', function resolveAuthentication (AuthResolver) { 
+                return AuthResolver.resolve(false, '/');
+            }],
+            profil: ['ProfilResolver', function resolveProfil (ProfilResolver) {
+                return ProfilResolver.resolve();
+            }]
+        }
+    }).
+    when('/activation/:token', {
+        templateUrl: 'partials/client-activation.html',
+        controller: 'RegistrarCtrl',
+        resolve: {
+            auth: ['AuthResolver', function resolveAuthentication (AuthResolver) { 
+                return AuthResolver.resolve('/profil', false);
+            }]
+        }
+    }).
+    when('/reset/password', {
+        templateUrl: 'partials/send-link.html',
+        controller: 'ResetPasswordCtrl',
+        resolve: {
+            auth: ['AuthResolver', function resolveAuthentication (AuthResolver) { 
+                return AuthResolver.resolve('/profil', false);
+            }]
+        }
+    }).
+    when('/reset/password/:token', {
+        templateUrl: 'partials/change-password.html',
+        controller: 'ResetPasswordCtrl',
+        resolve: {
+            auth: ['AuthResolver', function resolveAuthentication (AuthResolver) { 
+                return AuthResolver.resolve('/profil', false);
+            }],
+        }
+    }).
+    otherwise({
+        redirectTo: '/',
+    });
+    $locationProvider.html5Mode(false);
+
+}]).run(['$rootScope','AUTH_EVENTS','FILE_EVENTS','USER_EVENTS','MAP_EVENTS','ngToast','AuthService','$log','Session','$q','$location','$injector','$window','FacebookAuthService','ToastService', function ($rootScope, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS, MAP_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector, $window, FacebookAuthService, ToastService) {
+    window.addEventListener('resize', function () {
+        if($window.innerWidth < 768) {
+            $rootScope.screenSize = 'mobile';
+        } else if($window.innerWidth < 992) {
+            $rootScope.screenSize = 'tablet';
+        } else if($window.innerWidth < 1200) {
+            $rootScope.screenSize = 'medium';
+        } else {
+            $rootScope.screenSize = 'large'
+        }
+        $rootScope.$apply();
+    });
+
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    // Facebook sdk initialisation
+    $window.fbAsyncInit = function() {
+        FB.init({ 
+            appId: '460763907420583',
+            channelUrl: '../channel.html',
+            status: true, 
+            cookie: true, 
+            xfbml: true,
+            version: 'v2.3'
         });
+        FacebookAuthService.WatchAuthStatusChange();
+    };
+    $rootScope.deferredFB = $q.defer();
+    $rootScope.deferred = $q.defer();
 
-        $locationProvider.html5Mode(false);
-    }
+    AuthService.retrieveUser().then(function (user) {
+        if(user) {
+            $rootScope.currentUser = user;
+            $rootScope.deferred.resolve("normal success");
+        } else {
+            $rootScope.currentUser = null;
+            $rootScope.deferred.reject("normal echec");
+        }
 
-<<<<<<< Updated upstream
-    ]).run(function ($rootScope, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS, MAP_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector, $window, FacebookAuthService, ToastService) {
-         
-=======
-    ]).run(function ($rootScope, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS, MAP_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector, $window, FacebookAuthService) {
-
->>>>>>> Stashed changes
-        window.addEventListener('resize', function () {
-            if($window.innerWidth < 768) {
-                $rootScope.screenSize = 'mobile';
-            } else if($window.innerWidth < 992) {
-                $rootScope.screenSize = 'tablet';
-            } else if($window.innerWidth < 1200) {
-                $rootScope.screenSize = 'medium';
-            } else {
-                 $rootScope.screenSize = 'large'
-            }
-            $rootScope.$apply();
-        });
-
-        (function(d, s, id){
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-
-        // Facebook sdk initialisation
-        $window.fbAsyncInit = function() {
-            FB.init({ 
-                appId: '460763907420583',
-                channelUrl: '../channel.html',
-                status: true, 
-                cookie: true, 
-                xfbml: true,
-                version: 'v2.3'
-            });
-            FacebookAuthService.WatchAuthStatusChange();
-        };
-        $rootScope.deferredFB = $q.defer();
-        $rootScope.deferred = $q.defer();
-
-        AuthService.retrieveUser().then(function (user) {
-            if(user) {
-                $rootScope.currentUser = user;
-                $rootScope.deferred.resolve("normal success");
-            } else {
-                $rootScope.currentUser = null;
-                $rootScope.deferred.reject("normal echec");
-            }
-
-            $rootScope.$on('$routeChangeStart', function (event, next, current) {
-                if(next && next.data){
-                    var authorizedRoles = next.data.authorizedRoles;
-                    if (!AuthService.isAuthorized(authorizedRoles)) {
-                        event.preventDefault();
-                        if (AuthService.isAuthenticated()) {
-                            // user is not allowed
-                            $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
-                        } else {
-                            // user is not logged in
-                            $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
-                        }
+        $rootScope.$on('$routeChangeStart', function (event, next, current) {
+            if(next && next.data){
+                var authorizedRoles = next.data.authorizedRoles;
+                if (!AuthService.isAuthorized(authorizedRoles)) {
+                    event.preventDefault();
+                    if (AuthService.isAuthenticated()) {
+                        // user is not allowed
+                        $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+                    } else {
+                        // user is not logged in
+                        $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
                     }
                 }
-            });
-        });
-
-$rootScope.$on('$routeChangeSuccess', function (event, next, current) {
-    if(next && next.$$route){
-        var redirectionFunction = next.$$route.redirection;
-        if(redirectionFunction){
-            var route = $injector.invoke(redirectionFunction);
-            if(route){
-                $location.path(route);
             }
-        }
-    }
-});
-
-
-        // Session
-        $rootScope.$on(AUTH_EVENTS.sessionTimeout, function () {
-            var aToast = ngToast.create({
-                className: 'danger',
-                content: 'Your session timed out, please reconnect !'
-            });
-        });
-
-        $rootScope.$on(AUTH_EVENTS.loginFailed, function () {
-            var aToast = ngToast.create({
-                className: 'danger',
-                content: 'Login failed, please verify your informations !'
-            });
-        });
-        $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
-            var aToast = ngToast.create({
-                className: 'success',
-                content: 'Hello , <strong>'+ $rootScope.currentUser.username+'</strong> nice to see you again !'
-            });
-        });
-        $rootScope.$on(AUTH_EVENTS.notAuthenticated, function () {
-            if($location.path() !== '/') {
-                var aToast = ngToast.create({
-                    className: 'danger',
-                    content: 'You\'re not authenticated !'
-                });
-            }
-        });
-        $rootScope.$on(AUTH_EVENTS.notAuthorized, function () {
-            var aToast = ngToast.create({
-                className: 'danger',
-                content: 'You are not authorized !'
-            });
-        });
-
-        // Image Upload 
-        $rootScope.$on(FILE_EVENTS.uploadSuccess, function () {
-            var aToast = ngToast.create({
-                className: 'success',
-                content: 'Your picture has been uploaded !'
-            });
-        });
-        $rootScope.$on(FILE_EVENTS.uploadFailed, function () {
-            var aToast = ngToast.create({
-                className: 'warning',
-                content: 'Sorry, we can\'t upload your picture, maybe try another format !'
-            });
-        });
-
-        // Update Profil Username
-        $rootScope.$on(USER_EVENTS.updateSuccess, function () {
-            AuthService.retrieveUser().then(function (user) {
-                $rootScope.currentUser = user;
-            });
-            var aToast = ngToast.create({
-                className: 'success',
-                content: 'Your profil has been well updated !'
-            });
-        });
-        $rootScope.$on(USER_EVENTS.updateFailed, function () {
-            var aToast = ngToast.create({
-                className: 'warning',
-                content: 'Your profil can\'t be updated, please try again !'
-            });
-        });
-
-
-        // Update Password
-        $rootScope.$on(USER_EVENTS.passwordSuccess, function () {
-            var aToast = ngToast.create({
-                className: 'success',
-                content: 'Your password has been changed !'
-            });
-        });
-        $rootScope.$on(USER_EVENTS.passwordFailed, function () {
-            AuthService.retrieveUser().then(function (user) {
-                $rootScope.currentUser = user;
-            });
-            var aToast = ngToast.create({
-                className: 'warning',
-                content: 'Your password can\'t be changed, please try again !'
-            });
-        });
-
-        // Registration
-        $rootScope.$on(USER_EVENTS.registrationSuccess, function () {
-            var aToast = ngToast.create({
-                className: 'success',
-                content: 'You are well registred, thank you ! <br> Please log in'
-            });
-        });
-        $rootScope.$on(USER_EVENTS.registrationFailed, function () {
-            var aToast = ngToast.create({
-                className: 'warning',
-                content: 'Sorry, the registration failed, please try again !'
-            });
-        });
-
-        //Reset password
-        $rootScope.$on(USER_EVENTS.resetSuccess, function () {
-            var aToast = ngToast.create({
-                className: 'success',
-                content: 'You\'re password has been reset'
-            });
-        });
-
-        $rootScope.$on(USER_EVENTS.resetFailed, function () {
-            var aToast = ngToast.create({
-                className: 'danger',
-                content: 'An error occured while reseting you\'re password'
-            });
-        });
-
-        $rootScope.$on(USER_EVENTS.resetExpired, function () {
-            var aToast = ngToast.create({
-                className: 'danger',
-                content: 'This link has expired !'
-            });
-        });
-
-        //account activation
-        $rootScope.$on(USER_EVENTS.accountNotActivated, function () {
-            var aToast = ngToast.create({
-                className: 'danger',
-                content: 'Your account is not activated, check your mailbox !'
-            });
-        });
-
-        //map events
-        $rootScope.$on(MAP_EVENTS.mapError, function (event, status) {
-            var aToast = ngToast.create({
-                className: 'danger',
-                content: 'map error'
-            });
-        });
-
-        $rootScope.$on(MAP_EVENTS.geolocationFailed, function (event) {
-            console.log("ok");
-            ToastService.show('You have disabled geolocation, please re-activate it', 'warning');
-            event.targetScope.loading = false;
-            event.targetScope.$apply();
         });
     });
 
-datingApp.config(function ($httpProvider) {
+    $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
+        if(next && next.$$route){
+            var redirectionFunction = next.$$route.redirection;
+            if(redirectionFunction){
+                var route = $injector.invoke(redirectionFunction);
+                if(route){
+                    $location.path(route);
+                }
+            }
+        }
+    });
+
+
+    // Session
+    $rootScope.$on(AUTH_EVENTS.sessionTimeout, function () {
+        var aToast = ngToast.create({
+            className: 'danger',
+            content: 'Your session timed out, please reconnect !'
+        });
+    });
+
+    $rootScope.$on(AUTH_EVENTS.loginFailed, function () {
+        var aToast = ngToast.create({
+            className: 'danger',
+            content: 'Login failed, please verify your informations !'
+        });
+    });
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+        var aToast = ngToast.create({
+            className: 'success',
+            content: 'Hello , <strong>'+ $rootScope.currentUser.username+'</strong> nice to see you again !'
+        });
+    });
+    $rootScope.$on(AUTH_EVENTS.notAuthenticated, function () {
+        if($location.path() !== '/') {
+            var aToast = ngToast.create({
+                className: 'danger',
+                content: 'You\'re not authenticated !'
+            });
+        }
+    });
+    $rootScope.$on(AUTH_EVENTS.notAuthorized, function () {
+        var aToast = ngToast.create({
+            className: 'danger',
+            content: 'You are not authorized !'
+        });
+    });
+
+    // Image Upload 
+    $rootScope.$on(FILE_EVENTS.uploadSuccess, function () {
+        var aToast = ngToast.create({
+            className: 'success',
+            content: 'Your picture has been uploaded !'
+        });
+    });
+    $rootScope.$on(FILE_EVENTS.uploadFailed, function () {
+        var aToast = ngToast.create({
+            className: 'warning',
+            content: 'Sorry, we can\'t upload your picture, maybe try another format !'
+        });
+    });
+
+    // Update Profil Username
+    $rootScope.$on(USER_EVENTS.updateSuccess, function () {
+        AuthService.retrieveUser().then(function (user) {
+            $rootScope.currentUser = user;
+        });
+        var aToast = ngToast.create({
+            className: 'success',
+            content: 'Your profil has been well updated !'
+        });
+    });
+    $rootScope.$on(USER_EVENTS.updateFailed, function () {
+        var aToast = ngToast.create({
+            className: 'warning',
+            content: 'Your profil can\'t be updated, please try again !'
+        });
+    });
+
+
+    // Update Password
+    $rootScope.$on(USER_EVENTS.passwordSuccess, function () {
+        var aToast = ngToast.create({
+            className: 'success',
+            content: 'Your password has been changed !'
+        });
+    });
+    $rootScope.$on(USER_EVENTS.passwordFailed, function () {
+        AuthService.retrieveUser().then(function (user) {
+            $rootScope.currentUser = user;
+        });
+        var aToast = ngToast.create({
+            className: 'warning',
+            content: 'Your password can\'t be changed, please try again !'
+        });
+    });
+
+    // Registration
+    $rootScope.$on(USER_EVENTS.registrationSuccess, function () {
+        var aToast = ngToast.create({
+            className: 'success',
+            content: 'You are well registred, thank you ! <br> Please log in'
+        });
+    });
+    $rootScope.$on(USER_EVENTS.registrationFailed, function () {
+        var aToast = ngToast.create({
+            className: 'warning',
+            content: 'Sorry, the registration failed, please try again !'
+        });
+    });
+
+    //Reset password
+    $rootScope.$on(USER_EVENTS.resetSuccess, function () {
+        var aToast = ngToast.create({
+            className: 'success',
+            content: 'You\'re password has been reset'
+        });
+    });
+
+    $rootScope.$on(USER_EVENTS.resetFailed, function () {
+        var aToast = ngToast.create({
+            className: 'danger',
+            content: 'An error occured while reseting you\'re password'
+        });
+    });
+
+    $rootScope.$on(USER_EVENTS.resetExpired, function () {
+        var aToast = ngToast.create({
+            className: 'danger',
+            content: 'This link has expired !'
+        });
+    });
+
+    //account activation
+    $rootScope.$on(USER_EVENTS.accountNotActivated, function () {
+        var aToast = ngToast.create({
+            className: 'danger',
+            content: 'Your account is not activated, check your mailbox !'
+        });
+    });
+
+    //map events
+    $rootScope.$on(MAP_EVENTS.mapError, function (event, status) {
+        var aToast = ngToast.create({
+            className: 'danger',
+            content: 'map error'
+        });
+    });
+
+    $rootScope.$on(MAP_EVENTS.geolocationFailed, function (event) {
+        ToastService.show('You have disabled geolocation, please re-activate it', 'warning');
+        event.targetScope.loading = false;
+        event.targetScope.$apply();
+    });
+}]);
+
+datingApp.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push(['$injector', function ($injector) {
         return $injector.get('AuthInterceptor');
     }]);
-});
+}]);
 
 datingApp.config(['ngToastProvider', function(ngToast) {
 
@@ -365,10 +347,10 @@ datingApp.constant('AUTH_EVENTS', {
     geolocationFailed: 'map-geolocation-failed',
     geolocationNotSupported: 'map-geolocation-not-supported'
 }).constant('RESOURCE', {
- user: '/api/public/user',
- userFiles: '/api/public/user/file',
- profil: '/api/public/user/profil',
- resetPassword: '/api/public/password',
- templates: '/dating/app/partials'
+    user: '/api/public/user',
+    userFiles: '/api/public/user/file',
+    profil: '/api/public/user/profil',
+    resetPassword: '/api/public/password',
+    templates: '/dating/app/partials'
 });
 

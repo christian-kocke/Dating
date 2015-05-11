@@ -5,7 +5,7 @@
 var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast']);
 
 
-datingController.controller('ApplicationController',['$scope','USER_ROLES','AuthService','$location','Session','UserService','$rootScope','FacebookAuthService','$window', 'ToastService', function ($scope, USER_ROLES, AuthService, $location, Session, UserService, $rootScope, FacebookAuthService, $window, ToastService) {
+datingController.controller('ApplicationController',['$scope','USER_ROLES','AuthService','$location','Session','UserService','$rootScope','FacebookAuthService','$window','ToastService', function ($scope, USER_ROLES, AuthService, $location, Session, UserService, $rootScope, FacebookAuthService, $window, ToastService) {
 
 	$scope.userRoles = USER_ROLES;
 	$scope.isAuthorized = AuthService.isAuthorized;
@@ -21,7 +21,7 @@ datingController.controller('ApplicationController',['$scope','USER_ROLES','Auth
 		} else {
 			$rootScope.screenSize = 'large'
 		}
-	};
+	}; // End onload()
 
 	$scope.onload();
 
@@ -44,11 +44,11 @@ datingController.controller('ApplicationController',['$scope','USER_ROLES','Auth
 		}, function () {
 			ToastService.show('Sorry, we were unable to delete your account, please try again !', 'warning');
 		});
-	};
+	}; // End deleteAccount()
 
-}]);// End ApplicationController
+}]); // End ApplicationController
 
-datingController.controller('MapCtrl', function ($scope, $rootScope, ToastService, MAP_EVENTS, USER_EVENTS, ProfilService) {
+datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP_EVENTS','USER_EVENTS','ProfilService', function ($scope, $rootScope, ToastService, MAP_EVENTS, USER_EVENTS, ProfilService) {
 
 	$scope.geocoder;
 	$scope.map;
@@ -58,19 +58,12 @@ datingController.controller('MapCtrl', function ($scope, $rootScope, ToastServic
 		$scope.geocoder = new google.maps.Geocoder();
 		var latlng = new google.maps.LatLng($rootScope.currentProfil.location.A, $rootScope.currentProfil.location.F);
 		var mapOptions = {
-<<<<<<< Updated upstream
           center: latlng,
           zoom: 11,
           minZoom:10,
           scrollwheel: false,
           draggable: false
         };
-=======
-			center: latlng,
-			zoom: 8,
-			scrollwheel: false
-		};
->>>>>>> Stashed changes
 		$scope.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
 		var marker = new google.maps.Marker({
@@ -79,11 +72,10 @@ datingController.controller('MapCtrl', function ($scope, $rootScope, ToastServic
 		});
 
 		google.maps.event.addListener($scope.map, 'bounds_changed', function() {
-			console.log($scope.map.getBounds());
 			$scope.loading = false;
 			$scope.$apply();
 		});
-	};
+	}; // End initialize()
 
 	$scope.$on(USER_EVENTS.profilLoadSucces, function (event) {
 		event.currentScope.initialize();
@@ -99,7 +91,6 @@ datingController.controller('MapCtrl', function ($scope, $rootScope, ToastServic
 					map: $scope.map,
 					position: results[0].geometry.location
 				});
-				console.log(results[0].geometry.location);
 				ProfilService.update({location: marker.position}).then(function (res) {
 
 				});
@@ -107,18 +98,13 @@ datingController.controller('MapCtrl', function ($scope, $rootScope, ToastServic
 				$rootScope.$broadcast(MAP_EVENTS.mapError, status);
 			}
 		});
-	};
+	}; // End codeAddress()
 
 	$scope.geolocate = function () {
 		// Try HTML5 geolocation
 		if(navigator.geolocation) {
-<<<<<<< Updated upstream
 			$scope.loading = true;
 	    	navigator.geolocation.getCurrentPosition(function(position) {
-=======
-			navigator.geolocation.getCurrentPosition(function(position) {
->>>>>>> Stashed changes
-
 				var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
 				var marker = new google.maps.Marker({
@@ -136,21 +122,21 @@ datingController.controller('MapCtrl', function ($scope, $rootScope, ToastServic
 			// Browser doesn't support Geolocation
 			$rootScope.$broadcast(MAP_EVENTS.geolocationNotSupported);
 		}
-	};
+	};// End geolocate()
 
-});
+}]); // End MapCtrl
 
-datingController.controller('ProfilCtrl', function ($scope, $log, $upload, FileService, $rootScope, FILE_EVENTS, USER_EVENTS, RESOURCE, $routeParams, ProfilService, $location) {
+datingController.controller('ProfilCtrl',['$scope','$upload','FileService','$rootScope','FILE_EVENTS','USER_EVENTS','RESOURCE','$routeParams','ProfilService','$location', function ($scope, $upload, FileService, $rootScope, FILE_EVENTS, USER_EVENTS, RESOURCE, $routeParams, ProfilService, $location) {
 
 	$scope.activeTab = 'profil';
 
 	$scope.getClass = function (path) {
 		return ($scope.activeTab === path) ? "pinkBtnMd" : "";
-	};
+	}; // End getClass()
 
 	$scope.setClass = function (path) {
 		$scope.activeTab = path;
-	};
+	}; // End setClass()
 
 	$scope.loadProfil = function () {
 		ProfilService.show($rootScope.currentUser.id).then(function (profil) {
@@ -160,7 +146,7 @@ datingController.controller('ProfilCtrl', function ($scope, $log, $upload, FileS
 		}, function () {
 			$rootScope.$broadcast(USER_EVENTS.profilLoadFailed);
 		});
-	};
+	}; // End loadProfil()
 	
 	// Waiting for a Drop
 	$scope.$watch('profilPicture', function () {
@@ -171,20 +157,18 @@ datingController.controller('ProfilCtrl', function ($scope, $log, $upload, FileS
 		$scope.upload($scope.photos, RESOURCE.userFiles, '/app/imgDrop/ProfilPictures/', 'user_'+$rootScope.currentUser.id);
 	});
 
-
 	// When an element is dropped
 	$scope.upload = function (file, route, path, name) {
 		angular.forEach(FileService.upload(file, route, path, name), function (promise) {
 			promise.then(function (res) {
 				$rootScope.currentProfil.profil_path = res.data + '?decache=' + Math.random();
-				console.log($rootScope.currentProfil);
 				$rootScope.$broadcast(FILE_EVENTS.uploadSuccess);
 			}, function () {
 				$rootScope.$broadcast(FILE_EVENTS.updateFailed);
 			});
 		});
 
-	};// End upload()
+	}; // End upload()
 
 	$scope.update = function () {
 		ProfilService.update().then(function (res) {
@@ -192,11 +176,11 @@ datingController.controller('ProfilCtrl', function ($scope, $log, $upload, FileS
 		}, function () {
 
 		});
-	};
+	}; // End update()
 
-}); // ./End ProfilCtrl
+}]); // ./End ProfilCtrl
 
-datingController.controller('RegistrarCtrl', function (UserService, $rootScope, $scope, $log, $route, $location, USER_EVENTS, $routeParams) {
+datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope','$route','$location','USER_EVENTS','$routeParams', function (UserService, $rootScope, $scope, $route, $location, USER_EVENTS, $routeParams) {
 
 	$scope.submitted = false;
 	$scope.loading = false;
@@ -216,9 +200,8 @@ datingController.controller('RegistrarCtrl', function (UserService, $rootScope, 
 			$rootScope.$broadcast(USER_EVENTS.registrationFailed);
 		}).finally(function () {
 			$scope.loading = false;
-			console.log($scope.submitted);
 		});
-	};
+	}; // End register()
 
 	$scope.activate = function () {
 		if($routeParams.token.length === 20) {
@@ -228,11 +211,11 @@ datingController.controller('RegistrarCtrl', function (UserService, $rootScope, 
 				}
 			});
 		}
-	}
+	}; // End activate()
 
-});
+}]); // End RegistrarCtrl
 
-datingController.controller('ResetPasswordCtrl', function ($rootScope, $scope, $location, $routeParams, ResetService, USER_EVENTS, AuthService) {
+datingController.controller('ResetPasswordCtrl',['$rootScope','$scope','$location','$routeParams','ResetService','USER_EVENTS','AuthService', function ($rootScope, $scope, $location, $routeParams, ResetService, USER_EVENTS, AuthService) {
 
 	$scope.sendEmail = function (email) {
 		$scope.loading = true;
@@ -249,7 +232,7 @@ datingController.controller('ResetPasswordCtrl', function ($rootScope, $scope, $
 		}).finally(function () {
 			$scope.loading = false;
 		});
-	};
+	}; // End sendEmail()
 
 	$scope.resetPassword = function (credentials) {
 		credentials.token = $routeParams.token;
@@ -268,18 +251,18 @@ datingController.controller('ResetPasswordCtrl', function ($rootScope, $scope, $
 		}, function () {
 			$rootScope.$broadcast(USER_EVENTS.resetFailed);
 		});
-	};
-});
+	}; // End resetPassword()
+}]); // End ResetPasswordCtrl
 
 
-datingController.controller('NavCtrl', function ($scope, $log, $location) {
+datingController.controller('NavCtrl',['$scope','$location', function ($scope, $location) {
 
 	$scope.getClass = function(path) {
 		return ($location.path() === path) ? "activeLink" : "";
-	};
-}); // End NavCtrl
+	}; // End getClass()
+}]); // End NavCtrl
 
-datingController.controller('AuthCtrl', function ($scope, $log, $rootScope, $route, $location, AUTH_EVENTS, AuthService, FacebookAuthService, AuthInterceptor) {
+datingController.controller('AuthCtrl',['$scope','$rootScope','$route','$location','AUTH_EVENTS','AuthService','FacebookAuthService','AuthInterceptor', function ($scope, $log, $rootScope, $route, $location, AUTH_EVENTS, AuthService, FacebookAuthService, AuthInterceptor) {
 
 	$scope.credentials = {};
 
@@ -291,7 +274,6 @@ datingController.controller('AuthCtrl', function ($scope, $log, $rootScope, $rou
 			$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
 			$route.reload();
 		}, function (res) {
-			console.log(res);
 			res.status = parseInt(res.data)
 			AuthInterceptor.responseError(res);
 			$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
@@ -300,9 +282,7 @@ datingController.controller('AuthCtrl', function ($scope, $log, $rootScope, $rou
 	}; // End login()
 
 	$scope.facebookLogout = function () {
-		FacebookAuthService.logout().then(function (res) {
-			console.log(res);
-		});
-	}
+		FacebookAuthService.logout().then(function (res) {});
+	}; // En facebookLogout()
 
-}); // End AuthCtrl
+}]); // End AuthCtrl

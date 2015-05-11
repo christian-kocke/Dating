@@ -23,7 +23,7 @@ datingDirective.directive('passwordMatch', function () {
 });
 
 
-datingDirective.directive('passwordCheck', function ($q, ValidationService) {
+datingDirective.directive('passwordCheck',['$q','ValidationService', function ($q, ValidationService) {
 	return {
 		restrict: 'A',
 		require: 'ngModel',
@@ -48,9 +48,9 @@ datingDirective.directive('passwordCheck', function ($q, ValidationService) {
 			}
 		}
 	};
-});
+}]);
 
-datingDirective.directive('emailCheck', function ($q, ValidationService) {
+datingDirective.directive('emailCheck',['$q','ValidationService', function ($q, ValidationService) {
 	return {
 		restrict: 'A',
 		require: 'ngModel',
@@ -74,4 +74,4 @@ datingDirective.directive('emailCheck', function ($q, ValidationService) {
 			}
 		}
 	};
-});
+}]);
