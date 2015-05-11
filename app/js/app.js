@@ -41,6 +41,9 @@ datingApp.config(['$routeProvider', /*'USER_ROLES'*/ '$locationProvider',
             resolve: {
                 auth: function resolveAuthentication(AuthResolver) { 
                     return AuthResolver.resolve(false, '/');
+                },
+                profil: function resolveProfil(ProfilResolver) {
+                    return ProfilResolver.resolve();
                 }
             }
         }).

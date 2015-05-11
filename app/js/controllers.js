@@ -55,7 +55,8 @@ datingController.controller('MapCtrl', function ($scope, $rootScope, ToastServic
 		var latlng = new google.maps.LatLng($rootScope.currentProfil.location.A, $rootScope.currentProfil.location.F);
 		var mapOptions = {
           center: latlng,
-          zoom: 8,
+          zoom: 11,
+          minZoom:10,
           scrollwheel: false,
           draggable: false
         };
@@ -67,6 +68,7 @@ datingController.controller('MapCtrl', function ($scope, $rootScope, ToastServic
 		});
 
 		google.maps.event.addListener($scope.map, 'bounds_changed', function() {
+			console.log($scope.map.getBounds());
 			$scope.loading = false;
 			$scope.$apply();
 		});
@@ -123,7 +125,17 @@ datingController.controller('MapCtrl', function ($scope, $rootScope, ToastServic
 
 });
 
-datingController.controller('ProfilCtrl', function ($scope, $log, $upload, FileService, $rootScope, FILE_EVENTS, USER_EVENTS, RESOURCE, ProfilService) {
+datingController.controller('ProfilCtrl', function ($scope, $log, $upload, FileService, $rootScope, FILE_EVENTS, USER_EVENTS, RESOURCE, $routeParams, ProfilService, $location) {
+
+	$scope.activeTab = 'profil';
+
+	$scope.getClass = function (path) {
+		return ($scope.activeTab === path) ? "pinkBtnMd" : "";
+	};
+
+	$scope.setClass = function (path) {
+		$scope.activeTab = path;
+	};
 
 	$scope.loadProfil = function () {
 		ProfilService.show($rootScope.currentUser.id).then(function (profil) {
@@ -136,13 +148,18 @@ datingController.controller('ProfilCtrl', function ($scope, $log, $upload, FileS
 	};
 	
 	// Waiting for a Drop
-	$scope.$watch('files', function () {
-		$scope.upload();
+	$scope.$watch('profilPicture', function () {
+		$scope.upload($scope.profilPicture, RESOURCE.userFiles, '/app/imgDrop/ProfilPictures/', 'user_'+$rootScope.currentUser.id);
 	});
 
+	$scope.$watch('photos', function () {
+		$scope.upload($scope.photos, RESOURCE.userFiles, '/app/imgDrop/ProfilPictures/', 'user_'+$rootScope.currentUser.id);
+	});
+
+
 	// When an element is dropped
-	$scope.upload = function () {
-		angular.forEach(FileService.update($scope.files, RESOURCE.userFiles, '/app/imgDrop/ProfilPictures/', 'user_'+$rootScope.currentUser.id), function (promise) {
+	$scope.upload = function (file, route, path, name) {
+		angular.forEach(FileService.upload(file, route, path, name), function (promise) {
 			promise.then(function (res) {
 				$rootScope.currentProfil.profil_path = res.data + '?decache=' + Math.random();
 				console.log($rootScope.currentProfil);
@@ -155,7 +172,11 @@ datingController.controller('ProfilCtrl', function ($scope, $log, $upload, FileS
 	};// End upload()
 
 	$scope.update = function () {
+		ProfilService.update().then(function (res) {
 
+		}, function () {
+
+		});
 	};
 
 }); // ./End ProfilCtrl

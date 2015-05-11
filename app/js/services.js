@@ -9,7 +9,7 @@ datingService.factory('FileService', function ($http, $log, $rootScope, $upload)
 	var fileService = {};
 
 	// When an image is uploaded
-	fileService.update = function (files, url, filePath, fileName) {
+	fileService.upload = function (files, url, filePath, fileName) {
 		
 		var promises = [];
 
@@ -45,27 +45,27 @@ datingService.factory('FileService', function ($http, $log, $rootScope, $upload)
 }); // End  FileService
 
 datingService.factory('socket', function ($rootScope) {
-    var socket = io.connect('http://127.0.0.1:3000/');
-    return {
-        on: function (eventName, callback) {
-            socket.on(eventName, function () {
-                var args = arguments;
-                $rootScope.$apply(function () {
-                    callback.apply(socket, args);
-                });
-            });
-        },
-        emit: function (eventName, data, callback) {
-            socket.emit(eventName, data, function () {
-                var args = arguments;
-                $rootScope.$apply(function () {
-                    if (callback) {
-                        callback.apply(socket, args);
-                    }
-                });
-            })
-        }
-    };
+	var socket = io.connect('http://127.0.0.1:3000/');
+	return {
+		on: function (eventName, callback) {
+			socket.on(eventName, function () {
+				var args = arguments;
+				$rootScope.$apply(function () {
+					callback.apply(socket, args);
+				});
+			});
+		},
+		emit: function (eventName, data, callback) {
+			socket.emit(eventName, data, function () {
+				var args = arguments;
+				$rootScope.$apply(function () {
+					if (callback) {
+						callback.apply(socket, args);
+					}
+				});
+			})
+		}
+	};
 });
 
 
@@ -122,85 +122,85 @@ datingService.factory('ValidationService', function ($http, RESOURCE) {
 /*
 	Handle basic user lifecycle action. 
 	*/
-datingService.factory('UserService', function ($http, RESOURCE) {
+	datingService.factory('UserService', function ($http, RESOURCE) {
 
-	var userService = {};
+		var userService = {};
 
-	userService.create = function (user) {
-		return $http
-		.post(RESOURCE.user, user)
-		.then(function (res) {
-			return res.data;
-		});
-	};
+		userService.create = function (user) {
+			return $http
+			.post(RESOURCE.user, user)
+			.then(function (res) {
+				return res.data;
+			});
+		};
 
-	userService.update = function (data, id) {
-		return $http
-		.put(RESOURCE.user.concat(id), data)
-		.then(function (res) {
-			return res.data;
-		});
-	};
+		userService.update = function (data, id) {
+			return $http
+			.put(RESOURCE.user.concat(id), data)
+			.then(function (res) {
+				return res.data;
+			});
+		};
 
-	userService.activate = function (token) {
-		return $http
-		.post(RESOURCE.user+'/activate', token)
-		.then(function (res) {
-			return res.data;
-		});
-	};
+		userService.activate = function (token) {
+			return $http
+			.post(RESOURCE.user+'/activate', token)
+			.then(function (res) {
+				return res.data;
+			});
+		};
 
-	userService.destroy = function (id) {
-		return $http
-		.delete(RESOURCE.user.concat(id))
-		.then(function (res) {
-			return res.data;
-		});
-	};
+		userService.destroy = function (id) {
+			return $http
+			.delete(RESOURCE.user.concat(id))
+			.then(function (res) {
+				return res.data;
+			});
+		};
 
-	return userService;
-});
+		return userService;
+	});
 
-datingService.factory('ProfilService', function ($http, RESOURCE, $rootScope) {
+	datingService.factory('ProfilService', function ($http, RESOURCE, $rootScope) {
 
-	var profilService = {};
-	
-	profilService.show = function (id) {
-		return $http
-		.get(RESOURCE.profil+'/'+id)
-		.then(function (res) {
-			return res.data;
-		});
-	};
+		var profilService = {};
 
-	profilService.update = function (profil) {
-		return $http
-		.put(RESOURCE.profil+'/'+$rootScope.currentProfil.id, profil)
-		.then(function (res) {
-			return res.data;
-		});
-	};
+		profilService.show = function (id) {
+			return $http
+			.get(RESOURCE.profil+'/'+id)
+			.then(function (res) {
+				return res.data;
+			});
+		};
 
-	return profilService;
-});
+		profilService.update = function (profil) {
+			return $http
+			.put(RESOURCE.profil+'/'+$rootScope.currentProfil.id, profil)
+			.then(function (res) {
+				return res.data;
+			});
+		};
 
-datingService.factory('ToastService', function (ngToast) {
-	return {
-		show: function (message, type) {
-			var aToast = ngToast.create({
-                className: type,
-                content: message
-            });
-		}
-	};
-});
+		return profilService;
+	});
+
+	datingService.factory('ToastService', function (ngToast) {
+		return {
+			show: function (message, type) {
+				var aToast = ngToast.create({
+					className: type,
+					content: message
+				});
+			}
+		};
+	});
 
 /*
 	Handle every aspect of user authentification. 
 	*/
-datingService.factory('AuthService', function ($http, Session, $log, $rootScope, AuthInterceptor, RESOURCE) {
+	datingService.factory('AuthService', function ($http, Session, $log, $rootScope, AuthInterceptor, RESOURCE) {
 
-	var authService = {};
+		var authService = {};
 
 	// Login
 	authService.login = function (credentials) {
@@ -272,88 +272,88 @@ datingService.factory('AuthService', function ($http, Session, $log, $rootScope,
 /*
 	Handle every aspect of user authentification via the Facebook app. 
 	*/
-datingService.factory('FacebookAuthService', function ($http, $q, Session, $rootScope) {
+	datingService.factory('FacebookAuthService', function ($http, $q, Session, $rootScope) {
 
-	var facebookAuthService = {};
+		var facebookAuthService = {};
 
-	facebookAuthService.logout = function () {
-		var deferred = $q.defer();
-		facebookAuthService.authStatus().then(function (response) {
-			if(response.status === "connected") {
-				FB.logout(function (response) {
-					if (!response || response.error) {
-		                deferred.reject('Error occured');
-		            } else {
-		                deferred.resolve(response);
-		            }
-				});
-			}
-		});
-		return deferred.promise;
-	};
+		facebookAuthService.logout = function () {
+			var deferred = $q.defer();
+			facebookAuthService.authStatus().then(function (response) {
+				if(response.status === "connected") {
+					FB.logout(function (response) {
+						if (!response || response.error) {
+							deferred.reject('Error occured');
+						} else {
+							deferred.resolve(response);
+						}
+					});
+				}
+			});
+			return deferred.promise;
+		};
 
-	facebookAuthService.retrieveUser = function () {
-		var deferred = $q.defer();
-		facebookAuthService.authStatus().then(function (auth) {
-			if(auth.status === 'connected') {
-				FB.api('/me', function (response) {
-					if (!response || response.error) {
-		                deferred.reject('Error occured');
-		            } else {
-		            	Session.create(auth.authResponse.accessToken, auth.authResponse.userID, 'client');
-		                deferred.resolve(response);
-		            }
-				});
-			} else {
-				deferred.reject(auth.status);
-			}
-		});
-		return deferred.promise;
-	};
+		facebookAuthService.retrieveUser = function () {
+			var deferred = $q.defer();
+			facebookAuthService.authStatus().then(function (auth) {
+				if(auth.status === 'connected') {
+					FB.api('/me', function (response) {
+						if (!response || response.error) {
+							deferred.reject('Error occured');
+						} else {
+							Session.create(auth.authResponse.accessToken, auth.authResponse.userID, 'client');
+							deferred.resolve(response);
+						}
+					});
+				} else {
+					deferred.reject(auth.status);
+				}
+			});
+			return deferred.promise;
+		};
 
-	facebookAuthService.authStatus = function () {
-		var deferred = $q.defer();
-		FB.getLoginStatus(function (response) {
-			if (!response || response.error) {
-                deferred.reject('Error occured');
-            } else {
-                deferred.resolve(response);
-            }
-		});
-		return deferred.promise;
-	};
+		facebookAuthService.authStatus = function () {
+			var deferred = $q.defer();
+			FB.getLoginStatus(function (response) {
+				if (!response || response.error) {
+					deferred.reject('Error occured');
+				} else {
+					deferred.resolve(response);
+				}
+			});
+			return deferred.promise;
+		};
 
-	facebookAuthService.WatchAuthStatusChange = function () {
-		FB.Event.subscribe('auth.authResponseChange', function (response) {
-			console.log(response);
-			if (response.status === 'connected') {
-            	facebookAuthService.retrieveUser().then(function (user) {
-            		if(user) {
-            			$rootScope.currentUser = user;
-            			$rootScope.deferredFB.resolve("fb success");
-            		} else {
-            			$rootScope.deferredFB.reject("fb echec");
-            		}
-            	});
-            } else {
-            	$rootScope.deferredFB.reject("fb echec");
-            } 
-		},  {scope: 'email,user_likes,public_profile', return_scopes: true});
-	};
+		facebookAuthService.WatchAuthStatusChange = function () {
+			FB.Event.subscribe('auth.authResponseChange', function (response) {
+				console.log(response);
+				if (response.status === 'connected') {
+					facebookAuthService.retrieveUser().then(function (user) {
+						if(user) {
+							$rootScope.currentUser = user;
+							$rootScope.deferredFB.resolve("fb success");
+						} else {
+							$rootScope.deferredFB.reject("fb echec");
+						}
+					});
+				} else {
+					$rootScope.deferredFB.reject("fb echec");
+				} 
+			},  {scope: 'email,user_likes,public_profile', return_scopes: true});
+		};
 
-	return facebookAuthService;
+		return facebookAuthService;
 
 });// End FacebookAuthService
 
-datingService.factory('Session', function () {
+	datingService.factory('Session', function () {
 
-	var Session = {};
+		var Session = {};
 
-	Session.create = function (sessionId, userId, userRole) {
+		Session.create = function (sessionId, userId, userRole) {
 
-		Session.id = sessionId;
-		Session.userId = userId;
-		Session.userRole = userRole;
+			Session.id = sessionId;
+			Session.userId = userId;
+			Session.userRole = userRole;
 
 	}; // End create()
 
@@ -372,28 +372,28 @@ datingService.factory('Session', function () {
 
 
 
-datingService.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS) {
+	datingService.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS) {
 
-	return {
+		return {
 
-		responseError: function (response) { 
+			responseError: function (response) { 
 
-			$rootScope.$broadcast({
-				401: AUTH_EVENTS.notAuthenticated,
-				403: AUTH_EVENTS.notAuthorized,
-				419: AUTH_EVENTS.sessionTimeout,
-				440: AUTH_EVENTS.sessionTimeout,
-				441: FILE_EVENTS.uploadFailed,
-				442: FILE_EVENTS.getFailed,
-				460: USER_EVENTS.passwordFailed,
-				461: USER_EVENTS.updateFailed,
-				462: USER_EVENTS.deleteFailed,
-				463: USER_EVENTS.registrationFailed,
-				464: USER_EVENTS.activationFailed,
-				465: USER_EVENTS.accountNotActivated,
-			}[response.status], response);
+				$rootScope.$broadcast({
+					401: AUTH_EVENTS.notAuthenticated,
+					403: AUTH_EVENTS.notAuthorized,
+					419: AUTH_EVENTS.sessionTimeout,
+					440: AUTH_EVENTS.sessionTimeout,
+					441: FILE_EVENTS.uploadFailed,
+					442: FILE_EVENTS.getFailed,
+					460: USER_EVENTS.passwordFailed,
+					461: USER_EVENTS.updateFailed,
+					462: USER_EVENTS.deleteFailed,
+					463: USER_EVENTS.registrationFailed,
+					464: USER_EVENTS.activationFailed,
+					465: USER_EVENTS.accountNotActivated,
+				}[response.status], response);
 
-			return $q.reject(response);
+				return $q.reject(response);
 		}// End responseError
 
 	};// End Return
@@ -401,31 +401,31 @@ datingService.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS, 
 });// End AuthInterceptor
 
 
-datingService.factory('AuthResolver', function ($q, $rootScope, $location, $log) {
-	return {
+	datingService.factory('AuthResolver', function ($q, $rootScope, $location, $log) {
+		return {
 
-		resolve: function (redirectAuth, redirectNotAuth) {
+			resolve: function (redirectAuth, redirectNotAuth) {
 
-			var deferred = $q.defer();
-			var unwatch = $rootScope.$watch('currentUser', function (currentUser) {
+				var deferred = $q.defer();
+				var unwatch = $rootScope.$watch('currentUser', function (currentUser) {
 
-				if (angular.isDefined(currentUser)) {
-					if (currentUser) {
-						deferred.resolve(currentUser);
-						if(angular.isString(redirectAuth)) $location.path(redirectAuth);
-					} else {
-						if(angular.isString(redirectNotAuth)) {
-							deferred.reject();
-							$location.path(redirectNotAuth);
-						} else if(redirectNotAuth) {
-							$location.path('/');
-						}else {
-							deferred.resolve();
+					if (angular.isDefined(currentUser)) {
+						if (currentUser) {
+							deferred.resolve(currentUser);
+							if(angular.isString(redirectAuth)) $location.path(redirectAuth);
+						} else {
+							if(angular.isString(redirectNotAuth)) {
+								deferred.reject();
+								$location.path(redirectNotAuth);
+							} else if(redirectNotAuth) {
+								$location.path('/');
+							}else {
+								deferred.resolve();
+							}
 						}
-					}
 
-					unwatch();
-				}
+						unwatch();
+					}
 
 			});// End watch()
 
@@ -437,37 +437,64 @@ datingService.factory('AuthResolver', function ($q, $rootScope, $location, $log)
 });// End AuthResolver
 
 
-datingService.factory('SessionResolver', function ($q, $rootScope, $location, $log, Session) {
-	
-	return {
-		
-		resolve: function () {
-			var retrieved = $q.defer();
+	datingService.factory('SessionResolver', function ($q, $rootScope, $location, $log, Session) {
 
-			$rootScope.deferred.promise.then(function (res) {
-				console.log(res);
-				retrieved.resolve();
-			}, function (res) {
-				console.log(res);
-				$rootScope.deferredFB.promise.then(function (res) {
+		return {
+
+			resolve: function () {
+				var retrieved = $q.defer();
+
+				$rootScope.deferred.promise.then(function (res) {
 					console.log(res);
-					retrieved.resolve()
+					retrieved.resolve();
 				}, function (res) {
 					console.log(res);
-					retrieved.reject();
+					$rootScope.deferredFB.promise.then(function (res) {
+						console.log(res);
+						retrieved.resolve()
+					}, function (res) {
+						console.log(res);
+						retrieved.reject();
+					});
 				});
-			});
-			
-			retrieved.promise.finally(function () {
-				console.log("retrieved finally");
-				console.log(retrieved.promise);
-				$rootScope.$broadcast('$routeChangeStart');
-			});
 
-			return retrieved.promise;
+				retrieved.promise.finally(function () {
+					console.log("retrieved finally");
+					console.log(retrieved.promise);
+					$rootScope.$broadcast('$routeChangeStart');
+				});
+
+				return retrieved.promise;
 
 		}// End resolve
 
 	};// End return
 
 });// End SessionResolver
+
+	datingService.factory('ProfilResolver', function (ProfilService, $rootScope, USER_EVENTS) {
+
+		return {
+
+			resolve: function () {
+				console.log("loading");
+				var unwatch = $rootScope.$watch('currentUser', function (currentUser) {
+
+					if (angular.isDefined(currentUser)) {
+
+						return ProfilService.show($rootScope.currentUser.id).then(function (profil) {
+							profil.location = JSON.parse(profil.location);
+							$rootScope.currentProfil = profil;
+							$rootScope.$broadcast(USER_EVENTS.profilLoadSucces);
+						}, function () {
+							$rootScope.$broadcast(USER_EVENTS.profilLoadFailed);
+						});
+
+						unwatch();
+					}
+				});
+
+			}
+		};
+
+	});
