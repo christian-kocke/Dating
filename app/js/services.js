@@ -480,7 +480,7 @@ datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENT
 				if (angular.isDefined(currentUser)) {
 
 					return ProfilService.show($rootScope.currentUser.id).then(function (profil) {
-						profil.location = JSON.parse(profil.location);
+						profil.location = (profil.location) ? JSON.parse(profil.location) : {"A":44.4444919,"F":4.708432};
 						$rootScope.currentProfil = profil;
 						$rootScope.$broadcast(USER_EVENTS.profilLoadSucces);
 					}, function () {
