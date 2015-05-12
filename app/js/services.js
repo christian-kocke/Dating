@@ -147,9 +147,9 @@ datingService.factory('UserService',['$http','RESOURCE', function ($http, RESOUR
 		});
 	};
 
-	userService.update = function (data, id) {
+	userService.update = function (pwd, id) {
 		return $http
-		.put(RESOURCE.user.concat(id), data)
+		.put(RESOURCE.user.concat('/'+id), pwd)
 		.then(function (res) {
 			return res.data;
 		});
@@ -165,7 +165,7 @@ datingService.factory('UserService',['$http','RESOURCE', function ($http, RESOUR
 
 	userService.destroy = function (id) {
 		return $http
-		.delete(RESOURCE.user.concat(id))
+		.delete(RESOURCE.user.concat('/'+id))
 		.then(function (res) {
 			return res.data;
 		});

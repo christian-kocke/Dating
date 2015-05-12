@@ -74,14 +74,19 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
 
     window.addEventListener('resize', function () {
         if($window.innerWidth < 768) {
-            $rootScope.screenSize = 'mobile';
-        } else if($window.innerWidth < 992) {
-            $rootScope.screenSize = 'tablet';
-        } else if($window.innerWidth < 1200) {
-            $rootScope.screenSize = 'medium';
+            $rootScope.typeDevice = 'mobile';
         } else {
-            $rootScope.screenSize = 'large'
+            $rootScope.typeDevice = 'noMobile';
+            if($window.innerWidth < 992) {
+                $rootScope.sizeDevice = 'tablet';
+            } else if($window.innerWidth < 1200) {
+                $rootScope.sizeDevice = 'medium';
+            } else {
+                $rootScope.sizeDevice = 'large';
+            }
         }
+        console.log($rootScope.typeDevice);
+        console.log($rootScope.sizeDevice);
         $rootScope.$apply();
     });
 
@@ -90,7 +95,7 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
         paramName: "file",
         init: function() {
             this.on("addedfile", function(file) { alert("Added file."); });
-          }
+        }
     };
 
     (function(d, s, id) {

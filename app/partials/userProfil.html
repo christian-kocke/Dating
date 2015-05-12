@@ -35,12 +35,13 @@
 
 			<!-- Informations panel -->
 			<div class="col-lg-3">
-				<div class="panel panel-default text-center">
+				<div class="panel panel-default sidePanel text-center">
 					
 					<!-- Profil picture -->
-					<div class="row">
+					<div class="row"> 
+						<i class="fa fa-gear fa-lg pull-right settingsIcon" ng-click="setClass('settings')"></i>
 						<!-- Drag & Drop Zone -->
-						<div class="dropzone" ng-file-drop ng-file-select ng-model="profilPicture" allow-dir="true" accept="image/*,application/pdf">
+						<div class="dropzone" id="profilZone" ng-file-drop ng-file-select ng-model="profilPicture" allow-dir="true" accept="image/*,application/pdf">
 							<p class="dropTxt" ng-hide="currentProfil.profil_path"> Drop or click ! <span class="glyphicon glyphicon-cloud-download"></span></p>
 							<img class="dropImg" ng-show="currentProfil.profil_path" ng-src="{{currentProfil.profil_path}}"/>
 							<h6 class="text-info" ng-show="currentProfil.profil_path"><em> * Click to Edit it! </em></h6>
@@ -97,13 +98,16 @@
 			</div><!-- class col-lg-3 -->
 
 			<div class="col-lg-9">
-				<div class="panel panel-default" ng-controller="MapCtrl">
+				<div class="panel panel-default middlePanel" ng-controller="MapCtrl">
 
 					<div class="row">
 						
 						<div class="col-lg-4">
 							<h2 class="pinkTxt">
-								<i class="fa fa-heart"></i> {{activeTab | capitalize}}
+								<i ng-show="activeTab === 'profil'" class="fa fa-heart"></i>
+								<i ng-show="activeTab === 'photos'" class="fa fa-camera"></i>
+								<i ng-show="activeTab === 'settings'" class="fa fa-gear fa-lg"></i>
+								{{activeTab | capitalize}}
 								<span ng-click="updateProfil = true" ng-hide="updateProfil" class="glyphicon glyphicon-pencil greyTxt4 smallIcon"></span>
 							</h2><!-- class pinkTxt -->
 						</div><!-- class col-lg-4 -->
@@ -191,8 +195,8 @@
 
 					<!-- Photos Section -->
 					<div class="row content" ng-show="activeTab === 'photos'">
-						<div ng-file-drop class="drop-box" ng-file-select ng-model="photos" allow-dir="true" accept="image/*,application/pdf">
-							<p class="dropzone lead" drag-over-class="dragover" ng-hide="currentProfil.profil_path"> Drop or click ! <span class="glyphicon glyphicon-cloud-download"></span></p>
+						<div ng-file-drop class="dropzone" id="photoZone" ng-file-select ng-model="photos" allow-dir="true" accept="image/*,application/pdf">
+							<p class="dropTxtPhoto lead" drag-over-class="dragover" ng-hide="currentProfil.profil_path"> Drop or click ! <span class="glyphicon glyphicon-cloud-download"></span></p>
 							<img class="dropImg" ng-show="currentProfil.profil_path" ng-src="{{currentProfil.profil_path}}"/>
 						</div><!-- class drop-box -->
 						<div class="photos-display" ng-repeat="photo in photos">
@@ -201,6 +205,16 @@
 							</div>
 						</div><!-- class photo-display -->
 					</div><!-- class row content -->
+
+					<div class="row" ng-show="activeTab === 'settings'">
+						<div class="col-lg-6">
+							<div ng-if="activeTab === 'settings'" ng-include="'partials/update-password.html'"></div>
+						</div><!-- class col-lg-6 -->
+
+						<div class="col-lg-6">
+							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteAccountModal"> Delete Your Account </button>
+						</div><!-- class col-lg-6 -->
+					</div>
 
 				</div><!-- class panel panel-default -->
 			</div><!-- class col-lg-9 -->
