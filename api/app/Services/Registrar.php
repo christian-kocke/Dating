@@ -1,6 +1,7 @@
 <?php namespace Api\Services;
 
 use Api\User;
+use Api\Profil;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 
@@ -31,13 +32,19 @@ class Registrar implements RegistrarContract {
 	 */
 	public function create(array $data)
 	{
-		return User::create([
+		$user = User::create([
 			'username' 	=> $data['username'],
 			'email' 	=> $data['email'],
 			'dob'		=> $data['dob'],
 			'gender'	=> $data['gender'],
 			'password' 	=> bcrypt($data['password']),
 		]);
+
+		Profil::create([
+			'user_id'	=> $user->id
+		]);
+
+		return $user;
 	}
 
 }

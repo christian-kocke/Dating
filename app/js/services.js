@@ -5,10 +5,10 @@
 var datingService = angular.module('datingServices', ['ngResource']);
 
 
-datingService.factory('UtilityService', function () {
+datingService.factory('UtilityService',[function () {
 
 	return {
-		randomAlphaNumeric: function randString (x) {
+		randomAlphaNumeric: function (x) {
 		    var s = "";
 		    while(s.length<x&&x>0){
 		        var r = Math.random();
@@ -17,47 +17,8 @@ datingService.factory('UtilityService', function () {
 		    return s;
 		}
 	};
-});
 
-
-datingService.factory('FileService',['$http','$rootScope','$upload', function ($http, $rootScope, $upload) {
-
-	var fileService = {};
-
-	// When an image is uploaded
-	fileService.upload = function (files, url, filePath, fileName) {
-		
-		var promises = [];
-
-		if (files && files.length) {
-
-			for (var i = 0; i < files.length; i++) {
-				console.log(files);
-				var file = jic.compress(files[i], 100, 'png');
-
-				var promise = $upload.upload({
-					url: url,
-					headers: {
-						name: fileName,
-						path: filePath
-					},
-					file: file
-				}).progress(function (evt) {
-					var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-				}).success(function (data, status, headers, config) {
-					return data;
-				});
-				promises.push(promise);
-			}
-		}
-		
-		return promises;
-
-	}; // End update()
-
-	return fileService;
-
-}]); // End  FileService
+}]);
 
 datingService.factory('socket',['$rootScope', function ($rootScope) {
 	var socket = io.connect('http://127.0.0.1:3000/');
@@ -198,6 +159,7 @@ datingService.factory('ProfilService',['$http','RESOURCE','$rootScope', function
 }]);
 
 datingService.factory('ToastService',['ngToast', function (ngToast) {
+
 	return {
 		show: function (message, type) {
 			var aToast = ngToast.create({
@@ -206,6 +168,7 @@ datingService.factory('ToastService',['ngToast', function (ngToast) {
 			});
 		}
 	};
+	
 }]);
 
 /* Handle every aspect of user authentification. */

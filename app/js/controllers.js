@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast']);
+var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies']);
 
 
 datingController.controller('ApplicationController',['$scope','USER_ROLES','AuthService','$location','Session','UserService','$rootScope','FacebookAuthService','$window','ToastService', function ($scope, USER_ROLES, AuthService, $location, Session, UserService, $rootScope, FacebookAuthService, $window, ToastService) {
@@ -128,9 +128,30 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 }]); // End MapCtrl
 
 
-datingController.controller('ProfilCtrl',['$scope','$upload','FileService','$rootScope','FILE_EVENTS','USER_EVENTS','RESOURCE','$routeParams','ProfilService','$location', 'UtilityService', function ($scope, $upload, FileService, $rootScope, FILE_EVENTS, USER_EVENTS, RESOURCE, $routeParams, ProfilService, $location, UtilityService) {
+datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService', 'UtilityService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService) {
 
 	$scope.activeTab = 'profil';
+
+	$scope.dropzoneConfig = {
+		options: {
+			url: RESOURCE.userFiles,
+			paramName: 'file',
+			uploadMultiple: true,
+			headers: {
+				'X-XSRF-TOKEN': $cookies['XSRF-TOKEN'],
+				name: UtilityService.randomAlphaNumeric(10),
+				path: '/app/imgDrop/photos/'
+			}	
+		},
+		eventHandlers: {
+			addedfile: function(file) { 
+				console.log(file.size);
+			},
+			sending: function (file, xhr, formData) {
+				console.log("sending");
+			}
+		}
+	};
 
 	$scope.getClass = function (path) {
 		return ($scope.activeTab === path) ? "pinkBtn" : "";
@@ -139,36 +160,6 @@ datingController.controller('ProfilCtrl',['$scope','$upload','FileService','$roo
 	$scope.setClass = function (path) {
 		$scope.activeTab = path;
 	}; // End setClass()
-
-	
-	// Waiting for a Drop
-	$scope.$watch('profilPicture', function () {
-		if(angular.isDefined($rootScope.currentProfil)) {
-			angular.forEach($scope.upload($scope.profilPicture, RESOURCE.userFiles, '/app/imgDrop/ProfilPictures/', 'user_'+$rootScope.currentUser.id), function (promise) {
-				promise.then(function (res) {
-					console.log(res.data);
-				});
-			}); 
-	
-		}
-	});
-
-	$scope.$watch('photos', function () {
-		$scope.upload($scope.photos, RESOURCE.photos, '/app/imgDrop/photos/', 'photo_'+UtilityService.randomAlphaNumeric(10));
-	});
-
-	// When an element is dropped
-	$scope.upload = function (file, route, path, name) {
-
-		return angular.forEach(FileService.upload(file, route, path, name), function (promise) {
-			return promise.then(function (res) {
-				$rootScope.$broadcast(FILE_EVENTS.uploadSuccess);
-				return res.data + '?decache=' + Math.random();
-			}, function () {
-				$rootScope.$broadcast(FILE_EVENTS.updateFailed);
-			});
-		});
-	}; // End upload()
 
 	$scope.update = function () {
 		ProfilService.update().then(function (res) {

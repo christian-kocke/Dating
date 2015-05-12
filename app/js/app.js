@@ -86,12 +86,6 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
     });
 
 
-    Dropzone.options.zone = {
-        paramName: "file",
-        init: function() {
-            this.on("addedfile", function(file) { alert("Added file."); });
-          }
-    };
 
     (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];

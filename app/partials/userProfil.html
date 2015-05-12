@@ -191,10 +191,9 @@
 
 					<!-- Photos Section -->
 					<div class="row content" ng-show="activeTab === 'photos'">
-						<div ng-file-drop class="drop-box" ng-file-select ng-model="photos" allow-dir="true" accept="image/*,application/pdf">
-							<p class="dropzone lead" drag-over-class="dragover" ng-hide="currentProfil.profil_path"> Drop or click ! <span class="glyphicon glyphicon-cloud-download"></span></p>
-							<img class="dropImg" ng-show="currentProfil.profil_path" ng-src="{{currentProfil.profil_path}}"/>
-						</div><!-- class drop-box -->
+
+						<form class="dropzone" id="zone" dropzone="dropzoneConfig"></form>
+						
 						<div class="photos-display" ng-repeat="photo in photos">
 							<div>
 								<img ng-src="{{photo.path}}" alt="photo">
