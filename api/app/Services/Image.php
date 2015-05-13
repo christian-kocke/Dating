@@ -1,4 +1,4 @@
-<?php namespace App\Services;
+<?php namespace Api\Services;
 
 use File;
 use Log;

@@ -6,7 +6,7 @@ class ImageFacade extends Facade {
  
     protected static function getFacadeAccessor()
     {
-        return new \App\Services\Image;
+        return new \Api\Services\Image;
     }
  
 }
