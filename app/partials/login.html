@@ -7,39 +7,11 @@
 		</div><!-- class whiteTxt pinkBG headerContainer -->
 	</div><!-- class container-fluid -->
 
-	<!-- MOBILE -->
-	<div class="container contentBlock whiteBG visible-xs">
-		<div ng-if="screenSize == 'mobile'" ng-include="'partials/mobile/loginForm.mobile.html'"></div>
-	</div><!-- class container contentBlock whiteBG visible-xs -->
-
-	<!-- TABLET -->
-	<div class="container-fluid contentBlock visible-sm">
-		<div class="col-sm-12">
-			<img class="img-responsive" src="img/angels_waiting_for_you.png" alt="Angels Waiting For You">
-			<div class="Form FormTablet LoginTablet whiteBG">
-				<div ng-if="screenSize == 'tablet'" ng-include="'partials/tablet/loginForm.tablet.html'"></div>
-			</div><!-- class FormTablet whiteBG -->
-		</div><!-- class col-sm-12 -->
-	</div><!-- class container-fluid -->
-
-	<!-- MEDIUM -->
-	<div class="container-fluid visible-md">
-		<div class="col-md-12">
-			<img class="img-responsive" src="img/angels_waiting_for_you.png" alt="Angels Waiting For You">
-		</div><!-- class col-md-12 -->
-	</div><!-- class container-fluid visible-md -->
-	<div class="Form FormMedium whiteBG visible-md">
-		<div ng-if="screenSize == 'medium'" ng-include="'partials/medium/loginForm.medium.html'"></div>
-	</div><!-- class FormMedium whiteBG visible-md -->
-
-	<!-- LARGE -->
-	<div class="container-fluid visible-lg">
-		<div class="col-md-12">
-			<img class="img-responsive" src="img/angels_waiting_for_you.png" alt="Angels Waiting For You">
-		</div><!-- class col-md-12 -->
-	</div><!-- class container-fluid visible-lg -->
-	<div class="Form FormLarge whiteBG visible-lg">
-		<div ng-if="screenSize == 'large'" ng-include="'partials/large/loginForm.large.html'"></div>
-	</div><!-- class FormLarge whiteBG visible-lg -->
+	<div class="container-fluid contentBlock" ng-class="{whiteBG: typeDevice === 'mobile'}">
+		<div class="col-lg-12 col-md-12 col-sm-12">
+			<img class="img-responsive hidden-xs" src="img/angels_waiting_for_you.png" alt="Angels Waiting For You">
+			<div ng-include="'partials/loginForm.html'" ng-class="{Form: typeDevice === 'noMobile', FormTablet: sizeDevice === 'tablet', LoginTablet: sizeDevice === 'tablet', FormMedium: sizeDevice === 'medium', FormLarge: sizeDevice === 'large', whiteBG: typeDevice === 'noMobile'}" ></div>
+		</div><!-- class col-lg-12 col-md-12 col-sm-12 -->
+	</div><!-- class container contentBlock whiteBG -->
 
 </div><!-- row -->

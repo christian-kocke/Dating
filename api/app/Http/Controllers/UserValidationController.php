@@ -2,7 +2,7 @@
 
 use Auth;
 use DB;
-
+use Hash;
 use Api\Http\Requests;
 use Api\Http\Controllers\Controller;
 
@@ -37,7 +37,7 @@ class UserValidationController extends Controller {
 		$validation = Hash::check($this->_request->input('password'), $this->_user->password);
 
 		// return the result
-		return response($validation);
+		return response((string) $validation);
 	}
 
 	/**

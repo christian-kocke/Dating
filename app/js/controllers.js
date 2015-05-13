@@ -13,14 +13,19 @@ datingController.controller('ApplicationController',['$scope','USER_ROLES','Auth
 
 	$scope.onload = function() {
 		if($window.innerWidth < 768) {
-			$rootScope.screenSize = 'mobile';
-		} else if($window.innerWidth < 992) {
-			$rootScope.screenSize = 'tablet';
-		} else if($window.innerWidth < 1200) {
-			$rootScope.screenSize = 'medium';
+			$rootScope.typeDevice = 'mobile';
 		} else {
-			$rootScope.screenSize = 'large'
+			$rootScope.typeDevice = 'noMobile';
+			if($window.innerWidth < 992) {
+				$rootScope.sizeDevice = 'tablet';
+			} else if($window.innerWidth < 1200) {
+				$rootScope.sizeDevice = 'medium';
+			} else {
+				$rootScope.sizeDevice = 'large';
+			}
 		}
+		console.log($rootScope.typeDevice);
+		console.log($rootScope.sizeDevice);
 	}; // End onload()
 
 	$scope.onload();
@@ -34,7 +39,7 @@ datingController.controller('ApplicationController',['$scope','USER_ROLES','Auth
 		FacebookAuthService.logout();
 	}; // End logout()
 
-
+	// Delete account
 	$scope.deleteAccount = function () {
 		UserService.destroy($rootScope.currentUser.id).then(function (res) {
 			$rootScope.currentUser = null;
@@ -48,6 +53,20 @@ datingController.controller('ApplicationController',['$scope','USER_ROLES','Auth
 
 }]); // End ApplicationController
 
+datingController.controller('UpdatePasswordCtrl',['$scope','$rootScope','USER_EVENTS','UserService', function ($scope, $rootScope, USER_EVENTS, UserService) {
+
+	$scope.updatePassword = function (pwd) {
+		UserService.update(pwd, $rootScope.currentUser.id).then(function (res) {
+			$rootScope.$broadcast(USER_EVENTS.passwordSuccess);
+			$scope.changePasswordForm.pwd = "";
+			$scope.changePasswordForm.$setPristine();
+		}, function () {
+			$rootScope.$broadcast(USER_EVENTS.passwordFailed);
+		});	
+	};
+
+}]);
+
 datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP_EVENTS','USER_EVENTS','ProfilService', function ($scope, $rootScope, ToastService, MAP_EVENTS, USER_EVENTS, ProfilService) {
 
 	$scope.geocoder;
@@ -58,12 +77,12 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 		$scope.geocoder = new google.maps.Geocoder();
 		var latlng = new google.maps.LatLng($rootScope.currentProfil.location.A, $rootScope.currentProfil.location.F);
 		var mapOptions = {
-          center: latlng,
-          zoom: 11,
-          minZoom:10,
-          scrollwheel: false,
-          draggable: false
-        };
+			center: latlng,
+			zoom: 11,
+			minZoom:10,
+			scrollwheel: false,
+			draggable: false
+		};
 		$scope.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
 		var marker = new google.maps.Marker({
@@ -104,7 +123,7 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 		// Try HTML5 geolocation
 		if(navigator.geolocation) {
 			$scope.loading = true;
-	    	navigator.geolocation.getCurrentPosition(function(position) {
+			navigator.geolocation.getCurrentPosition(function(position) {
 
 				var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 

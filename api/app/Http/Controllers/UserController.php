@@ -63,12 +63,15 @@ class UserController extends Controller {
 			$this->_user = $this->_registrar->create($this->_request->all());
 			if($this->_user->id)
 			{
-				$token = str_random(20);
-				Mail::send('emails.activation', ['token' => $token], function($message)
+				if(DB::insert('insert into profils (`user_id`) values (?)',[$this->_user->id]))
 				{
-					error_log($this->_user->email);
-					$message->to($this->_user->email, $this->_user->firstname." ".$this->_user->lastname)->subject('Activate your account !');
-				});	
+					$token = str_random(20);
+					Mail::send('emails.activation', ['token' => $token], function($message)
+					{
+						error_log($this->_user->email);
+						$message->to($this->_user->email, $this->_user->firstname." ".$this->_user->lastname)->subject('Activate your account !');
+					});
+				}
 				return response(DB::update('update users set activation_token = ? where id = ?', [$token, $this->_user->id]));
 			}
 		}
@@ -185,8 +188,12 @@ class UserController extends Controller {
 	{
 		if(Auth::check()) 
 		{
-			if(DB::delete("delete from users where id = ?", [$id])) {
-				return response("1");
+			if(DB::delete("delete from profils where user_id = ?", [$id]))
+			{
+				if(DB::delete("delete from users where id = ?", [$id]))
+				{
+					return response("1");
+				}
 			}
 		}
 		return response("Delete Account Failed", 462);

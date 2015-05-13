@@ -2,7 +2,7 @@
 
 	<div class="row">
 		<!-- Username Input -->
-		<div class="col-md-12 form-group has-feedback" ng-class="{'has-success': signUpForm.username.$valid, 'has-error': signUpForm.username.$invalid && signUpForm.username.$dirty}"> 
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group has-feedback" ng-class="{'has-success': signUpForm.username.$valid, 'has-error': signUpForm.username.$invalid && signUpForm.username.$dirty}"> 
 
 			<label class="sr-only" for="username"> Username </label>
 			<div class="input-group">
@@ -22,10 +22,10 @@
 			<span class="validationError" ng-show="signUpForm.username.$error.maxlength"> * The username can't be more than 60 characters </span>
 			<span class="validationError" ng-show="signUpForm.username.$error.required && signUpForm.username.$dirty"> *The username is required </span>
 
-		</div><!-- class col-md-12 -->
+		</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 
 		<!-- Email Input -->
-		<div class="col-md-12 form-group has-feedback" ng-class="{'has-success': signUpForm.email.$valid, 'has-error': signUpForm.email.$invalid && signUpForm.email.$dirty}">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group has-feedback" ng-class="{'has-success': signUpForm.email.$valid, 'has-error': signUpForm.email.$invalid && signUpForm.email.$dirty}">
 
 			<label class="sr-only" for="email"> Email </label>
 			<div class="input-group">
@@ -45,10 +45,10 @@
 			<span class="validationError" ng-show="signUpForm.email.$error.emailcheck && signUpForm.email.$dirty">* This email is already registered</span>
 			<span class="form-control-feedback" ng-show="signUpForm.email.$pending.emailcheck"><i class="fa fa-circle-o-notch fa-spin"></i></span>
 
-		</div><!-- class col-md-12 -->
+		</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 
 		<!-- Password input-->						
-		<div class="col-md-12 form-group has-feedback" ng-class="{'has-success': signUpForm.password.$valid, 'has-error': signUpForm.password.$invalid && signUpForm.password.$dirty}">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group has-feedback" ng-class="{'has-success': signUpForm.password.$valid, 'has-error': signUpForm.password.$invalid && signUpForm.password.$dirty}">
 
 			<label class="sr-only" for="password"> Password </label>
 			<div class="input-group">
@@ -67,10 +67,10 @@
 			<span class="validationError" ng-show="signUpForm.password.$error.minlength">* The password has to be a least 8 characters</span>
 			<span class="validationError" ng-show="signUpForm.password.$error.maxlength">* The password can't be more than 100 characters</span>
 
-		</div><!-- class col-md-12 -->
+		</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 
 		<!-- Confirm input -->
-		<div class="col-md-12 form-group has-feedback" ng-class="{'has-success': signUpForm.password_confirmation.$valid, 'has-error': signUpForm.password_confirmation.$invalid && signUpForm.password_confirmation.$dirty}">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group has-feedback" ng-class="{'has-success': signUpForm.password_confirmation.$valid, 'has-error': signUpForm.password_confirmation.$invalid && signUpForm.password_confirmation.$dirty}">
 
 			<label class="sr-only" for="password_confirmation"> Confirm </label>
 			<div class="input-group">
@@ -90,19 +90,19 @@
 			<span class="validationError" ng-show="signUpForm.password_confirmation.$error.passwordmatch && signUpForm.password_confirmation.$dirty">* The two passwords have to match</span>
 			<span class="validationError" ng-show="signUpForm.password_confirmation.$error.maxlength">* The password can't be more than 100 characters</span>
 
-		</div><!-- class col-md-12 -->
+		</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 
 	</div><!-- class row -->
 
 	<div class="row">
 		<!-- Birth Date -->
-		<div class="col-md-12">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
 			<h5 class="text-left greyTxt2"> Date of birth <span class="red"> * </span></h5>
 			<div class="input-group">
 
 				<!-- Day -->
-				<div class="col-md-4 form-group" ng-class="{'has-success': signUpForm.day.$valid, 'has-error': signUpForm.day.$invalid && signUpForm.day.$dirty}">
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group" ng-class="{'has-success': signUpForm.day.$valid, 'has-error': signUpForm.day.$invalid && signUpForm.day.$dirty}">
 
 					<label class="sr-only" for="day"> Day </label>
 					<input type="number" class="form-control" ng-model="user.day" aria-describedby="dayStatus" name="day" id="day" placeholder="DD" min="0" max="31" ng-maxlength="2" required>
@@ -113,10 +113,10 @@
 					<span class="form-control-feedback" ng-show="signUpForm.day.$invalid && signUpForm.day.$dirty" aria-hidden="true"></span>
 					<span id="dayStatus" class="sr-only">(warning)</span>
 
-				</div><!-- class col-md-4 -->
+				</div><!-- class col-lg-4 col-md-4 col-sm-4 col-xs-4 -->
 
 				<!-- Month -->
-				<div class="col-md-4 form-group" ng-class="{'has-success': signUpForm.month.$valid, 'has-error': signUpForm.month.$invalid && signUpForm.month.$dirty}">
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group" ng-class="{'has-success': signUpForm.month.$valid, 'has-error': signUpForm.month.$invalid && signUpForm.month.$dirty}">
 
 					<label class="sr-only" for="month"> Month </label>
 					<input type="number" class="form-control" ng-model="user.month" aria-describedby="monthStatus" name="month" id="month" placeholder="MM" min="0" max="12" ng-maxlength="2" required>
@@ -127,10 +127,10 @@
 					<span class="form-control-feedback" ng-show="signUpForm.month.$invalid && signUpForm.month.$dirty" aria-hidden="true"></span>
 					<span id="monthStatus" class="sr-only">(warning)</span>
 
-				</div><!-- class col-md-4 -->
+				</div><!-- class col-lg-4 col-md-4 col-sm-4 col-xs-4 -->
 
 				<!-- Year -->
-				<div class="col-md-4 form-group" ng-class="{'has-success': signUpForm.year.$valid, 'has-error': signUpForm.year.$invalid && signUpForm.year.$dirty}">
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group" ng-class="{'has-success': signUpForm.year.$valid, 'has-error': signUpForm.year.$invalid && signUpForm.year.$dirty}">
 
 					<label class="sr-only" for="year"> Year </label>
 					<input type="number" class="form-control" ng-model="user.year" aria-describedby="yearStatus" name="year" id="year" placeholder="YYYY" min="1930" max="1997" ng-maxlength="4" ng-minlength="4" required>
@@ -141,7 +141,7 @@
 					<span class="form-control-feedback" ng-show="signUpForm.year.$invalid && signUpForm.year.$dirty" aria-hidden="true"></span>
 					<span id="yearStatus" class="sr-only">(warning)</span>
 
-				</div><!-- class col-md-4 -->
+				</div><!-- class col-lg-4 col-md-4 col-sm-4 col-xs-4 -->
 
 				<!-- Day Messages Errors -->
 				<span class="validationError" ng-show="signUpForm.day.$error.required && signUpForm.day.$dirty">* DD is required !</span>
@@ -157,28 +157,28 @@
 				<span class="validationError" ng-show="signUpForm.year.$error.min || signUpForm.year.$error.max">* YYYY: this year isn't allowed, sorry !</span>
 
 			</div><!-- class input-group -->
-		</div><!-- class col-md-12 -->
+		</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 	</div><!-- class row -->
 
 	<div class="row">
 		<!-- Male/female -->
-		<div class="col-md-12 form-group text-center">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group text-center">
 
 			<h5 class="text-left greyTxt2"> Gender <span class="red"> * </span></h5>
-			<div class="btn-group col-md-12" role="group" aria-label="Male / Female">
+			<div class="btn-group col-lg-12 col-md-12 col-sm-12 col-xs-12" role="group" aria-label="Male / Female">
 
 				<button type="button" class="btn btn-default genderBtn" ng-click="pinkBtn1 = !pinkBtn1; pinkBtn2 = false; user.gender = 'male';" ng-class="{pinkBtn: pinkBtn1}"> Male </button>
 
 				<button type="button" class="btn btn-default genderBtn" ng-click="pinkBtn2 = !pinkBtn2; pinkBtn1 = false; user.gender = 'female';" ng-class="{pinkBtn: pinkBtn2}"> Female </button>
 
-			</div><!-- class btn-group --> 
+			</div><!-- class btn-group col-lg-12 col-md-12 col-sm-12 col-xs-12 --> 
 
-		</div><!-- class col-md-12 -->
+		</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 	</div><!-- class row -->
 
 	<div class="row">
 		<!-- Captcha input -->
-		<div class="col-md-12">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<h5 class="text-left greyTxt2"> Captcha <span class="red"> * </span></h5>
 			<div class="input-group">
 				<span class="input-group-addon">
@@ -187,13 +187,13 @@
 				</span>
 				<input type="text" class="form-control" ng-model="user.captcha" name="captcha" id="captcha" placeholder="Enter letters displayed" required> 
 			</div><!-- class input-group -->
-		</div><!-- class col-md-8 col-md-offset-2 -->
+		</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 	</div><!-- class row -->
 
 	<div class="row">
 		<!-- Submit button -->
-		<div class="col-md-12">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<button type="submit" class="btn center-block largeBtn pinkBtn"> Sign Up </button>
-		</div><!-- class col-md-8 col-md-offset-2 -->
+		</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 	</div><!-- class row -->
 </form><!-- registerForm -->
