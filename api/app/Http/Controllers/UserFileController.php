@@ -2,6 +2,7 @@
 
 use Auth;
 use DB;
+use Image;
 use Api\Http\Requests;
 use Api\Http\Controllers\Controller;
 
@@ -62,16 +63,15 @@ class UserFileController extends Controller {
 	public function store()
 	{
 		
-		if($this->_request->file('file')[0]->isValid())
+		if($this->_request->file('file')->isValid())
 		{
-			/*$imagick = new Imagick($this->_request->file('file')[0]);
-			$imagick->setImageCompressionQuality(20);
-			error_log($this->_request->file('file')[0]);*/
-			$fileName = $this->_request->header('name').".".$this->_request->file('file')[0]->guessExtension();
+			$fileName = $this->_request->header('name').".".$this->_request->file('file')->guessExtension();
 			$filePath = $this->_request->header('path').''.$fileName;
-			if($this->_request->file('file')[0]->move($_SERVER['DOCUMENT_ROOT'].$this->_request->header('path'), $fileName))
+			if($this->_request->file('file')->move($_SERVER['DOCUMENT_ROOT'].$this->_request->header('path'), $fileName))
 			{
 				DB::update('update profils set profil_path = ? where id = ?', [$filePath, $this->_user->id]);
+				Image::thumb($filePath, 84);
+				Image::compress($filePath);
 				return response($filePath);	
 			}
 		}

@@ -41,9 +41,7 @@
 					<div class="row"> 
 						<i class="fa fa-gear fa-lg pull-right settingsIcon" ng-click="setClass('settings')"></i>
 						<!-- Drag & Drop Zone -->
-						<div class="dropzone" id="profilZone" ng-file-drop ng-file-select ng-model="profilPicture" allow-dir="true" accept="image/*,application/pdf">
-							<p class="dropTxt" ng-hide="currentProfil.profil_path"> Drop or click ! <span class="glyphicon glyphicon-cloud-download"></span></p>
-							<img class="dropImg" ng-show="currentProfil.profil_path" ng-src="{{currentProfil.profil_path}}"/>
+						<form class="dropzone" id="profilZone" dropzone="profilDropzoneConfig"></form>
 							<h6 class="text-info" ng-show="currentProfil.profil_path"><em> * Click to Edit it! </em></h6>
 						</div><!-- class drop-box -->
 					</div><!-- class row -->
@@ -51,7 +49,6 @@
 					<!-- Name , Age -->
 					<div class="row">
 						<p class="lead"> {{currentUser.username | capitalize}}, {{currentProfil.age}} </p>
-						<input ng-class="{noBlur: updateProfil}" ng-show="updateProfil" ng-model="user.username" value="" class="form-control" type="text" placeholder="New Username..."/>
 					</div><!-- class row -->
 
 					<!-- Popularity -->
@@ -107,13 +104,13 @@
 								<i ng-show="activeTab === 'profil'" class="fa fa-heart"></i>
 								<i ng-show="activeTab === 'photos'" class="fa fa-camera"></i>
 								<i ng-show="activeTab === 'settings'" class="fa fa-gear fa-lg"></i>
+								<i ng-show="activeTab === 'update'" class="fa fa-pencil"></i>
 								{{activeTab | capitalize}}
-								<span ng-click="updateProfil = true" ng-hide="updateProfil" class="glyphicon glyphicon-pencil greyTxt4 smallIcon"></span>
+								<span ng-click="setClass('update');" ng-show="activeTab === 'profil'" class="glyphicon glyphicon-pencil greyTxt4 smallIcon"></span>
 							</h2><!-- class pinkTxt -->
 						</div><!-- class col-lg-4 -->
 						
 						<div class="col-lg-4 col-lg-offset-4 text-right">
-							<a class="btn pinkBtn sectionBtn" ng-show="updateProfil" ng-click="updateProfil = false" ng-class="{noBlur: updateProfil}"><i class="fa fa-check"></i> Save Changes </a>
 							<a class="btn sectionBtn" ng-click="setClass('profil')" ng-class="getClass('profil')"><i class="fa fa-user"></i> Profil </a>
 							<a class="btn sectionBtn" ng-click="setClass('photos')" ng-class="getClass('photos')"><i class="fa fa-picture-o"></i> Photos </a>
 						</div><!-- class col-lg-4 col-lg-offset-4 text-right -->
@@ -144,8 +141,6 @@
 								
 								<div class="col-lg-6">
 									<h5 class="text-left greyTxt2"> Location : <span class="pinkTxt"> Singapore </span></h5>
-									<input ng-class="{noBlur: updateProfil}" ng-show="updateProfil" ng-model="user.location" ng-blur="codeAddress(user.location)" value="" class="form-control" type="text" placeholder="Your location..."/>
-									<button ng-click="geolocate()"> Geolocate Me ! </button>
 								</div><!-- class col-lg-6 -->
 
 								<div class="col-lg-6 text-right">
@@ -190,19 +185,109 @@
 								</div><!-- class row -->
 							</div>
 						</div><!-- class row -->
+					</div><!-- class row -->
 
+					<div class="row" ng-show="activeTab === 'update'">
+						<div class="col-lg-6 col-lg-offset-3">
+							<form name="updateForm" novalidate role="update" ng-submit="updateProfil(user)">
+
+								<div class="row form-group has-feedback" ng-class="{'has-success': updateForm.username.$valid, 'has-error': updateForm.username.$invalid && updateForm.username.$dirty}">
+									<label class="greyTxt2" for="username"> Username </label>
+									<input ng-model="user.username" class="form-control" type="text" placeholder="New Username..." aria-describedby="usernameStatus" ng-minlength="2" ng-maxlength="60"/>
+
+									<!-- Errors -->
+									<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="updateForm.username.$valid" aria-hidden="true"></span>
+									<span id="usernameStatus" class="sr-only"> (success) </span>
+									<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="updateForm.username.$invalid && updateForm.username.$dirty" aria-hidden="true"></span>
+									<span id="usernameStatus" class="sr-only"> (warning) </span>
+									<span class="validationError" ng-show="updateForm.username.$error.minlength"> * The username has to be a least 2 characters </span>
+									<span class="validationError" ng-show="updateForm.username.$error.maxlength"> * The username can't be more than 60 characters </span>
+								</div><!-- class row -->
+
+								<hr>
+
+								<div class="row">
+									<label class="pull-left greyTxt2" for="location"> Your Location </label>
+									<input ng-model="user.location" ng-blur="codeAddress(user.location)" value="" class="form-control" type="text" placeholder="Your location..."/>
+									<button class="btn geoBtn greenBG whiteTxt center-block" ng-click="geolocate()"><i class="fa fa-map-marker fa-lg"></i> Geolocate Me ! </button>
+									<p class="mapMessage text-center" ng-show="loading"><i class="fa fa-cog fa-spin"></i> Locating... </p>
+									<p class="mapMessage text-center" ng-show="locationSuccess"><i class="fa fa-check-circle"></i></i> Location complete ! </p>
+									<p class="mapMessage text-center" ng-show="locationError"><i class="fa fa-exclamation-triangle"></i> Error, please try again ! </p>
+								</div><!-- class row -->
+
+								<hr>
+
+								<div class="row">
+									<label class="pull-left greyTxt2" for="whyHere"> I'm here to </label>
+									<textarea class="form-control" id="whyHere" ng-model="user.whyHere" name="whyHere" rows="5" placeholder="Tell us why are you here ?"></textarea>
+								</div><!-- class row -->
+
+								<hr>
+
+								<div class="row">
+									<label class="pull-left greyTxt2" for="aboutMe"> About Me </label>
+									<textarea class="form-control" id="aboutMe" ng-model="user.aboutMe" name="aboutMe" rows="5" placeholder="Tell us more about you... "></textarea>
+								</div><!-- class row -->
+
+								<hr>
+
+								<div class="row">
+									<a class="btn pinkBtn largeBtn sectionBtn center-block" ng-click="setClass('profil')"><i class="fa fa-check fa-lg"></i> Save Changes </a>
+								</div><!-- class row -->
+							</form>
+						</div><!-- class col-lg-12 -->
 					</div><!-- class row -->
 
 					<!-- Photos Section -->
 					<div class="row content" ng-show="activeTab === 'photos'">
 
-						<form class="dropzone" dropzone="dropzoneConfig"></form>
+						<form class="dropzone" id="photoZone" dropzone="photosDropzoneConfig"></form>
+
+						<div id="links" class="photos-display">
+							<a href="img/photo.png" title="Profil" data-gallery>
+								<img src="img/photo.png" alt="Profil">
+							</a>
+							<a href="img/photo2.png" title="Profil" data-gallery>
+								<img src="img/photo2.png" alt="Profil">
+							</a>
+							<a href="img/bigProfil.png" title="Profil" data-gallery>
+								<img src="img/bigProfil.png" alt="Profil">
+							</a>
 						
-						<div class="photos-display" ng-repeat="photo in photos">
-							<div>
-								<img ng-src="{{photo.path}}" alt="photo">
-							</div>
 						</div><!-- class photo-display -->
+
+						<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+						<div id="blueimp-gallery" class="blueimp-gallery">
+							<!-- The container for the modal slides -->
+							<div class="slides"></div>
+							<!-- Controls for the borderless lightbox -->
+							<h3 class="title"></h3>
+							<a class="prev"> ‹ </a>
+							<a class="next"> › </a>
+							<a class="close"> × </a>
+							<a class="play-pause"></a>
+							<ol class="indicator"></ol>
+							<!-- The modal dialog, which will be used to wrap the lightbox content -->
+							<div class="modal fade">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" aria-hidden="true"> &times; </button>
+											<h4 class="modal-title"></h4>
+										</div>
+										<div class="modal-body next"></div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default pull-left prev">
+												<i class="glyphicon glyphicon-chevron-left"></i> Previous
+											</button>
+											<button type="button" class="btn btn-primary next"> Next
+												<i class="glyphicon glyphicon-chevron-right"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div><!-- class row content -->
 
 					<div class="row" ng-show="activeTab === 'settings'">

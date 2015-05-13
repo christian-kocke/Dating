@@ -14,7 +14,9 @@
 	},
 	"autoload": {
 		"classmap": [
-			"database"
+			"database",
+			"app/services",
+			"app/facades"
 		],
 		"psr-4": {
 			"Api\\": "app/"

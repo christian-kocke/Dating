@@ -103,6 +103,8 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 
 	$scope.codeAddress = function (address) {
 		$scope.loading = true;
+		$rootScope.locationError = false;
+		$rootScope.locationSuccess = false;
 		$scope.geocoder.geocode( { 'address': address}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
 				$scope.map.setCenter(results[0].geometry.location);
@@ -111,15 +113,18 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 					position: results[0].geometry.location
 				});
 				ProfilService.update({location: marker.position}).then(function (res) {
-
+					$rootScope.locationSuccess = false;
 				});
 			} else {
+				$rootScope.locationError = false;
 				$rootScope.$broadcast(MAP_EVENTS.mapError, status);
 			}
 		});
 	}; // End codeAddress()
 
 	$scope.geolocate = function () {
+		$rootScope.locationError = false;
+		$rootScope.locationSuccess = false;
 		// Try HTML5 geolocation
 		if(navigator.geolocation) {
 			$scope.loading = true;
@@ -133,13 +138,16 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 				});
 
 				$scope.map.setCenter(pos);
+				$rootScope.locationSuccess = true;
 
 			}, function(error) {
+				$rootScope.locationError = true;
 				$scope.$emit(MAP_EVENTS.geolocationFailed);
 			}, {timeout: 5000});
 
 		} else {
 			// Browser doesn't support Geolocation
+			$rootScope.locationError = true;
 			$rootScope.$broadcast(MAP_EVENTS.geolocationNotSupported);
 		}
 	};// End geolocate()
@@ -150,16 +158,37 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService', 'UtilityService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService) {
 
 	$scope.activeTab = 'profil';
+	$scope.user = {
+		username: $rootScope.currentUser.username
+	};
 
-	$scope.dropzoneConfig = {
+	$scope.photosDropzoneConfig = {
 		options: {
 			url: RESOURCE.userFiles,
 			paramName: 'file',
-			uploadMultiple: true,
 			headers: {
 				'X-XSRF-TOKEN': $cookies['XSRF-TOKEN'],
-				name: UtilityService.randomAlphaNumeric(10),
 				path: '/app/imgDrop/photos/'
+			}	
+		},
+		eventHandlers: {
+			addedfile: function(file) { 
+				console.log(file.size);
+			},
+			sending: function (file, xhr, formData) {
+				xhr.setRequestHeader('name', UtilityService.randomAlphaNumeric(10));
+			}
+		}
+	};
+
+	$scope.profilDropzoneConfig = {
+		options: {
+			url: RESOURCE.userFiles,
+			paramName: 'file',
+			headers: {
+				'X-XSRF-TOKEN': $cookies['XSRF-TOKEN'],
+				name: 'user_'+$rootScope.currentUser.id,
+				path: '/app/imgDrop/profilPictures/'
 			}	
 		},
 		eventHandlers: {

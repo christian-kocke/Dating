@@ -37,26 +37,17 @@ h5{
 .greyBG2 {
 	background-color: #F4F4F4;
 }
-.greyBG3 {
-	background-color: #CC626A;
-}
 .pinkBG1 {
 	background-color: #FF5967;
 }
 .pinkBG2 {
 	background-color: #FF7A85;
 }
+.pinkBG3 {
+	background-color: #CC626A;
+}
 .greenBG {
 	background-color: #00A651;
-}
-.blurBG {
-	opacity: 0.9;
-	z-index: 2;
-	background-color: rgb(255,255,255);
-	position: absolute;
-	width: 100%;
-	height: 70vh;
-	visibility: visible;
 }
 .modal-content {
 	border-color: #FF5967;
@@ -139,6 +130,14 @@ h5{
 .genderBtn {
 	width: 50%;
 	padding: 2% 0;
+}
+.geoBtn {
+	margin: 5% auto 0 auto;
+	padding: 2% 2%;
+}
+.geoBtn:hover {
+	background-color: #474A54;
+	color: white;
 }
 .settingsIcon {
 	margin: 0 5% 0 0;
@@ -233,7 +232,7 @@ img[alt="Dating"] {
 	padding: 0 0 0 2vh;
 	font-size: 80%;
 }
-ul.list-inline.navbar-right li {
+.list-inline.navbar-right li {
 	padding: 0;
 }
 .navbar-default .navbar-text {
@@ -247,7 +246,7 @@ ul.list-inline.navbar-right li {
 	border-right: 1px solid #FFFFFF;
 	border-left: 1px solid #FFFFFF;
 }
-ul.list-inline.navbar-right {
+.list-inline.navbar-right {
 	margin-bottom: 0;
 }
 /* End Footer Settings */
@@ -303,6 +302,7 @@ ul.list-inline.navbar-right {
 body {
 	font-family: "Open Sans", Arial, sans-serif;
 	margin-top: 50px;
+	min-height: 80vh;
 }
 .view-container {
 	margin-bottom: 100px;
@@ -325,10 +325,6 @@ body {
 	border-bottom-right-radius: 5px;
 	margin-top: 1vh;
 	padding-top: 2vh;
-}
-.list-inline {
-	margin-bottom: 0;
-	padding-top: 0.5%;
 }
 .panel.panel-default {
 	padding: 5% 0;
@@ -367,6 +363,9 @@ body {
 #map-canvas {
  	width: 300px;
 	height: 200px;
+}
+.mapMessage {
+	margin: 2% auto 0 auto;
 }
 /* End Map Settings */
 
