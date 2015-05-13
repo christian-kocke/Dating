@@ -40,11 +40,9 @@
 					<!-- Profil picture -->
 					<div class="row"> 
 						<i class="fa fa-gear fa-lg pull-right settingsIcon" ng-click="setClass('settings')"></i>
-						<!-- Drag & Drop Zone -->
 						<form class="dropzone" id="profilZone" dropzone="profilDropzoneConfig"></form>
-							<h6 class="text-info" ng-show="currentProfil.profil_path"><em> * Click to Edit it! </em></h6>
-						</div><!-- class drop-box -->
-					</div><!-- class row -->
+						<h6 class="text-info" ng-show="currentProfil.profil_path"><em> * Click to Edit it! </em></h6>
+					</div><!-- class drop-box -->
 
 					<!-- Name , Age -->
 					<div class="row">
@@ -98,7 +96,7 @@
 				<div class="panel panel-default middlePanel" ng-controller="MapCtrl">
 
 					<div class="row">
-						
+
 						<div class="col-lg-4">
 							<h2 class="pinkTxt">
 								<i ng-show="activeTab === 'profil'" class="fa fa-heart"></i>
@@ -109,7 +107,7 @@
 								<span ng-click="setClass('update');" ng-show="activeTab === 'profil'" class="glyphicon glyphicon-pencil greyTxt4 smallIcon"></span>
 							</h2><!-- class pinkTxt -->
 						</div><!-- class col-lg-4 -->
-						
+
 						<div class="col-lg-4 col-lg-offset-4 text-right">
 							<a class="btn sectionBtn" ng-click="setClass('profil')" ng-class="getClass('profil')"><i class="fa fa-user"></i> Profil </a>
 							<a class="btn sectionBtn" ng-click="setClass('photos')" ng-class="getClass('photos')"><i class="fa fa-picture-o"></i> Photos </a>
@@ -120,7 +118,7 @@
 
 					<!-- Profil Section -->
 					<div class="row" ng-show="activeTab === 'profil'">
-						
+
 						<!-- Numeric informations -->
 						<div class="row">
 							<div class="col-lg-2">
@@ -138,7 +136,7 @@
 						<div class="row">
 
 							<div class="col-lg-5 thinBorders">
-								
+
 								<div class="col-lg-6">
 									<h5 class="text-left greyTxt2"> Location : <span class="pinkTxt"> Singapore </span></h5>
 								</div><!-- class col-lg-6 -->
@@ -160,7 +158,7 @@
 						</div><!-- class row -->
 
 						<div class="row">
-							
+
 							<div class="col-lg-5" ng-hide="hideMap">
 								<div id="map-canvas" ng-hide="loading"></div>
 								<div ng-show="loading">
@@ -240,7 +238,7 @@
 
 					<!-- Photos Section -->
 					<div class="row content" ng-show="activeTab === 'photos'">
-
+						
 						<form class="dropzone" id="photoZone" dropzone="photosDropzoneConfig"></form>
 
 						<div id="links" class="photos-display">
@@ -253,7 +251,7 @@
 							<a href="img/bigProfil.png" title="Profil" data-gallery>
 								<img src="img/bigProfil.png" alt="Profil">
 							</a>
-						
+
 						</div><!-- class photo-display -->
 
 						<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
