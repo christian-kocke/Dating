@@ -41,7 +41,9 @@
 					<div class="row"> 
 						<i class="fa fa-gear fa-lg pull-right settingsIcon" ng-click="setClass('settings')"></i>
 						<!-- Drag & Drop Zone -->
-						<div class="dropzone" id="profilZone" ng-file-drop ng-file-select ng-model="profilPicture" allow-dir="true" accept="image/*,application/pdf">
+						<form class="dropzone" dropzone="photosDropzoneConfig">
+							
+						</form>
 							<p class="dropTxt" ng-hide="currentProfil.profil_path"> Drop or click ! <span class="glyphicon glyphicon-cloud-download"></span></p>
 							<img class="dropImg" ng-show="currentProfil.profil_path" ng-src="{{currentProfil.profil_path}}"/>
 							<h6 class="text-info" ng-show="currentProfil.profil_path"><em> * Click to Edit it! </em></h6>
@@ -196,7 +198,7 @@
 					<!-- Photos Section -->
 					<div class="row content" ng-show="activeTab === 'photos'">
 
-						<form class="dropzone" dropzone="dropzoneConfig"></form>
+						<form class="dropzone" dropzone="photosDropzoneConfig"></form>
 						
 						<div class="photos-display" ng-repeat="photo in photos">
 							<div>

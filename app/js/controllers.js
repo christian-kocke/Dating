@@ -151,7 +151,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 
 	$scope.activeTab = 'profil';
 
-	$scope.dropzoneConfig = {
+	$scope.photosDropzoneConfig = {
 		options: {
 			url: RESOURCE.userFiles,
 			paramName: 'file',
@@ -160,6 +160,27 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 				'X-XSRF-TOKEN': $cookies['XSRF-TOKEN'],
 				name: UtilityService.randomAlphaNumeric(10),
 				path: '/app/imgDrop/photos/'
+			}	
+		},
+		eventHandlers: {
+			addedfile: function(file) { 
+				console.log(file.size);
+			},
+			sending: function (file, xhr, formData) {
+				console.log("sending");
+			}
+		}
+	};
+
+	$scope.profilDropzoneConfig = {
+		options: {
+			url: RESOURCE.userFiles,
+			paramName: 'file',
+			uploadMultiple: true,
+			headers: {
+				'X-XSRF-TOKEN': $cookies['XSRF-TOKEN'],
+				name: 'user_'+$rootScope.currentUser.id,
+				path: '/app/imgDrop/profilPictures/'
 			}	
 		},
 		eventHandlers: {
