@@ -155,10 +155,8 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		options: {
 			url: RESOURCE.userFiles,
 			paramName: 'file',
-			uploadMultiple: true,
 			headers: {
 				'X-XSRF-TOKEN': $cookies['XSRF-TOKEN'],
-				name: UtilityService.randomAlphaNumeric(10),
 				path: '/app/imgDrop/photos/'
 			}	
 		},
@@ -167,7 +165,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 				console.log(file.size);
 			},
 			sending: function (file, xhr, formData) {
-				console.log("sending");
+				xhr.setRequestHeader('name', UtilityService.randomAlphaNumeric(10));
 			}
 		}
 	};
@@ -176,7 +174,6 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		options: {
 			url: RESOURCE.userFiles,
 			paramName: 'file',
-			uploadMultiple: true,
 			headers: {
 				'X-XSRF-TOKEN': $cookies['XSRF-TOKEN'],
 				name: 'user_'+$rootScope.currentUser.id,
