@@ -244,8 +244,8 @@
 						
 						<form class="dropzone" id="photoZone" dropzone="photosDropzoneConfig"></form>
 
-						<div id="links" class="photos-display" ng-repeat="photo in photos track by photo.id">
-							<a href="{{photo.path}}" title="Profil" data-gallery>
+						<div id="links" class="photos-display">
+							<a ng-repeat="photo in photos track by photo.id" href="{{photo.path}}" title="Profil" data-gallery>
 								<img ng-src="{{photo.thumbnail_path}}" alt="Profil">
 							</a>
 						</div><!-- class photo-display -->
