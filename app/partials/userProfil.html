@@ -42,6 +42,7 @@
 						<i class="fa fa-gear fa-lg pull-right settingsIcon" ng-click="setClass('settings')"></i>
 						<form class="dropzone" id="profilZone" dropzone="profilDropzoneConfig">
 							<img class="profilImg dz-default dz-message" ng-show="currentProfil.profil_path" ng-src="{{currentProfil.profil_path}}"/>
+							<span class="dz-default dz-message" ng-hide="currentProfil.profil_path">Drop your picture here !</span>
 						</form>
 						<h6 class="text-info" ng-show="currentProfil.profil_path"><em> * Click to Edit it! </em></h6>
 					</div><!-- class drop-box -->
@@ -239,21 +240,14 @@
 					</div><!-- class row -->
 
 					<!-- Photos Section -->
-					<div class="row content" ng-show="activeTab === 'photos'">
+					<div class="row content" ng-show="activeTab === 'photos'" ng-init="displayPhotos()">
 						
 						<form class="dropzone" id="photoZone" dropzone="photosDropzoneConfig"></form>
 
-						<div id="links" class="photos-display">
-							<a href="img/photo.png" title="Profil" data-gallery>
-								<img src="img/photo.png" alt="Profil">
+						<div id="links" class="photos-display" ng-repeat="photo in photos track by photo.id">
+							<a href="{{photo.path}}" title="Profil" data-gallery>
+								<img ng-src="{{photo.thumbnail_path}}" alt="Profil">
 							</a>
-							<a href="img/photo2.png" title="Profil" data-gallery>
-								<img src="img/photo2.png" alt="Profil">
-							</a>
-							<a href="img/bigProfil.png" title="Profil" data-gallery>
-								<img src="img/bigProfil.png" alt="Profil">
-							</a>
-
 						</div><!-- class photo-display -->
 
 						<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->

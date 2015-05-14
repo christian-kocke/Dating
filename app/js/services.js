@@ -108,9 +108,9 @@ datingService.factory('UserService',['$http','RESOURCE', function ($http, RESOUR
 		});
 	};
 
-	userService.update = function (pwd, id) {
+	userService.update = function (data, id) {
 		return $http
-		.put(RESOURCE.user.concat('/'+id), pwd)
+		.put(RESOURCE.user.concat('/'+id), data)
 		.then(function (res) {
 			return res.data;
 		});
@@ -146,6 +146,14 @@ datingService.factory('ProfilService',['$http','RESOURCE','$rootScope', function
 			return res.data;
 		});
 	};
+
+	profilService.indexPhotos = function () {
+		return $http
+		.get(RESOURCE.photos)
+		.then(function (res) {
+			return res.data;
+		});
+	}
 
 	profilService.update = function (profil) {
 		return $http

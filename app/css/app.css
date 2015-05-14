@@ -194,7 +194,11 @@ img[alt="Dating"] {
 	padding: 0;
 }
 #profilZone .dz-default.dz-message span, #profilZone .dz-preview {
-	/*display: none;*/
+	display: none;
+}
+#profilZone span.dz-default.dz-message {
+	display: inline-block;
+	margin: 4em 0;
 }
 #profilZone.dz-started .dz-message {
 	display: inline-block;

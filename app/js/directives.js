@@ -83,7 +83,6 @@ datingDirective.directive('dropzone', ['$rootScope', 'USER_EVENTS', function ($r
 
 		config = scope[attrs.dropzone];
 
-		console.log(config);
 		dropzone = new Dropzone(element[0], config.options);
 
 		// bind the given event handlers

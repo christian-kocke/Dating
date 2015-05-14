@@ -23,6 +23,7 @@ Route::group(['middleware' => ['auth']], function()
 	Route::get('user/logout', 'UserController@logout');
 	Route::resource('user/file', 'UserFileController');
 	Route::resource('user/profil', 'ProfilController');
+	Route::resource('user/photos', 'PhotosController');
 	Route::resource('user','UserController', ['except' => ['store', 'index']]);	
 
 });

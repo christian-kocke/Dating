@@ -161,10 +161,11 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	$scope.user = {
 		username: $rootScope.currentUser.username
 	};
+	$scope.photos = {};
 
 	$scope.photosDropzoneConfig = {
 		options: {
-			url: RESOURCE.userFiles,
+			url: RESOURCE.photos,
 			paramName: 'file',
 			headers: {
 				'X-XSRF-TOKEN': $cookies['XSRF-TOKEN'],
@@ -179,7 +180,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 				xhr.setRequestHeader('name', UtilityService.randomAlphaNumeric(10));
 			},
 			success: function(file, response){
-				
+				$scope.displayPhotos();
 			}
 		}
 	};
@@ -203,11 +204,15 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 			},
 			success: function(file, response){
 				$rootScope.currentProfil.profil_path = response + '?decache=' + Math.random();
-				//$rootScope.$apply();
-				console.log(response);
 			}
 		}
-	};	
+	};
+
+	$scope.displayPhotos = function () {
+		ProfilService.indexPhotos().then(function (res) {
+			$scope.photos = res;
+		});
+	};
 
 	$scope.getClass = function (path) {
 		return ($scope.activeTab === path) ? "pinkBtn" : "";
