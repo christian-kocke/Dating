@@ -209,10 +209,10 @@
 
 								<div class="row">
 									<label class="pull-left greyTxt2" for="location"> Your Location </label>
-									<input ng-model="user.location" ng-blur="codeAddress(user.location)" value="" class="form-control" type="text" placeholder="Your location..."/>
+									<input ng-model="user.location" ng-blur="codeAddress(user.location)" value="" class="form-control" type="text" placeholder="Your location..." locationCheck/>
 									<button class="btn geoBtn greenBG whiteTxt center-block" ng-click="geolocate()"><i class="fa fa-map-marker fa-lg"></i> Geolocate Me ! </button>
 									<p class="mapMessage text-center" ng-show="loading"><i class="fa fa-cog fa-spin"></i> Locating... </p>
-									<p class="mapMessage text-center" ng-show="locationSuccess"><i class="fa fa-check-circle"></i></i> Location complete ! </p>
+									<p class="mapMessage text-center" ng-show="locationSuccess"><i class="fa fa-check-circle"></i></i> Geolocation complete ! </p>
 									<p class="mapMessage text-center" ng-show="locationError"><i class="fa fa-exclamation-triangle"></i> Error, please try again ! </p>
 								</div><!-- class row -->
 
