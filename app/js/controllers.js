@@ -179,7 +179,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 				xhr.setRequestHeader('name', UtilityService.randomAlphaNumeric(10));
 			},
 			success: function(file, response){
-				$scope.profilPicturePath = response;
+				
 			}
 		}
 	};
@@ -202,6 +202,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 				console.log("sending");
 			},
 			success: function(file, response){
+				$rootScope.currentProfil.profil_path = response;
 				console.log(response);
 			}
 		}
