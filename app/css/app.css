@@ -198,6 +198,12 @@ img[alt="Dating"] {
 #photoZone {
 	border: 0.5px dotted grey;
 }
+.profilImg {
+	border-radius: 50%;
+	width: 150px;
+	height: 150px;
+	margin: 0 auto;
+}
 .dropTxt {
 	margin: 35% auto 0 auto;
 	font-size: 120%;
