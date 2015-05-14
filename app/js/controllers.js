@@ -155,7 +155,7 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 }]); // End MapCtrl
 
 
-datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService', 'UtilityService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService) {
+datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS) {
 
 	$scope.activeTab = 'profil';
 	$scope.user = {
@@ -191,8 +191,8 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 			headers: {
 				'X-XSRF-TOKEN': $cookies['XSRF-TOKEN'],
 				name: 'user_'+$rootScope.currentUser.id,
-				path: '/app/imgDrop/profilPictures/'
-			}	
+				path: '/app/imgDrop/profilPictures/',
+			}
 		},
 		eventHandlers: {
 			addedfile: function(file) { 
@@ -202,11 +202,12 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 				console.log("sending");
 			},
 			success: function(file, response){
-				$rootScope.currentProfil.profil_path = response;
+				$rootScope.currentProfil.profil_path = response + '?decache=' + Math.random();
+				//$rootScope.$apply();
 				console.log(response);
 			}
 		}
-	};
+	};	
 
 	$scope.getClass = function (path) {
 		return ($scope.activeTab === path) ? "pinkBtn" : "";

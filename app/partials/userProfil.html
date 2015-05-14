@@ -40,8 +40,9 @@
 					<!-- Profil picture -->
 					<div class="row"> 
 						<i class="fa fa-gear fa-lg pull-right settingsIcon" ng-click="setClass('settings')"></i>
-						<form class="dropzone" id="profilZone" dropzone="profilDropzoneConfig"></form>
-						<img class="profilImg" ng-show="currentProfil.profil_path" ng-src="{{currentProfil.profil_path}}"/>
+						<form class="dropzone" id="profilZone" dropzone="profilDropzoneConfig">
+							<img class="profilImg dz-default dz-message" ng-show="currentProfil.profil_path" ng-src="{{currentProfil.profil_path}}"/>
+						</form>
 						<h6 class="text-info" ng-show="currentProfil.profil_path"><em> * Click to Edit it! </em></h6>
 					</div><!-- class drop-box -->
 

@@ -191,9 +191,16 @@ img[alt="Dating"] {
 	width: 150px;
 	height: 150px;
 	margin: 0 auto;
+	padding: 0;
 }
-#profilZone .dz-preview {
-	display: none;
+#profilZone .dz-default.dz-message span, #profilZone .dz-preview {
+	/*display: none;*/
+}
+#profilZone.dz-started .dz-message {
+	display: inline-block;
+}
+#profilZone .dz-default.dz-message {
+	margin: 0 0;
 }
 #photoZone {
 	border: 0.5px dotted grey;
