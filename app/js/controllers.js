@@ -168,9 +168,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 			url: RESOURCE.photos,
 			paramName: 'file',
 			headers: {
-				'X-XSRF-TOKEN': $cookies['XSRF-TOKEN'],
-				path: '/app/imgDrop/photos/'
-			}	
+				'X-XSRF-TOKEN': $cookies['XSRF-TOKEN']			}	
 		},
 		eventHandlers: {
 			addedfile: function(file) { 
@@ -191,8 +189,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 			paramName: 'file',
 			headers: {
 				'X-XSRF-TOKEN': $cookies['XSRF-TOKEN'],
-				name: 'user_'+$rootScope.currentUser.id,
-				path: '/app/imgDrop/profilPictures/',
+				name: 'user_'+$rootScope.currentUser.id
 			}
 		},
 		eventHandlers: {

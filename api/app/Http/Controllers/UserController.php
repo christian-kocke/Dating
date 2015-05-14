@@ -4,6 +4,7 @@ use Auth;
 use Hash;
 use DB;
 use Mail;
+use File;
 use Cookie;
 use Session;
 use Symfony\Component\HttpFoundation\Cookie as SymfonyCookie;
@@ -61,19 +62,15 @@ class UserController extends Controller {
 		if($validator->passes())
 		{
 			$this->_user = $this->_registrar->create($this->_request->all());
-			if($this->_user->id)
+			
+			$token = str_random(20);
+			Mail::send('emails.activation', ['token' => $token], function($message)
 			{
-				if(DB::insert('insert into profils (`user_id`) values (?)',[$this->_user->id]))
-				{
-					$token = str_random(20);
-					Mail::send('emails.activation', ['token' => $token], function($message)
-					{
-						error_log($this->_user->email);
-						$message->to($this->_user->email, $this->_user->firstname." ".$this->_user->lastname)->subject('Activate your account !');
-					});
-				}
-				return response(DB::update('update users set activation_token = ? where id = ?', [$token, $this->_user->id]));
-			}
+				$message->to($this->_user->email, $this->_user->firstname." ".$this->_user->lastname)->subject('Activate your account !');
+			});
+				
+			return response(DB::update('update users set activation_token = ? where id = ?', [$token, $this->_user->id]));
+			
 		}
 		return response(0);
 	}
@@ -188,26 +185,24 @@ class UserController extends Controller {
 	{
 		if(Auth::check()) 
 		{
-			if(DB::delete("delete from profils where user_id = ?", [$id]))
+			if(count(glob($_SERVER['DOCUMENT_ROOT'].'/app/imgDrop/profilPictures/user_'.$id.'.*')) > 0)
 			{
-				if(DB::delete("delete from users where id = ?", [$id]))
-				{
-					return response("1");
-				}
+				File::delete(glob($_SERVER['DOCUMENT_ROOT'].'/app/imgDrop/profilPictures/user_'.$id.'.*')[0]);
 			}
+
+			$path_directory = $_SERVER['DOCUMENT_ROOT'].'/app/imgDrop/photos/user_'.$id;
+
+			try {
+				DB::delete("delete from photos where user_id = ?", [$id]);
+				DB::delete("delete from profils where user_id = ?", [$id]);
+				DB::delete("delete from users where id = ?", [$id]);
+			} catch (Exception $e) {
+				return response($e->getMessage());
+			}
+
+			if(File::isDirectory($path_directory)) File::deleteDirectory($path_directory);
+
+			return response("Delete account success !");
 		}
-		return response("Delete Account Failed", 462);
 	}
-
-
-	public function getProfil(Request $request)
-	{
-		if(Auth::check()) {
-			$infos = DB::select('select p.*, u.dob age from profils p inner join users u on u.id = p.user_id where user_id = ?',[$this->_request->input('id')]);
-			$infos[0]->age = date("Y") - substr($infos[0]->age, 0, 4);
-			return response()->json($infos[0]);
-		}
-	}
-
-
 }

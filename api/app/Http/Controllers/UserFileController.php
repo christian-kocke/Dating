@@ -33,6 +33,8 @@ class UserFileController extends Controller {
 
 		// if the user is authenticated we return the instance otherwise we return null.
 		$this->_user = (Auth::check()) ? Auth::user() : null;
+
+		$this->_path = '/app/imgDrop/profilPictures/';
 	}
 
 	/**
@@ -66,11 +68,10 @@ class UserFileController extends Controller {
 		if($this->_request->file('file')->isValid())
 		{
 			$fileName = $this->_request->header('name').".".$this->_request->file('file')->guessExtension();
-			$filePath = $this->_request->header('path').''.$fileName;
-			if($this->_request->file('file')->move($_SERVER['DOCUMENT_ROOT'].$this->_request->header('path'), $fileName))
+			$filePath = $this->_path.$fileName;
+			if($this->_request->file('file')->move($_SERVER['DOCUMENT_ROOT'].$this->_path, $fileName))
 			{
-				DB::update('update profils set profil_path = ? where id = ?', [$filePath, $this->_user->id]);
-				Image::thumb($filePath, 84);
+				DB::update('update profils set profil_path = ? where user_id = ?', [$filePath, $this->_user->id]);
 				Image::compress($filePath);
 				return response($filePath);	
 			}

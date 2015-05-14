@@ -2,6 +2,7 @@
 
 use Auth;
 use DB;
+use File;
 use Image;
 use Api\Http\Requests;
 use Api\Http\Controllers\Controller;
@@ -33,6 +34,8 @@ class PhotosController extends Controller {
 
 		// if the user is authenticated we return the instance otherwise we return null.
 		$this->_user = (Auth::check()) ? Auth::user() : null;
+
+		$this->_path = '/app/imgDrop/photos/user_'.$this->_user->id.'/';
 	}
 
 	/**
@@ -42,7 +45,7 @@ class PhotosController extends Controller {
 	 */
 	public function index()
 	{
-		$photos = DB::select('select id, path, thumbnail_path from photos where user_id = ?', [$this->_user->id]);
+		$photos = DB::select('select * from photos where user_id = ?', [$this->_user->id]);
 		
 		return response()->json($photos);
 	}
@@ -66,10 +69,11 @@ class PhotosController extends Controller {
 	{
 		if($this->_request->file('file')->isValid())
 		{
+			if ( ! File::isDirectory($this->_path) and $this->_path) @File::makeDirectory($this->_path);
 			$fileName = $this->_request->header('name').".".$this->_request->file('file')->guessExtension();
-			$filePath = $this->_request->header('path').''.$fileName;
-			$thumbnailPath = $this->_request->header('path').'84x84_crop/'.$fileName;
-			if($this->_request->file('file')->move($_SERVER['DOCUMENT_ROOT'].$this->_request->header('path'), $fileName))
+			$filePath = $this->_path.''.$fileName;
+			$thumbnailPath = $this->_path.'84x84_crop/'.$fileName;
+			if($this->_request->file('file')->move($_SERVER['DOCUMENT_ROOT'].$this->_path, $fileName))
 			{
 				DB::insert('insert into photos (user_id, path, thumbnail_path, description) values (?, ?, ?, ?)', [$this->_user->id, $filePath, $thumbnailPath, "test"]);
 				Image::thumb($filePath, 84);
