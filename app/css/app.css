@@ -208,6 +208,8 @@ img[alt="Dating"] {
 }
 #photoZone {
 	border: 0.5px dotted grey;
+	width: 98%;
+	margin: 2% 1%;
 }
 .profilImg {
 	border-radius: 50%;
