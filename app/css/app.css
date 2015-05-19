@@ -165,6 +165,9 @@ h5{
 	right: 2vh;
 	z-index: 2;
 }
+form[name="updateForm"] .has-feedback .form-control-feedback {
+	top: 24px;
+}
 .validationError {
 	color: red;
 	display: block;

@@ -4,6 +4,48 @@
 
 var datingService = angular.module('datingServices', ['ngResource']);
 
+datingService.factory('MapService', ['$q', function ($q) {
+	var geocoder = new google.maps.Geocoder();
+	return {
+		geocodeCoordinates: function (coordinates) {
+			var deferred = $q.defer();
+			var latlng = new google.maps.LatLng(coordinates.A, coordinates.F);
+			geocoder.geocode({'latLng': latlng}, function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					deferred.resolve(results[0].formatted_address);
+				} else {
+					deferred.reject(status);
+				}
+			});
+			return deferred.promise;
+		},
+		geocodeAddress: function (address) {
+			var deferred = $q.defer();
+			geocoder.geocode({'address': address}, function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					deferred.resolve(results);
+				} else {
+					deferred.reject(status);
+				}
+			});
+			return deferred.promise;
+		},
+		geolocate: function () {
+			var deferred = $q.defer();
+			if(navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function(position) {
+					var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+					deferred.resolve(position);
+				}, function(error) {
+					deferred.reject(error);
+				}, {timeout: 5000});
+			} else {
+				deferred.reject("geolocation not supported");
+			}
+			return deferred.promise;
+		}
+	};
+}]);
 
 datingService.factory('UtilityService',[function () {
 

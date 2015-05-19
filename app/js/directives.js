@@ -91,3 +91,31 @@ datingDirective.directive('dropzone', ['$rootScope', 'USER_EVENTS', function ($r
 		});
 	};
 }]);
+
+
+datingDirective.directive('geocodeCheck',['$q', function ($q) {
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		link: function (scope, elm, attrs, ctrl) {
+			ctrl.$asyncValidators.geocodecheck = function (modelValue, viewValue) {
+
+				var def = $q.defer();
+
+				scope.geocoder.geocode({'address': modelValue}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) {
+						if(results[0].partial_match || results.length != 1) {
+							def.reject();
+						} else {
+							def.resolve();
+						}
+					} else {
+						def.reject();
+					}
+				});
+
+				return def.promise;
+			}
+		}
+	};
+}]);

@@ -2,7 +2,7 @@
 
 /* App Module */
 
-var datingApp = angular.module('datingApp',['ngRoute','datingControllers','datingServices','ngToast','datingFilters','datingDirectives','datingAnimations']);
+var datingApp = angular.module('datingApp',['ngRoute','datingControllers','datingServices','ngToast', 'ngAnimate','datingFilters','datingDirectives','datingAnimations', 'mgcrea.ngStrap']);
 
 datingApp.config(['$routeProvider','$locationProvider', function($routeProvider, $locationProvider) {
 
@@ -280,16 +280,15 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
 
     //map events
     $rootScope.$on(MAP_EVENTS.mapError, function (event, status) {
-        var aToast = ngToast.create({
-            className: 'danger',
-            content: 'map error'
-        });
+        ToastService.show('Map error', 'danger');
     });
 
     $rootScope.$on(MAP_EVENTS.geolocationFailed, function (event) {
         ToastService.show('You have disabled geolocation, please re-activate it', 'warning');
-        event.targetScope.loading = false;
-        event.targetScope.$apply();
+    });
+
+    $rootScope.$on(MAP_EVENTS.geolocationSuccess, function (event) {
+        ToastService.show('Geolocation success', 'success');
     });
 }]);
 
@@ -349,7 +348,8 @@ datingApp.constant('AUTH_EVENTS', {
 }).constant('MAP_EVENTS', {
     mapError: 'map-error',
     geolocationFailed: 'map-geolocation-failed',
-    geolocationNotSupported: 'map-geolocation-not-supported'
+    geolocationNotSupported: 'map-geolocation-not-supported',
+    geolocationSuccess: 'map-geolocation-success'
 }).constant('RESOURCE', {
     user: '/api/public/user',
     userFiles: '/api/public/user/file',

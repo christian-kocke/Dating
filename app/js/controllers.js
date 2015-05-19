@@ -67,7 +67,7 @@ datingController.controller('UpdatePasswordCtrl',['$scope','$rootScope','USER_EV
 
 }]);
 
-datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP_EVENTS','USER_EVENTS','ProfilService', function ($scope, $rootScope, ToastService, MAP_EVENTS, USER_EVENTS, ProfilService) {
+datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP_EVENTS','USER_EVENTS','ProfilService', 'MapService', function ($scope, $rootScope, ToastService, MAP_EVENTS, USER_EVENTS, ProfilService, MapService) {
 
 	$scope.geocoder;
 	$scope.map;
@@ -123,45 +123,49 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 	}; // End codeAddress()
 
 	$scope.geolocate = function () {
-		$rootScope.locationError = false;
-		$rootScope.locationSuccess = false;
+		$scope.geolocationFailed = false;
+		$scope.geolocationSuccess = false;
+		$scope.loading = true;
 		// Try HTML5 geolocation
-		if(navigator.geolocation) {
-			$scope.loading = true;
-			navigator.geolocation.getCurrentPosition(function(position) {
-
-				var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-				var marker = new google.maps.Marker({
-					map: $scope.map,
-					position: pos
-				});
-
-				$scope.map.setCenter(pos);
-				$rootScope.locationSuccess = true;
-
-			}, function(error) {
-				$rootScope.locationError = true;
-				$scope.$emit(MAP_EVENTS.geolocationFailed);
-			}, {timeout: 5000});
-
-		} else {
-			// Browser doesn't support Geolocation
-			$rootScope.locationError = true;
-			$rootScope.$broadcast(MAP_EVENTS.geolocationNotSupported);
-		}
+		MapService.geolocate().then(function (res) {
+			MapService.geocodeCoordinates({A: res.coords.latitude, F: res.coords.longitude}).then(function (res) {
+				console.log(res);
+				$scope.user.location = res;
+				$scope.geolocationSuccess = true;
+				$rootScope.$broadcast(MAP_EVENTS.geolocationSuccess);
+			}, function () {
+				$rootScope.$broadcast(MAP_EVENTS.geolocationFailed);
+				$scope.geolocationFailed = true;
+			});
+		}, function (error) {
+			if(error) {
+				$rootScope.$broadcast(MAP_EVENTS.mapError);
+			} else {
+				$rootScope.$broadcast(MAP_EVENTS.geolocationFailed);
+			}
+			$scope.geolocationFailed = true;
+		}).finally(function () {
+			$scope.loading = false;
+		});
 	};// End geolocate()
 
 }]); // End MapCtrl
 
 
-datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS) {
+datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS', 'MapService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, MapService) {
 
 	$scope.activeTab = 'profil';
-	$scope.user = {
-		username: $rootScope.currentUser.username
-	};
 	$scope.photos = {};
+
+	$scope.$on(USER_EVENTS.profilLoadSucces, function (event) {
+		$scope.user = {
+			username: $rootScope.currentUser.username,
+		};
+
+		MapService.geocodeCoordinates($rootScope.currentProfil.location).then(function (res) {
+			$scope.user.location = res;
+		});
+	});
 
 	$scope.photosDropzoneConfig = {
 		options: {
@@ -218,6 +222,12 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	$scope.setClass = function (path) {
 		$scope.activeTab = path;
 	}; // End setClass()
+
+	$scope.getAddress = function (address) {
+		return MapService.geocodeAddress(address).then(function (res) {
+			return res;
+		});
+	};
 
 	$scope.update = function () {
 		ProfilService.update().then(function (res) {
