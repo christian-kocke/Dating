@@ -1,42 +1,47 @@
 <div class="row" ng-controller="ResetPasswordCtrl">
 
 	<div class="container-fluid">
-		<div class="pinkBG1 whiteTxt headerContainer">
+		<div class="whiteTxt pinkBG1 headerContainerx">
 			<h1> RESET YOUR PASSWORD </h1>
 			<p><em> Please enter you email adresse, we'll send you an email with a reset Password link. </em></p>
 		</div><!-- class whiteTxt pinkBG headerContainer -->
 	</div><!-- class container-fluid -->
-
-	<div class="container-fluid greyBG">
-	</div><!-- class container-fluid -->
 	
-	<div class="col-md-3 col-md-offset-9 FormContainer" ng-hide="sent || loading">
-		<form name="resetPasswordForm" role="reset-password" ng-submit="resetPasswordForm.$valid && sendEmail(reset)" novalidate>
-			
-			<div class="col-md-12 form-group has-feedback" ng-class="{'has-success': resetPasswordForm.email.$valid, 'has-error': resetPasswordForm.email.$invalid && resetPasswordForm.email.$dirty}">
+	<div class="container-fluid contentBlock" ng-class="{whiteBG: typeDevice === 'mobile'}">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div ng-hide="sent || loading" ng-class="{Form: typeDevice === 'noMobile', FormTablet: sizeDevice === 'tablet', LoginTablet: sizeDevice === 'tablet', FormMedium: sizeDevice === 'medium', FormLarge: sizeDevice === 'large', whiteBG: typeDevice === 'noMobile'}">
 				
-				<div class="input-group">
-					<span class="input-group-addon">
-						<span class="glyphicon glyphicon-envelope"></span>
-					</span>
-					<input type="email" class="form-control" ng-model="reset.email" name="email" id="email" aria-describedby="emailStatus" placeholder="Email" ng-maxlength="255" required>
-				</div><!-- class input-group -->
+				<form name="resetPasswordForm" role="reset-password" ng-submit="resetPasswordForm.$valid && sendEmail(reset)" novalidate>
+					
+					<div class="col-md-12 form-group has-feedback" ng-class="{'has-success': resetPasswordForm.email.$valid, 'has-error': resetPasswordForm.email.$invalid && resetPasswordForm.email.$dirty}">
+						
+						<label class="greyTxt2" for="resetPassword"> Enter you email to reset your password </label>
 
-				<!-- Errors -->
-				<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="resetPasswordForm.email.$valid" aria-hidden="true"></span>
-				<span id="emailStatus" class="sr-only">(success)</span>
-				<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="resetPasswordForm.email.$invalid && resetPasswordForm.email.$dirty" aria-hidden="true"></span>
-				<span id="emailStatus" class="sr-only">(warning)</span>
-				<span class="validationError" ng-show="resetPasswordForm.email.$error.required && resetPasswordForm.email.$dirty">* The email is required</span>
+						<div class="input-group">
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-envelope"></span>
+							</span>
+							<input type="email" class="form-control" ng-model="reset.email" name="email" id="email" aria-describedby="emailStatus" placeholder="Email" ng-maxlength="255" required>
+						</div><!-- class input-group -->
 
-			</div><!-- class col-md-12 -->
+						<!-- Errors -->
+						<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="resetPasswordForm.email.$valid" aria-hidden="true"></span>
+						<span id="emailStatus" class="sr-only">(success)</span>
+						<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="resetPasswordForm.email.$invalid && resetPasswordForm.email.$dirty" aria-hidden="true"></span>
+						<span id="emailStatus" class="sr-only">(warning)</span>
+						<span class="validationError" ng-show="resetPasswordForm.email.$error.required && resetPasswordForm.email.$dirty">* The email is required</span>
 
-			<!-- Submit button -->
-			<div class="col-md-8 col-md-offset-2">
-				<button type="submit" class="btn btn-lg center-block pinkBtn whiteTxt"> Send </button>
-			</div><!-- class col-md-8 col-md-offset-2 -->
+					</div><!-- class col-md-12 -->
 
-		</form><!-- resetPasswordForm -->
+					<!-- Submit button -->
+					<div class="col-md-8 col-md-offset-2">
+						<button type="submit" class="btn btn-lg center-block pinkBtn whiteTxt"> Send </button>
+					</div><!-- class col-md-8 col-md-offset-2 -->
+
+				</form><!-- resetPasswordForm -->
+
+			</div>
+		</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 	</div><!-- class col-md-3 col-md-offset-9 -->
 
 	<div class="col-md-4 col-md-offset-4" ng-show="sent">

@@ -127,7 +127,7 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 		MapService.geolocate().then(function (res) {
 			MapService.geocodeCoordinates({A: res.coords.latitude, F: res.coords.longitude}).then(function (res) {
 				console.log(res);
-				$scope.user.location = res;
+				$scope.profil.location = res;
 				$scope.geolocationSuccess = true;
 				$rootScope.$broadcast(MAP_EVENTS.geolocationSuccess);
 			}, function () {
@@ -274,6 +274,7 @@ datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope'
 	$scope.submitted = false;
 	$scope.loading = false;
 	$scope.activated = false;
+	$scope.selected = 0;
 
 	$scope.register = function (user) {
 		$scope.loading = true;

@@ -128,7 +128,7 @@ h5{
 
 /* Button Sizes & Parameters */
 .largeBtn {
-	width: 80%;
+	width: 70%;
 	padding: 5% 5%;
 	margin: 2% auto;
 }
@@ -153,6 +153,9 @@ h5{
 .geoBtn:hover {
 	background-color: #474A54;
 	color: white;
+}
+.closeUpdatePanel:hover {
+	color: #474A54;
 }
 /* End Button Sizes & Parameters */
 
@@ -181,7 +184,7 @@ form[name="updateForm"] .has-feedback .form-control-feedback {
 
 
 
-/* Img Settings */
+/* Images Settings */
 img[alt="Dating"] {
 	height: 50px;
 }
@@ -195,7 +198,7 @@ img[alt="Dating"] {
 	width: 80px;
 	height: 80px;
 }
-/* End Img Settings */
+/* End Images Settings */
 
 
 
@@ -410,6 +413,9 @@ body {
 }
 .sidePanel {
 	margin-top: 10%;
+}
+.well.whiteBG {
+	border: none;
 }
 /* End Containers Settings */
 
