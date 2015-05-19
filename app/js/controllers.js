@@ -258,6 +258,13 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		} else if($rootScope.currentProfil[Object.keys(input)[0]] === input[Object.keys(input)[0]]) {
 			delete $scope.updateList[Object.keys(input)[0]];
 		}
+		console.log($scope.updateList);
+	};
+
+	$scope.freeUpdateList = function () {
+		$scope.updateList = {};
+		$scope.$emit(USER_EVENTS.profilLoadSucces);
+		console.log($scope.updateList);
 	};
 
 }]); // ./End ProfilCtrl
