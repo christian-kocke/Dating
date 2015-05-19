@@ -75,7 +75,7 @@ class PhotosController extends Controller {
 			$thumbnailPath = $this->_path.'84x84_crop/'.$fileName;
 			if($this->_request->file('file')->move($_SERVER['DOCUMENT_ROOT'].$this->_path, $fileName))
 			{
-				DB::insert('insert into photos (user_id, path, thumbnail_path, description) values (?, ?, ?, ?)', [$this->_user->id, $filePath, $thumbnailPath, "test"]);
+				DB::insert('insert into photos (user_id, path, thumbnail_path, description) values (?, ?, ?, ?)', [$this->_user->id, $filePath, $thumbnailPath, "Add a description"]);
 				Image::thumb($filePath, 84);
 				Image::compress($filePath);
 				return response($filePath);	
