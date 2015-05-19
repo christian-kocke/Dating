@@ -126,8 +126,7 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 		// Try HTML5 geolocation
 		MapService.geolocate().then(function (res) {
 			MapService.geocodeCoordinates({A: res.coords.latitude, F: res.coords.longitude}).then(function (res) {
-				console.log(res);
-				$scope.user.location = res;
+				$scope.profil.location = res;
 				$scope.geolocationSuccess = true;
 				$rootScope.$broadcast(MAP_EVENTS.geolocationSuccess);
 			}, function () {
@@ -253,12 +252,26 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	}; // End updateProfil
 
 	$scope.addToList = function (input) {
-		if($rootScope.currentProfil[Object.keys(input)[0]] !== input[Object.keys(input)[0]]) {
+		var value = input[Object.keys(input)[0]]
+		if($rootScope.currentProfil[Object.keys(input)[0]] !== value) {
 			$scope.updateList[Object.keys(input)[0]] = input[Object.keys(input)[0]];
 		} else if($rootScope.currentProfil[Object.keys(input)[0]] === input[Object.keys(input)[0]]) {
 			delete $scope.updateList[Object.keys(input)[0]];
 		}
 		console.log($scope.updateList);
+	};
+
+	$scope.asyncAddToList = function (input) {
+		if(Object.keys(input)[0] === "location") {
+			MapService.geocodeAddress(input[Object.keys(input)[0]]).then(function (res) {
+				if( JSON.stringify(res[0].geometry.location) !== JSON.stringify($rootScope.currentProfil.location) ) {
+					$scope.updateList[Object.keys(input)[0]] = res[0].geometry.location;
+				} else {
+					delete $scope.updateList[Object.keys(input)[0]];
+				}
+				console.log($scope.updateList);
+			});
+		}
 	};
 
 	$scope.freeUpdateList = function () {
