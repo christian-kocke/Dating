@@ -23,6 +23,11 @@ class UserController extends Controller {
 	protected $_user;
 
 	/**
+	 * The user instance.
+	 */
+	protected $_profil;
+
+	/**
 	 * The current request instance.
 	 */
 	protected $_request;
@@ -49,6 +54,8 @@ class UserController extends Controller {
 
 		// If the user is authenticated return the instance otherwise return null.
 		$this->_user = (Auth::check()) ? Auth::user() : null;
+
+		$this->_profil = (Auth::check()) ? DB::select('select * from profils where user_id = ?', [$this->_user->id])[0] : null;
 	}
 
 	/**
@@ -96,7 +103,8 @@ class UserController extends Controller {
 			$this->_user = Auth::user();
 			if(!$this->_user->activation_token)
 			{
-				return response()->json(["id" => csrf_token(), "user" => $this->_user]);
+				$this->_profil = DB::select('select * from profils where user_id = ?', [$this->_user->id])[0];
+				return response()->json(["id" => csrf_token(), "user" => $this->_user, "profil" => $this->_profil]);
 			}
 			Auth::logout();
 			$this->_user = null;
@@ -118,7 +126,7 @@ class UserController extends Controller {
 	{
 		if(Auth::check())
 		{
-			return response()->json(["id" => csrf_token(), "user" => $this->_user]);
+			return response()->json(["id" => csrf_token(), "user" => $this->_user, "profil" => $this->_profil]);
 		}
 		return response(0);
 	}

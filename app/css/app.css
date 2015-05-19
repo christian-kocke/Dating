@@ -83,6 +83,9 @@ h5{
 .greyTxt4 {
 	color: #CCCCCC;
 }
+.greyTxt5 {
+	color: #8B8B8B;
+}
 .whiteTxt {
 	color: #FFFFFF;
 }
@@ -150,9 +153,6 @@ h5{
 .geoBtn:hover {
 	background-color: #474A54;
 	color: white;
-}
-.settingsIcon {
-	margin: 0 5% 0 0;
 }
 /* End Button Sizes & Parameters */
 
@@ -261,6 +261,25 @@ img[alt="Dating"] {
 }
 /* End Navbar Settings */
 
+
+
+/* Bootstrap Image Gallery Settings */
+.descriptionInput {
+	position: absolute;
+	top: 2%;
+	left: 1%;
+	width: 40%;
+}
+.deletePhoto {
+	position: absolute;
+	bottom: 2%;
+	right: 2%;
+}
+.deletePhoto:hover {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+/* End Bootstrap Image Gallery Settings */
 
 
 

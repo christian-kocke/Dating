@@ -111,9 +111,10 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
     $rootScope.deferredFB = $q.defer();
     $rootScope.deferred = $q.defer();
 
-    AuthService.retrieveUser().then(function (user) {
-        if(user) {
-            $rootScope.currentUser = user;
+    AuthService.retrieveUser().then(function (res) {
+        if(res) {
+            $rootScope.currentUser = res.user;
+            $rootScope.currentProfil = res.profil;
             $rootScope.deferred.resolve("normal success");
         } else {
             $rootScope.currentUser = null;
@@ -167,7 +168,7 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
     $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
         var aToast = ngToast.create({
             className: 'success',
-            content: 'Hello , <strong>'+ $rootScope.currentUser.username+'</strong> nice to see you again !'
+            content: 'Hello , <strong>'+ $rootScope.currentProfil.username+'</strong> nice to see you again !'
         });
     });
     $rootScope.$on(AUTH_EVENTS.notAuthenticated, function () {

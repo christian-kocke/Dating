@@ -39,7 +39,6 @@
 					
 					<!-- Profil picture -->
 					<div class="row"> 
-						<i class="fa fa-gear fa-lg pull-right settingsIcon" ng-click="setClass('settings')"></i>
 						<form class="dropzone" id="profilZone" dropzone="profilDropzoneConfig">
 							<img class="profilImg dz-default dz-message" ng-show="currentProfil.profil_path" ng-src="{{currentProfil.profil_path}}"/>
 							<span class="dz-default dz-message" ng-hide="currentProfil.profil_path"> Drop your picture here ! </span>
@@ -49,7 +48,7 @@
 
 					<!-- Name , Age -->
 					<div class="row">
-						<p class="lead"> {{currentUser.username | capitalize}}, {{currentProfil.age}} </p>
+						<p class="lead"> {{currentProfil.username | capitalize}}, {{currentProfil.age}} </p>
 					</div><!-- class row -->
 
 					<!-- Popularity -->
@@ -88,6 +87,7 @@
 								<li class="greyTxt1"><i class="fa-li fa fa-heart"></i><a class="greyTxt1"> Favorites </a></li>
 								<li class="greyTxt1"><i class="fa-li fa fa-comments"></i><a class="greyTxt1"> Comments <span class="badge pinkBG1"> 5 </span></a></li>
 								<li class="greyTxt1"><i class="fa-li fa fa-lock"></i><a class="greyTxt1"> Blocked </a></li>
+								<li class="greyTxt1" ng-click="setClass('settings')"><i class="fa-li fa fa-gear"></i><a class="greyTxt1"> Settings </a></li>
 							</ul><!-- class list-unstyled fa-ul text-left -->
 						</div><!-- class col-lg-10 col-lg-offset-2 -->
 					</div><!-- class row -->
@@ -189,64 +189,153 @@
 					</div><!-- class row -->
 
 					<div class="row" ng-show="activeTab === 'update'">
-						<div class="col-lg-6 col-lg-offset-3">
-							<form name="updateForm" novalidate role="update" ng-submit="updateProfil(user)">
 
-								<div class="row form-group has-feedback" ng-class="{'has-success': updateForm.username.$valid, 'has-error': updateForm.username.$invalid && updateForm.username.$dirty}">
-									<label class="greyTxt2" for="username"> Username </label>
-									<input ng-model="user.username" class="form-control" type="text" placeholder="New Username..." aria-describedby="usernameStatus" ng-minlength="2" ng-maxlength="60"/>
+						<div class="col-lg-8 col-lg-offset-2">
+							
+							<div class="btn-group btn-group-justified" role="group" aria-label="">
+								<a type="button" class="btn btn-default" ng-click="selected1 = !selected1; selected2 = false" ng-class="{pinkBtn : selected1}"> Profil Settings </a>
+								<a type="button" class="btn btn-default" ng-click="selected2 = !selected2; selected1 = false" ng-class="{pinkBtn : selected2}"> Physical Settings </a>
+							</div><!-- class btn-group -->
 
-									<!-- Errors -->
-									<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="updateForm.username.$valid" aria-hidden="true"></span>
-									<span id="usernameStatus" class="sr-only"> (success) </span>
-									<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="updateForm.username.$invalid && updateForm.username.$dirty" aria-hidden="true"></span>
-									<span id="usernameStatus" class="sr-only"> (warning) </span>
-									<span class="validationError" ng-show="updateForm.username.$error.minlength"> * The username has to be a least 2 characters </span>
-									<span class="validationError" ng-show="updateForm.username.$error.maxlength"> * The username can't be more than 60 characters </span>
+							<div class="well" ng-show="selected1">
 
-								</div><!-- class row -->
+								<form name="updateForm" novalidate role="update" ng-submit="updateProfil(profil)">
 
-								<hr>
+									<!-- Username Input -->
+									<div class="row form-group has-feedback" ng-class="{'has-success': updateForm.username.$valid, 'has-error': updateForm.username.$invalid && updateForm.username.$dirty}"> 
 
-								<div class="row has-feedback" ng-class="{'has-success': updateForm.location.$valid, 'has-error': updateForm.location.$invalid && updateForm.location.$dirty}">
-									<label class="pull-left greyTxt2" for="location"> Your Location </label>
-									<input ng-model="user.location" name="location" id="location" class="form-control" type="text" placeholder="Your location..." aria-describedby="locationStatus" geocode-check required data-animation="am-flip-x" bs-options="address.formatted_address as address.formatted_address for address in getAddress($viewValue)" bs-typeahead/>
-									<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="updateForm.location.$valid" aria-hidden="true"></span>
-									<span id="locationStatus" class="sr-only"> (success) </span>
-									<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="updateForm.location.$invalid && updateForm.location.$dirty" aria-hidden="true"></span>
-									<span id="locationStatus" class="sr-only"> (warning) </span>
-									<span class="form-control-feedback" ng-show="updateForm.location.$pending.geocodecheck"><i class="fa fa-circle-o-notch fa-spin"></i></span>
-									<span class="validationError" ng-show="updateForm.location.$error.minlength"> * The location has to be a least 2 characters </span>
-									<span class="validationError" ng-show="updateForm.location.$error.maxlength"> * The location can't be more than 60 characters </span>
-									<span class="validationError" ng-show="updateForm.location.$error.required && updateForm.location.$dirty"> * The location is required </span>
-									<span class="validationError" ng-show="updateForm.location.$error.geocodecheck"> * The address is invalid </span>
+										<label class="greyTxt2" for="username"> Username </label>
+										
+										<input type="text" class="form-control" ng-model="profil.username" aria-describedby="usernameStatus"placeholder="Username" name="username" ng-minlength="2" ng-maxlength="60" ng-change="addToList({username: profil.username})">
 
-									<button class="btn geoBtn greenBG whiteTxt center-block" ng-click="geolocate()"><i class="fa fa-map-marker fa-lg"></i> Geolocate Me ! </button>
-									<p class="mapMessage text-center" ng-show="loading"><i class="fa fa-cog fa-spin"></i> Locating... </p>
-									<p class="mapMessage text-center" ng-show="geolocationSuccess"><i class="fa fa-check-circle"></i></i> Geolocation complete ! </p>
-									<p class="mapMessage text-center" ng-show="geolocationError"><i class="fa fa-exclamation-triangle"></i> Error, please try again ! </p>
-								</div><!-- class row -->
+										<!-- Errors -->
+										<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="updateForm.username.$valid" aria-hidden="true"></span>
+										<span id="usernameStatus" class="sr-only"> (success) </span>
+										<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="updateForm.username.$invalid && updateForm.username.$dirty" aria-hidden="true"></span>
+										<span id="usernameStatus" class="sr-only"> (warning) </span>
+										<span class="validationError" ng-show="updateForm.username.$error.minlength"> * The username has to be a least 2 characters </span>
+										<span class="validationError" ng-show="updateForm.username.$error.maxlength"> * The username can't be more than 60 characters </span>
+									</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 
-								<hr>
+									<hr>
 
-								<div class="row">
-									<label class="pull-left greyTxt2" for="whyHere"> I'm here to </label>
-									<textarea class="form-control" id="whyHere" ng-model="user.whyHere" name="whyHere" rows="5" placeholder="Tell us why are you here ?"></textarea>
-								</div><!-- class row -->
+									<div class="row has-feedback" ng-class="{'has-success': updateForm.location.$valid, 'has-error': updateForm.location.$invalid && updateForm.location.$dirty}">
+										<label class="pull-left greyTxt2" for="location"> Your Location </label>
+										<input ng-model="user.location" name="location" id="location" class="form-control" type="text" placeholder="Your location..." aria-describedby="locationStatus" geocode-check required data-animation="am-flip-x" bs-options="address.formatted_address as address.formatted_address for address in getAddress($viewValue)" bs-typeahead/>
+										<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="updateForm.location.$valid" aria-hidden="true"></span>
+										<span id="locationStatus" class="sr-only"> (success) </span>
+										<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="updateForm.location.$invalid && updateForm.location.$dirty" aria-hidden="true"></span>
+										<span id="locationStatus" class="sr-only"> (warning) </span>
+										<span class="form-control-feedback" ng-show="updateForm.location.$pending.geocodecheck"><i class="fa fa-circle-o-notch fa-spin"></i></span>
+										<span class="validationError" ng-show="updateForm.location.$error.minlength"> * The location has to be a least 2 characters </span>
+										<span class="validationError" ng-show="updateForm.location.$error.maxlength"> * The location can't be more than 60 characters </span>
+										<span class="validationError" ng-show="updateForm.location.$error.required && updateForm.location.$dirty"> * The location is required </span>
+										<span class="validationError" ng-show="updateForm.location.$error.geocodecheck"> * The address is invalid </span>
 
-								<hr>
+										<button class="btn geoBtn greenBG whiteTxt center-block" ng-click="geolocate()"><i class="fa fa-map-marker fa-lg"></i> Geolocate Me ! </button>
+										<p class="mapMessage text-center" ng-show="loading"><i class="fa fa-cog fa-spin"></i> Locating... </p>
+										<p class="mapMessage text-center" ng-show="geolocationSuccess"><i class="fa fa-check-circle"></i></i> Geolocation complete ! </p>
+										<p class="mapMessage text-center" ng-show="geolocationError"><i class="fa fa-exclamation-triangle"></i> Error, please try again ! </p>
+									</div><!-- class row -->
 
-								<div class="row">
-									<label class="pull-left greyTxt2" for="aboutMe"> About Me </label>
-									<textarea class="form-control" id="aboutMe" ng-model="user.aboutMe" name="aboutMe" rows="5" placeholder="Tell us more about you... "></textarea>
-								</div><!-- class row -->
+									<hr>
 
-								<hr>
-a
-								<div class="row">
-									<a class="btn pinkBtn largeBtn sectionBtn center-block" ng-click="setClass('profil')"><i class="fa fa-check fa-lg"></i> Save Changes </a>
-								</div><!-- class row -->
-							</form>
+									<div class="row">
+										<label class="greyTxt2" for="whyHere"> I'm here to </label>
+										<textarea class="form-control" ng-model="profil.whyHere" rows="5" placeholder="Tell us why are you here ?" ng-change="addToList({whyHere: profil.whyHere})"></textarea>
+									</div><!-- class row -->
+
+									<hr>
+
+									<div class="row">
+										<label class="greyTxt2" for="aboutMe"> About Me </label>
+										<textarea class="form-control" ng-model="profil.aboutMe" rows="5" placeholder="Tell us more about you... " ng-change="addToList({aboutMe: profil.aboutMe})"></textarea>
+									</div><!-- class row -->
+
+									<hr>
+
+									<div class="row">
+										<button type="submit" class="btn pinkBtn largeBtn sectionBtn center-block"><i class="fa fa-check fa-lg"></i> Save Changes </button>
+									</div><!-- class row -->
+								</form>
+							</div><!-- class well -->
+
+							<div class="well" ng-show="selected2">
+								<form name="updatePhysicalForm" novalidate role="update" ng-submit="updateProfil(profil)">
+
+									<div class="row form-group" ng-class="{'has-success': updatePhysicalForm.height.$valid, 'has-error': updatePhysicalForm.height.$invalid && updatePhysicalForm.height.$dirty}"> 
+										
+										<label class="greyTxt2" for="height"> Height </label>
+
+										<div class="input-group">
+											<input type="number" class="form-control" ng-model="profil.height" aria-describedby="heightStatus" placeholder="Your Height..." min="120" max="220" ng-maxlength="3">
+											<span class="input-group-addon">
+												<span> cm </span>
+											</span>
+										</div><!-- class input-group -->
+									</div><!-- class row -->
+
+									<hr>
+
+									<div class="row">
+										<label class="greyTxt2" for="skin"> Skin Tone </label>
+										<select ng-model="profil.skin" class="form-control">
+											<option value="" disabled="disable"> What is your skin tone ? </option>
+											<option value="black"> Black </option>
+											<option value="asian"> Asian </option>
+											<option value="white"> White </option>
+											<option value="mixed"> Mixed </option>
+										</select>
+									</div><!-- class row -->
+
+									<hr>
+
+									<div class="row">
+										<label class="greyTxt2" for="eyes"> Eyes Color </label>
+										<select ng-model="profil.eyes" class="form-control">
+											<option value="" disabled="disable"> What is your eyes color ? </option>
+											<option value="black"> Black </option>
+											<option value="brown"> Brown </option>
+											<option value="blue"> Blue </option>
+											<option value="green"> Green </option>
+										</select>
+									</div><!-- class row -->
+
+									<hr>
+
+									<div class="row">
+										<label class="greyTxt2" for="hair"> Hair Color </label>
+										<select ng-model="profil.hair" class="form-control">
+											<option value="" disabled="disable"> What is your hair color ? </option>
+											<option value="black"> Black </option>
+											<option value="brown"> Brown </option>
+											<option value="red"> Red </option>
+											<option value="blond"> Blond </option>
+										</select>
+									</div><!-- class row -->
+
+									<hr>
+
+									<div class="row">
+										<label class="greyTxt2" for="weight"> Weight </label>
+										<select ng-model="profil.weight" class="form-control">
+											<option value="" disabled="disable"> What is your weight ? </option>
+											<option value="40"> <= 40kg </option>
+											<option value="50"> <= 50kg </option>
+											<option value="60"> <= 60kg </option>
+											<option value="70"> <= 70kg </option>
+											<option value="80"> <= 80kg </option>
+											<option value="90"> > 90kg </option>
+										</select>
+									</div><!-- class row -->
+
+									<hr>
+
+									<div class="row">
+										<a class="btn pinkBtn largeBtn sectionBtn center-block"><i class="fa fa-check fa-lg"></i> Save Changes </a>
+									</div><!-- class row -->
+								</form>
+							</div><!-- class well -->
 						</div><!-- class col-lg-12 -->
 					</div><!-- class row -->
 
@@ -256,8 +345,8 @@ a
 						<form class="dropzone" id="photoZone" dropzone="photosDropzoneConfig"></form>
 
 						<div id="links" class="photos-display">
-							<a ng-repeat="photo in photos track by photo.id" href="{{photo.path}}" title="{{photo.description}}" data-gallery>
-								<img ng-src="{{photo.thumbnail_path}}" alt="Profil">
+							<a ng-repeat="photo in photos track by photo.id" href="{{photo.path}}" title="{{photo.description}}" alt="{{photo.id}}" data-gallery>
+								<img ng-src="{{photo.thumbnail_path}}" alt="{{photo.id}}">
 							</a>
 						</div><!-- class photo-display -->
 

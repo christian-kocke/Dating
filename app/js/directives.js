@@ -77,8 +77,8 @@ datingDirective.directive('emailCheck',['$q','ValidationService', function ($q, 
 }]);
 
 datingDirective.directive('dropzone', ['$rootScope', 'USER_EVENTS', function ($rootScope, USER_EVENTS) {
-	return function (scope, element, attrs) {
-		
+	return function (scope, element, attrs, ctrl) {
+
 		var config, dropzone;
 
 		config = scope[attrs.dropzone];
@@ -89,9 +89,8 @@ datingDirective.directive('dropzone', ['$rootScope', 'USER_EVENTS', function ($r
 		angular.forEach(config.eventHandlers, function (handler, event) {
 			dropzone.on(event, handler);
 		});
-	};
+	};	
 }]);
-
 
 datingDirective.directive('geocodeCheck',['$q', function ($q) {
 	return {

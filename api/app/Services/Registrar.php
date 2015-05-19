@@ -33,7 +33,6 @@ class Registrar implements RegistrarContract {
 	public function create(array $data)
 	{
 		$user = User::create([
-			'username' 	=> $data['username'],
 			'email' 	=> $data['email'],
 			'dob'		=> $data['dob'],
 			'gender'	=> $data['gender'],
@@ -41,7 +40,8 @@ class Registrar implements RegistrarContract {
 		]);
 
 		Profil::create([
-			'user_id'	=> $user->id
+			'user_id'	=> $user->id,
+			'username' 	=> $data['username']
 		]);
 
 		return $user;

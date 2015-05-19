@@ -4,7 +4,6 @@
 
 var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies']);
 
-
 datingController.controller('ApplicationController',['$scope','USER_ROLES','AuthService','$location','Session','UserService','$rootScope','FacebookAuthService','$window','ToastService', function ($scope, USER_ROLES, AuthService, $location, Session, UserService, $rootScope, FacebookAuthService, $window, ToastService) {
 
 	$scope.userRoles = USER_ROLES;
@@ -24,8 +23,6 @@ datingController.controller('ApplicationController',['$scope','USER_ROLES','Auth
 				$rootScope.sizeDevice = 'large';
 			}
 		}
-		console.log($rootScope.typeDevice);
-		console.log($rootScope.sizeDevice);
 	}; // End onload()
 
 	$scope.onload();
@@ -152,15 +149,25 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 }]); // End MapCtrl
 
 
-datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS', 'MapService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, MapService) {
+datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService) {
 
 	$scope.activeTab = 'profil';
+	$scope.profil = {
+		username: $rootScope.currentProfil.username,
+		whyHere: $rootScope.currentProfil.whyHere,
+		aboutMe: $rootScope.currentProfil.aboutMe,
+		height: $rootScope.currentProfil.height,
+		weight: $rootScope.currentProfil.weight,
+		skin: $rootScope.currentProfil.skin,
+		eyes: $rootScope.currentProfil.eyes,
+		hair: $rootScope.currentProfil.hair
+	};
 	$scope.photos = {};
 
+	$scope.updateList = {};
+
+
 	$scope.$on(USER_EVENTS.profilLoadSucces, function (event) {
-		$scope.user = {
-			username: $rootScope.currentUser.username,
-		};
 
 		MapService.geocodeCoordinates($rootScope.currentProfil.location).then(function (res) {
 			$scope.user.location = res;
@@ -172,12 +179,11 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 			url: RESOURCE.photos,
 			paramName: 'file',
 			headers: {
-				'X-XSRF-TOKEN': $cookies['XSRF-TOKEN']			}	
+				'X-XSRF-TOKEN': $cookies['XSRF-TOKEN']
+			}
 		},
 		eventHandlers: {
-			addedfile: function(file) { 
-				console.log(file.size);
-			},
+			addedfile: function(file) {},
 			sending: function (file, xhr, formData) {
 				xhr.setRequestHeader('name', UtilityService.randomAlphaNumeric(10));
 			},
@@ -197,12 +203,8 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 			}
 		},
 		eventHandlers: {
-			addedfile: function(file) { 
-				console.log(file.size);
-			},
-			sending: function (file, xhr, formData) {
-				console.log("sending");
-			},
+			addedfile: function(file) {},
+			sending: function (file, xhr, formData) {},
 			success: function(file, response){
 				$rootScope.currentProfil.profil_path = response + '?decache=' + Math.random();
 			}
@@ -236,6 +238,25 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 
 		});
 	}; // End update()
+
+	$scope.updateProfil = function () {
+		if($scope.updateList) {
+			ProfilService.update($scope.updateList).then(function () {
+				$route.reload();
+				$rootScope.$broadcast(USER_EVENTS.updateSuccess);
+			}, function () {
+				$rootScope.$broadcast(USER_EVENTS.updateFailed);
+			});
+		}
+	}; // End updateProfil
+
+	$scope.addToList = function (input) {
+		if($rootScope.currentProfil[Object.keys(input)[0]] !== input[Object.keys(input)[0]]) {
+			$scope.updateList[Object.keys(input)[0]] = input[Object.keys(input)[0]];
+		} else if($rootScope.currentProfil[Object.keys(input)[0]] === input[Object.keys(input)[0]]) {
+			delete $scope.updateList[Object.keys(input)[0]];
+		}
+	};
 
 }]); // ./End ProfilCtrl
 
@@ -298,7 +319,8 @@ datingController.controller('ResetPasswordCtrl',['$rootScope','$scope','$locatio
 		ResetService.reset(credentials).then(function (res) {
 			if(parseInt(res) === 1) {
 				AuthService.retrieveUser().then(function (res) {
-					$rootScope.currentUser = res;
+					$rootScope.currentUser = res.user;
+					$rootScope.currentProfil = res.profil;
 					$rootScope.$broadcast(USER_EVENTS.resetSuccess);
 					$location.path('/');
 				});
@@ -328,8 +350,9 @@ datingController.controller('AuthCtrl',['$scope','$rootScope','$route','$locatio
 	// Authenticate user
 	$scope.login = function (credentials) {
 		
-		AuthService.login(credentials).then(function (user) {
-			$rootScope.currentUser = user;
+		AuthService.login(credentials).then(function (res) {
+			$rootScope.currentUser = res.user;
+			$rootScope.currentProfil = res.profil;
 			$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
 			$route.reload();
 		}, function (res) {

@@ -97,7 +97,8 @@ class ProfilController extends Controller {
 	 */
 	public function update($id)
 	{
-		if(count(array_intersect_key($this->_request->all(), array('location' => "", 'profil_path' => "", 'id' => ""))) === count($this->_request->all()))
+		error_log(print_r($this->_request->all(), true));
+		if(count(array_intersect_key($this->_request->all(), array('username' => "", 'profil_path' => "", 'location' => "", 'height' => "", 'skin' => "", 'eyes' => "", 'hair' => "", 'weight' => "", 'whyHere' => "", 'aboutMe' => "", 'id' => ""))) === count($this->_request->all()))
 		{
 			$set = '';
 			if(array_key_exists('location', $this->_request->all())) $this->_request['location'] = json_encode($this->_request->input('location'));	

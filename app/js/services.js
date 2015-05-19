@@ -198,6 +198,7 @@ datingService.factory('ProfilService',['$http','RESOURCE','$rootScope', function
 	}
 
 	profilService.update = function (profil) {
+		console.log(profil);
 		return $http
 		.put(RESOURCE.profil+'/'+$rootScope.currentProfil.id, profil)
 		.then(function (res) {
@@ -232,7 +233,7 @@ datingService.factory('AuthService',['$http','Session','$rootScope','AuthInterce
 		.post(RESOURCE.user+'/auth', credentials)
 		.then(function (res) {
 			Session.create(res.data.id, res.data.user.id, res.data.user.role);
-			return res.data.user;
+			return res.data;
 		});
 
 	}; // End login()
@@ -276,7 +277,7 @@ datingService.factory('AuthService',['$http','Session','$rootScope','AuthInterce
 		.then(function (res) {
 			if(res.data !== "0"){
 				Session.create(res.data.id, res.data.user.id, res.data.user.role);
-				return res.data.user;
+				return res.data;
 			} else {
 				return null;
 			}
@@ -493,7 +494,7 @@ datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENT
 				if (angular.isDefined(currentUser)) {
 
 					return ProfilService.show($rootScope.currentUser.id).then(function (profil) {
-						profil.location = (profil.location) ? JSON.parse(profil.location) : {"A":44.4444919,"F":4.708432};
+						profil.location = (profil.location) ? JSON.parse(profil.location) : {"A":21.0226967,"F":105.8369637};
 						$rootScope.currentProfil = profil;
 						$rootScope.$broadcast(USER_EVENTS.profilLoadSucces);
 					}, function () {
