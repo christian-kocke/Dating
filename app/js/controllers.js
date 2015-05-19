@@ -152,6 +152,7 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService) {
 
 	$scope.activeTab = 'profil';
+	
 	$scope.profil = {
 		username: $rootScope.currentProfil.username,
 		whyHere: $rootScope.currentProfil.whyHere,
@@ -170,7 +171,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	$scope.$on(USER_EVENTS.profilLoadSucces, function (event) {
 
 		MapService.geocodeCoordinates($rootScope.currentProfil.location).then(function (res) {
-			$scope.user.location = res;
+			$scope.profil.location = res;
 		});
 	});
 

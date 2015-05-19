@@ -51,12 +51,12 @@ datingService.factory('UtilityService',[function () {
 
 	return {
 		randomAlphaNumeric: function (x) {
-		    var s = "";
-		    while(s.length<x&&x>0){
-		        var r = Math.random();
-		        s+= (r<0.1?Math.floor(r*100):String.fromCharCode(Math.floor(r*26) + (r>0.5?97:65)));
-		    }
-		    return s;
+			var s = "";
+			while(s.length<x&&x>0){
+				var r = Math.random();
+				s+= (r<0.1?Math.floor(r*100):String.fromCharCode(Math.floor(r*26) + (r>0.5?97:65)));
+			}
+			return s;
 		}
 	};
 
@@ -198,9 +198,8 @@ datingService.factory('ProfilService',['$http','RESOURCE','$rootScope', function
 	}
 
 	profilService.update = function (profil) {
-		console.log(profil);
 		return $http
-		.put(RESOURCE.profil+'/'+$rootScope.currentProfil.id, profil)
+		.put(RESOURCE.profil+'/'+$rootScope.currentUser.id, profil)
 		.then(function (res) {
 			return res.data;
 		});
@@ -268,7 +267,7 @@ datingService.factory('AuthService',['$http','Session','$rootScope','AuthInterce
 			authorizedRoles.indexOf(Session.userRole) !== -1);
 
 	}; // End isAuthorized ()
- 
+	
 	// retrieve the current user authenticated
 	authService.retrieveUser = function () {
 		
@@ -293,75 +292,75 @@ datingService.factory('AuthService',['$http','Session','$rootScope','AuthInterce
 
 
 /* Handle every aspect of user authentification via the Facebook app. */
-	datingService.factory('FacebookAuthService',['$http','$q','Session','$rootScope', function ($http, $q, Session, $rootScope) {
+datingService.factory('FacebookAuthService',['$http','$q','Session','$rootScope', function ($http, $q, Session, $rootScope) {
 
-		var facebookAuthService = {};
+	var facebookAuthService = {};
 
-		facebookAuthService.logout = function () {
-			var deferred = $q.defer();
-			facebookAuthService.authStatus().then(function (response) {
-				if(response.status === "connected") {
-					FB.logout(function (response) {
-						if (!response || response.error) {
-							deferred.reject('Error occured');
-						} else {
-							deferred.resolve(response);
-						}
-					});
-				}
-			});
-			return deferred.promise;
-		};
+	facebookAuthService.logout = function () {
+		var deferred = $q.defer();
+		facebookAuthService.authStatus().then(function (response) {
+			if(response.status === "connected") {
+				FB.logout(function (response) {
+					if (!response || response.error) {
+						deferred.reject('Error occured');
+					} else {
+						deferred.resolve(response);
+					}
+				});
+			}
+		});
+		return deferred.promise;
+	};
 
-		facebookAuthService.retrieveUser = function () {
-			var deferred = $q.defer();
-			facebookAuthService.authStatus().then(function (auth) {
-				if(auth.status === 'connected') {
-					FB.api('/me', function (response) {
-						if (!response || response.error) {
-							deferred.reject('Error occured');
-						} else {
-							Session.create(auth.authResponse.accessToken, auth.authResponse.userID, 'client');
-							deferred.resolve(response);
-						}
-					});
-				} else {
-					deferred.reject(auth.status);
-				}
-			});
-			return deferred.promise;
-		};
+	facebookAuthService.retrieveUser = function () {
+		var deferred = $q.defer();
+		facebookAuthService.authStatus().then(function (auth) {
+			if(auth.status === 'connected') {
+				FB.api('/me', function (response) {
+					if (!response || response.error) {
+						deferred.reject('Error occured');
+					} else {
+						Session.create(auth.authResponse.accessToken, auth.authResponse.userID, 'client');
+						deferred.resolve(response);
+					}
+				});
+			} else {
+				deferred.reject(auth.status);
+			}
+		});
+		return deferred.promise;
+	};
 
-		facebookAuthService.authStatus = function () {
-			var deferred = $q.defer();
-			FB.getLoginStatus(function (response) {
-				if (!response || response.error) {
-					deferred.reject('Error occured');
-				} else {
-					deferred.resolve(response);
-				}
-			});
-			return deferred.promise;
-		};
+	facebookAuthService.authStatus = function () {
+		var deferred = $q.defer();
+		FB.getLoginStatus(function (response) {
+			if (!response || response.error) {
+				deferred.reject('Error occured');
+			} else {
+				deferred.resolve(response);
+			}
+		});
+		return deferred.promise;
+	};
 
-		facebookAuthService.WatchAuthStatusChange = function () {
-			FB.Event.subscribe('auth.authResponseChange', function (response) {
-				if (response.status === 'connected') {
-					facebookAuthService.retrieveUser().then(function (user) {
-						if(user) {
-							$rootScope.currentUser = user;
-							$rootScope.deferredFB.resolve("fb success");
-						} else {
-							$rootScope.deferredFB.reject("fb echec");
-						}
-					});
-				} else {
-					$rootScope.deferredFB.reject("fb echec");
-				} 
-			},  {scope: 'email,user_likes,public_profile', return_scopes: true});
-		};
+	facebookAuthService.WatchAuthStatusChange = function () {
+		FB.Event.subscribe('auth.authResponseChange', function (response) {
+			if (response.status === 'connected') {
+				facebookAuthService.retrieveUser().then(function (user) {
+					if(user) {
+						$rootScope.currentUser = user;
+						$rootScope.deferredFB.resolve("fb success");
+					} else {
+						$rootScope.deferredFB.reject("fb echec");
+					}
+				});
+			} else {
+				$rootScope.deferredFB.reject("fb echec");
+			} 
+		},  {scope: 'email,user_likes,public_profile', return_scopes: true});
+	};
 
-		return facebookAuthService;
+	return facebookAuthService;
 
 }]); // End FacebookAuthService
 

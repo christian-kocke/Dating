@@ -55,11 +55,7 @@ return [
 		'mysql' => [
 			'driver'    => 'mysql',
 			'host'      => env('DB_HOST', 'localhost'),
-<<<<<<< Updated upstream
-			//'unix_socket'   => '/Applications/MAMP/tmp/mysql/mysql.sock',
-=======
 			/*'unix_socket'   => '/Applications/MAMP/tmp/mysql/mysql.sock',*/
->>>>>>> Stashed changes
 			'database'  => env('DB_DATABASE', 'dating'),
 			'username'  => env('DB_USERNAME', 'root'),
 			'password'  => env('DB_PASSWORD', 'root'),
