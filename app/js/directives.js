@@ -100,8 +100,8 @@ datingDirective.directive('geocodeCheck',['$q', function ($q) {
 			ctrl.$asyncValidators.geocodecheck = function (modelValue, viewValue) {
 
 				var def = $q.defer();
-
-				scope.geocoder.geocode({'address': modelValue}, function(results, status) {
+				var geocoder = new google.maps.Geocoder();
+				geocoder.geocode({'address': modelValue}, function(results, status) {
 					if (status == google.maps.GeocoderStatus.OK) {
 						if(results[0].partial_match || results.length != 1) {
 							def.reject();
