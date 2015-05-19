@@ -153,22 +153,23 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 
 	$scope.activeTab = 'profil';
 	
-	$scope.profil = {
-		username: $rootScope.currentProfil.username,
-		whyHere: $rootScope.currentProfil.whyHere,
-		aboutMe: $rootScope.currentProfil.aboutMe,
-		height: $rootScope.currentProfil.height,
-		weight: $rootScope.currentProfil.weight,
-		skin: $rootScope.currentProfil.skin,
-		eyes: $rootScope.currentProfil.eyes,
-		hair: $rootScope.currentProfil.hair
-	};
 	$scope.photos = {};
 
 	$scope.updateList = {};
 
 
 	$scope.$on(USER_EVENTS.profilLoadSucces, function (event) {
+
+		$scope.profil = {
+			username: $rootScope.currentProfil.username,
+			whyHere: $rootScope.currentProfil.whyHere,
+			aboutMe: $rootScope.currentProfil.aboutMe,
+			height: $rootScope.currentProfil.height,
+			weight: $rootScope.currentProfil.weight,
+			skin: $rootScope.currentProfil.skin,
+			eyes: $rootScope.currentProfil.eyes,
+			hair: $rootScope.currentProfil.hair
+		};
 
 		MapService.geocodeCoordinates($rootScope.currentProfil.location).then(function (res) {
 			$scope.profil.location = res;
