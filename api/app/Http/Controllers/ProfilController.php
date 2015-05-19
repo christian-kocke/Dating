@@ -106,7 +106,7 @@ class ProfilController extends Controller {
 				$set .= "{$key}=? ";
 			}
 			$set = str_replace(" ", ", ", trim($set));
-			DB::update("UPDATE profils SET {$set} WHERE id = ?", array_merge(array_values($this->_request->all()), [$id]));
+			DB::update("UPDATE profils SET {$set} WHERE user_id = ?", array_merge(array_values($this->_request->all()), [$id]));
 		}
 	}
 
