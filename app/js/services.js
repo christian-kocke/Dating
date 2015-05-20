@@ -491,7 +491,6 @@ datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENT
 			var unwatch = $rootScope.$watch('currentUser', function (currentUser) {
 
 				if (angular.isDefined(currentUser)) {
-
 					return ProfilService.show($rootScope.currentUser.id).then(function (profil) {
 						profil.location = JSON.parse(profil.location);
 						MapService.geocodeCoordinates(profil.location).then(function (res) {

@@ -210,14 +210,12 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
 
     // Update Profil Username
     $rootScope.$on(USER_EVENTS.updateSuccess, function () {
-        AuthService.retrieveUser().then(function (user) {
+        /*AuthService.retrieveUser().then(function (user) {
             $rootScope.currentUser = user;
-        });
-        var aToast = ngToast.create({
-            className: 'success',
-            content: 'Your profil has been well updated !'
-        });
+        });*/
+        ToastService.show('Your profil has been well updated !', 'success');
     });
+
     $rootScope.$on(USER_EVENTS.updateFailed, function () {
         var aToast = ngToast.create({
             className: 'warning',

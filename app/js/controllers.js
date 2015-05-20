@@ -228,8 +228,8 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	$scope.updateProfil = function () {
 		if($scope.updateList) {
 			ProfilService.update($scope.updateList).then(function () {
-				$route.reload();
 				$rootScope.$broadcast(USER_EVENTS.updateSuccess);
+				$route.reload();
 			}, function () {
 				$rootScope.$broadcast(USER_EVENTS.updateFailed);
 			});
