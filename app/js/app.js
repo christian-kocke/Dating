@@ -2,7 +2,7 @@
 
 /* App Module */
 
-var datingApp = angular.module('datingApp',['ngRoute','datingControllers','datingServices','ngToast', 'ngAnimate','datingFilters','datingDirectives','datingAnimations', 'mgcrea.ngStrap']);
+var datingApp = angular.module('datingApp',['ngRoute','datingControllers','datingServices','ngToast', 'ngAnimate','datingFilters','datingDirectives','datingAnimations', 'mgcrea.ngStrap', 'ui.bootstrap-slider']);
 
 datingApp.config(['$routeProvider','$locationProvider', function($routeProvider, $locationProvider) {
 
