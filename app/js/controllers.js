@@ -4,6 +4,37 @@
 
 var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies']);
 
+
+datingController.controller('SearchUsersCtrl',['$scope', function ($scope) {
+
+	$scope.updateList = {};
+	$scope.filter = {
+		gender: {
+			male: false
+		}
+	}
+
+	$scope.getFilters = function (filter) {
+		console.log(filter);
+	};
+
+	$scope.filtersList = function (input) {
+		var value = input[Object.keys(input)[0]]
+		if($rootScope.currentProfil[Object.keys(input)[0]] !== value) {
+			$scope.updateList[Object.keys(input)[0]] = input[Object.keys(input)[0]];
+		} else if($rootScope.currentProfil[Object.keys(input)[0]] === input[Object.keys(input)[0]]) {
+			delete $scope.updateList[Object.keys(input)[0]];
+		}
+		console.log($scope.updateList);
+	};
+
+	$scope.freeUpdateList = function () {
+		$scope.updateList = {};
+		$scope.$emit(USER_EVENTS.profilLoadSucces);
+	};
+
+}]); // End SearchUsersCtrl
+
 datingController.controller('ApplicationController',['$scope','USER_ROLES','AuthService','$location','Session','UserService','$rootScope','FacebookAuthService','$window','ToastService', function ($scope, USER_ROLES, AuthService, $location, Session, UserService, $rootScope, FacebookAuthService, $window, ToastService) {
 
 	$scope.userRoles = USER_ROLES;
@@ -62,7 +93,7 @@ datingController.controller('UpdatePasswordCtrl',['$scope','$rootScope','USER_EV
 		});	
 	};
 
-}]);
+}]); // End UpdatePasswordCtrl
 
 datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP_EVENTS','USER_EVENTS','ProfilService', 'MapService', function ($scope, $rootScope, ToastService, MAP_EVENTS, USER_EVENTS, ProfilService, MapService) {
 

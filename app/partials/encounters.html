@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-controller="ProfilCtrl">
+<div class="container-fluid" ng-controller="SearchUsersCtrl">
 
 	<div class="container profilContainer">
 		<div class="row">
@@ -14,134 +14,136 @@
 
 					<hr>
 
-					<!-- Gender Filter -->
-					<div class="row">
+					<form name="filtersForm" novalidate role="filters" ng-submit="getFilters(filter)">
+						<!-- Gender Filter -->
+						<div class="row">
 
-						<div class="col-lg-12">
-							<label class="greyTxt2 pull-left" for="gender"> Gender </label>
+							<div class="col-lg-12">
+								<label class="greyTxt2 pull-left" for="gender"> Gender </label>
+							</div><!-- class row -->
+
+							<div class="btn-group" data-toggle="buttons">
+								<label class="btn btn-default filterBtn">
+									<input type="checkbox" ng-model="filter.gender.male"> Male
+								</label>
+								<label class="btn btn-default filterBtn">
+									<input type="checkbox" ng-model="filter.gender.female" value="female"> Female
+								</label>
+							</div><!-- class btn-group -->
+							
 						</div><!-- class row -->
 
-						<div class="btn-group" data-toggle="buttons">
-							<label class="btn btn-default filterBtn">
-								<input type="checkbox" autocomplete="off" value="male"> Male
-							</label>
-							<label class="btn btn-default filterBtn">
-								<input type="checkbox" autocomplete="off" value="female"> Female
-							</label>
-						</div><!-- class btn-group -->
-						
-					</div><!-- class row -->
+						<hr>
 
-					<hr>
+						<!-- Height Filter -->
+						<div class="row">
 
-					<!-- Height Filter -->
-					<div class="row">
+							<div class="col-lg-12">
+								<label class="greyTxt2 pull-left" for="height"> Height </label>
+							</div><!-- class col-lg-12 -->
 
-						<div class="col-lg-12">
-							<label class="greyTxt2 pull-left" for="height"> Height </label>
-						</div><!-- class col-lg-12 -->
-
-					</div><!-- class row -->
-
-					<hr>
-
-					<!-- Skin Filter -->
-					<div class="row">
-
-						<div class="col-lg-12">
-							<label class="greyTxt2 pull-left" for="skin"> Skin Tone </label>
 						</div><!-- class row -->
 
-						<div class="btn-group" data-toggle="buttons">
-							<label class="btn btn-default filterBtn">
-								<input type="checkbox" autocomplete="off" value="black"> Black
-							</label>
-							<label class="btn btn-default filterBtn">
-								<input type="checkbox" autocomplete="off" value="asian"> Asian
-							</label>
-							<label class="btn btn-default filterBtn">
-								<input type="checkbox" autocomplete="off" value="white"> White
-							</label>
-							<label class="btn btn-default filterBtn">
-								<input type="checkbox" autocomplete="off" value="mixed"> Mixed
-							</label>
-						</div><!-- class btn-group -->
-						
-					</div><!-- class row -->
+						<hr>
 
-					<hr>
+						<!-- Skin Filter -->
+						<div class="row">
 
-					<!-- Eyes Filter -->
-					<div class="row">
+							<div class="col-lg-12">
+								<label class="greyTxt2 pull-left" for="skin"> Skin Tone </label>
+							</div><!-- class row -->
 
-						<div class="col-lg-12">
-							<label class="greyTxt2 pull-left" for="eyes"> Eyes Color </label>
+							<div class="btn-group" data-toggle="buttons">
+								<label class="btn btn-default filterBtn">
+									<input type="checkbox" ng-model="filter.skin.black" value="black"> Black
+								</label>
+								<label class="btn btn-default filterBtn">
+									<input type="checkbox" ng-model="filter.skin.asian" value="asian"> Asian
+								</label>
+								<label class="btn btn-default filterBtn">
+									<input type="checkbox" ng-model="filter.skin.white" value="white"> White
+								</label>
+								<label class="btn btn-default filterBtn">
+									<input type="checkbox" ng-model="filter.skin.mixed" value="mixed"> Mixed
+								</label>
+							</div><!-- class btn-group -->
+							
 						</div><!-- class row -->
 
-						<div class="btn-group" data-toggle="buttons">
-							<label class="btn btn-default filterBtn">
-								<input type="checkbox" autocomplete="off" value="black"> Black
-							</label>
-							<label class="btn btn-default filterBtn">
-								<input type="checkbox" autocomplete="off" value="brown"> Brown
-							</label>
-							<label class="btn btn-default filterBtn">
-								<input type="checkbox" autocomplete="off" value="blue"> Blue
-							</label>
-							<label class="btn btn-default filterBtn">
-								<input type="checkbox" autocomplete="off" value="green"> Green
-							</label>
-						</div><!-- class btn-group -->
-						
-					</div><!-- class row -->
+						<hr>
 
-					<hr>
+						<!-- Eyes Filter -->
+						<div class="row">
 
-					<!-- Hair Filter -->
-					<div class="row">
+							<div class="col-lg-12">
+								<label class="greyTxt2 pull-left" for="eyes"> Eyes Color </label>
+							</div><!-- class row -->
 
-						<div class="col-lg-12">
-							<label class="greyTxt2 pull-left" for="hair"> Hair Color </label>
+							<div class="btn-group" data-toggle="buttons">
+								<label class="btn btn-default filterBtn">
+									<input type="checkbox" ng-model="filter.eyes.black" value="black"> Black
+								</label>
+								<label class="btn btn-default filterBtn">
+									<input type="checkbox" ng-model="filter.eyes.brown" value="brown"> Brown
+								</label>
+								<label class="btn btn-default filterBtn">
+									<input type="checkbox" ng-model="filter.eyes.blue" value="blue"> Blue
+								</label>
+								<label class="btn btn-default filterBtn">
+									<input type="checkbox" ng-model="filter.eyes.green" value="green"> Green
+								</label>
+							</div><!-- class btn-group -->
+							
 						</div><!-- class row -->
 
-						<div class="btn-group" data-toggle="buttons">
-							<label class="btn btn-default filterBtn">
-								<input type="checkbox" autocomplete="off" value="black"> Black
-							</label>
-							<label class="btn btn-default filterBtn">
-								<input type="checkbox" autocomplete="off" value="brown"> Brown
-							</label>
-							<label class="btn btn-default filterBtn">
-								<input type="checkbox" autocomplete="off" value="red"> Red
-							</label>
-							<label class="btn btn-default filterBtn">
-								<input type="checkbox" autocomplete="off" value="blond"> Blond
-							</label>
-						</div><!-- class btn-group -->
-						
-					</div><!-- class row -->
+						<hr>
 
-					<hr>
+						<!-- Hair Filter -->
+						<div class="row">
 
-					<!-- Weight Filter -->
-					<div class="row">
+							<div class="col-lg-12">
+								<label class="greyTxt2 pull-left" for="hair"> Hair Color </label>
+							</div><!-- class row -->
 
-						<div class="col-lg-12">
-							<label class="greyTxt2 pull-left" for="weight"> Weight </label>
-						</div><!-- class col-lg-12 -->
+							<div class="btn-group" data-toggle="buttons">
+								<label class="btn btn-default filterBtn">
+									<input type="checkbox" ng-model="filter.hair.black" value="black"> Black
+								</label>
+								<label class="btn btn-default filterBtn">
+									<input type="checkbox" ng-model="filter.hair.brown" value="brown"> Brown
+								</label>
+								<label class="btn btn-default filterBtn">
+									<input type="checkbox" ng-model="filter.hair.red" value="red"> Red
+								</label>
+								<label class="btn btn-default filterBtn">
+									<input type="checkbox" ng-model="filter.hair.blond" value="blond"> Blond
+								</label>
+							</div><!-- class btn-group -->
+							
+						</div><!-- class row -->
 
-					</div><!-- class row -->
+						<hr>
 
-					<hr>
+						<!-- Weight Filter -->
+						<div class="row">
 
-					<!-- Search Button -->
-					<div class="row">
+							<div class="col-lg-12">
+								<label class="greyTxt2 pull-left" for="weight"> Weight </label>
+							</div><!-- class col-lg-12 -->
 
-						<div class="col-lg-12">
-							<button type="submit" class="btn pinkBtn largeBtn sectionBtn center-block"><i class="fa fa-search fa-lg"></i> Search </button>
-						</div><!-- class col-lg-12 -->
+						</div><!-- class row -->
 
-					</div><!-- class row -->
+						<hr>
+
+						<!-- Search Button -->
+						<div class="row">
+
+							<div class="col-lg-12">
+								<button type="submit" class="btn pinkBtn largeBtn sectionBtn center-block"><i class="fa fa-search fa-lg"></i> Search </button>
+							</div><!-- class col-lg-12 -->
+
+						</div><!-- class row -->
+					</form>
 
 				</div><!-- class panel panel-default -->
 			</div><!-- class col-lg-3 -->
