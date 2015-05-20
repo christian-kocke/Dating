@@ -17,20 +17,17 @@
 					<form name="filtersForm" novalidate role="filters" ng-submit="getFilters(filter)">
 						<!-- Gender Filter -->
 						<div class="row">
-
 							<div class="col-lg-12">
 								<label class="greyTxt2 pull-left" for="gender"> Gender </label>
 							</div><!-- class row -->
 
-							<div class="btn-group" data-toggle="buttons">
-								<label class="btn btn-default filterBtn">
-									<input type="checkbox" ng-model="filter.gender.male"> Male
-								</label>
-								<label class="btn btn-default filterBtn">
-									<input type="checkbox" ng-model="filter.gender.female" value="female"> Female
-								</label>
+							<div class="btn-group">
+								<input type="checkbox" name="checkbox" id="male" ng-model="filter.gender.male">
+								<label class="btn btn-default filterBtn" for="male">Male</label> 
+								
+								<input type="checkbox" ng-model="filter.gender.female" name="checkbox" id="female">
+								<label class="btn btn-default filterBtn" for="female">Female</label>
 							</div><!-- class btn-group -->
-							
 						</div><!-- class row -->
 
 						<hr>
@@ -54,19 +51,20 @@
 								<label class="greyTxt2 pull-left" for="skin"> Skin Tone </label>
 							</div><!-- class row -->
 
-							<div class="btn-group" data-toggle="buttons">
-								<label class="btn btn-default filterBtn">
-									<input type="checkbox" ng-model="filter.skin.black" value="black"> Black
-								</label>
-								<label class="btn btn-default filterBtn">
-									<input type="checkbox" ng-model="filter.skin.asian" value="asian"> Asian
-								</label>
-								<label class="btn btn-default filterBtn">
-									<input type="checkbox" ng-model="filter.skin.white" value="white"> White
-								</label>
-								<label class="btn btn-default filterBtn">
-									<input type="checkbox" ng-model="filter.skin.mixed" value="mixed"> Mixed
-								</label>
+							<div class="btn-group">
+
+								<input type="checkbox" ng-model="filter.skin.black" name="checkbox" id="black">
+								<label class="btn btn-default filterBtn" for="black">Black</label>
+																
+								<input type="checkbox" ng-model="filter.skin.asian" name="checkbox" id="asian">
+								<label class="btn btn-default filterBtn" for="asian">Asian</label>
+									 							
+								<input type="checkbox" ng-model="filter.skin.white" name="checkbox" id="white">
+								<label class="btn btn-default filterBtn" for="white">White</label>
+									 							
+								<input type="checkbox" ng-model="filter.skin.mixed" name="checkbox" id="mixed">
+								<label class="btn btn-default filterBtn" for="mixed"> Mixed</label>
+				
 							</div><!-- class btn-group -->
 							
 						</div><!-- class row -->
@@ -80,24 +78,25 @@
 								<label class="greyTxt2 pull-left" for="eyes"> Eyes Color </label>
 							</div><!-- class row -->
 
-							<div class="btn-group" data-toggle="buttons">
-								<label class="btn btn-default filterBtn">
-									<input type="checkbox" ng-model="filter.eyes.black" value="black"> Black
-								</label>
-								<label class="btn btn-default filterBtn">
-									<input type="checkbox" ng-model="filter.eyes.brown" value="brown"> Brown
-								</label>
-								<label class="btn btn-default filterBtn">
-									<input type="checkbox" ng-model="filter.eyes.blue" value="blue"> Blue
-								</label>
-								<label class="btn btn-default filterBtn">
-									<input type="checkbox" ng-model="filter.eyes.green" value="green"> Green
-								</label>
+							<div class="btn-group">
+
+								<input type="checkbox" ng-model="filter.eyes.black" name="checkbox" id="blackeyes"> 
+								<label class="btn btn-default filterBtn" for="blackeyes">Black</label>
+									
+								<input type="checkbox" ng-model="filter.eyes.brown" name="checkbox" id="browneyes">
+								<label class="btn btn-default filterBtn" for="browneyes">Brown</label>
+									 
+								<input type="checkbox" ng-model="filter.eyes.blue" name="checkbox" id="blueeyes"> 
+								<label class="btn btn-default filterBtn" for="blueeyes">Blue</label>
+									
+								<input type="checkbox" ng-model="filter.eyes.green" name="checkbox" id="greeneyes">
+								<label class="btn btn-default filterBtn" for="greeneyes">Green</label>
+									
+								
 							</div><!-- class btn-group -->
 							
 						</div><!-- class row -->
 
-						<<<<<<< HEAD
 						<hr>
 
 						<!-- Hair Filter -->
@@ -107,56 +106,36 @@
 								<label class="greyTxt2 pull-left" for="hair"> Hair Color </label>
 							</div><!-- class row -->
 
-							<div class="btn-group" data-toggle="buttons">
-								<label class="btn btn-default filterBtn">
-									<input type="checkbox" ng-model="filter.hair.black" value="black"> Black
-								</label>
-								<label class="btn btn-default filterBtn">
-									<input type="checkbox" ng-model="filter.hair.brown" value="brown"> Brown
-								</label>
-								<label class="btn btn-default filterBtn">
-									<input type="checkbox" ng-model="filter.hair.red" value="red"> Red
-								</label>
-								<label class="btn btn-default filterBtn">
-									<input type="checkbox" ng-model="filter.hair.blond" value="blond"> Blond
-								</label>
+							<div class="btn-group">
+
+								<input type="checkbox" ng-model="filter.hair.black" name="checkbox" id="blackhair"> 
+								<label class="btn btn-default filterBtn" for="blackhair">Black</label>
+									
+								
+								<input type="checkbox" ng-model="filter.hair.brown" name="checkbox" id="brownhair"> 
+								<label class="btn btn-default filterBtn" for="brownhair">Brown</label>
+									
+								
+								<input type="checkbox" ng-model="filter.hair.red" name="checkbox" id="redhair"> 
+								<label class="btn btn-default filterBtn" for="redhair">Red</label>
+									
+								
+								<input type="checkbox" ng-model="filter.hair.blond" name="checkbox" id="blondhair"> 
+								<label class="btn btn-default filterBtn" for="blondhair">Blond</label>
+									
+								
 							</div><!-- class btn-group -->
 							
 						</div><!-- class row -->
-						=======
-						<div class="btn-group" data-toggle="buttons">
-							<label class="btn btn-default filterBtn">
-								<input type="checkbox" autocomplete="off" value="black"> Black
-							</label>
-							<label class="btn btn-default filterBtn">
-								<input type="checkbox" autocomplete="off" ng-model="filter"> Brown
-							</label>
-							<label class="btn btn-default filterBtn">
-								<input type="checkbox" autocomplete="off" value="red"> Red
-							</label>
-							<label class="btn btn-default filterBtn">
-								<input type="checkbox" autocomplete="off" value="blond"> Blond
-							</label>
-						</div><!-- class btn-group -->
-						
-					</div><!-- class row -->
-					>>>>>>> origin/master
-
 					<hr>
 
 					<!-- Weight Filter -->
 					<div class="row">
 
-						<<<<<<< HEAD
-						<div class="col-lg-12">
-							<label class="greyTxt2 pull-left" for="weight"> Weight </label>
-						</div><!-- class col-lg-12 -->
-						=======
 						<div class="col-lg-12">
 							<label class="greyTxt2 pull-left" for="weight"> Weight </label>
 							<slider ng-model="sliders.sliderValue" min="testOptions.min" step="testOptions.step" max="testOptions.max" value="testOptions.value"></slider>
 						</div><!-- class col-lg-12 -->
-						>>>>>>> origin/master
 
 					</div><!-- class row -->
 

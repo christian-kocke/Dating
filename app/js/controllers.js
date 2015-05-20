@@ -8,15 +8,6 @@ var datingController = angular.module('datingControllers', ['angularFileUpload',
 datingController.controller('SearchUsersCtrl',['$scope', function ($scope) {
 
 	$scope.updateList = {};
-	$scope.filter = {
-		gender: {
-			male: false
-		}
-	}
-
-	$scope.getFilters = function (filter) {
-		console.log(filter);
-	};
 
 	$scope.filtersList = function (input) {
 		var value = input[Object.keys(input)[0]]
