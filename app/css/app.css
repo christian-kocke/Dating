@@ -132,9 +132,12 @@ h5{
 	padding: 5% 5%;
 	margin: 2% auto;
 }
-.largeBtn:hover, .genderBtn:hover, .genderBtn.active, .popularityBtn:hover, .sectionBtn:hover, .filterBtn.active {
+.largeBtn:hover, .genderBtn:hover, .genderBtn.active, .popularityBtn:hover, .sectionBtn:hover, input[name=checkbox]:checked + label {
 	background-color: #FF5967;
 	color: #FFFFFF;
+}
+input[name=checkbox] {
+	display: none;
 }
 .popularityBtn {
 	padding: 5% 0;

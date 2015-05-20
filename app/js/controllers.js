@@ -8,10 +8,13 @@ var datingController = angular.module('datingControllers', ['angularFileUpload',
 datingController.controller('SearchUsersCtrl',['$scope', function ($scope) {
 
 	$scope.updateList = {};
+<<<<<<< HEAD
 
 	$scope.getFilters = function (filter) {
 		console.log(filter);
 	};
+=======
+>>>>>>> origin/master
 
 	$scope.filtersList = function (input) {
 		var value = input[Object.keys(input)[0]]
