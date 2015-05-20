@@ -9,6 +9,10 @@ datingController.controller('SearchUsersCtrl',['$scope', function ($scope) {
 
 	$scope.updateList = {};
 
+	$scope.getFilters = function (filter) {
+		console.log(filter);
+	};
+
 	$scope.filtersList = function (input) {
 		var value = input[Object.keys(input)[0]]
 		if($rootScope.currentProfil[Object.keys(input)[0]] !== value) {
