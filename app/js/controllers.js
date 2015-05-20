@@ -120,22 +120,15 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 	}; // End codeAddress()
 
 	$scope.geolocate = function () {
-		$scope.geolocationFailed = false;
-		$scope.geolocationSuccess = false;
 		$scope.loading = true;
 		// Try HTML5 geolocation
 		MapService.geolocate().then(function (res) {
 			MapService.geocodeCoordinates({A: res.coords.latitude, F: res.coords.longitude}).then(function (res) {
-<<<<<<< HEAD
-=======
-				console.log(res);
->>>>>>> origin/master
 				$scope.profil.location = res;
-				$scope.geolocationSuccess = true;
+				$scope.asyncAddToList({location:$scope.profil.location});
 				$rootScope.$broadcast(MAP_EVENTS.geolocationSuccess);
 			}, function () {
 				$rootScope.$broadcast(MAP_EVENTS.geolocationFailed);
-				$scope.geolocationFailed = true;
 			});
 		}, function (error) {
 			if(error) {
@@ -143,7 +136,6 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 			} else {
 				$rootScope.$broadcast(MAP_EVENTS.geolocationFailed);
 			}
-			$scope.geolocationFailed = true;
 		}).finally(function () {
 			$scope.loading = false;
 		});
@@ -171,12 +163,9 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 			weight: $rootScope.currentProfil.weight,
 			skin: $rootScope.currentProfil.skin,
 			eyes: $rootScope.currentProfil.eyes,
-			hair: $rootScope.currentProfil.hair
+			hair: $rootScope.currentProfil.hair,
+			location: $rootScope.currentProfil.address
 		};
-
-		MapService.geocodeCoordinates($rootScope.currentProfil.location).then(function (res) {
-			$scope.profil.location = res;
-		});
 	});
 
 	$scope.photosDropzoneConfig = {
@@ -236,14 +225,6 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		});
 	};
 
-	$scope.update = function () {
-		ProfilService.update().then(function (res) {
-
-		}, function () {
-
-		});
-	}; // End update()
-
 	$scope.updateProfil = function () {
 		if($scope.updateList) {
 			ProfilService.update($scope.updateList).then(function () {
@@ -262,7 +243,6 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		} else if($rootScope.currentProfil[Object.keys(input)[0]] === input[Object.keys(input)[0]]) {
 			delete $scope.updateList[Object.keys(input)[0]];
 		}
-		console.log($scope.updateList);
 	};
 
 	$scope.asyncAddToList = function (input) {
@@ -273,7 +253,6 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 				} else {
 					delete $scope.updateList[Object.keys(input)[0]];
 				}
-				console.log($scope.updateList);
 			});
 		}
 	};
@@ -281,7 +260,6 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	$scope.freeUpdateList = function () {
 		$scope.updateList = {};
 		$scope.$emit(USER_EVENTS.profilLoadSucces);
-		console.log($scope.updateList);
 	};
 
 }]); // ./End ProfilCtrl

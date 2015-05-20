@@ -111,7 +111,7 @@
 						</div><!-- class col-lg-4 -->
 
 						<div class="col-lg-4 col-lg-offset-4 text-right">
-							<a class="btn btn-link pinkTxt closeUpdatePanel" type="button"><span ng-show="activeTab === 'update'" ng-click="setClass('profil')" class="glyphicon glyphicon-remove"></span></a>
+							<a class="btn btn-link pinkTxt closeUpdatePanel" type="button"><span ng-show="activeTab === 'update'" ng-click="setClass('profil');freeUpdateList();" class="glyphicon glyphicon-remove"></span></a>
 							<a class="btn sectionBtn" ng-hide="activeTab === 'update'" ng-click="setClass('profil')" ng-class="getClass('profil')"><i class="fa fa-user"></i> Profil </a>
 							<a class="btn sectionBtn" ng-hide="activeTab === 'update'" ng-click="setClass('photos')" ng-class="getClass('photos')"><i class="fa fa-picture-o"></i> Photos </a>
 						</div><!-- class col-lg-4 col-lg-offset-4 text-right -->
@@ -141,7 +141,7 @@
 							<div class="col-lg-5 thinBorders">
 
 								<div class="col-lg-6">
-									<h5 class="text-left greyTxt2"> Location : <span class="pinkTxt"> {{ user.location }}</span></h5>
+									<h5 class="text-left greyTxt2"> Location : <span class="pinkTxt"> {{ currentProfil.address }}</span></h5>
 								</div><!-- class col-lg-6 -->
 
 								<div class="col-lg-6 text-right">
@@ -201,7 +201,7 @@
 
 							<div class="well whiteBG" ng-show="selected1">
 
-								<form name="updateForm" novalidate role="update" ng-submit="updateProfil()">
+								<form name="updateForm" novalidate role="update" ng-submit="updateForm.$valid && updateProfil()">
 
 
 									<!-- Username Input Update -->
@@ -227,7 +227,7 @@
 									<div class="row has-feedback" ng-class="{'has-success': updateForm.location.$valid, 'has-error': updateForm.location.$invalid && updateForm.location.$dirty}">
 
 										<label class="greyTxt2" for="location"> Your Location </label>
-										<input ng-model="profil.location" name="location" id="location" class="form-control" type="text" placeholder="Your location..." aria-describedby="locationStatus" geocode-check data-animation="am-flip-x" bs-options="address.formatted_address as address.formatted_address for address in getAddress($viewValue)" bs-typeahead ng-change="asyncAddToList({location: profil.location})"/>
+										<input ng-model="profil.location" name="location" id="location" class="form-control" type="text" placeholder="Your location..." aria-describedby="locationStatus" geocode-check ng-change="asyncAddToList({location: profil.location})" data-animation="am-flip-x" bs-options="address.formatted_address as address.formatted_address for address in getAddress($viewValue)" bs-typeahead model-update/>
 
 										<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="updateForm.location.$valid" aria-hidden="true"></span>
 										<span id="locationStatus" class="sr-only"> (success) </span>
@@ -236,11 +236,9 @@
 										<span class="form-control-feedback" ng-show="updateForm.location.$pending.geocodecheck"><i class="fa fa-circle-o-notch fa-spin"></i></span>
 										<span class="validationError" ng-show="updateForm.location.$error.geocodecheck"> * The location is invalid </span>
 
-										<button class="btn geoBtn greenBG whiteTxt center-block" ng-click="geolocate()"><i class="fa fa-map-marker fa-lg"></i> Geolocate Me ! </button>
+										<a href="" class="btn geoBtn greenBG whiteTxt center-block" ng-click="geolocate()"><i class="fa fa-map-marker fa-lg"></i> Geolocate Me ! </a>
 
 										<p class="mapMessage text-center" ng-show="loading"><i class="fa fa-cog fa-spin"></i> Locating... </p>
-										<p class="mapMessage text-center" ng-show="geolocationSuccess"><i class="fa fa-check-circle"></i></i> Geolocation complete ! </p>
-										<p class="mapMessage text-center" ng-show="geolocationError"><i class="fa fa-exclamation-triangle"></i> Error, please try again ! </p>
 									</div><!-- class row form-group has-feedback -->
 
 									<hr>
