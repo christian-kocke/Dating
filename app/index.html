@@ -35,19 +35,19 @@
                     <!-- Logged -->
                     <div class="nav navbar-right visible-xs" ng-show="currentUser">
                         <a class="btn navbar-btn greyTxt1" data-toggle="collapse" data-target="#Menu"><i class="fa fa-users"></i> People nearby </a>
-                        <a class="btn navbar-btn greyTxt1" data-toggle="collapse" data-target="#Menu"><i class="fa fa-random"></i> Encounters </a>
+                        <a class="btn navbar-btn greyTxt1" href="#/encounters" data-toggle="collapse" data-target="#Menu"><i class="fa fa-random"></i> Encounters </a>
                         <a class="btn navbar-btn greyTxt1" data-toggle="collapse" data-target="#Menu"><i class="fa fa-comments-o"></i> Messages <span class="badge"> 2 </span></a>
-                        <a class="btn btn-default navbar-btn greyTxt1 pinkBtn" data-toggle="collapse" data-target="#Menu"> Profil </a>
+                        <a class="btn btn-default navbar-btn greyTxt1 pinkBtn" href="#/profil" data-toggle="collapse" data-target="#Menu"> Profile </a>
                         <a class="btn btn defalt navbar-btn greyTxt1 pinkBtn" data-toggle="collapse" data-target="#Menu"> Help </a>
                         <a class="btn btn defalt navbar-btn greyTxt1 pinkBtn" ng-click="logout()" data-toggle="collapse" data-target="#Menu"> Logout </a>
                     </div><!-- class nav navbar-right -->
 
-                     <!-- Logged -->
+                    <!-- Logged -->
                     <div class="nav navbar-right hidden-xs" ng-show="currentUser">
                         <a class="btn navbar-btn greyTxt1"><i class="fa fa-users"></i> People nearby </a>
-                        <a class="btn navbar-btn greyTxt1"><i class="fa fa-random"></i> Encounters </a>
+                        <a class="btn navbar-btn greyTxt1" href="#/encounters"><i class="fa fa-random"></i> Encounters </a>
                         <a class="btn navbar-btn greyTxt1"><i class="fa fa-comments-o"></i> Messages <span class="badge"> 2 </span></a>
-                        <a class="btn btn-default navbar-btn greyTxt1 pinkBtn"> Profil </a>
+                        <a class="btn btn-default navbar-btn greyTxt1 pinkBtn" href="#/profil"> Profile </a>
                         <a class="btn btn defalt navbar-btn greyTxt1 pinkBtn"> Help </a>
                         <a class="btn btn defalt navbar-btn greyTxt1 pinkBtn" ng-click="logout()"> Logout </a>
                     </div><!-- class nav navbar-right -->
@@ -59,7 +59,7 @@
                         <a href="#/profil" class="btn navbar-btn greyTxt1" data-toggle="collapse" data-target="#Menu"> Champion Someone ! </a>
                     </div><!-- class nav navbar-right -->
 
-                     <!-- Not Logged -->
+                    <!-- Not Logged -->
                     <div class="nav navbar-right hidden-xs" ng-hide="currentUser">
                         <a href="#/" class="btn navbar-btn greyTxt1" ng-class="getClass('/')"> Login </a>
                         <a href="#/signup" class="btn navbar-btn greyTxt1" ng-class="getClass('/signup')"> Sign up </a>
@@ -101,110 +101,104 @@
             </div><!-- class modal-dialog -->
         </div><!-- class modal fade -->
     </div><!-- class blueimp-gallery blueimp-gallery-controls -->
+    
+    <footer>
+        <!-- Mobile Version -->
+        <nav class="navbar navbar-default navbar-fixed-bottom greyBG1 visible-xs" role="navigation">
+            <div class="container">
 
-    <script type="text/javascript">
-    var fullscreenOptions = {
-            // Defines if the gallery should open in fullscreen mode:
-            fullScreen: true
-        };
-        </script>
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#BottomMenu">
+                        <span class="sr-only"> Menu </span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <p class="navbar-text"> Copyright @ Dating App 2015 </p>
+                </div><!-- class navbar-header -->
 
-        <footer>
-            <!-- Mobile Version -->
-            <nav class="navbar navbar-default navbar-fixed-bottom greyBG1 visible-xs" role="navigation">
-                <div class="container">
+                <div class="collapse navbar-collapse" id="BottomMenu">
+                    <div class="nav navbar-right">
+                        <ul class="list-inline navbar-right">
+                            <a class="navbar-text btn navbar-btn" data-toggle="collapse" data-target="#BottomMenu"> Top </a>
+                            <a class="navbar-text btn navbar-btn" data-toggle="collapse" data-target="#BottomMenu"> About Us </a>
+                            <a class="navbar-text btn navbar-btn" data-toggle="collapse" data-target="#BottomMenu"> Site Map </a>
+                            <a class="navbar-text btn navbar-btn" data-toggle="collapse" data-target="#BottomMenu"> Terms of use </a>
+                            <a class="navbar-text btn navbar-btn" data-toggle="collapse" data-target="#BottomMenu"> Policy </a>
+                        </ul><!-- class nav navbar-right -->
+                    </div><!-- class nav navbar-right -->
+                </div><!-- class collapse navbar-collapse -->
+            </div><!-- container -->
+        </nav><!-- class navbar navbar-default -->
 
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#BottomMenu">
-                            <span class="sr-only"> Menu </span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <p class="navbar-text"> Copyright @ Dating App 2015 </p>
-                    </div><!-- class navbar-header -->
+        <!-- Large Version -->
+        <nav class="navbar navbar-default navbar-fixed-bottom greyBG1 hidden-xs" role="navigation">
+            <div class="container">
 
-                    <div class="collapse navbar-collapse" id="BottomMenu">
-                        <div class="nav navbar-right">
-                            <ul class="list-inline navbar-right">
-                                <a class="navbar-text btn navbar-btn" data-toggle="collapse" data-target="#BottomMenu"> Top </a>
-                                <a class="navbar-text btn navbar-btn" data-toggle="collapse" data-target="#BottomMenu"> About Us </a>
-                                <a class="navbar-text btn navbar-btn" data-toggle="collapse" data-target="#BottomMenu"> Site Map </a>
-                                <a class="navbar-text btn navbar-btn" data-toggle="collapse" data-target="#BottomMenu"> Terms of use </a>
-                                <a class="navbar-text btn navbar-btn" data-toggle="collapse" data-target="#BottomMenu"> Policy </a>
-                            </ul><!-- class nav navbar-right -->
-                        </div><!-- class nav navbar-right -->
-                    </div><!-- class collapse navbar-collapse -->
-                </div><!-- container -->
-            </nav><!-- class navbar navbar-default -->
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <p class="navbar-text"> Copyright @ Dating App 2015 </p>
+                </div><!-- class navbar-header -->
 
-            <!-- Large Version -->
-            <nav class="navbar navbar-default navbar-fixed-bottom greyBG1 hidden-xs" role="navigation">
-                <div class="container">
-
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <p class="navbar-text"> Copyright @ Dating App 2015 </p>
-                    </div><!-- class navbar-header -->
-
-                    <ul class="list-inline navbar-right hidden-xs">
-                        <li><a class="navbar-text"> Top </a></li>
-                        <li><a class="navbar-text side-borders"> About Us </a></li>
-                        <li><a class="navbar-text"> Site Map </a></li>
-                        <li><a class="navbar-text side-borders"> Terms of use </a></li>
-                        <li><a class="navbar-text"> Policy </a></li>
-                    </ul><!-- class nav navbar-right -->
-                </div><!-- container -->
-            </nav><!-- class navbar navbar-default -->
-        </footer>
+                <ul class="list-inline navbar-right hidden-xs">
+                    <li><a class="navbar-text"> Top </a></li>
+                    <li><a class="navbar-text side-borders"> About Us </a></li>
+                    <li><a class="navbar-text"> Site Map </a></li>
+                    <li><a class="navbar-text side-borders"> Terms of use </a></li>
+                    <li><a class="navbar-text"> Policy </a></li>
+                </ul><!-- class nav navbar-right -->
+            </div><!-- container -->
+        </nav><!-- class navbar navbar-default -->
+    </footer>
 
 
-        <!-- Delete account Modal (confirmation) -->
-        <div id="deleteAccountModal" class="modal fade" role="dialog" aria-labelledby="deleteAccountModal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content pinkBorderShadowed">
+    <!-- Delete account Modal (confirmation) -->
+    <div id="deleteAccountModal" class="modal fade" role="dialog" aria-labelledby="deleteAccountModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content pinkBorderShadowed">
 
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title"> WARNING: Delete Account </h4>
-                    </div>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"> WARNING: Delete Account </h4>
+                </div>
 
-                    <div class="modal-body">
-                        <p> Are you sure about that ? </p>
-                    </div>
+                <div class="modal-body">
+                    <p> Are you sure about that ? </p>
+                </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="deleteAccount()"> Yes </button>
-                        <button type="button" class="btn btn-success" data-dismiss="modal"> No </button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="deleteAccount()"> Yes </button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal"> No </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
-        <script src="components/jquery/dist/jquery.min.js"></script>
-        <script src="components/angular/angular.min.js"></script>
-        <script src="components/angular-animate/angular-animate.min.js"></script>
-        <script src="components/angular-route/angular-route.min.js"></script>
-        <script src="components/angular-resource/angular-resource.min.js"></script>
-        <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="components/angular-file-upload/angular-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
-        <script src="components/angular-file-upload/angular-file-upload.min.js"></script>
-        <script src="components/angular-sanitize/angular-sanitize.min.js"></script>
-        <script src="components/angular-toast/dist/ngToast.min.js"></script>
-        <script src="components/angular-cookies/angular-cookies.min.js"></script>
-        <script src="components/bootstrap-image-gallery/js/jquery.blueimp-gallery.min.js"></script>
-        <script src="components/bootstrap-image-gallery/js/bootstrap-image-gallery.min.js"></script>
-        <script src="components/angular-strap/dist/angular-strap.min.js"></script>
-        <script src="components/angular-strap/dist/angular-strap.tpl.min.js"></script>
-        <script src="js/app.js"></script>
-        <script src="js/services.js"></script>
-        <script src="js/animations.js"></script>
-        <script src="js/controllers.js"></script>
-        <script src="js/filters.js"></script>
-        <script src="js/directives.js"></script>
-        <script src="components/dropzone/dropzone.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyA0JlBI0dk6qOKMaSuDTkFqkoF1E1jL4Es"></script>
+    <script src="components/jquery/dist/jquery.min.js"></script>
+    <script src="components/angular/angular.min.js"></script>
+    <script src="components/angular-animate/angular-animate.min.js"></script>
+    <script src="components/angular-route/angular-route.min.js"></script>
+    <script src="components/angular-resource/angular-resource.min.js"></script>
+    <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="components/angular-file-upload/angular-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
+    <script src="components/angular-file-upload/angular-file-upload.min.js"></script>
+    <script src="components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="components/angular-toast/dist/ngToast.min.js"></script>
+    <script src="components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="components/bootstrap-image-gallery/js/jquery.blueimp-gallery.min.js"></script>
+    <script src="components/bootstrap-image-gallery/js/bootstrap-image-gallery.min.js"></script>
+    <script src="components/angular-strap/dist/angular-strap.min.js"></script>
+    <script src="components/angular-strap/dist/angular-strap.tpl.min.js"></script>
+    <script src="components/angular-bootstrap-slider/slider.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/directives.js"></script>
+    <script src="components/dropzone/dropzone.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyA0JlBI0dk6qOKMaSuDTkFqkoF1E1jL4Es"></script>
 
-    </body>
-    </html>
+</body>
+</html>

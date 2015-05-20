@@ -53,6 +53,8 @@
 
 					<!-- Popularity -->
 					<div class="row">
+
+						<!-- Progress Bar -->
 						<div class="progress">
 							<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
 							</div><!-- class progress-bar -->
@@ -82,7 +84,7 @@
 					<div class="row">
 						<div class="col-lg-12 linkList">
 							<ul class="list-unstyled fa-ul text-left">
-								<li class="greyTxt1"><i class="fa-li fa fa-eye"></i><a class="greyTxt1"> Profil visitors </a></li>
+								<li class="greyTxt1"><i class="fa-li fa fa-eye"></i><a class="greyTxt1"> Profile visitors </a></li>
 								<li class="greyTxt1"><i class="fa-li fa fa-thumbs-up"></i><a class="greyTxt1"> Liked You <span class="badge pinkBG1"> 2 </span></a></li>
 								<li class="greyTxt1"><i class="fa-li fa fa-heart"></i><a class="greyTxt1"> Favorites </a></li>
 								<li class="greyTxt1"><i class="fa-li fa fa-comments"></i><a class="greyTxt1"> Comments <span class="badge pinkBG1"> 5 </span></a></li>
@@ -112,7 +114,7 @@
 
 						<div class="col-lg-4 col-lg-offset-4 text-right">
 							<a class="btn btn-link pinkTxt closeUpdatePanel" type="button"><span ng-show="activeTab === 'update'" ng-click="setClass('profil')" class="glyphicon glyphicon-remove"></span></a>
-							<a class="btn sectionBtn" ng-hide="activeTab === 'update'" ng-click="setClass('profil')" ng-class="getClass('profil')"><i class="fa fa-user"></i> Profil </a>
+							<a class="btn sectionBtn" ng-hide="activeTab === 'update'" ng-click="setClass('profil')" ng-class="getClass('profil')"><i class="fa fa-user"></i> Profile </a>
 							<a class="btn sectionBtn" ng-hide="activeTab === 'update'" ng-click="setClass('photos')" ng-class="getClass('photos')"><i class="fa fa-picture-o"></i> Photos </a>
 						</div><!-- class col-lg-4 col-lg-offset-4 text-right -->
 
@@ -151,7 +153,7 @@
 							</div><!-- class col-lg-5 -->
 
 							<div class="col-lg-4 thinBorders">
-								<h5 class="text-left pinkTxt"> Profil score : <span class="badge pinkBG1"> 9 </span></h5>
+								<h5 class="text-left pinkTxt"> Profile score : <span class="badge pinkBG1"> 9 </span></h5>
 							</div><!-- class col-lg-4 thinBorders -->
 
 							<div class="col-lg-3 thinBorders">
@@ -193,7 +195,7 @@
 							
 							<div class="btn-group btn-group-justified" role="group" aria-label="">
 
-								<a type="button" class="btn btn-default" ng-click="selected1 = !selected1; selected2 = false; freeUpdateList()" ng-class="{pinkBtn : selected1}"> Profil Settings </a>
+								<a type="button" class="btn btn-default" ng-click="selected1 = !selected1; selected2 = false; freeUpdateList()" ng-class="{pinkBtn : selected1}"> Profile Settings </a>
 
 								<a type="button" class="btn btn-default" ng-click="selected2 = !selected2; selected1 = false; freeUpdateList()" ng-class="{pinkBtn : selected2}"> Physical Settings </a>
 

@@ -9,7 +9,7 @@
 				<span class="input-group-addon">
 					<i class="fa fa-user"></i>
 				</span>
-				<input type="text" class="form-control" ng-model="credentials.email" aria-describedby="emailStatus" name="email" id="email" placeholder="email" ng-minlength="2" ng-maxlength="60" required>
+				<input type="text" class="form-control" ng-model="credentials.email" aria-describedby="emailStatus" name="email" id="email" placeholder="Email" ng-minlength="2" ng-maxlength="60" required>
 			</div><!-- class input-group -->
 
 			<!-- Errors -->
@@ -52,11 +52,11 @@
 			<fieldset class="fieldset-border text-center">
 				<h4 class="pinkTxt"> SIGN IN AS </h4>
 				<div class="control-group">
-					<label class="checkbox-inline" ng-class="{pinkTxt: addPinkClass1}">
-						<input type="checkbox" ng-click="addPinkClass1 = !addPinkClass1" name="angel" id="angel" value="1"> Angel
+					<label class="radio-inline" ng-class="{pinkTxt: selected === 1}">
+						<input type="radio" ng-click="selected = 1; credentials.typeAccount = 'angel';" name="typeAccount" id="angel"> Angel
 					</label>
-					<label class="checkbox-inline" ng-class="{pinkTxt: addPinkClass2}">
-						<input type="checkbox" ng-click="addPinkClass2 = !addPinkClass2" name="hero" id="hero" value="2"> Heroes/Heroines
+					<label class="radio-inline" ng-class="{pinkTxt: selected === 2}">
+						<input type="radio" ng-click="selected = 2; credentials.typeAccount = 'heroes';" name="typeAccount" id="hero"> Heroes/Heroines
 					</label>
 				</div><!-- class control-group -->
 			</fieldset><!-- class fieldset-border -->

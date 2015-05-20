@@ -17,6 +17,14 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
             }
         }],
     }).
+    when('/encounters', {
+        templateUrl: 'partials/encounters.html',
+        resolve: {
+            auth: ['AuthResolver', function resolveAuthentication (AuthResolver) { 
+                return AuthResolver.resolve(false, '/');
+            }]
+        }
+    }).
     when('/signup', {
         templateUrl: 'partials/registration.html',
         controller: 'RegistrarCtrl',

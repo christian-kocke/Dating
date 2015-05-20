@@ -166,13 +166,13 @@
 
 			<label class="pull-left greyTxt2" for="gender"> Gender <span class="red"> * </span></label>
 
-			<div class="control-group col-lg-12 col-md-12 col-sm-12 col-xs-12" role="group" aria-label="Male / Female">
+			<div class="btn-group col-lg-12 col-md-12 col-sm-12 col-xs-12" role="group" aria-label="Male / Female" data-toggle="buttons">
 
-				<label class="radio-inline" ng-class="{pinkTxt: selected === 1}">
-					<input type="radio" ng-click="selected = 1; user.gender = 'male';" name="gender" id="male"> Male
+				<label class="btn btn-default genderBtn" ng-click="user.gender = 'male';">
+					<input type="radio" name="gender" id="male" autocomplete="off"> Male
 				</label>
-				<label class="radio-inline" ng-class="{pinkTxt: selected === 2}">
-					<input type="radio" ng-click="selected = 2; user.gender = 'female';" name="gender" id="female"> Female
+				<label class="btn btn-default genderBtn" ng-click="user.gender = 'female';">
+					<input type="radio" name="gender" id="female" autocomplete="off"> Female
 				</label>
 
 			</div><!-- class btn-group col-lg-12 col-md-12 col-sm-12 col-xs-12 --> 

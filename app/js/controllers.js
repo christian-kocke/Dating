@@ -356,6 +356,7 @@ datingController.controller('NavCtrl',['$scope','$location', function ($scope, $
 datingController.controller('AuthCtrl',['$scope','$rootScope','$route','$location','AUTH_EVENTS','AuthService','FacebookAuthService','AuthInterceptor', function ($scope, $rootScope, $route, $location, AUTH_EVENTS, AuthService, FacebookAuthService, AuthInterceptor) {
 
 	$scope.credentials = {};
+	$scope.selected = 0;
 
 	// Authenticate user
 	$scope.login = function (credentials) {

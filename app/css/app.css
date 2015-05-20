@@ -132,7 +132,7 @@ h5{
 	padding: 5% 5%;
 	margin: 2% auto;
 }
-.largeBtn:hover, .genderBtn:hover, .popularityBtn:hover, .sectionBtn:hover {
+.largeBtn:hover, .genderBtn:hover, .genderBtn.active, .popularityBtn:hover, .sectionBtn:hover, .filterBtn.active {
 	background-color: #FF5967;
 	color: #FFFFFF;
 }
@@ -192,6 +192,12 @@ img[alt="Dating"] {
 	border-radius: 50%;
 	width: 140px;
 	height: 140px;
+}
+.smallPicture {
+	border-radius: 50%;
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
 }
 .carouselPicture {
 	border-radius: 10px;
@@ -416,6 +422,9 @@ body {
 }
 .well.whiteBG {
 	border: none;
+}
+.sidePanelTitle {
+	margin: 0 auto;
 }
 /* End Containers Settings */
 
