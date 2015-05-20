@@ -483,7 +483,7 @@ datingService.factory('SessionResolver',['$q','$rootScope','$location','Session'
 
 }]); // End SessionResolver
 
-datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENTS', function (ProfilService, $rootScope, USER_EVENTS) {
+datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENTS', 'MapService', function (ProfilService, $rootScope, USER_EVENTS, MapService) {
 
 	return {
 
@@ -493,9 +493,14 @@ datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENT
 				if (angular.isDefined(currentUser)) {
 
 					return ProfilService.show($rootScope.currentUser.id).then(function (profil) {
-						profil.location = (profil.location) ? JSON.parse(profil.location) : {"A":21.0226967,"F":105.8369637};
-						$rootScope.currentProfil = profil;
-						$rootScope.$broadcast(USER_EVENTS.profilLoadSucces);
+						profil.location = JSON.parse(profil.location);
+						MapService.geocodeCoordinates(profil.location).then(function (res) {
+							$rootScope.currentProfil = profil;
+							$rootScope.currentProfil.address = res;
+							$rootScope.$broadcast(USER_EVENTS.profilLoadSucces);
+						}, function () {
+							$rootScope.$broadcast(USER_EVENTS.profilLoadFailed);
+						});
 					}, function () {
 						$rootScope.$broadcast(USER_EVENTS.profilLoadFailed);
 					});

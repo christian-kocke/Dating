@@ -132,3 +132,14 @@ datingDirective.directive('stringToNumber', function() {
 		}
 	};
 });
+
+datingDirective.directive('modelUpdate', function () {
+	return {
+		require: 'ngModel',
+		link: function(scope, element, attrs, ngModel) {
+			ngModel.$formatters.push(function(value) {
+				return ngModel.$modelValue;
+			});
+		}
+	};
+});	
