@@ -164,6 +164,7 @@ class UserController extends Controller {
 	{
 		$filters = '';
 		$arguments = [];
+		error_log(print_r($arguments, true));
 		foreach ($this->_request->all() as $column => $filter) {
 			if(Utilities::array_keys_numeric($filter)) {
 				$filters .= $column.'@?&?';
@@ -171,8 +172,10 @@ class UserController extends Controller {
 				$arguments[] = $filter[1];
 			} else {
 				foreach ($filter as $key => $value) {
-					$arguments[] = $key;
-					$filters .= ($value) ? $column.'=?'.'|' : '';
+					if($value) {
+						$arguments[] = $key;
+						$filters .= $column.'=?'.'|';
+					}
 				}
 			}
 			$filters = trim($filters, '|');
