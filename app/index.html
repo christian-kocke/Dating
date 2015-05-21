@@ -33,38 +33,61 @@
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="Menu">
+                    
                     <!-- Logged -->
                     <div class="nav navbar-right visible-xs" ng-show="currentUser">
-                        <a class="btn navbar-btn greyTxt1" data-toggle="collapse" data-target="#Menu"><i class="fa fa-users"></i> People nearby </a>
-                        <a class="btn navbar-btn greyTxt1" href="#/encounters" data-toggle="collapse" data-target="#Menu"><i class="fa fa-random"></i> Encounters </a>
-                        <a class="btn navbar-btn greyTxt1" data-toggle="collapse" data-target="#Menu"><i class="fa fa-comments-o"></i> Messages <span class="badge"> 2 </span></a>
-                        <a class="btn btn-default navbar-btn greyTxt1 pinkBtn" href="#/profil" data-toggle="collapse" data-target="#Menu"> Profile </a>
-                        <a class="btn btn defalt navbar-btn greyTxt1 pinkBtn" data-toggle="collapse" data-target="#Menu"> Help </a>
-                        <a class="btn btn defalt navbar-btn greyTxt1 pinkBtn" ng-click="logout()" data-toggle="collapse" data-target="#Menu"> Logout </a>
+                        
+                        <a href="/peopleNearby" class="btn navbar-btn greyTxt1" ng-class="getClass('/peopleNearby')" data-toggle="collapse" data-target="#Menu"><i class="fa fa-users"></i> People nearby </a>
+
+                        <a href="#/encounters" class="btn navbar-btn greyTxt1" ng-class="getClass('/encounters')" data-toggle="collapse" data-target="#Menu"><i class="fa fa-random"></i> Encounters </a>
+
+                        <a href="/messages" class="btn navbar-btn greyTxt1" ng-class="getClass('/messages')" data-toggle="collapse" data-target="#Menu"><i class="fa fa-comments-o"></i> Messages <span class="badge"> 2 </span></a>
+
+                        <a href="#/profil" class="btn navbar-btn greyTxt1" ng-class="getClass('/profil')" data-toggle="collapse" data-target="#Menu"> Profile </a>
+
+                        <a href="/help" class="btn navbar-btn greyTxt1" ng-class="getClass('/help')" data-toggle="collapse" data-target="#Menu"> Help </a>
+
+                        <a class="btn navbar-btn greyTxt1" ng-click="logout()" data-toggle="collapse" data-target="#Menu"> Logout </a>
+
                     </div><!-- class nav navbar-right -->
 
                     <!-- Logged -->
                     <div class="nav navbar-right hidden-xs" ng-show="currentUser">
-                        <a class="btn navbar-btn greyTxt1"><i class="fa fa-users"></i> People nearby </a>
-                        <a class="btn navbar-btn greyTxt1" href="#/encounters"><i class="fa fa-random"></i> Encounters </a>
-                        <a class="btn navbar-btn greyTxt1"><i class="fa fa-comments-o"></i> Messages <span class="badge"> 2 </span></a>
-                        <a class="btn btn-default navbar-btn greyTxt1 pinkBtn" href="#/profil"> Profile </a>
-                        <a class="btn btn defalt navbar-btn greyTxt1 pinkBtn"> Help </a>
-                        <a class="btn btn defalt navbar-btn greyTxt1 pinkBtn" ng-click="logout()"> Logout </a>
+                       
+                        <a href="/peopleNearby" class="btn navbar-btn greyTxt1" ng-class="getClass('/peopleNearby')"><i class="fa fa-users"></i> People nearby </a>
+
+                        <a href="#/encounters" class="btn navbar-btn greyTxt1" ng-class="getClass('/encounters')"><i class="fa fa-random"></i> Encounters </a>
+
+                        <a href="/messages" class="btn navbar-btn greyTxt1" ng-class="getClass('/messages')"><i class="fa fa-comments-o"></i> Messages <span class="badge"> 2 </span></a>
+
+                        <a href="#/profil" class="btn navbar-btn greyTxt1" ng-class="getClass('/profil')"> Profile </a>
+
+                        <a href="/help" class="btn navbar-btn greyTxt1" ng-class="getClass('/help')"> Help </a>
+
+                        <a class="btn navbar-btn greyTxt1" ng-click="logout()"> Logout </a>
+
                     </div><!-- class nav navbar-right -->
 
                     <!-- Not Logged -->
                     <div class="nav navbar-right visible-xs" ng-hide="currentUser">
+                        
                         <a href="#/" class="btn navbar-btn greyTxt1" ng-class="getClass('/')" data-toggle="collapse" data-target="#Menu"> Login </a>
+
                         <a href="#/signup" class="btn navbar-btn greyTxt1" ng-class="getClass('/signup')" data-toggle="collapse" data-target="#Menu"> Sign up </a>
+
                         <a href="#/profil" class="btn navbar-btn greyTxt1" data-toggle="collapse" data-target="#Menu"> Champion Someone ! </a>
+
                     </div><!-- class nav navbar-right -->
 
                     <!-- Not Logged -->
                     <div class="nav navbar-right hidden-xs" ng-hide="currentUser">
+                        
                         <a href="#/" class="btn navbar-btn greyTxt1" ng-class="getClass('/')"> Login </a>
+
                         <a href="#/signup" class="btn navbar-btn greyTxt1" ng-class="getClass('/signup')"> Sign up </a>
+
                         <a href="#/profil" class="btn navbar-btn greyTxt1"> Champion Someone ! </a>
+                        
                     </div><!-- class nav navbar-right -->
 
                 </div><!-- class collapse navbar-collapse -->

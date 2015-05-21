@@ -13,22 +13,6 @@ datingController.controller('SearchUsersCtrl',['$scope','SearchService', functio
 		SearchService.usersFiltered(filter).then(function () {
 			console.log('user get');
 		});
-
-	};
-
-	$scope.filtersList = function (input) {
-		var value = input[Object.keys(input)[0]]
-		if($rootScope.currentProfil[Object.keys(input)[0]] !== value) {
-			$scope.updateList[Object.keys(input)[0]] = input[Object.keys(input)[0]];
-		} else if($rootScope.currentProfil[Object.keys(input)[0]] === input[Object.keys(input)[0]]) {
-			delete $scope.updateList[Object.keys(input)[0]];
-		}
-		console.log($scope.updateList);
-	};
-
-	$scope.freeUpdateList = function () {
-		$scope.updateList = {};
-		$scope.$emit(USER_EVENTS.profilLoadSucces);
 	};
 
 }]); // End SearchUsersCtrl
@@ -243,7 +227,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	};
 
 	$scope.getClass = function (path) {
-		return ($scope.activeTab === path) ? "pinkBtn" : "";
+		return ($scope.activeTab === path) ? "pinkBtn" : "greyBtn";
 	}; // End getClass()
 
 	$scope.setClass = function (path) {

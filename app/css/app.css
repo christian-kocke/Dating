@@ -72,7 +72,7 @@ h5{
 
 /* Text Colors */
 .greyTxt1 {
-	color: #656565;
+	color: #555555;
 }
 .greyTxt2 {
 	color: #AEAEAE;
@@ -118,6 +118,10 @@ h5{
 	padding-right: 8vh;
 	background-color: #FF5967;
 }
+.greyBtn {
+	background-color: #EBEBEB;
+	color: #555555;
+}
 .fbBtn {
 	background-color: #3C57A2;
 }
@@ -159,6 +163,9 @@ input[name=checkbox]  {
 }
 .closeUpdatePanel:hover {
 	color: #474A54;
+}
+.btnShadow {
+	box-shadow: 0 1px 0 black;
 }
 /* End Button Sizes & Parameters */
 
@@ -568,7 +575,7 @@ body {
 	.container {
 		width: auto;
 	}
-	.navbar-btn.activeLink:after {
+	/*.navbar-btn.activeLink:after {
 		position: absolute;
 		top: 41px;
 		left: 50%;
@@ -581,7 +588,7 @@ body {
 		border-top-color: #FFFFFF;
 		border-width: 1vh;
 		margin-left: -1vh;
-	}
+	}*/
 	.FormLarge {
 		width: 25%;
 		top: -20%;

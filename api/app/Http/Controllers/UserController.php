@@ -180,9 +180,9 @@ class UserController extends Controller {
 
 		}
 		$filters = Utilities::str_replace_sql($filters);
-		error_log($filters);
 		error_log(print_r($arguments, true));
-		//DB::select('select * from');
+		error_log('select * from profils p inner join users u on p.user_id = u.id where '.$filters);
+		error_log(print_r(DB::select('select * from profils p inner join users u on p.user_id = u.id where '.$filters, $arguments), true));
 	}
 
 	/**

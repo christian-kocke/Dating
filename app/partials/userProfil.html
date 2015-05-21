@@ -76,7 +76,7 @@
 					<!-- Increase your popularity Button -->
 					<div class="row">
 						<div class="col-lg-12">
-							<a class="btn pinkBtn popularityBtn center-block"> Increase Your Popularity </a>
+							<a class="btn pinkBtn popularityBtn center-block btnShadow"> Increase Your Popularity </a>
 						</div><!-- class col-lg-12 -->
 					</div><!-- class row -->
 
@@ -146,8 +146,8 @@
 						<div class="col-lg-4 col-lg-offset-4 text-right">
 
 							<a class="btn btn-link pinkTxt closeUpdatePanel" type="button"><span ng-show="activeTab === 'update'" ng-click="setClass('profil');freeUpdateList();" class="glyphicon glyphicon-remove"></span></a>
-							<a class="btn sectionBtn" ng-hide="activeTab === 'update'" ng-click="setClass('profil')" ng-class="getClass('profil')"><i class="fa fa-user"></i> Profile </a>
-							<a class="btn sectionBtn" ng-hide="activeTab === 'update'" ng-click="setClass('photos')" ng-class="getClass('photos')"><i class="fa fa-picture-o"></i> Photos </a>
+							<a class="btn sectionBtn btnShadow" ng-hide="activeTab === 'update'" ng-click="setClass('profil')" ng-class="getClass('profil')"><i class="fa fa-user"></i><small> Profile </small></a>
+							<a class="btn sectionBtn btnShadow" ng-hide="activeTab === 'update'" ng-click="setClass('photos')" ng-class="getClass('photos')"><i class="fa fa-picture-o"></i><small> Photos </small></a>
 						</div><!-- class col-lg-4 col-lg-offset-4 text-right -->
 
 					</div><!-- class row -->
@@ -208,11 +208,11 @@
 								<div class="row">
 									<div class="col-lg-7 thinBorders text-center">
 										<p> Add 3 photos showing only you and find out how many people likes </p>
-										<a class="btn btn-default"> Add Photos </a>
+										<a class="btn btnShadow greyBtn"><small> Add Photos </small></a>
 									</div>
-									<div class="col-lg-5 thinBorders">
+									<div class="col-lg-5 thinBorders text-center">
 										<p> You don't have any award yet. Find out how to get them. </p>
-										<a class="btn btn-default"> Get Award </a>
+										<a class="btn btnShadow greyBtn"><small> Get Award </small></a>
 									</div>
 									<div class="col-lg-12 thinBorders">
 										<p class="pinkTxt" style="padding-top: 1vh;"> Recommended by <span class="badge pinkBG1"> 8 </span></p>
