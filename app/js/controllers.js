@@ -10,7 +10,9 @@ datingController.controller('SearchUsersCtrl',['$scope','SearchService', functio
 	$scope.updateList = {};
 
 	$scope.getFilters = function (filter) {
-		console.log(filter);
+		SearchService.usersFiltered(filter).then(function () {
+			console.log('user get');
+		});
 
 	};
 
@@ -178,6 +180,8 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	$scope.photos = {};
 
 	$scope.updateList = {};
+
+	$scope.selected1 = true;
 
 
 	$scope.$on(USER_EVENTS.profilLoadSucces, function (event) {

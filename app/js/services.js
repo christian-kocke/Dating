@@ -4,15 +4,23 @@
 
 var datingService = angular.module('datingServices', ['ngResource']);
 
-datingService.factory('SearchService', function () {
+datingService.factory('SearchService',['$http','RESOURCE', function ($http, RESOURCE) {
 
 	var searchService = {};
 
-	
+	searchService.usersFiltered = function (filter) {
+		console.log(filter);
+		return $http
+		.post(RESOURCE.user+'/search', filter)
+		.then(function (res) {
+			return res.data;
+		});
 
+	}; // End usersFiltered()
+	
 	return searchService;
 
-}); // End SearchService
+}]); // End SearchService
 
 datingService.factory('EmailService', ['$http', 'RESOURCE', function ($http, RESOURCE) {
 	return {
