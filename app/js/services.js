@@ -21,6 +21,10 @@ datingService.factory('SearchService',['$http','RESOURCE', function ($http, RESO
 
 }]); // End SearchService
 
+datingService.factory('EmailService',[ function () {
+	
+}]);
+
 datingService.factory('MapService', ['$q', function ($q) {
 	var geocoder = new google.maps.Geocoder();
 	return {

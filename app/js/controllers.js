@@ -295,7 +295,11 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 
 
 	$scope.sendInvitation = function (email) {
+		EmailService.send(email).then(function (res) {
+			console.log(res);
+		}, function () {
 
+		});
 	};
 
 }]); // ./End ProfilCtrl

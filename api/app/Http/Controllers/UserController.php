@@ -163,12 +163,16 @@ class UserController extends Controller {
 	public function search()
 	{
 		$filters = '';
+		$arguments = [];
 		foreach ($this->_request->all() as $column => $filter) {
 			if(Utilities::array_keys_numeric($filter)) {
-				$filters .= $column.'@'.$filter[0].'&'.$filter[1];
+				$filters .= $column.'@?&?';
+				$arguments[] = $filter[0];
+				$arguments[] = $filter[1];
 			} else {
 				foreach ($filter as $key => $value) {
-					$filters .= ($value) ? $column.'='.$key.'|' : '';
+					$arguments[] = $key;
+					$filters .= ($value) ? $column.'=?'.'|' : '';
 				}
 			}
 			$filters = trim($filters, '|');
@@ -177,6 +181,7 @@ class UserController extends Controller {
 		}
 		$filters = Utilities::str_replace_sql($filters);
 		error_log($filters);
+		error_log(print_r($arguments, true));
 		//DB::select('select * from');
 	}
 
