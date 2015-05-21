@@ -167,9 +167,6 @@ input[name=checkbox]  {
 .btnShadow {
 	box-shadow: 0 1px 0 black;
 }
-.btn-default {
-	border: none;
-}
 /* End Button Sizes & Parameters */
 
 

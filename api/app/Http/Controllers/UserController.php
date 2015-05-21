@@ -164,7 +164,7 @@ class UserController extends Controller {
 	{
 		$filters = '';
 		foreach ($this->_request->all() as $column => $filter) {
-			if(array_keys_numeric($filter)) {
+			if(Utilities::array_keys_numeric($filter)) {
 				$filters .= $column.'@'.$filter[0].'&'.$filter[1];
 			} else {
 				foreach ($filter as $key => $value) {
@@ -172,12 +172,12 @@ class UserController extends Controller {
 				}
 			}
 			$filters = trim($filters, '|');
-			$filters .= (array_search(true, $filter, true)) ? '&' : '';
+			$filters .= (Utilities::filter_in_array($filter)) ? '&' : '';
 
 		}
-		$filters = str_replace_sql($filters);
-		error_log('select * from profils where '.$filters);
-		//DB::select('select * from profils where '.$filters);
+		$filters = Utilities::str_replace_sql($filters);
+		
+		error_log(print_r(DB::select('select * from profils p inner join users u on p.user_id = u.id where '.$filters), true));
 	}
 
 	/**
