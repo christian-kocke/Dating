@@ -136,7 +136,7 @@ h5{
 	background-color: #FF5967;
 	color: #FFFFFF;
 }
-input[name=checkbox] {
+input[name=checkbox]  {
 	display: none;
 }
 .popularityBtn {
