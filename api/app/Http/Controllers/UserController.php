@@ -176,8 +176,8 @@ class UserController extends Controller {
 
 		}
 		$filters = str_replace_sql($filters);
-		error_log($filters);
-		DB::select('select * from');
+		error_log('select * from profils where '.$filters);
+		//DB::select('select * from profils where '.$filters);
 	}
 
 	/**
