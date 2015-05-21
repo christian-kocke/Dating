@@ -11,7 +11,6 @@ datingController.controller('SearchUsersCtrl',['$scope','SearchService', functio
 
 	$scope.getFilters = function (filter) {
 		SearchService.usersFiltered(filter).then(function () {
-			console.log('user get');
 		});
 	};
 
