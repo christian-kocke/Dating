@@ -12,10 +12,12 @@ datingFilter.filter('capitalize', function () {
 	}
 });
 
-datingFilter.filter('date', function () {
+datingFilter.filter('age', function () {
 	return function (input) {
 		var dob = new Date(input.split("-"));
-		return (Date.now() - dob.getTime()) / 113607360000;
+		var res = Date.now() - dob.getTime();
+		console.log(res);
+		return Math.round((Date.now() - dob.getTime()) / 3.15569e10);
 	}
 });
 
