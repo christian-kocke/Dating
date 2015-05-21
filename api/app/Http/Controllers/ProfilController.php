@@ -73,7 +73,7 @@ class ProfilController extends Controller {
 	 */
 	public function show($id)
 	{
-		$infos = DB::select('select p.*, u.dob age from profils p inner join users u on u.id = p.user_id where user_id = ?',[$id]);
+		$infos = DB::select('select * from profils where user_id = ?',[$id]);
 		return response()->json($infos[0]);	
 	}
 
