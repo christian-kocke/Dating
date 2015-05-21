@@ -9,7 +9,6 @@ datingService.factory('SearchService',['$http','RESOURCE', function ($http, RESO
 	var searchService = {};
 
 	searchService.usersFiltered = function (filter) {
-		console.log(filter);
 		return $http
 		.post(RESOURCE.user+'/search', filter)
 		.then(function (res) {
@@ -21,15 +20,6 @@ datingService.factory('SearchService',['$http','RESOURCE', function ($http, RESO
 	return searchService;
 
 }]); // End SearchService
-
-datingService.factory('EmailService', ['$http', 'RESOURCE', function ($http, RESOURCE) {
-	return {
-		send: function(email) {
-			return $http.
-			post()
-		}
-	}
-}]);
 
 datingService.factory('MapService', ['$q', function ($q) {
 	var geocoder = new google.maps.Geocoder();

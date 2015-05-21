@@ -161,7 +161,17 @@ class UserController extends Controller {
 	 */
 	public function search()
 	{
-
+		$filters = $this->_request->all();
+		error_log(print_r($filters, true));
+		foreach ($filters as $key => $value) {
+			$tmp = $key;
+			foreach ($value as $key => $value2) {
+				if(empty($value2)) {
+					error_log('empty');
+				}
+			}
+		}
+		error_log(print_r($filters, true));
 	}
 
 	/**
