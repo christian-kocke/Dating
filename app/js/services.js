@@ -4,6 +4,16 @@
 
 var datingService = angular.module('datingServices', ['ngResource']);
 
+datingService.factory('SearchService', function () {
+
+	var searchService = {};
+
+	
+
+	return searchService;
+
+}); // End SearchService
+
 datingService.factory('MapService', ['$q', function ($q) {
 	var geocoder = new google.maps.Geocoder();
 	return {
@@ -47,7 +57,7 @@ datingService.factory('MapService', ['$q', function ($q) {
 	};
 }]);
 
-datingService.factory('UtilityService',[function () {
+datingService.factory('UtilityService', function () {
 
 	return {
 		randomAlphaNumeric: function (x) {
@@ -60,7 +70,7 @@ datingService.factory('UtilityService',[function () {
 		}
 	};
 
-}]);
+});
 
 datingService.factory('socket',['$rootScope', function ($rootScope) {
 	var socket = io.connect('http://127.0.0.1:3000/');

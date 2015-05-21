@@ -5,12 +5,13 @@
 var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies']);
 
 
-datingController.controller('SearchUsersCtrl',['$scope', function ($scope) {
+datingController.controller('SearchUsersCtrl',['$scope','SearchService', function ($scope, SearchService) {
 
 	$scope.updateList = {};
 
 	$scope.getFilters = function (filter) {
 		console.log(filter);
+
 	};
 
 	$scope.filtersList = function (input) {
