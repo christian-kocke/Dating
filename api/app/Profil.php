@@ -14,7 +14,7 @@ class Profil extends Model {
 	 * define the mass-asssignable fields.
 	 *
 	 */
-	protected $fillable = array('user_id', 'username', 'profil_path', 'location');
+	protected $fillable = array('user_id','username', 'dob', 'gender','profil_path', 'location');
 
 	/*
 	 * define the none-assignable fields.

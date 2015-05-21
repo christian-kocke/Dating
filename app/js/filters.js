@@ -12,3 +12,10 @@ datingFilter.filter('capitalize', function () {
 	}
 });
 
+datingFilter.filter('date', function () {
+	return function (input) {
+		var dob = new Date(input.split("-"));
+		return (Date.now() - dob.getTime()) / 113607360000;
+	}
+});
+
