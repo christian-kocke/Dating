@@ -14,6 +14,15 @@ datingService.factory('SearchService', function () {
 
 }); // End SearchService
 
+datingService.factory('EmailService', ['$http', 'RESOURCE', function ($http, RESOURCE) {
+	return {
+		send: function(email) {
+			return $http.
+			post()
+		}
+	}
+}]);
+
 datingService.factory('MapService', ['$q', function ($q) {
 	var geocoder = new google.maps.Geocoder();
 	return {

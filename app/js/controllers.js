@@ -289,6 +289,11 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		$scope.$emit(USER_EVENTS.profilLoadSucces);
 	};
 
+
+	$scope.sendInvitation = function (email) {
+
+	};
+
 }]); // ./End ProfilCtrl
 
 datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope','$route','$location','USER_EVENTS','$routeParams', function (UserService, $rootScope, $scope, $route, $location, USER_EVENTS, $routeParams) {
