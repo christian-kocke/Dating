@@ -186,6 +186,7 @@ class UserController extends Controller {
 		error_log(print_r($arguments, true));
 		error_log('select * from profils p inner join users u on p.user_id = u.id where '.$filters);
 		$results = DB::select('select * from profils p inner join users u on p.user_id = u.id where '.$filters, $arguments);
+		error_log(print_r(DB::select('select * from profils p inner join users u on p.user_id = u.id where '.$filters, $arguments), true));
 		return (count($results)) ? response()->json($results) : 0;
 		
 	}

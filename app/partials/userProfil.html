@@ -48,7 +48,7 @@
 
 					<!-- Name , Age -->
 					<div class="row">
-						<p class="lead"> {{currentProfil.username | capitalize}}, {{currentProfil.age}} </p>
+						<p class="lead"> {{currentProfil.username | capitalize}}, {{currentProfil.dob | age}} </p>
 					</div><!-- class row -->
 
 					<!-- Popularity -->
@@ -175,7 +175,7 @@
 							<div class="col-lg-5 thinBorders">
 
 								<div class="col-lg-6">
-									<h5 class="text-left greyTxt2"> Location : <span class="pinkTxt"> {{ currentProfil.address }}</span></h5>
+									<h5 class="text-left greyTxt2"> Location : <span class="pinkTxt"> {{currentProfil.address}}</span></h5>
 								</div><!-- class col-lg-6 -->
 
 								<div class="col-lg-6 text-right">
