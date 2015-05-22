@@ -167,6 +167,16 @@ input[name=checkbox]  {
 .closeUpdatePanel:hover {
 	color: #474A54;
 }
+.hidePanel:hover, .showPanel:hover {
+	background-color: #474A54;
+	color: white;
+}
+.toolsBtn {
+	position: absolute;
+	top: 50px;
+	right: 0;
+	z-index: 1;
+}
 .btnShadow {
 	box-shadow: 0 1px 0 black;
 }
@@ -232,8 +242,6 @@ img[alt="sideImg"] {
 #profilZone {
 	border: 0.2px dotted grey;
 	border-radius: 50%;
-	width: 150px;
-	height: 150px;
 	margin: 0 auto;
 	padding: 0;
 }
@@ -257,8 +265,6 @@ img[alt="sideImg"] {
 }
 .profilImg {
 	border-radius: 50%;
-	width: 150px;
-	height: 150px;
 	margin: 0 auto;
 }
 .dropTxt {
@@ -434,12 +440,6 @@ body {
 	border: 0.5px solid #F6F6F6;
 	padding: 0;
 }
-.middlePanel {
-	margin-top: 3%;
-}
-.sidePanel {
-	margin-top: 10%;
-}
 .well.whiteBG {
 	border: none;
 }
@@ -461,7 +461,7 @@ body {
 
 /* Map Settings */
 #map-canvas {
- 	width: 100%;
+	width: 100%;
 	height: 200px;
 }
 .mapMessage {
@@ -536,6 +536,20 @@ body {
 	.loadingLogoContainer {
 		padding-top: 25%;
 	}
+	.profilImg {
+		width: 120px;
+		height: 120px;
+	}
+	#profilZone {
+		width: 120px;
+		min-height: 120px;
+	}
+	.sidePanel {
+		margin-top: 8%;
+	}
+	.middlePanel {
+		margin-top: 8%;
+	}
 }
 /* End Media Queries Tablet */
 
@@ -552,7 +566,8 @@ body {
 	.container {
 		width: auto;
 	}
-	/*.navbar-btn.activeLink:after {
+	/*
+	.navbar-btn.activeLink:after {
 		position: absolute;
 		top: 41px;
 		left: 50%;
@@ -565,7 +580,8 @@ body {
 		border-top-color: #FFFFFF;
 		border-width: 1vh;
 		margin-left: -1vh;
-	}*/
+	}
+	*/
 	.FormMedium {
 		width: 30%;
 		top: -15%;
@@ -577,6 +593,20 @@ body {
 	}
 	.loadingLogoContainer {
 		padding-top: 20%;
+	}
+	.middlePanel {
+		margin-top: 5%;
+	}
+	.profilImg {
+		width: 150px;
+		height: 150px;
+	}
+	#profilZone {
+		width: 150px;
+		height: 150px;
+	}
+	.sidePanel {
+		margin-top: 10%;
 	}
 }
 /* End Media Queries Medium */
@@ -594,7 +624,8 @@ body {
 	.container {
 		width: auto;
 	}
-	/*.navbar-btn.activeLink:after {
+	/*
+	.navbar-btn.activeLink:after {
 		position: absolute;
 		top: 41px;
 		left: 50%;
@@ -607,7 +638,8 @@ body {
 		border-top-color: #FFFFFF;
 		border-width: 1vh;
 		margin-left: -1vh;
-	}*/
+	}
+	*/
 	.FormLarge {
 		width: 25%;
 		top: -20%;
@@ -619,6 +651,20 @@ body {
 	}
 	.loadingLogoContainer {
 		padding-top: 20%;
+	}
+	.middlePanel {
+		margin-top: 3%;
+	}
+	.profilImg {
+		width: 150px;
+		height: 150px;
+	}
+	#profilZone {
+		width: 150px;
+		height: 150px;
+	}
+	.sidePanel {
+		margin-top: 10%;
 	}
 }
 /* End Media Queries Large */

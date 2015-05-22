@@ -27,9 +27,7 @@ datingService.factory('EmailService',['$http', 'RESOURCE', function ($http, RESO
 			return $http
 			.post(RESOURCE.user+'/invite', email)
 			.then(function (res) {
-				console.log("invitation sent");
 			}, function () {
-				console.log("invitation not sent");
 			});
 		}
 	}
@@ -527,9 +525,7 @@ datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENT
 			if(id) {
 				return ProfilService.show(id).then(function (profil) {
 					$rootScope.visitedProfil = profil;
-				}, function () {
-					console.log("error visited profil");
-				});
+				}, function () {});
 			} else {
 				var unwatch = $rootScope.$watch('currentUser', function (currentUser) {
 

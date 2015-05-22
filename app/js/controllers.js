@@ -276,7 +276,6 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 
 
 	$scope.sendInvitation = function (email) {
-		console.log(email);
 		EmailService.send(email).then(function (res) {
 			
 		}, function () {
