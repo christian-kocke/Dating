@@ -552,7 +552,7 @@ body {
 	.container {
 		width: auto;
 	}
-	.navbar-btn.activeLink:after {
+	/*.navbar-btn.activeLink:after {
 		position: absolute;
 		top: 41px;
 		left: 50%;
@@ -565,7 +565,7 @@ body {
 		border-top-color: #FFFFFF;
 		border-width: 1vh;
 		margin-left: -1vh;
-	}
+	}*/
 	.FormMedium {
 		width: 30%;
 		top: -15%;
