@@ -20,6 +20,6 @@ class Utilities {
 	}
 
 	public function filter_in_array ($array) {
-		return (array_search(true, $array, true) || (array_filter($array, 'is_int') === $array));
+		return (array_search(true, $array, true) || (array_filter($array, 'is_int') === $array) || (array_filter($array, 'is_string') === $array));
 	}
 }

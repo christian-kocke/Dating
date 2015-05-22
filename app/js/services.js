@@ -517,7 +517,6 @@ datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENT
 						MapService.geocodeCoordinates(profil.location).then(function (res) {
 							$rootScope.currentProfil = profil;
 							$rootScope.currentProfil.address = res;
-							console.log("ok");
 							$rootScope.$broadcast(USER_EVENTS.profilLoadSucces);
 						}, function () {
 							$rootScope.$broadcast(USER_EVENTS.profilLoadFailed);

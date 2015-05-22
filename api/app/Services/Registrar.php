@@ -43,6 +43,7 @@ class Registrar implements RegistrarContract {
 			'username' 	=> $data['username'],
 			'dob'		=> $data['dob'],
 			'gender'	=> $data['gender'],
+			'profil_path' => ($data['gender'] === "male") ? '/app/img/male.png' : '/app/img/female.png'
 		]);
 
 		return $user;

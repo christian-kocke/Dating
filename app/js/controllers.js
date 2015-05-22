@@ -10,7 +10,13 @@ datingController.controller('SearchUsersCtrl',['$scope','SearchService', functio
 	$scope.updateList = {};
 
 	$scope.getFilters = function (filter) {
-		SearchService.usersFiltered(filter).then(function () {
+		var now = parseInt((new Date).toLocaleFormat("%Y"));
+		var tmp = filter.dob[0];
+		filter.dob[0] = now - filter.dob[1]+'-00-00';
+		filter.dob[1] = now - tmp+'-00-00';
+		SearchService.usersFiltered(filter).then(function (res) {
+			console.log(res);
+			$scope.encounters = res;
 		});
 	};
 

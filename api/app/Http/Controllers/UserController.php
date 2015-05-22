@@ -182,7 +182,7 @@ class UserController extends Controller {
 
 		}
 		$filters = Utilities::str_replace_sql($filters);
-		$results = DB::select('select * from profils p inner join users u on p.user_id = u.id where '.$filters, $arguments);
+		$results = DB::select('select * from profils where '.$filters, $arguments);
 		return (count($results)) ? response()->json($results) : 0;
 		
 	}
