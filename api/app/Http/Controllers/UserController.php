@@ -162,8 +162,8 @@ class UserController extends Controller {
 	 */
 	public function search()
 	{
-		$filters = '';
-		$arguments = [];
+		$filters = 'user_id!=?&';
+		$arguments = [$this->_user->id];
 		foreach ($this->_request->all() as $column => $filter) {
 			if(Utilities::array_keys_numeric($filter)) {
 				$filters .= $column.'@?&?';
