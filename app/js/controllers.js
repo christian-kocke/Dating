@@ -93,54 +93,41 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 	$scope.map;
 	$scope.loading = false;
 
-	$scope.initialize = function () {
+	$scope.initialize = function (address) {
 		$scope.geocoder = new google.maps.Geocoder();
-		var latlng = new google.maps.LatLng($rootScope.currentProfil.location.A, $rootScope.currentProfil.location.F);
-		var mapOptions = {
-			center: latlng,
-			zoom: 11,
-			minZoom:10,
-			scrollwheel: false,
-			draggable: false
-		};
-		$scope.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-		var marker = new google.maps.Marker({
-			map: $scope.map,
-			position: latlng
+		MapService.geocodeAddress(address).then(function (results) {
+
+			var latlng = new google.maps.LatLng(results[0].geometry.location.A, results[0].geometry.location.F);
+
+			var mapOptions = {
+				center: latlng,
+				zoom: 11,
+				minZoom:10,
+				scrollwheel: false,
+				draggable: false
+			};
+
+			$scope.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+			var marker = new google.maps.Marker({
+				map: $scope.map,
+				position: latlng
+			});
+
+			google.maps.event.addListener($scope.map, 'bounds_changed', function() {
+				$scope.loading = false;
+				$scope.$apply();
+			});
 		});
 
-		google.maps.event.addListener($scope.map, 'bounds_changed', function() {
-			$scope.loading = false;
-			$scope.$apply();
-		});
+
 	}; // End initialize()
 
 	$scope.$on(USER_EVENTS.profilLoadSucces, function (event) {
-		event.currentScope.initialize();
+		event.currentScope.initialize($rootScope.currentProfil.location);
 	});
-
-
-	$scope.codeAddress = function (address) {
-		$scope.loading = true;
-		$rootScope.locationError = false;
-		$rootScope.locationSuccess = false;
-		$scope.geocoder.geocode( { 'address': address}, function(results, status) {
-			if (status == google.maps.GeocoderStatus.OK) {
-				$scope.map.setCenter(results[0].geometry.location);
-				var marker = new google.maps.Marker({
-					map: $scope.map,
-					position: results[0].geometry.location
-				});
-				ProfilService.update({location: marker.position}).then(function (res) {
-					$rootScope.locationSuccess = false;
-				});
-			} else {
-				$rootScope.locationError = false;
-				$rootScope.$broadcast(MAP_EVENTS.mapError, status);
-			}
-		});
-	}; // End codeAddress()
+	
 
 	$scope.geolocate = function () {
 		$scope.loading = true;
@@ -148,7 +135,7 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 		MapService.geolocate().then(function (res) {
 			MapService.geocodeCoordinates({A: res.coords.latitude, F: res.coords.longitude}).then(function (res) {
 				$scope.profil.location = res;
-				$scope.asyncAddToList({location:$scope.profil.location});
+				$scope.addToList({location:$scope.profil.location});
 				$rootScope.$broadcast(MAP_EVENTS.geolocationSuccess);
 			}, function () {
 				$rootScope.$broadcast(MAP_EVENTS.geolocationFailed);
@@ -189,7 +176,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 			skin: $rootScope.currentProfil.skin,
 			eyes: $rootScope.currentProfil.eyes,
 			hair: $rootScope.currentProfil.hair,
-			location: $rootScope.currentProfil.address
+			location: $rootScope.currentProfil.location
 		};
 	});
 

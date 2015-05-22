@@ -99,7 +99,6 @@ class ProfilController extends Controller {
 		if(count(array_intersect_key($this->_request->all(), array('username' => "", 'profil_path' => "", 'location' => "", 'height' => "", 'skin' => "", 'eyes' => "", 'hair' => "", 'weight' => "", 'whyHere' => "", 'aboutMe' => "", 'id' => ""))) === count($this->_request->all()))
 		{
 			$set = '';
-			if(array_key_exists('location', $this->_request->all())) $this->_request['location'] = json_encode($this->_request->input('location'));	
 			foreach ($this->_request->all() as $key => $value) {
 				$set .= "{$key}=? ";
 			}
