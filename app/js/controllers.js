@@ -114,41 +114,20 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 				map: $scope.map,
 				position: latlng
 			});
+
+			google.maps.event.addListener($scope.map, 'bounds_changed', function() {
+				$scope.loading = false;
+				$scope.$apply();
+			});
 		});
 
-		
 
-		google.maps.event.addListener($scope.map, 'bounds_changed', function() {
-			$scope.loading = false;
-			$scope.$apply();
-		});
 	}; // End initialize()
 
 	$scope.$on(USER_EVENTS.profilLoadSucces, function (event) {
 		event.currentScope.initialize($rootScope.currentProfil.location);
 	});
-
-
-	$scope.codeAddress = function (address) {
-		$scope.loading = true;
-		$rootScope.locationError = false;
-		$rootScope.locationSuccess = false;
-		$scope.geocoder.geocode( { 'address': address}, function(results, status) {
-			if (status == google.maps.GeocoderStatus.OK) {
-				$scope.map.setCenter(results[0].geometry.location);
-				var marker = new google.maps.Marker({
-					map: $scope.map,
-					position: results[0].geometry.location
-				});
-				ProfilService.update({location: marker.position}).then(function (res) {
-					$rootScope.locationSuccess = false;
-				});
-			} else {
-				$rootScope.locationError = false;
-				$rootScope.$broadcast(MAP_EVENTS.mapError, status);
-			}
-		});
-	}; // End codeAddress()
+	
 
 	$scope.geolocate = function () {
 		$scope.loading = true;
@@ -156,7 +135,7 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 		MapService.geolocate().then(function (res) {
 			MapService.geocodeCoordinates({A: res.coords.latitude, F: res.coords.longitude}).then(function (res) {
 				$scope.profil.location = res;
-				$scope.asyncAddToList({location:$scope.profil.location});
+				$scope.addToList({location:$scope.profil.location});
 				$rootScope.$broadcast(MAP_EVENTS.geolocationSuccess);
 			}, function () {
 				$rootScope.$broadcast(MAP_EVENTS.geolocationFailed);

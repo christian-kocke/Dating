@@ -43,7 +43,11 @@ datingService.factory('MapService', ['$q', function ($q) {
 			var latlng = new google.maps.LatLng(coordinates.A, coordinates.F);
 			geocoder.geocode({'latLng': latlng}, function(results, status) {
 				if (status == google.maps.GeocoderStatus.OK) {
-					deferred.resolve(results[0].formatted_address);
+					for(var i = 0; i < results.length; i++) {
+						if(results[i].address_components.length === 2) {
+							deferred.resolve(results[i].formatted_address);
+						}
+					}
 				} else {
 					deferred.reject(status);
 				}

@@ -101,9 +101,11 @@ datingDirective.directive('geocodeCheck',['$q', function ($q) {
 
 				var def = $q.defer();
 				var geocoder = new google.maps.Geocoder();
+				console.log(modelValue);
 				geocoder.geocode({'address': modelValue}, function(results, status) {
 					if (status == google.maps.GeocoderStatus.OK) {
-						if(results[0].partial_match || results.length != 1) {
+						console.log(results);
+						if(results[0].partial_match || results.length != 1 || results[0].address_components.length > 4) {
 							def.reject();
 						} else {
 							def.resolve();
