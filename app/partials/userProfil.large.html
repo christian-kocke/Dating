@@ -138,7 +138,7 @@
 
 				<div class="row">
 
-					<div class="col-lg-3 col-md-4">
+					<div class="col-lg-3 col-md-5">
 						<h2 class="pinkTxt">
 							<i ng-show="activeTab === 'profil'" class="fa fa-heart"></i>
 							<i ng-show="activeTab === 'photos'" class="fa fa-camera"></i>
@@ -149,7 +149,7 @@
 						</h2><!-- class pinkTxt -->
 					</div><!-- class col-lg-3 col-md-4 -->
 
-					<div class="col-lg-9 col-md-8 text-right">
+					<div class="col-lg-9 col-md-7 text-right">
 						<a class="btn btn-link pinkTxt closeUpdatePanel" type="button" ng-show="activeTab === 'update'"><span ng-click="setClass('profil');freeUpdateList();" class="glyphicon glyphicon-remove"></span></a>
 						<a class="btn sectionBtn btnShadow" ng-hide="activeTab === 'update'" ng-click="setClass('profil')" ng-class="getClass('profil')"><i class="fa fa-user"></i><small> Profile </small></a>
 						<a class="btn sectionBtn btnShadow" ng-hide="activeTab === 'update'" ng-click="setClass('photos')" ng-class="getClass('photos')"><i class="fa fa-picture-o"></i><small> Photos </small></a>
@@ -272,7 +272,7 @@
 				<div class="row" ng-show="activeTab === 'update'">
 					<div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">
 
-						<div class="btn-group btn-group-justified" role="group" aria-label="">
+						<div class="btn-group btn-group-justified updateBtnGroup" role="group" aria-label="">
 
 							<a type="button" class="btn btn-default" ng-click="selected1 = !selected1; selected2 = false; freeUpdateList()" ng-class="{pinkBtn : selected1}"> Profile Settings </a>
 
@@ -471,13 +471,19 @@
 
 				<div class="row" ng-show="activeTab === 'settings'">
 
-					<div class="col-lg-6 col-md-6">
-						<div ng-if="activeTab === 'settings'" ng-include="'partials/update-password.html'"></div>
-					</div><!-- class col-lg-6 col-md-6 -->
+					<div class="row">
+						<div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">
+							<div ng-if="activeTab === 'settings'" ng-include="'partials/update-password.html'"></div>
+						</div><!-- class col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 -->
+					</div><!-- class row -->
 
-					<div class="col-lg-6 col-md-6">
-						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteAccountModal"> Delete Your Account </button>
-					</div><!-- class col-lg-6 col-md-6 -->
+					<hr>
+
+					<div class="row">
+						<div class="col-lg-12 col-md-12">
+							<button type="button" class="btn btn-danger center-block" data-toggle="modal" data-target="#deleteAccountModal"> Delete Your Account </button>
+						</div><!-- class col-lg-12 col-md-12 -->
+					</div><!-- class row -->
 
 				</div><!-- class row -->
 

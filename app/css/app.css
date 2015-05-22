@@ -171,6 +171,9 @@ input[name=checkbox]  {
 	background-color: #474A54;
 	color: white;
 }
+.hidePanel {
+	margin-bottom: 5%;
+}
 .toolsBtn {
 	position: absolute;
 	top: 50px;
@@ -179,6 +182,9 @@ input[name=checkbox]  {
 }
 .btnShadow {
 	box-shadow: 0 1px 0 black;
+}
+.updateBtnGroup {
+	margin-top: 5%;
 }
 /* End Button Sizes & Parameters */
 
@@ -505,6 +511,24 @@ body {
 	.contentBlock {
 		padding: 5% 0; 
 	}
+	.profilImg {
+		width: 80px;
+		height: 80px;
+	}
+	#profilZone {
+		width: 80px;
+		min-height: 80px;
+	}
+	.sidePanel {
+		margin-top: 70px;
+	}
+	.middlePanel {
+		margin-top: 70px;
+	}
+	.popularityBtn {
+		margin-bottom: 5%;
+		padding: 6px 0;
+	}
 }
 /* End Media Queries Mobile */
 
@@ -545,10 +569,14 @@ body {
 		min-height: 120px;
 	}
 	.sidePanel {
-		margin-top: 8%;
+		margin-top: 70px;
 	}
 	.middlePanel {
-		margin-top: 8%;
+		margin-top: 70px;
+	}
+	.popularityBtn {
+		margin-bottom: 5%;
+		padding: 6px 0;
 	}
 }
 /* End Media Queries Tablet */
