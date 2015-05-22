@@ -21,8 +21,18 @@ datingService.factory('SearchService',['$http','RESOURCE', function ($http, RESO
 
 }]); // End SearchService
 
-datingService.factory('EmailService',[ function () {
-	
+datingService.factory('EmailService',['$http', 'RESOURCE', function ($http, RESOURCE) {
+	return {
+		send: function (email) {
+			return $http
+			.post(RESOURCE.user+'/invite', email)
+			.then(function (res) {
+				console.log("invitation sent");
+			}, function () {
+				console.log("invitation not sent");
+			});
+		}
+	}
 }]);
 
 datingService.factory('MapService', ['$q', function ($q) {

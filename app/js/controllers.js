@@ -162,7 +162,7 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 }]); // End MapCtrl
 
 
-datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService) {
+datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', 'EmailService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService, EmailService) {
 
 	$scope.activeTab = 'profil';
 	
@@ -284,8 +284,9 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 
 
 	$scope.sendInvitation = function (email) {
+		console.log(email);
 		EmailService.send(email).then(function (res) {
-			console.log(res);
+			
 		}, function () {
 
 		});

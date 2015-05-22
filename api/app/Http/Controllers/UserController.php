@@ -179,12 +179,28 @@ class UserController extends Controller {
 			}
 			$filters = trim($filters, '|');
 			$filters .= (Utilities::filter_in_array($filter)) ? '&' : '';
+			
 
 		}
 		$filters = Utilities::str_replace_sql($filters);
 		$results = DB::select('select * from profils where '.$filters, $arguments);
 		return (count($results)) ? response()->json($results) : 0;
 		
+	}
+
+
+	/**
+	 * Invite someone.
+	 *
+	 * 
+	 * @return Response
+	 */
+	public function invite()
+	{
+		Mail::send('emails.invitation', ['user' => $this->_user->username], function($message)
+		{
+			$message->to($this->_request->input('email'), $this->_user->firstname." ".$this->_user->lastname)->subject('Join me on Dating.com !');
+		});
 	}
 
 	/**
