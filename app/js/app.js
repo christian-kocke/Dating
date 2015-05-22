@@ -99,7 +99,7 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
     });
     $locationProvider.html5Mode(false);
 
-}]).run(['$rootScope','AUTH_EVENTS','FILE_EVENTS','USER_EVENTS','MAP_EVENTS','ngToast','AuthService','$log','Session','$q','$location','$injector','$window','FacebookAuthService','ToastService', function ($rootScope, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS, MAP_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector, $window, FacebookAuthService, ToastService) {
+}]).run(['$rootScope','AUTH_EVENTS','FILE_EVENTS','USER_EVENTS','MAP_EVENTS','PROFIL_EVENTS','ngToast','AuthService','$log','Session','$q','$location','$injector','$window','FacebookAuthService','ToastService', function ($rootScope, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS, MAP_EVENTS, PROFIL_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector, $window, FacebookAuthService, ToastService) {
 
     window.addEventListener('resize', function () {
         if($window.innerWidth < 768) {
@@ -310,13 +310,19 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
     $rootScope.$on(MAP_EVENTS.mapError, function (event, status) {
         ToastService.show('Map error', 'danger');
     });
-
     $rootScope.$on(MAP_EVENTS.geolocationFailed, function (event) {
         ToastService.show('You have disabled geolocation, please re-activate it', 'warning');
     });
-
     $rootScope.$on(MAP_EVENTS.geolocationSuccess, function (event) {
         ToastService.show('Geolocation success', 'success');
+    });
+
+    // Encounter Events
+    $rootScope.$on(PROFIL_EVENTS.searchSuccess, function (event) {
+        ToastService.show('We found many people you might like !', 'success');
+    });
+    $rootScope.$on(PROFIL_EVENTS.searchFailed, function (event) {
+        ToastService.show('Nobody was founded try to be less exigent !', 'warning');
     });
 }]);
 
@@ -373,6 +379,9 @@ datingApp.constant('AUTH_EVENTS', {
     activationFailed: "account-activation-failed",
     profilLoadSuccess: "user-profil-load-success",
     profilLoadFailed: "user-profil-load-failed"
+}).constant('PROFIL_EVENTS', {
+    searchSuccess: 'search-encounters-success',
+    searchFailed: 'search-encounters-failed'
 }).constant('MAP_EVENTS', {
     mapError: 'map-error',
     geolocationFailed: 'map-geolocation-failed',

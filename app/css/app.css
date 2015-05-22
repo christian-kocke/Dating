@@ -98,6 +98,9 @@ h5{
 .pinkTxt {
 	color: #FF5A69;
 }
+.pinkTxt2 {
+	color: #E56C69;
+}
 .pinkBG p {
 	color: #FEE8EA;
 }
@@ -197,6 +200,13 @@ form[name="updateForm"] .has-feedback .form-control-feedback {
 /* Images Settings */
 img[alt="Dating"] {
 	height: 50px;
+}
+img[alt="heart-icon"] {
+	width: 20%;
+	margin-bottom: 5%;
+}
+img[alt="sideImg"] {
+	width: 80%;
 }
 .imgProfilRounded {
 	border-radius: 50%;
@@ -436,13 +446,22 @@ body {
 .sidePanelTitle {
 	margin: 0 auto;
 }
+.noPaddings {
+	padding: 0 0;
+}
+.centerMap {
+	padding: 3% 3%;
+}
+.centerContent {
+	padding: 0 2% 5% 2%;
+}
 /* End Containers Settings */
 
 
 
 /* Map Settings */
 #map-canvas {
- 	width: 300px;
+ 	width: 100%;
 	height: 200px;
 }
 .mapMessage {

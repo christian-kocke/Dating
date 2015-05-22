@@ -420,7 +420,7 @@ datingService.factory('Session', function () {
 }); // End Session
 
 
-datingService.factory('AuthInterceptor',['$rootScope','$q','AUTH_EVENTS','FILE_EVENTS','USER_EVENTS', function ($rootScope, $q, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS) {
+datingService.factory('AuthInterceptor',['$rootScope','$q','AUTH_EVENTS','FILE_EVENTS','USER_EVENTS','PROFIL_EVENTS', function ($rootScope, $q, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS, PROFIL_EVENTS) {
 
 	return {
 
@@ -439,6 +439,7 @@ datingService.factory('AuthInterceptor',['$rootScope','$q','AUTH_EVENTS','FILE_E
 				463: USER_EVENTS.registrationFailed,
 				464: USER_EVENTS.activationFailed,
 				465: USER_EVENTS.accountNotActivated,
+				470: PROFIL_EVENTS.searchFailed
 			}[response.status], response);
 
 			return $q.reject(response);
@@ -540,6 +541,7 @@ datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENT
 							MapService.geocodeCoordinates(profil.location).then(function (res) {
 								$rootScope.currentProfil = profil;
 								$rootScope.currentProfil.address = res;
+								console.log($rootScope.currentProfil.address);
 								$rootScope.$broadcast(USER_EVENTS.profilLoadSucces);
 							}, function () {
 								$rootScope.$broadcast(USER_EVENTS.profilLoadFailed);

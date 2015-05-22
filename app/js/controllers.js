@@ -5,9 +5,11 @@
 var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies']);
 
 
-datingController.controller('SearchUsersCtrl',['$scope','SearchService', function ($scope, SearchService) {
+datingController.controller('SearchUsersCtrl',['$scope','SearchService','PROFIL_EVENTS','$rootScope', function ($scope, SearchService, PROFIL_EVENTS, $rootScope) {
 
 	$scope.updateList = {};
+	$scope.encounterError = "";
+	$scope.encounters = "";
 
 	$scope.getFilters = function (filter) {
 		var now = parseInt((new Date).toLocaleFormat("%Y"));
@@ -16,6 +18,10 @@ datingController.controller('SearchUsersCtrl',['$scope','SearchService', functio
 		filter.dob[1] = now - tmp+'-00-00';
 		SearchService.usersFiltered(filter).then(function (res) {
 			$scope.encounters = res;
+			$rootScope.$broadcast(PROFIL_EVENTS.searchSuccess);
+		}, function () {
+			$scope.encounterError = "Sorry, no matches :(";
+			$rootScope.$broadcast(PROFIL_EVENTS.searchFailed);
 		});
 	};
 

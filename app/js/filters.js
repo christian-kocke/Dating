@@ -18,4 +18,3 @@ datingFilter.filter('age', function () {
 		return Math.round((Date.now() - dob.getTime()) / 3.15569e10);
 	}
 });
-
