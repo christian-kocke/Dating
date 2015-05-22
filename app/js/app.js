@@ -47,7 +47,7 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
         }
     }).
     when('/user/:id', {
-        templateUrl: 'partials/userProfil.html',
+        templateUrl: 'partials/encounterProfil.html',
         controller: 'ProfilCtrl',
         resolve: {
             auth: ['AuthResolver', function resolveAuthentication (AuthResolver) { 

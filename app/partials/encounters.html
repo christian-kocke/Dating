@@ -181,9 +181,11 @@
 					<div class="row">
 
 						<div class="col-lg-2 text-center" ng-repeat="encounter in encounters track by encounter.id">
-							<img class="img-responsive smallPicture" ng-src="{{encounter.profil_path}}">
-							<h5> {{encounter.username}}, {{encounter.dob | age}}  </h5>
-							<h6 class="greyTxt2"><em> Lyon </em></h6>
+							<a ng-href="#/user/{{encounter.id}}">
+								<img class="img-responsive smallPicture" ng-src="{{encounter.profil_path}}">
+								<h5> {{encounter.username}}, {{encounter.dob | age}}  </h5>
+								<h6 class="greyTxt2"><em> Lyon </em></h6>
+							</a>
 						</div><!-- class col-lg-2 -->
 
 					</div><!-- class row -->
