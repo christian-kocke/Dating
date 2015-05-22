@@ -522,30 +522,17 @@ datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENT
 		resolve: function (id) {
 			if(id) {
 				return ProfilService.show(id).then(function (profil) {
-					profil.location = JSON.parse(profil.location);
-					MapService.geocodeCoordinates(profil.location).then(function (res) {
-						$rootScope.visitedProfil = profil;
-						$rootScope.visitedProfil.address = res;
-					}, function () {
-						
-					});
+					$rootScope.visitedProfil = profil;
 				}, function () {
-					
+					console.log("error visited profil");
 				});
 			} else {
 				var unwatch = $rootScope.$watch('currentUser', function (currentUser) {
 
 					if (angular.isDefined(currentUser)) {
 						return ProfilService.show($rootScope.currentUser.id).then(function (profil) {
-							profil.location = JSON.parse(profil.location);
-							MapService.geocodeCoordinates(profil.location).then(function (res) {
-								$rootScope.currentProfil = profil;
-								$rootScope.currentProfil.address = res;
-								console.log($rootScope.currentProfil.address);
-								$rootScope.$broadcast(USER_EVENTS.profilLoadSucces);
-							}, function () {
-								$rootScope.$broadcast(USER_EVENTS.profilLoadFailed);
-							});
+							$rootScope.currentProfil = profil;;
+							$rootScope.$broadcast(USER_EVENTS.profilLoadSucces);
 						}, function () {
 							$rootScope.$broadcast(USER_EVENTS.profilLoadFailed);
 						});

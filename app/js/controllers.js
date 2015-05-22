@@ -93,22 +93,30 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 	$scope.map;
 	$scope.loading = false;
 
-	$scope.initialize = function () {
+	$scope.initialize = function (address) {
 		$scope.geocoder = new google.maps.Geocoder();
-		var latlng = new google.maps.LatLng($rootScope.currentProfil.location.A, $rootScope.currentProfil.location.F);
-		var mapOptions = {
-			center: latlng,
-			zoom: 11,
-			minZoom:10,
-			scrollwheel: false,
-			draggable: false
-		};
-		$scope.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-		var marker = new google.maps.Marker({
-			map: $scope.map,
-			position: latlng
+		MapService.geocodeAddress(address).then(function (results) {
+
+			var latlng = new google.maps.LatLng(results[0].geometry.location.A, results[0].geometry.location.F);
+
+			var mapOptions = {
+				center: latlng,
+				zoom: 11,
+				minZoom:10,
+				scrollwheel: false,
+				draggable: false
+			};
+
+			$scope.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+			var marker = new google.maps.Marker({
+				map: $scope.map,
+				position: latlng
+			});
 		});
+
+		
 
 		google.maps.event.addListener($scope.map, 'bounds_changed', function() {
 			$scope.loading = false;
@@ -117,7 +125,7 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 	}; // End initialize()
 
 	$scope.$on(USER_EVENTS.profilLoadSucces, function (event) {
-		event.currentScope.initialize();
+		event.currentScope.initialize($rootScope.currentProfil.location);
 	});
 
 
@@ -189,7 +197,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 			skin: $rootScope.currentProfil.skin,
 			eyes: $rootScope.currentProfil.eyes,
 			hair: $rootScope.currentProfil.hair,
-			location: $rootScope.currentProfil.address
+			location: $rootScope.currentProfil.location
 		};
 	});
 
