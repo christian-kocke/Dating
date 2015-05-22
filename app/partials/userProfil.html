@@ -100,14 +100,14 @@
 					<div class="row">
 						Send an invitations to a friend.
 						Just enter his emai address.
-						<form novalidate name="invitationForm" ng-submit="invitationForm.$valid && sendInvitation(email)">
+						<form novalidate name="invitationForm" ng-submit="invitationForm.$valid && sendInvitation(invite)">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group has-feedback" ng-class="{'has-success': invitationForm.email.$valid, 'has-error': invitationForm.email.$invalid && invitationForm.email.$dirty}">
 								<label class="sr-only" for="email"> Email </label>
 								<div class="input-group">
 									<span class="input-group-addon">
 										<i class="fa fa-envelope"></i>
 									</span>
-									<input type="email" class="form-control" ng-model="email" aria-describedby="emailStatus"  name="email" id="email" placeholder="Email" ng-maxlength="255" required email-check>
+									<input type="email" class="form-control" ng-model="invite.email" aria-describedby="emailStatus"  name="email" id="email" placeholder="Email" ng-maxlength="255" required email-check>
 								</div><!-- class input-group -->
 
 								<!-- Errors -->

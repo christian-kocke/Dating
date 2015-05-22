@@ -85,6 +85,15 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
             }],
         }
     }).
+    when('/invitation/:token', {
+        templateUrl: 'partials/change-password.html',
+        controller: 'ResetPasswordCtrl',
+        resolve: {
+            auth: ['AuthResolver', function resolveAuthentication (AuthResolver) { 
+                return AuthResolver.resolve('/profil', false);
+            }],
+        }
+    }).
     otherwise({
         redirectTo: '/',
     });
