@@ -13,16 +13,21 @@ datingController.controller('SearchUsersCtrl',['$scope','SearchService','PROFIL_
 
 	$scope.getFilters = function (filter) {
 		var now = parseInt((new Date).toLocaleFormat("%Y"));
-		var tmp = filter.dob[0];
-		filter.dob[0] = now - filter.dob[1]+'-00-00';
-		filter.dob[1] = now - tmp+'-00-00';
+		console.log(filter);
+		var ageMin = filter.dob[0];
+		var ageMax = filter.dob[1];
+		filter.dob[0] = now - ageMax+'-00-00';
+		filter.dob[1] = now - ageMin+'-00-00';
 		SearchService.usersFiltered(filter).then(function (res) {
 			$scope.encounters = res;
 			$rootScope.$broadcast(PROFIL_EVENTS.searchSuccess);
+			$scope.filter.dob[0] = ageMin;
+			$scope.filter.dob[1] = ageMax;
 		}, function () {
 			$scope.encounterError = "Sorry, no matches :(";
 			$rootScope.$broadcast(PROFIL_EVENTS.searchFailed);
 		});
+		
 	};
 
 }]); // End SearchUsersCtrl
@@ -127,7 +132,7 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 	$scope.$on(USER_EVENTS.profilLoadSucces, function (event) {
 		event.currentScope.initialize($rootScope.currentProfil.location);
 	});
-	
+
 
 	$scope.geolocate = function () {
 		$scope.loading = true;

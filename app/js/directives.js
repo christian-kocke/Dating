@@ -144,4 +144,4 @@ datingDirective.directive('modelUpdate', function () {
 			});
 		}
 	};
-});	
+});
