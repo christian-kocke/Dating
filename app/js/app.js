@@ -46,6 +46,18 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
             }]
         }
     }).
+    when('/user/:id', {
+        templateUrl: 'partials/userProfil.html',
+        controller: 'ProfilCtrl',
+        resolve: {
+            auth: ['AuthResolver', function resolveAuthentication (AuthResolver) { 
+                return AuthResolver.resolve(false, '/');
+            }],
+            profil: ['ProfilResolver', function resolveProfil (ProfilResolver) {
+                return ProfilResolver.resolve();
+            }]
+        }
+    }).
     when('/activation/:token', {
         templateUrl: 'partials/client-activation.html',
         controller: 'RegistrarCtrl',
