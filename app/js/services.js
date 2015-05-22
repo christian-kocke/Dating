@@ -518,27 +518,40 @@ datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENT
 
 	return {
 
-		resolve: function () {
-			var unwatch = $rootScope.$watch('currentUser', function (currentUser) {
+		resolve: function (id) {
+			if(id) {
+				return ProfilService.show(id).then(function (profil) {
+					profil.location = JSON.parse(profil.location);
+					MapService.geocodeCoordinates(profil.location).then(function (res) {
+						$rootScope.visitedProfil = profil;
+						$rootScope.visitedProfil.address = res;
+					}, function () {
+						
+					});
+				}, function () {
+					
+				});
+			} else {
+				var unwatch = $rootScope.$watch('currentUser', function (currentUser) {
 
-				if (angular.isDefined(currentUser)) {
-					return ProfilService.show($rootScope.currentUser.id).then(function (profil) {
-						profil.location = JSON.parse(profil.location);
-						MapService.geocodeCoordinates(profil.location).then(function (res) {
-							$rootScope.currentProfil = profil;
-							$rootScope.currentProfil.address = res;
-							$rootScope.$broadcast(USER_EVENTS.profilLoadSucces);
+					if (angular.isDefined(currentUser)) {
+						return ProfilService.show($rootScope.currentUser.id).then(function (profil) {
+							profil.location = JSON.parse(profil.location);
+							MapService.geocodeCoordinates(profil.location).then(function (res) {
+								$rootScope.currentProfil = profil;
+								$rootScope.currentProfil.address = res;
+								$rootScope.$broadcast(USER_EVENTS.profilLoadSucces);
+							}, function () {
+								$rootScope.$broadcast(USER_EVENTS.profilLoadFailed);
+							});
 						}, function () {
 							$rootScope.$broadcast(USER_EVENTS.profilLoadFailed);
 						});
-					}, function () {
-						$rootScope.$broadcast(USER_EVENTS.profilLoadFailed);
-					});
 
-					unwatch();
-				}
-			});
-
+						unwatch();
+					}
+				});
+			}
 		}
 	};
 

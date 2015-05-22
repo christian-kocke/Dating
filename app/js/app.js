@@ -53,8 +53,8 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
             auth: ['AuthResolver', function resolveAuthentication (AuthResolver) { 
                 return AuthResolver.resolve(false, '/');
             }],
-            profil: ['ProfilResolver', function resolveProfil (ProfilResolver) {
-                return ProfilResolver.resolve();
+            profil: ['ProfilResolver', '$route', function resolveProfil (ProfilResolver, $route) {
+                return ProfilResolver.resolve(parseInt($route.current.params.id));
             }]
         }
     }).
