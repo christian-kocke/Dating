@@ -232,6 +232,14 @@ datingService.factory('ProfilService',['$http','RESOURCE','$rootScope', function
 		});
 	}
 
+	profilService.showPhotos = function (id) {
+		return $http
+		.get(RESOURCE.photos+'/'+id)
+		.then(function (res) {
+			return res.data;
+		});
+	}
+
 	profilService.update = function (profil) {
 		return $http
 		.put(RESOURCE.profil+'/'+$rootScope.currentUser.id, profil)
@@ -526,6 +534,7 @@ datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENT
 		resolve: function (id) {
 			if(id) {
 				return ProfilService.show(id).then(function (profil) {
+
 					$rootScope.visitedProfil = profil;
 				}, function () {});
 			} else {
