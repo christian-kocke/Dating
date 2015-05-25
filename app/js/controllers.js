@@ -159,7 +159,7 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 }]); // End MapCtrl
 
 
-datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', 'InvitationService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService, InvitationService) {
+datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', 'InvitationService', 'ToastService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService, InvitationService, ToastService) {
 
 	$scope.activeTab = 'profil';
 	
@@ -281,10 +281,14 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 
 
 	$scope.sendInvitation = function (email) {
+		$scope.loading = true;
 		InvitationService.send(email).then(function (res) {
-			
+			ToastService.show('The invitation was sent', 'success');
 		}, function () {
-
+			ToastService.show('The invitation was not sent', 'danger');
+		})
+		.finally(function () {
+			$scope.loading = false;
 		});
 	};
 

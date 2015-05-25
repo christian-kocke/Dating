@@ -83,7 +83,7 @@
 				<div class="col-sm-12 col-xs-12 text-right">
 					<a class="btn btnShadow greyBtn hidePanel" ng-click="hideInvit = true"><small> Hide </small></a>
 				</div><!-- class col-sm-12 col-xs-12 text-right -->
-				<div class="row">
+				<div class="row" ng-hide="loading">
 					<h5 class="text-center greyTxt2"> Send an invitation to a friend ! </h5>
 					<h6 class="text-center greyTxt2"> Just enter his email address. </h6>
 					<form novalidate name="invitationForm" ng-submit="invitationForm.$valid && sendInvitation(invite)">
@@ -111,6 +111,9 @@
 						<button type="submit" class="btn btnShadow greyBtn"><small> Send invitation </small></button>
 					</form><!-- invitationForm -->
 				</div><!-- class row -->
+				<div class="row text-center" ng-show="loading">
+					<i class="fa fa-circle-o-notch fa-spin fa-4x"></i>
+				</div>
 			</div><!-- class panel panel-default sidePanel text-center -->
 
 		</div><!-- class col-sm-12 col-xs-12 -->
