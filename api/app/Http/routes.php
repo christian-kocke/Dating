@@ -22,6 +22,7 @@ Route::group(['middleware' => ['auth']], function()
 	Route::post('user/validation/password', 'UserValidationController@password');
 	Route::post('user/search', 'UserController@search');
 	Route::get('user/logout', 'UserController@logout');
+	Route::resource('user/wingnote', 'WingNoteController');
 	Route::resource('user/invitation', 'InvitationController');
 	Route::resource('user/file', 'UserFileController');
 	Route::resource('user/profil', 'ProfilController');
