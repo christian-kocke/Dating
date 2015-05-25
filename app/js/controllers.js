@@ -225,8 +225,8 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	};
 
 	$scope.displayPhotos = function () {
-		ProfilService.indexPhotos().then(function (res) {
-			$scope.photos = res;
+		ProfilService.indexPhotos().then(function (photos) {
+			$scope.photos = photos;
 		});
 	};
 
@@ -294,8 +294,14 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		});
 	};
 
-	$scope.addWingNote = function () {
+	$scope.openWingNote = function () {
 		myModal.$promise.then(myModal.show);
+	};
+
+	$scope.addWingNote = function (wingNote) {
+		WingNoteService.add(wingNote).then(function () {
+			ToastService.show('The WingNote was posted succesfuly', 'success');
+		});
 	};
 
 }]); // ./End ProfilCtrl

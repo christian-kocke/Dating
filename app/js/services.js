@@ -4,6 +4,27 @@
 
 var datingService = angular.module('datingServices', ['ngResource']);
 
+
+datingService.factory('WingNoteService', ['$http', 'RESOURCE', function ($http, RESOURCE) {
+	return {
+		add: function (wingNote) {
+			return $http	
+			.post(RESOURCE.wingNote, wingNote)
+			.then(function (success) {
+
+			}, function (error) {
+				
+			});
+		},
+		delete: function () {
+
+		},
+		update: function () {
+
+		}
+	}
+}]);
+
 datingService.factory('SearchService',['$http','RESOURCE', function ($http, RESOURCE) {
 
 	var searchService = {};
@@ -527,19 +548,28 @@ datingService.factory('SessionResolver',['$q','$rootScope','$location','Session'
 
 }]); // End SessionResolver
 
-datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENTS', 'MapService', function (ProfilService, $rootScope, USER_EVENTS, MapService) {
+datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENTS', 'MapService', '$q', function (ProfilService, $rootScope, USER_EVENTS, MapService, $q) {
 
 	return {
 
 		resolve: function (id) {
 			if(id) {
-				return ProfilService.show(id).then(function (profil) {
-					ProfilService.showPhotos(id).then(function (res) {
-						profil.photosProfil = res;
+				var deferred = $q.defer();
+
+				ProfilService.show(id).then(function (profil) {
+					ProfilService.showPhotos(id).then(function (photos) {
+						profil.photos = photos;
 						$rootScope.visitedProfil = profil;
+						deferred.resolve();
 						console.log($rootScope.visitedProfil);
+					}, function () {
+						deferred.reject();
 					});
-				}, function () {});
+				}, function () {
+					deferred.reject();
+				});
+
+				return deferred.promise;
 			} else {
 				var unwatch = $rootScope.$watch('currentUser', function (currentUser) {
 
