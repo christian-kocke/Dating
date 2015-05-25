@@ -108,7 +108,6 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
             } else {
                 $rootScope.sizeDevice = 'large';
             }
-            console.log($rootScope.sizeDevice);
         }
         $rootScope.$apply();
     });

@@ -13,7 +13,6 @@ datingController.controller('SearchUsersCtrl',['$scope','SearchService','PROFIL_
 
 	$scope.getFilters = function (filter) {
 		var now = parseInt((new Date).toLocaleFormat("%Y"));
-		console.log(filter);
 		var ageMin = filter.dob[0];
 		var ageMax = filter.dob[1];
 		filter.dob[0] = now - ageMax+'-00-00';
@@ -159,7 +158,7 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 }]); // End MapCtrl
 
 
-datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', 'InvitationService', 'ToastService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService, InvitationService, ToastService) {
+datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', 'InvitationService', 'ToastService', '$modal', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService, InvitationService, ToastService, $modal) {
 
 	$scope.activeTab = 'profil';
 	
@@ -168,6 +167,9 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	$scope.updateList = {};
 
 	$scope.selected1 = true;
+
+
+	var myModal = $modal({scope: $scope, template: 'partials/wingnote.html', show: false});
 
 
 	$scope.$on(USER_EVENTS.profilLoadSucces, function (event) {
@@ -290,6 +292,10 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		.finally(function () {
 			$scope.loading = false;
 		});
+	};
+
+	$scope.addWingNote = function () {
+		myModal.$promise.then(myModal.show);
 	};
 
 }]); // ./End ProfilCtrl
