@@ -211,6 +211,9 @@ form[name="updateForm"] .has-feedback .form-control-feedback {
 	position: absolute;
 	border-radius: 5px;
 }
+.dobPaddings {
+	padding: 0 5px;
+}
 /* End Form Setting & Validator */
 
 

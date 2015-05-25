@@ -230,7 +230,7 @@ datingService.factory('ProfilService',['$http','RESOURCE','$rootScope', function
 		.then(function (res) {
 			return res.data;
 		});
-	}
+	};
 
 	profilService.update = function (profil) {
 		return $http
@@ -526,7 +526,9 @@ datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENT
 		resolve: function (id) {
 			if(id) {
 				return ProfilService.show(id).then(function (profil) {
-					$rootScope.visitedProfil = profil;
+					ProfilService.showPhotos(id).then(function (photos) {
+						$rootScope.visitedProfil = profil;
+					});
 				}, function () {});
 			} else {
 				var unwatch = $rootScope.$watch('currentUser', function (currentUser) {
