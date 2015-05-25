@@ -191,20 +191,6 @@ class UserController extends Controller {
 
 
 	/**
-	 * Invite someone.
-	 *
-	 * 
-	 * @return Response
-	 */
-	public function invite()
-	{
-		Mail::send('emails.invitation', ['user' => $this->_user->username, 'id' => $this->_user->id], function($message)
-		{
-			$message->to($this->_request->input('email'), $this->_user->firstname." ".$this->_user->lastname)->subject('Join me on Dating.com !');
-		});
-	}
-
-	/**
 	 * Update the specified resource in storage.
 	 *
 	 * @param  int  $id

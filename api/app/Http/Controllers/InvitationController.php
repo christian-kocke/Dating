@@ -2,10 +2,43 @@
 
 use Api\Http\Requests;
 use Api\Http\Controllers\Controller;
-
+use Invitation;
+use Auth;
 use Illuminate\Http\Request;
+use Mail;
 
 class InvitationController extends Controller {
+
+
+	/**
+	 * The user instance.
+	 */
+	protected $_user;
+
+	/**
+	 * The current request instance.
+	 */
+	protected $_request;
+
+	/**
+	 * The current request instance.
+	 */
+	protected $_invitation;
+
+	/**
+	 * Populate the class attributes.
+	 *
+	 * @param Request
+	 */
+	public function __construct(Request $request)
+	{
+		
+		// We assign the value of the current request.
+		$this->_request = $request;
+
+		// if the user is authenticated we return the instance otherwise we return null.
+		$this->_user = (Auth::check()) ? Auth::user() : null;
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -14,7 +47,7 @@ class InvitationController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		
 	}
 
 	/**
@@ -24,7 +57,8 @@ class InvitationController extends Controller {
 	 */
 	public function create()
 	{
-		//
+
+		
 	}
 
 	/**
@@ -34,7 +68,20 @@ class InvitationController extends Controller {
 	 */
 	public function store()
 	{
-		//
+		
+		$this->_invitation = Invitation::create([
+			"user_id" => $this->_user->id,
+			"token" => str_random(20),
+			"email" => $this->_request->input('email'),
+		]);
+
+		if($this->_invitation)
+		{
+			Mail::send('emails.invitation', ['user' => $this->_user->username, 'token' => $this->_invitation->token], function($message)
+			{
+				$message->to($this->_invitation->email, $this->_user->firstname." ".$this->_user->lastname)->subject('Join me on Dating.com !');
+			});
+		}
 	}
 
 	/**
@@ -78,7 +125,7 @@ class InvitationController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		
 	}
 
 }

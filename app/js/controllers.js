@@ -159,7 +159,7 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 }]); // End MapCtrl
 
 
-datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', 'EmailService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService, EmailService) {
+datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', 'InvitationService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService, InvitationService) {
 
 	$scope.activeTab = 'profil';
 	
@@ -281,7 +281,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 
 
 	$scope.sendInvitation = function (email) {
-		EmailService.send(email).then(function (res) {
+		InvitationService.send(email).then(function (res) {
 			
 		}, function () {
 
@@ -299,6 +299,7 @@ datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope'
 
 	$scope.register = function (user) {
 		$scope.loading = true;
+		user.invitation = ($routeParams.token) ? $routeParams.token : null;
 		user.dob = user.year+"-"+user.month+"-"+user.day;
 		UserService.create(user).then(function (res) {
 			if(parseInt(res)){

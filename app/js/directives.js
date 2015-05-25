@@ -59,7 +59,33 @@ datingDirective.directive('emailCheck',['$q','ValidationService', function ($q, 
 				var def = $q.defer();
 
 				if(modelValue) {
-					ValidationService.checkEmail({email : modelValue}).then(function (res) {
+					ValidationService.checkEmail({email : modelValue, table: 'users'}).then(function (res) {
+						if(!parseInt(res)) {
+							def.resolve();
+						}else{
+							def.reject();
+						}
+					});
+				}else{
+					def.reject();
+				}
+
+				return def.promise;
+			}
+		}
+	};
+}]);
+
+datingDirective.directive('emailInvitationCheck',['$q','ValidationService', function ($q, ValidationService) {
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		link: function (scope, elm, attrs, ctrl) {
+			ctrl.$asyncValidators.emailinvitationcheck = function (modelValue, viewValue) {
+				var def = $q.defer();
+
+				if(modelValue) {
+					ValidationService.checkEmail({email : modelValue, table: 'invitations'}).then(function (res) {
 						if(!parseInt(res)) {
 							def.resolve();
 						}else{

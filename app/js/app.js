@@ -86,13 +86,8 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
         }
     }).
     when('/invitation/:token', {
-        templateUrl: 'partials/change-password.html',
-        controller: 'ResetPasswordCtrl',
-        resolve: {
-            auth: ['AuthResolver', function resolveAuthentication (AuthResolver) { 
-                return AuthResolver.resolve('/profil', false);
-            }],
-        }
+        templateUrl: 'partials/registration.html',
+        controller: 'RegistrarCtrl'
     }).
     otherwise({
         redirectTo: '/',
@@ -394,6 +389,7 @@ datingApp.constant('AUTH_EVENTS', {
     profil: '/api/public/user/profil',
     photos: '/api/public/user/photos',
     resetPassword: '/api/public/password',
+    invitation: '/api/public/user/invitation',
     templates: '/dating/app/partials'
 });
 

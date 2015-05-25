@@ -110,7 +110,7 @@
 								<span class="input-group-addon">
 									<i class="fa fa-envelope"></i>
 								</span>
-								<input type="email" class="form-control" ng-model="invite.email" aria-describedby="emailStatus"  name="email" id="email" placeholder="Email" ng-maxlength="255" required email-check>
+								<input type="email" class="form-control" ng-model="invite.email" aria-describedby="emailStatus"  name="email" id="email" placeholder="Email" ng-maxlength="255" required email-check email-invitation-check>
 							</div><!-- class input-group -->
 
 							<!-- Errors -->
@@ -120,11 +120,12 @@
 							<span id="emailStatus" class="sr-only">(warning)</span>
 							<span class="validationError" ng-show="invitationForm.email.$error.required && invitationForm.email.$dirty">* The email address is required</span>
 							<span class="validationError" ng-show="invitationForm.email.$error.emailcheck && invitationForm.email.$dirty">* This email is already registered</span>
+							<span class="validationError" ng-show="invitationForm.email.$error.emailinvitationcheck && invitationForm.email.$dirty">* An invitation was already sent to this email</span>
 							<span class="form-control-feedback" ng-show="invitationForm.email.$pending.emailcheck"><i class="fa fa-circle-o-notch fa-spin"></i></span>
 
 						</div><!-- class col-lg-12 col-md-12 form-group has-feedback -->
 
-						<a class="btn btnShadow greyBtn"><small> Send invitation </small></a>
+						<button type="submit" class="btn btnShadow greyBtn"><small> Send invitation </small></button>
 					</form><!-- invitationForm -->
 				</div><!-- class row -->
 			</div><!-- class panel panel-default sidePanel text-center -->

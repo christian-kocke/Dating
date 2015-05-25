@@ -48,7 +48,7 @@ class UserValidationController extends Controller {
 	public function email()
 	{
 		// Select the id of every user with the email.
-		$queryResult = DB::select('select id from users where email = ?', [$this->_request->input('email')]);
+		$queryResult = DB::select('select * from '.$this->_request->input('table').' where email = ?', [$this->_request->input('email')]);
 
 		// Count the number of users with this email.
 		$numberOfEmails = count($queryResult);

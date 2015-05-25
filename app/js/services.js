@@ -21,13 +21,15 @@ datingService.factory('SearchService',['$http','RESOURCE', function ($http, RESO
 
 }]); // End SearchService
 
-datingService.factory('EmailService',['$http', 'RESOURCE', function ($http, RESOURCE) {
+datingService.factory('InvitationService',['$http', 'RESOURCE', function ($http, RESOURCE) {
 	return {
 		send: function (email) {
 			return $http
-			.post(RESOURCE.user+'/invite', email)
+			.post(RESOURCE.invitation, email)
 			.then(function (res) {
+
 			}, function () {
+
 			});
 		}
 	}
@@ -145,9 +147,9 @@ datingService.factory('ResetService',['$http','RESOURCE', function ($http, RESOU
 datingService.factory('ValidationService',['$http','RESOURCE', function ($http, RESOURCE) {
 	var validationService = {};
 
-	validationService.checkEmail = function (email) {
+	validationService.checkEmail = function (values) {
 		return $http
-		.post(RESOURCE.user+'/validation/email', email)
+		.post(RESOURCE.user+'/validation/email', values)
 		.then(function (res) {
 			return res.data;
 		}, function () {
