@@ -186,6 +186,9 @@ input[name=checkbox]  {
 .updateBtnGroup {
 	margin-top: 5%;
 }
+.filterBtn {
+	width: 100px;
+}
 /* End Button Sizes & Parameters */
 
 
@@ -474,6 +477,14 @@ body {
 	margin: 2% auto 0 auto;
 }
 /* End Map Settings */
+
+
+
+/* Slider Settings */
+.slider.slider-horizontal {
+	width: 100%;
+}
+/* End Slider Settings */
 
 
 

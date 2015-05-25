@@ -4,7 +4,7 @@
 		<div class="row">
 
 			<!-- Informations panel -->
-			<div class="col-lg-3">
+			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 				<div class="panel panel-default sidePanel text-center">
 
 					<!-- Title -->
@@ -14,22 +14,24 @@
 
 					<hr>
 
-					<form name="filtersForm" novalidate role="filters" ng-submit="getFilters(filter)">
+					<form class="text-center" name="filtersForm" novalidate role="filters" ng-submit="getFilters(filter)">
 						<!-- Gender Filter -->
 						<div class="row">
-							<div class="col-lg-12">
+							
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xs-12">
 								<label class="greyTxt2 pull-left" for="gender"> Gender </label>
-							</div><!-- class row -->
+							</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xs-12 -->
 
-							<div class="btn-group">
-								
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="btn-group">
+									<input type="checkbox" name="checkbox" id="male" ng-model="filter.gender.male"> 
+									<label class="btn btn-default filterBtn" for="male"> Male </label>
 
-								<input type="checkbox" name="checkbox" id="male" ng-model="filter.gender.male"> 
-								<label class="btn btn-default filterBtn" for="male"> Male </label>
+									<input type="checkbox" ng-model="filter.gender.female" name="checkbox" id="female">
+									<label class="btn btn-default filterBtn" for="female"> Female </label>
+								</div><!-- class btn-group -->
+							</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 
-								<input type="checkbox" ng-model="filter.gender.female" name="checkbox" id="female">
-								<label class="btn btn-default filterBtn" for="female"> Female </label>
-							</div><!-- class btn-group -->
 						</div><!-- class row -->
 
 						<hr>
@@ -37,10 +39,10 @@
 						<!-- Age Filter -->
 						<div class="row">
 
-							<div class="col-lg-12">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
 								<label class="greyTxt2 pull-left" for="age"> Age </label>
 								<slider class="dob" ng-model="filter.dob" min="18" step="1" max="90" value="[18,90]" range="true" tooltipsplit="true"></slider>
-							</div><!-- class col-lg-12 -->
+							</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 
 						</div><!-- class row -->
 
@@ -49,10 +51,10 @@
 						<!-- Height Filter -->
 						<div class="row">
 
-							<div class="col-lg-12">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<label class="greyTxt2 pull-left" for="height"> Height (in centimeters) </label>
 								<slider ng-model="filter.height" min="120" step="5" max="220" value="[120,220]" range="true" tooltipsplit="true"></slider>
-							</div><!-- class col-lg-12 -->
+							</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 
 						</div><!-- class row -->
 
@@ -61,25 +63,33 @@
 						<!-- Skin Filter -->
 						<div class="row">
 
-							<div class="col-lg-12">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<label class="greyTxt2 pull-left" for="skin"> Skin Tone </label>
-							</div><!-- class row -->
+							</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 
-							<div class="btn-group">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="btn-group">
 
-								<input type="checkbox" ng-model="filter.skin.black" name="checkbox" id="black">
-								<label class="btn btn-default filterBtn" for="black"> Black </label>
+									<input type="checkbox" ng-model="filter.skin.black" name="checkbox" id="black">
+									<label class="btn btn-default filterBtn" for="black"> Black </label>
 
-								<input type="checkbox" ng-model="filter.skin.asian" name="checkbox" id="asian">
-								<label class="btn btn-default filterBtn" for="asian"> Asian </label>
+									<input type="checkbox" ng-model="filter.skin.asian" name="checkbox" id="asian">
+									<label class="btn btn-default filterBtn" for="asian"> Asian </label>
 
-								<input type="checkbox" ng-model="filter.skin.white" name="checkbox" id="white">
-								<label class="btn btn-default filterBtn" for="white"> White </label>
+								</div><!-- class btn-group -->
+							</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 
-								<input type="checkbox" ng-model="filter.skin.mixed" name="checkbox" id="mixed">
-								<label class="btn btn-default filterBtn" for="mixed"> Mixed </label>
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="btn-group">
 
-							</div><!-- class btn-group -->
+									<input type="checkbox" ng-model="filter.skin.white" name="checkbox" id="white">
+									<label class="btn btn-default filterBtn" for="white"> White </label>
+
+									<input type="checkbox" ng-model="filter.skin.mixed" name="checkbox" id="mixed">
+									<label class="btn btn-default filterBtn" for="mixed"> Mixed </label>
+
+								</div><!-- class btn-group -->
+							</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 
 						</div><!-- class row -->
 
@@ -88,26 +98,33 @@
 						<!-- Eyes Filter -->
 						<div class="row">
 
-							<div class="col-lg-12">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<label class="greyTxt2 pull-left" for="eyes"> Eyes Color </label>
-							</div><!-- class row -->
+							</div><!-- class col-lg-12 col-md-12 -->
 
-							<div class="btn-group">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="btn-group">
 
-								<input type="checkbox" ng-model="filter.eyes.black" name="checkbox" id="blackeyes"> 
-								<label class="btn btn-default filterBtn" for="blackeyes"> Black </label>
+									<input type="checkbox" ng-model="filter.eyes.black" name="checkbox" id="blackeyes"> 
+									<label class="btn btn-default filterBtn" for="blackeyes"> Black </label>
 
-								<input type="checkbox" ng-model="filter.eyes.brown" name="checkbox" id="browneyes">
-								<label class="btn btn-default filterBtn" for="browneyes"> Brown </label>
+									<input type="checkbox" ng-model="filter.eyes.brown" name="checkbox" id="browneyes">
+									<label class="btn btn-default filterBtn" for="browneyes"> Brown </label>
 
-								<input type="checkbox" ng-model="filter.eyes.blue" name="checkbox" id="blueeyes"> 
-								<label class="btn btn-default filterBtn" for="blueeyes"> Blue </label>
+								</div><!-- class btn-group -->
+							</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 
-								<input type="checkbox" ng-model="filter.eyes.green" name="checkbox" id="greeneyes">
-								<label class="btn btn-default filterBtn" for="greeneyes"> Green </label>
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="btn-group">
 
-								
-							</div><!-- class btn-group -->
+									<input type="checkbox" ng-model="filter.eyes.blue" name="checkbox" id="blueeyes"> 
+									<label class="btn btn-default filterBtn" for="blueeyes"> Blue </label>
+
+									<input type="checkbox" ng-model="filter.eyes.green" name="checkbox" id="greeneyes">
+									<label class="btn btn-default filterBtn" for="greeneyes"> Green </label>
+
+								</div><!-- class btn-group -->
+							</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 
 						</div><!-- class row -->
 
@@ -116,29 +133,35 @@
 						<!-- Hair Filter -->
 						<div class="row">
 
-							<div class="col-lg-12">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<label class="greyTxt2 pull-left" for="hair"> Hair Color </label>
-							</div><!-- class row -->
+							</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 
-							<div class="btn-group">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="btn-group">
 
-								<input type="checkbox" ng-model="filter.hair.black" name="checkbox" id="blackhair"> 
-								<label class="btn btn-default filterBtn" for="blackhair"> Black </label>
+									<input type="checkbox" ng-model="filter.hair.black" name="checkbox" id="blackhair"> 
+									<label class="btn btn-default filterBtn" for="blackhair"> Black </label>
 
-								
-								<input type="checkbox" ng-model="filter.hair.brown" name="checkbox" id="brownhair"> 
-								<label class="btn btn-default filterBtn" for="brownhair"> Brown </label>
+									
+									<input type="checkbox" ng-model="filter.hair.brown" name="checkbox" id="brownhair"> 
+									<label class="btn btn-default filterBtn" for="brownhair"> Brown </label>
 
-								
-								<input type="checkbox" ng-model="filter.hair.red" name="checkbox" id="redhair"> 
-								<label class="btn btn-default filterBtn" for="redhair"> Red </label>
+								</div><!-- class btn-group -->
+							</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 
-								
-								<input type="checkbox" ng-model="filter.hair.blond" name="checkbox" id="blondhair"> 
-								<label class="btn btn-default filterBtn" for="blondhair"> Blond </label>
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="btn-group">
+									
+									<input type="checkbox" ng-model="filter.hair.red" name="checkbox" id="redhair"> 
+									<label class="btn btn-default filterBtn" for="redhair"> Red </label>
 
-								
-							</div><!-- class btn-group -->
+									
+									<input type="checkbox" ng-model="filter.hair.blond" name="checkbox" id="blondhair"> 
+									<label class="btn btn-default filterBtn" for="blondhair"> Blond </label>
+
+								</div><!-- class btn-group -->
+							</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 
 						</div><!-- class row -->
 
@@ -147,10 +170,10 @@
 						<!-- Weight Filter -->
 						<div class="row">
 
-							<div class="col-lg-12">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<label class="greyTxt2 pull-left" for="weight"> Weight (in kilograms) </label>
 								<slider ng-model="filter.weight" min="30" step="5" max="120" value="[30,120]" range="true" tooltipsplit="true"></slider>
-							</div><!-- class col-lg-12 -->
+							</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 
 						</div><!-- class row -->
 
@@ -159,49 +182,49 @@
 						<!-- Search Button -->
 						<div class="row">
 
-							<div class="col-lg-12">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<button type="submit" class="btn pinkBtn largeBtn sectionBtn center-block"><i class="fa fa-search fa-lg"></i> Search </button>
-							</div><!-- class col-lg-12 -->
+							</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 
 						</div><!-- class row -->
 					</form>
 
 				</div><!-- class panel panel-default -->
-			</div><!-- class col-lg-3 -->
+			</div><!-- class col-lg-4 col-md-4 col-sm-12 col-xs-12 -->
 
-			<div class="col-lg-9">
+			<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
 				<div class="panel panel-default middlePanel" ng-controller="MapCtrl">
 
 					<div class="row">
-						<div class="col-lg-12">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<h2 class="pinkTxt"><i class="fa fa-search"></i> Encounters	</h2>
-						</div><!-- class col-lg-12 -->
-					</div><!-- class col-lg-12 -->
+						</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+					</div><!-- class row -->
 
 					<div class="row">
 
-						<div class="col-lg-12 text-center" ng-hide="encounters || encounterError">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center" ng-hide="encounters || encounterError">
 							<img class="img-responsive center-block" src="img/icon-heart.png" alt="heart-icon">
 							<p> Try to find someone you might like with the filtered search !</p>
-						</div><!-- class col-lg-12 text-center -->
+						</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center -->
 
-						<div class="col-lg-2 text-center" ng-repeat="encounter in encounters track by encounter.user_id" ng-show="encounters">
+						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 text-center" ng-repeat="encounter in encounters track by encounter.user_id" ng-show="encounters">
 							<a ng-href="#/user/{{encounter.user_id}}">
 								<img class="img-responsive smallPicture" ng-src="{{encounter.profil_path}}">
 								<h5> {{encounter.username}}, {{encounter.dob | age}}  </h5>
 								<h6 class="greyTxt2"><em> Lyon </em></h6>
 							</a>
-						</div><!-- class col-lg-2 text-center -->
+						</div><!-- class col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center -->
 
-						<div class="col-lg-12 text-center" ng-show="encounterError">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center" ng-show="encounterError">
 							<i class="fa fa-times-circle fa-5x pinkTxt2"></i>
 							<p> {{encounterError}} </p>
-						</div><!-- class col-lg-12 text-center -->
+						</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center -->
 
 					</div><!-- class row -->
 
 				</div><!-- class panel panel-default -->
-			</div><!-- class col-lg-9 -->
+			</div><!-- class col-lg-8 col-md-8 col-sm-12 col-xs-12 -->
 
 		</div><!-- class row -->
 	</div><!-- class container -->
