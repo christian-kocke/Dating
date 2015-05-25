@@ -206,6 +206,7 @@ class UserController extends Controller {
 				{
 					$username = $this->_request->input('username');
 					$arg[] = $username;
+					$query = "update profils set username = ? where user_id = ".$this->_user->id;
 					$query = "update users set username = ? where id = ".$this->_user->id;
 				} else {
 					$current = $this->_request->input('current');

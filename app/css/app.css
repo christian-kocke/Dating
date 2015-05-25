@@ -53,6 +53,7 @@ h5{
 
 
 
+
 /* Modal Settings */
 .pinkBorderShadowed {
 	border-color: #FF5967;
@@ -66,8 +67,6 @@ h5{
 .photoModalHeader {
 	border-bottom: none;
 }
-
-
 .modal-backdrop.am-fade {
   opacity: .5;
   transition: opacity .15s linear;
@@ -84,10 +83,8 @@ h5{
     }
   }
 }
-.close {
-	
-}
 /* En Modal Settings */
+
 
 
 
@@ -234,6 +231,9 @@ form[name="updateForm"] .has-feedback .form-control-feedback {
 }
 .dobPaddings {
 	padding: 0 5px;
+}
+textarea, .textZone {
+	overflow: auto;
 }
 /* End Form Setting & Validator */
 

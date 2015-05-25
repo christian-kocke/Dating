@@ -1,0 +1,182 @@
+<div class="container-fluid" ng-controller="ProfilCtrl">
+
+	<ul class="nav nav-pills toolsBtn">
+		<li role="navigation"><a class="btn btnShadow greyBtn showPanel" ng-show="hideInfo" ng-click="hideInfo = false"><small> < Profile Infos </small></a></li>
+	</ul><!-- class nav nav-pills toolsBtn -->
+
+	<div class="container profilContainer">
+		<div class="row">
+
+			<!-- Informations panel -->
+			<div class="col-xs-12" ng-hide="hideInfo">
+				<div class="panel panel-default sidePanel text-center">
+
+					<div class="row">
+						<div class="col-xs-12 text-right">
+							<a type="button" class="btn btnShadow greyBtn hidePanel" ng-click="hideInfo = true"><small> Hide </small></a>
+						</div><!-- class col-xs-12 text-right -->
+					</div><!-- class row visible-sm -->
+					
+					<!-- Profil picture -->
+					<div class="row"> 
+						<img class="profilImg img-responsive" ng-src="{{visitedProfil.profil_path}}"/>
+					</div><!-- class drop-box -->
+
+					<!-- Name , Age -->
+					<div class="row">
+						<h3> {{visitedProfil.username | capitalize}}, {{visitedProfil.dob | age}} </h3>
+						<h4><small> Paris </small></h4>
+					</div><!-- class row -->
+
+					<!-- List of links -->
+					<div class="row">
+						<div class="col-lg-12">
+							<ul class="list-unstyled">
+								<li class="greyTxt1"><p> Height : {{visitedProfil.height}} cm </p></li>
+								<li class="greyTxt1"><p> Weight : {{visitedProfil.weight}} kg </p></li>
+								<li class="greyTxt1"><p> Eyes : {{visitedProfil.eyes}} </p></li>
+								<li class="greyTxt1"><p> Hair : {{visitedProfil.hair}} </p></li>
+								<li class="greyTxt1"><p> Skin : {{visitedProfil.skin}} </p></li>
+							</ul><!-- class list-unstyled fa-ul text-left -->
+						</div><!-- class col-lg-12 -->
+					</div><!-- class row -->
+
+					<!-- Add Friend -->
+					<div class="row">
+						<div class="col-sm-6 col-sm-offset-3 col-xs-12">
+							<a class="btn pinkBtn popularityBtn center-block btnShadow"> Add as Friend </a>
+							<hr>
+							<a type="button" class="btn pinkBtn popularityBtn center-block btnShadow" data-animation="am-fade-and-slide-top" ng-click="addWingNote()"> Add a WingNote </a>
+						</div><!-- class col-sm-6 col-sm-offset-3 col-xs-12 -->
+					</div><!-- class row -->
+
+				</div><!-- class panel panel-default sidePanel text-center -->
+			</div><!-- class col-xs-12 -->
+
+
+			<div class="col-xs-12">
+				<div class="panel panel-default middlePanel" ng-controller="MapCtrl">
+
+					<div class="row">
+						<div class="col-sm-4 col-xs-12">
+							<h2 class="pinkTxt">
+								<i ng-show="activeTab === 'profil'" class="fa fa-heart"></i>
+								<i ng-show="activeTab === 'photos'" class="fa fa-camera"></i>
+								{{activeTab | capitalize}}
+							</h2><!-- class pinkTxt -->
+						</div><!-- class col-lg-4 -->
+
+						<hr class="visible-xs">
+						<hr class="visible-xs">
+
+						<div class="col-xs-12 text-center visible-xs">
+							<a ng-click="setClass('profil');freeUpdateList();" class="btn btn-link pinkTxt closeUpdatePanel visible-sm" type="button" ng-show="activeTab === 'update'"><span class="glyphicon glyphicon-remove"></span></a>
+
+							<a ng-click="setClass('profil');freeUpdateList();" class="btn sectionBtn btnShadow greyBtn closeUpdatePanel visible-xs" type="button" ng-show="activeTab === 'update'"><span class="glyphicon glyphicon-remove"></span></a>
+
+							<a class="btn sectionBtn btnShadow" ng-hide="activeTab === 'update'" ng-click="setClass('profil')" ng-class="getClass('profil')"><i class="fa fa-user"></i><small> Profile </small></a>
+
+							<a class="btn sectionBtn btnShadow" ng-hide="activeTab === 'update'" ng-click="setClass('photos')" ng-class="getClass('photos')"><i class="fa fa-picture-o"></i><small> Photos </small></a>
+						</div><!-- class col-xs-12 text-center visible-xs -->
+
+						<div class="col-sm-8 col-xs-12 text-right visible-sm">
+							<a class="btn btn-link pinkTxt closeUpdatePanel" type="button" ng-show="activeTab === 'update'"><span ng-click="setClass('profil');freeUpdateList();" class="glyphicon glyphicon-remove"></span></a>
+							<a class="btn sectionBtn btnShadow" ng-hide="activeTab === 'update'" ng-click="setClass('profil')" ng-class="getClass('profil')"><i class="fa fa-user"></i><small> Profile </small></a>
+							<a class="btn sectionBtn btnShadow" ng-hide="activeTab === 'update'" ng-click="setClass('photos')" ng-class="getClass('photos')"><i class="fa fa-picture-o"></i><small> Photos </small></a>
+						</div><!-- class col-sm-8 col-xs-12 text-right visible-sm -->
+
+					</div><!-- class row -->
+
+					<hr class="visible-xs">
+
+					<!-- Profil Section -->
+					<div class="row" ng-show="activeTab === 'profil'">
+
+						<!-- Numeric informations -->
+						<div class="row">
+							<div class="col-sm-2 col-xs-12">
+								<p><i class="fa fa-child fa-lg"></i><strong> 8 </strong> Friends </p>	
+							</div><!-- class col-sm-2 col-xs-4 -->
+							<div class="col-sm-2 col-xs-12">
+								<p><i class="fa fa-info-circle fa-lg"></i><strong> 5 </strong> Interests </p>
+							</div><!-- class col-sm-2 col-xs-4 -->
+							<div class="col-sm-4 col-xs-12">
+								<p><i class="fa fa-user-plus fa-lg"></i><strong> 18 </strong> Angel Recommended </p>
+							</div><!-- class col-sm-4 col-xs-4 -->
+						</div><!-- class row -->
+
+						<div class="row">
+
+							<div class="col-lg-5 noPaddings">
+
+								<div class="row thinBorders">
+									
+									<div class="col-lg-8">
+										<h5 class="text-left greyTxt2"> Location : <span class="pinkTxt"> {{visitedProfil.location}} </span></h5>
+									</div><!-- class col-lg-8 -->
+
+									<div class="col-lg-4 text-right">
+										<a class="btn btn-link" ng-click="hideMap = !hideMap"><i class="fa fa-map-marker"></i> Hide Map </a>
+									</div><!-- class col-lg-4 -->
+
+								</div><!-- class row thinBorders -->
+
+								<div class="row thinBorders" ng-controller="MapCtrl">
+									<div class="col-lg-12 centerMap noPaddings" ng-hide="hideMap">
+										<div id="map-canvas" ng-hide="loading"></div>
+										<div ng-show="loading">
+											<i class="fa fa-cog fa-spin fa-4x"></i>
+											<div> Locating ... </div>
+										</div>
+									</div><!-- class col-lg-12 centerMap noPaddings -->
+								</div><!-- class row thinBorders -->
+
+							</div><!-- class col-lg-5 noPaddings -->
+
+							<div class="col-lg-7 thinBorders">
+								<div class="row">
+									
+									<!-- I'm here to -->
+									<div class="row">
+										<div class="col-lg-12 thinBorders centerContent">
+											<h5 class="text-left pinkTxt"> I'm here to </h5>
+											<p class="text-justify textZone"> {{visitedProfil.whyHere}} </p>
+										</div><!-- class col-lg-12 thinBorders centerContent -->
+									</div><!-- class row -->
+
+									<div class="row">
+										<div class="col-lg-12 thinBorders centerContent">
+											<h5 class="text-left pinkTxt"> Recommended by <span class="badge pinkBG1"> 8 </span></h5>
+										</div><!-- class col-lg-12 thinBorders centerContent -->
+									</div><!-- class row -->
+
+								</div><!-- class row -->
+							</div><!-- class col-lg-7 thinBorders -->
+
+						</div><!-- class row -->
+
+						<div class="row">
+							<div class="col-lg-12 thinBorders centerContent">
+								<h5 class="text-left pinkTxt"> About Me </h5>
+								<p class="text-justify textZone"> {{visitedProfil.aboutMe}} </p>
+							</div><!-- class col-lg-12 thinBorders centerContent -->
+						</div><!-- class row -->
+
+						<!-- Photos Section -->
+						<div class="row" ng-show="activeTab === 'photos'">
+
+							<div id="links" class="photos-display">
+								<a ng-repeat="photo in visitedProfil.photosProfil track by photo.id" href="{{photo.path}}" title="{{photo.description}}" alt="{{photo.id}}" data-gallery>
+									<img ng-src="{{photo.thumbnail_path}}" alt="{{photo.id}}">
+								</a>
+							</div><!-- class photo-display -->
+
+						</div><!-- class row -->
+
+					</div><!-- class row -->
+				</div><!-- class panel panel-default -->
+			</div><!-- class col-xs-12 -->
+
+		</div><!-- class row -->
+	</div><!-- class container -->
+</div><!-- class container-fluid -->
