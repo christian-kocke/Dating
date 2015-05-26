@@ -136,17 +136,20 @@
 							</div><!-- class col-lg-12 thinBorders centerContent -->
 						</div><!-- class row -->
 
-						<!-- Photos Section -->
-						<div class="row" ng-show="activeTab === 'photos'">
-							<div id="links" class="photos-display">
-								<a href="{{$rootScope.visitedProfil.photos[0].path}}" title="{{$rootScope.visitedProfil.photos[0].description}}" alt="{{$rootScope.visitedProfil.photos[0].id}}" data-gallery>
-									<img ng-src="{{$rootScope.visitedProfil.photos[0].thumbnail_path}}" alt="{{$rootScope.visitedProfil.photos[0].id}}">
-								</a>
-							</div><!-- class photo-display -->
-
-						</div><!-- class row -->
-
 					</div><!-- class row -->
+					
+					<!-- Photos Section -->
+					<div class="row" ng-show="activeTab === 'photos'">
+						<div id="links" class="photos-display">
+							<a ng-repeat="photo in visitedProfil.photos track by photo.id" href="{{photo.path}}" title="{{photo.description}}" alt="{{photo.id}}" data-gallery>
+								<img ng-src="{{photo.thumbnail_path}}" alt="{{photo.id}}"/>
+							</a>
+						</div><!-- class photo-display -->
+						<div class="col-lg-12">
+							<p class="lead text-center"> {{visitedProfil.errorMessage}} </p>
+						</div><!-- class col-lg-12 -->
+					</div><!-- class row -->
+
 				</div><!-- class panel panel-default -->
 			</div><!-- class col-lg-9 col-md-8 -->
 

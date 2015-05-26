@@ -92,9 +92,11 @@ class PhotosController extends Controller {
 	 */
 	public function show($id)
 	{
-		$photos = DB::select('select * from photos where user_id = ?', [$id]);
-		
-		return response()->json($photos);
+		if($photos = DB::select('select * from photos where user_id = ?', [$id]))
+		{
+			return response()->json($photos);
+		}
+		return response("0");
 	}
 
 	/**

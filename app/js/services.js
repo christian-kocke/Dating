@@ -558,10 +558,14 @@ datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENT
 
 				ProfilService.show(id).then(function (profil) {
 					ProfilService.showPhotos(id).then(function (photos) {
-						profil.photos = photos;
-						$rootScope.visitedProfil = profil;
+						if(photos !== "0") {
+							profil.photos = photos;
+							$rootScope.visitedProfil = profil;
+						} else {
+							$rootScope.visitedProfil = profil;
+							$rootScope.visitedProfil.errorMessage = "No photos available in this section !";
+						}
 						deferred.resolve();
-						console.log($rootScope.visitedProfil.photos[0]);
 					}, function () {
 						deferred.reject();
 					});
