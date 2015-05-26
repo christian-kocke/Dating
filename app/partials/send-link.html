@@ -1,14 +1,25 @@
 <div class="row" ng-controller="ResetPasswordCtrl">
 
 	<div class="container-fluid">
-		<div class="whiteTxt pinkBG1 headerContainer">
+		
+		<div class="whiteTxt pinkBG1 headerContainer" ng-hide="sent">
 			<h1> RESET YOUR PASSWORD </h1>
 			<p><em> Please enter you email adresse, we'll send you an email with a reset Password link. </em></p>
 		</div><!-- class whiteTxt pinkBG headerContainer -->
+		
+		<div class="whiteTxt pinkBG1 headerContainer" ng-show="sent">
+			<h1> THE EMAIL WAS SENT </h1>
+			<p><em> Please check your inbox. </em></p>
+		</div><!-- class whiteTxt pinkBG headerContainer -->
+
+		<div class="whiteTxt pinkBG1 headerContainer" ng-show="error && !sent && !loading">
+			<h1> THE EMAIL WAS NOT SENT </h1>
+			<p><em> Please try again. </em></p>
+		</div><!-- class whiteTxt pinkBG headerContainer -->
 	</div><!-- class container-fluid -->
 	
-	<div class="container-fluid contentBlock" ng-class="{whiteBG: typeDevice === 'mobile'}">
-		<div class="col-xs-12">
+	<div class="container-fluid">
+		<div class="col-xs-12 paddings" ng-hide="sent || loading" ng-class="{whiteBG: typeDevice === 'mobile'}">
 			<div ng-hide="sent || loading" ng-class="{Form: typeDevice === 'noMobile', FormTablet: sizeDevice === 'tablet', LoginTablet: sizeDevice === 'tablet', FormMedium: sizeDevice === 'medium', FormLarge: sizeDevice === 'large', whiteBG: typeDevice === 'noMobile'}">
 
 				<form name="resetPasswordForm" role="reset-password" ng-submit="resetPasswordForm.$valid && sendEmail(reset)" novalidate>
@@ -45,16 +56,9 @@
 			</div>
 		</div><!-- class col-xs-12 -->
 
-		<div class="col-xs-12" ng-show="sent">
-			<p class="lead"> The email was sent, please check your inbox </p>
+		<div class="col-xs-2 col-xs-offset-5 text-center loadingLogoContainer" ng-show="loading">
+			<i class="fa fa-circle-o-notch fa-spin fa-4x"></i>
 		</div><!-- class col-xs-12 -->
 
-		<div class="col-xs-12" ng-show="error && !sent && !loading">
-			<p class="lead"> The email was not sent </p>
-		</div><!-- class col-xs-12 -->
-
-		<div class="col-xs-12" ng-show="loading">
-			<i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
-		</div><!-- class col-xs-12 -->
 	</div><!-- class container-fluid contentBlock -->
 </div><!-- class row -->
