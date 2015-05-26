@@ -301,7 +301,6 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	};*/
 
 	$scope.addWingNote = function (wingNote) {
-		console.log(wingNote);
 		wingNote.receiver_id = $rootScope.visitedProfil.id;
 		wingNote.user_id = $rootScope.currentUser.id;
 		WingNoteService.add(wingNote).then(function () {
