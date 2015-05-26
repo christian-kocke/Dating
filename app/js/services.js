@@ -9,11 +9,11 @@ datingService.factory('WingNoteService', ['$http', 'RESOURCE', function ($http, 
 	return {
 		add: function (wingNote) {
 			return $http	
-			.post(RESOURCE.wingNote, wingNote)
+			.post(RESOURCE.user+'/'+wingNote.user_id+'/wingnote', wingNote)
 			.then(function (success) {
 
 			}, function (error) {
-				
+
 			});
 		},
 		delete: function () {
@@ -245,17 +245,17 @@ datingService.factory('ProfilService',['$http','RESOURCE','$rootScope', function
 		});
 	};
 
-	profilService.indexPhotos = function () {
+	profilService.indexPhotos = function (userId) {
 		return $http
-		.get(RESOURCE.photos)
+		.get(RESOURCE.user+'/'+userId+'/photos')
 		.then(function (res) {
 			return res.data;
 		});
 	};
 
-	profilService.showPhotos = function (id) {
+	profilService.showPhotos = function (userId, photoId) {
 		return $http
-		.get(RESOURCE.photos+'/'+id)
+		.get(RESOURCE.user+'/'+$userId+'/photos/'+photoId)
 		.then(function (res) {
 			return res.data;
 		});
@@ -557,14 +557,9 @@ datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENT
 				var deferred = $q.defer();
 
 				ProfilService.show(id).then(function (profil) {
-					ProfilService.showPhotos(id).then(function (photos) {
-						if(photos !== "0") {
-							profil.photos = photos;
-							$rootScope.visitedProfil = profil;
-						} else {
-							$rootScope.visitedProfil = profil;
-							$rootScope.visitedProfil.errorMessage = "No photos available in this section !";
-						}
+					ProfilService.indexPhotos(id).then(function (photos) {
+						profil.photos = photos;
+						$rootScope.visitedProfil = profil;
 						deferred.resolve();
 					}, function () {
 						deferred.reject();

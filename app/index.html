@@ -12,8 +12,7 @@
     <link rel="stylesheet" href="components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="components/dropzone/dropzone.css">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="components/bootstrap-image-gallery/css/blueimp-gallery.min.css">
-    <link rel="stylesheet" href="components/bootstrap-image-gallery/css/bootstrap-image-gallery.min.css">
+    <link rel="stylesheet" href="components/angular-bootstrap-lightbox/angular-bootstrap-lightbox.css">
     <link rel="stylesheet" href="components/angular-bootstrap-slider/bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css">
 </head>
 <body class="greyBG2" ng-controller="ApplicationController">
@@ -101,6 +100,36 @@
 
     <toast></toast>
     <div id="fb-root"></div>
+<<<<<<< HEAD
+=======
+
+    <!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+    <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+        <!-- The container for the modal slides -->
+        <div class="slides"></div>
+        <!-- Controls for the borderless lightbox -->
+        <h3 class="title"></h3>
+        <a class="prev"> ‹ </a>
+        <a class="next"> › </a>
+        <a class="close"> × </a>
+        <a class="play-pause"></a>
+        <ol class="indicator"></ol>
+        <!-- The modal dialog, which will be used to wrap the lightbox content -->
+        <div class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content photoModalContent">
+                    <div class="modal-header photoModalHeader whiteTxt">
+                        <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body next"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default delete-button">Delete</button>
+                    </div>
+                </div><!-- class modal-content -->
+            </div><!-- class modal-dialog -->
+        </div><!-- class modal fade -->
+    </div><!-- class blueimp-gallery blueimp-gallery-controls -->
+>>>>>>> origin/master
     
     <footer>
         <!-- Mobile Version -->
@@ -185,8 +214,8 @@
     <script src="components/angular-sanitize/angular-sanitize.min.js"></script>
     <script src="components/angular-toast/dist/ngToast.min.js"></script>
     <script src="components/angular-cookies/angular-cookies.min.js"></script>
-    <script src="components/bootstrap-image-gallery/js/jquery.blueimp-gallery.min.js"></script>
-    <script src="components/bootstrap-image-gallery/js/bootstrap-image-gallery.min.js"></script>
+    <script src="components/angular-touch/angular-touch.min.js"></script>
+    <script src="components/angular-bootstrap-lightbox/angular-bootstrap-lightbo.min.js"></script>
     <script src="components/angular-strap/dist/angular-strap.min.js"></script>
     <script src="components/angular-strap/dist/angular-strap.tpl.min.js"></script>
     <script src="components/angular-bootstrap-slider/bower_components/seiyria-bootstrap-slider/js/bootstrap-slider.js"></script>
