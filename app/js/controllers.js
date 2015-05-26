@@ -303,7 +303,6 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 			ToastService.show('The WingNote was posted succesfuly', 'success');
 		});
 	};
-
 }]); // ./End ProfilCtrl
 
 datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope','$route','$location','USER_EVENTS','$routeParams', function (UserService, $rootScope, $scope, $route, $location, USER_EVENTS, $routeParams) {
