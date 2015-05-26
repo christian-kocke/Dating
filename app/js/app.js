@@ -94,7 +94,7 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
     });
     $locationProvider.html5Mode(false);
 
-}]).run(['$rootScope','AUTH_EVENTS','FILE_EVENTS','USER_EVENTS','MAP_EVENTS','PROFIL_EVENTS','ngToast','AuthService','$log','Session','$q','$location','$injector','$window','FacebookAuthService','ToastService', function ($rootScope, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS, MAP_EVENTS, PROFIL_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector, $window, FacebookAuthService, ToastService) {
+}]).run(['$rootScope','AUTH_EVENTS','FILE_EVENTS','USER_EVENTS','MAP_EVENTS','PROFIL_EVENTS','ngToast','AuthService','Session','$q','$location','$injector','$window','FacebookAuthService','ToastService', function ($rootScope, AUTH_EVENTS, FILE_EVENTS, USER_EVENTS, MAP_EVENTS, PROFIL_EVENTS, ngToast, AuthService, Session, $q, $location, $injector, $window, FacebookAuthService, ToastService) {
 
     window.addEventListener('resize', function () {
         if($window.innerWidth < 768) {

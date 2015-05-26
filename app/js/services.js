@@ -561,7 +561,7 @@ datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENT
 						profil.photos = photos;
 						$rootScope.visitedProfil = profil;
 						deferred.resolve();
-						console.log($rootScope.visitedProfil);
+						console.log($rootScope.visitedProfil.photos[0]);
 					}, function () {
 						deferred.reject();
 					});
@@ -575,7 +575,7 @@ datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENT
 
 					if (angular.isDefined(currentUser)) {
 						return ProfilService.show($rootScope.currentUser.id).then(function (profil) {
-							$rootScope.currentProfil = profil;;
+							$rootScope.currentProfil = profil;
 							$rootScope.$broadcast(USER_EVENTS.profilLoadSucces);
 						}, function () {
 							$rootScope.$broadcast(USER_EVENTS.profilLoadFailed);
