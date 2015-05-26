@@ -41,31 +41,26 @@ class PhotosController extends Controller {
 	/**
 	 * Display a listing of the resource.
 	 *
+	 * @param  int  $userId
+	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($userId)
 	{
-		$photos = DB::select('select * from photos where user_id = ?', [$this->_user->id]);
+		$photos = DB::select('select * from photos where user_id = ?', [$userId]);
 		
 		return response()->json($photos);
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 *
+	 * @param  int  $userId
+	 *  
 	 * @return Response
 	 */
-	public function store()
+	public function store($userId)
 	{
 		if($this->_request->file('file')->isValid())
 		{
@@ -75,7 +70,7 @@ class PhotosController extends Controller {
 			$thumbnailPath = $this->_path.'84x84_crop/'.$fileName;
 			if($this->_request->file('file')->move($_SERVER['DOCUMENT_ROOT'].$this->_path, $fileName))
 			{
-				DB::insert('insert into photos (user_id, path, thumbnail_path, description) values (?, ?, ?, ?)', [$this->_user->id, $filePath, $thumbnailPath, "Add a description"]);
+				DB::insert('insert into photos (user_id, path, thumbnail_path, description) values (?, ?, ?, ?)', [$userId, $filePath, $thumbnailPath, "Add a description"]);
 				Image::thumb($filePath, 84);
 				Image::compress($filePath);
 				return response($filePath);	
@@ -87,34 +82,26 @@ class PhotosController extends Controller {
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int  $userId
+	 * @param  int  $photoId 
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($userId, $photoId)
 	{
-		$photos = DB::select('select * from photos where user_id = ?', [$id]);
+		$photos = DB::select('select * from photos where user_id = ? and id = ?', [$userId, $photoId]);
 		
 		return response()->json($photos);
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id
+	 * @param  int  $userId
+	 * @param  int  $photoId 
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($userId, $photoId)
 	{
 		//
 	}
@@ -122,10 +109,11 @@ class PhotosController extends Controller {
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  int  $userId
+	 * @param  int  $photoId 
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($userId, $photoId)
 	{
 		//
 	}

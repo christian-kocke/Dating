@@ -52,11 +52,11 @@
 			<fieldset class="fieldset-border text-center">
 				<h4 class="pinkTxt"> SIGN IN AS </h4>
 				<div class="control-group">
-					<label class="radio-inline" ng-class="{pinkTxt: selected === 1}">
-						<input type="radio" ng-click="selected = 1; credentials.typeAccount = 'angel';" name="typeAccount" id="angel"> Angel
+					<label class="radio-inline" ng-class="{pinkTxt: credentials.type === 'angel'}">
+						<input type="radio" ng-model="credentials.type" value="angel" ng-required="!credentials.type"> Angel
 					</label>
-					<label class="radio-inline" ng-class="{pinkTxt: selected === 2}">
-						<input type="radio" ng-click="selected = 2; credentials.typeAccount = 'heroes';" name="typeAccount" id="hero"> Heroes/Heroines
+					<label class="radio-inline" ng-class="{pinkTxt: credentials.type === 'hero'}">
+						<input type="radio" ng-model="credentials.type" value="hero" ng-required="!credentials.type"> Heroes/Heroines
 					</label>
 				</div><!-- class control-group -->
 			</fieldset><!-- class fieldset-border -->

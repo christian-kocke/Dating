@@ -5,11 +5,11 @@
 				<button type="button" class="close" aria-label="Close" ng-click="$hide()"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">WingNote</h4>
 			</div>
-			<form novalidate name="wingNoteForm" ng-submit="wingNoteForm.$valid && addWingNote()">
+			<form novalidate name="wingNoteForm" ng-submit="wingNoteForm.$valid && addWingNote(wingNote)">
 				<div class="modal-body">
 					<div class="row text-center">
 
-						<label for="text">Write someting nice about {{visitedProfil.username}} in the text zone below</label>
+						<label for="text">Write someting nice about {{visitedProfil.username}} in the text zone below </label>
 						<textarea ng-model="wingNote.text" id="text" cols="60" rows="10"></textarea>
 
 					</div>

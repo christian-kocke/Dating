@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies']);
+var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies', 'bootstrapLightbox', 'ngTouch']);
 
 
 datingController.controller('SearchUsersCtrl',['$scope','SearchService','PROFIL_EVENTS','$rootScope', function ($scope, SearchService, PROFIL_EVENTS, $rootScope) {
@@ -158,15 +158,13 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 }]); // End MapCtrl
 
 
-datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', 'InvitationService', 'ToastService', '$modal', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService, InvitationService, ToastService, $modal) {
+datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', 'InvitationService', 'ToastService', '$modal', 'WingNoteService', 'Lightbox', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService, InvitationService, ToastService, $modal, WingNoteService, Lightbox) {
 
 	$scope.activeTab = 'profil';
 	
 	$scope.photos = {};
 
 	$scope.updateList = {};
-
-	$scope.selected1 = true;
 
 
 	var myModal = $modal({scope: $scope, template: 'partials/wingnote.html', show: false});
@@ -189,7 +187,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 
 	$scope.photosDropzoneConfig = {
 		options: {
-			url: RESOURCE.photos,
+			url: RESOURCE.user+'/'+$rootScope.currentUser.id+'/photos',
 			paramName: 'file',
 			headers: {
 				'X-XSRF-TOKEN': $cookies['XSRF-TOKEN']
@@ -225,7 +223,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	};
 
 	$scope.displayPhotos = function () {
-		ProfilService.indexPhotos().then(function (photos) {
+		ProfilService.indexPhotos($rootScope.currentUser.id).then(function (photos) {
 			$scope.photos = photos;
 		});
 	};
@@ -298,7 +296,14 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		myModal.$promise.then(myModal.show);
 	};
 
+	$scope.openLightboxModal = function (index) {
+	    Lightbox.openModal($scope.photos, index);
+	  };
+
 	$scope.addWingNote = function (wingNote) {
+		console.log(wingNote);
+		wingNote.receiver_id = $rootScope.visitedProfil.id;
+		wingNote.user_id = $rootScope.currentUser.id;
 		WingNoteService.add(wingNote).then(function () {
 			ToastService.show('The WingNote was posted succesfuly', 'success');
 		});

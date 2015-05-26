@@ -493,7 +493,7 @@
 					<form class="dropzone" id="photoZone" dropzone="photosDropzoneConfig"></form>
 
 					<div id="links" class="photos-display">
-						<a ng-repeat="photo in photos track by photo.id" href="{{photo.path}}" title="{{photo.description}}" alt="{{photo.id}}" data-gallery>
+						<a ng-repeat="photo in photos track by photo.id" alt="{{photo.id}}" photoId="{{photo.id}}" ng-click="openLightboxModal(photo.id)">
 							<img ng-src="{{photo.thumbnail_path}}" alt="{{photo.id}}">
 						</a>
 					</div><!-- class photo-display -->

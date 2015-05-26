@@ -195,6 +195,7 @@ return [
 		'Image'			=> 'Api\Facades\ImageFacade',
 		'Utilities'		=> 'Api\Facades\UtilitiesFacade',
 		'Invitation'	=> 'Api\Facades\InvitationFacade',
+		'WingNote'		=> 'Api\Facades\WingNoteFacade',
 
 	],
 

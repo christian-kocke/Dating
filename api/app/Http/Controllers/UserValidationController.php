@@ -10,6 +10,15 @@ use Illuminate\Http\Request;
 
 class UserValidationController extends Controller {
 
+	/**
+	 * The user instance.
+	 */
+	protected $_user;
+
+	/**
+	 * The current request instance.
+	 */
+	protected $_request;
 
 	/**
 	 * Populate the class attributes.

@@ -8,6 +8,25 @@ use Illuminate\Http\Request;
 
 class WingNoteController extends Controller {
 
+
+	/**
+	 * The current request instance.
+	 */
+	protected $_request;
+
+	/**
+	 * Populate the class attributes.
+	 *
+	 * @param Request
+	 */
+	public function __construct(Request $request)
+	{
+		
+		// Assign the value of the current request.
+		$this->_request = $request;
+
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -15,7 +34,7 @@ class WingNoteController extends Controller {
 	 */
 	public function index($userId)
 	{
-		return response()->json(WingNote()->)
+		return response()->json(WingNote::where('receiver_id', '=', $userId));
 	}
 
 	/**
@@ -35,13 +54,14 @@ class WingNoteController extends Controller {
 	 */
 	public function store($userId)
 	{
-		$wingNote = WingNote::create([
+
+		WingNote::create([
 			'text' => $this->_request->text,
 			'emitter_id' => $userId,
-			'receiver_id' => $this->request->receiver_id
+			'receiver_id' => $this->_request->receiver_id
 		]);
 
-		return response(true);
+		return response(1);
 	}
 
 	/**
@@ -52,7 +72,7 @@ class WingNoteController extends Controller {
 	 */
 	public function show($userId, $wingNoteId)
 	{
-		return response()->json(WingNote::find($id));
+		return response()->json(WingNote::find($wingNoteId));
 	}
 
 
@@ -64,7 +84,7 @@ class WingNoteController extends Controller {
 	 */
 	public function update($userId, $wingNoteId)
 	{
-		WingNote::find($id);
+		WingNote::find($wingNoteId);
 	}
 
 	/**
@@ -75,7 +95,7 @@ class WingNoteController extends Controller {
 	 */
 	public function destroy($userId, $wingNoteId)
 	{
-		return response(WingNote::find($id)->delete());
+		return response(WingNote::find($wingNoteId)->delete());
 	}
 
 }
