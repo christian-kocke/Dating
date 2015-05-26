@@ -11,11 +11,11 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
         templateUrl: 'partials/login.html',
         url: '/protected',
         controller: 'AuthCtrl',
-        redirection: ['AuthService', function (AuthService) {
-            if(AuthService.isAuthenticated()) {
-                return '/profil';
-            }
-        }],
+        resolve: {
+            auth: ['AuthResolver', function resolveAuthentication (AuthResolver) { 
+                return AuthResolver.resolve('/profil', false);
+            }]
+        }
     }).
     when('/encounters', {
         templateUrl: 'partials/encounters.html',
