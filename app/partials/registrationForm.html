@@ -102,7 +102,7 @@
 			<div class="input-group">
 
 				<!-- Day -->
-				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group dobPaddings" ng-class="{'has-success': signUpForm.day.$valid, 'has-error': signUpForm.day.$invalid && signUpForm.day.$dirty}">
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group dobPaddings paddingLeft" ng-class="{'has-success': signUpForm.day.$valid, 'has-error': signUpForm.day.$invalid && signUpForm.day.$dirty}">
 
 					<label class="sr-only" for="day"> Day </label>
 					<input type="number" class="form-control" ng-model="user.day" aria-describedby="dayStatus" name="day" id="day" placeholder="DD" min="0" max="31" ng-maxlength="2" required>
@@ -130,7 +130,7 @@
 				</div><!-- class col-lg-4 col-md-4 col-sm-4 col-xs-4 -->
 
 				<!-- Year -->
-				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group dobPaddings" ng-class="{'has-success': signUpForm.year.$valid, 'has-error': signUpForm.year.$invalid && signUpForm.year.$dirty}">
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group dobPaddings paddingRight" ng-class="{'has-success': signUpForm.year.$valid, 'has-error': signUpForm.year.$invalid && signUpForm.year.$dirty}">
 
 					<label class="sr-only" for="year"> Year </label>
 					<input type="number" class="form-control" ng-model="user.year" aria-describedby="yearStatus" name="year" id="year" placeholder="YYYY" min="1930" max="1997" ng-maxlength="4" ng-minlength="4" required>
@@ -166,13 +166,13 @@
 
 			<label class="pull-left greyTxt2" for="gender"> Gender <span class="red"> * </span></label>
 
-			<div class="btn-group col-lg-12 col-md-12 col-sm-12 col-xs-12" role="group" aria-label="Male / Female">
+			<div class="btn-group col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingLeft paddingRight" role="group" aria-label="Male / Female">
 
 				<input type="radio" name="checkbox" id="male" ng-model="user.gender" value="male" ng-required="!user.gender">
 				<label class="btn btn-default genderBtn" for="male"> Male </label>
 
 				<input type="radio" name="checkbox" id="female" ng-model="user.gender" value="female" ng-required="!user.gender">
-				<label class="btn btn-default genderBtn" for="female"> Female </label>
+				<label class="btn btn-default genderBtn roundCorner" for="female"> Female </label>
 
 				<span class="validationError" ng-show="signUpForm.gender.$error.required">* You have to select a gender !</span>
 				

@@ -237,6 +237,16 @@ form[name="updateForm"] .has-feedback .form-control-feedback {
 .dobPaddings {
 	padding: 0 5px;
 }
+.paddingLeft {
+	padding-left: 0;
+}
+.paddingRight {
+	padding-right: 0;
+}
+.roundCorner {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
 textarea, .textZone {
 	overflow: auto;
 }
