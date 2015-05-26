@@ -11,6 +11,10 @@ datingController.controller('SearchUsersCtrl',['$scope','SearchService','PROFIL_
 	$scope.encounterError = "";
 	$scope.encounters = "";
 
+	$rootScope.$watch('filter.dob', function (slider) {
+		console.log(slider);
+	});
+
 	$scope.getFilters = function (filter) {
 		var now = parseInt((new Date).toLocaleFormat("%Y"));
 		var ageMin = filter.dob[0];

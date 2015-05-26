@@ -76,7 +76,7 @@
 			<div class="input-group">
 				<span class="input-group-addon">
 					<span class="red">*</span>
-					<span class="glyphicon glyphicon-repeat"></span>
+					<span class="glyphicon glyphicon-lock"></span>
 				</span>
 				<input type="password" class="form-control" ng-model="user.password_confirmation" ria-describedby="password_confirmationStatus" name="password_confirmation" id="password_confirmation" placeholder="Confirm..." ng-minlength="8" ng-maxlength="100" required password-match="{{user.password}}">
 			</div><!-- class input-group -->
@@ -169,10 +169,10 @@
 			<div class="btn-group col-lg-12 col-md-12 col-sm-12 col-xs-12" role="group" aria-label="Male / Female">
 
 				<input type="radio" name="checkbox" id="male" ng-model="user.gender" value="male" ng-required="!user.gender">
-				<label class="btn btn-default genderBtn" for="male">Male</label>
+				<label class="btn btn-default genderBtn" for="male"> Male </label>
 
 				<input type="radio" name="checkbox" id="female" ng-model="user.gender" value="female" ng-required="!user.gender">
-				<label class="btn btn-default genderBtn" for="female">Female</label>
+				<label class="btn btn-default genderBtn" for="female"> Female </label>
 
 				<span class="validationError" ng-show="signUpForm.gender.$error.required">* You have to select a gender !</span>
 				
