@@ -574,7 +574,7 @@ datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENT
 
 					if (angular.isDefined(currentUser)) {
 						return ProfilService.show($rootScope.currentUser.id).then(function (profil) {
-							$rootScope.currentProfil = profil;;
+							$rootScope.currentProfil = profil;
 							$rootScope.$broadcast(USER_EVENTS.profilLoadSucces);
 						}, function () {
 							$rootScope.$broadcast(USER_EVENTS.profilLoadFailed);

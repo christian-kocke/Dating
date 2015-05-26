@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies', 'bootstrapLightbox', 'ngTouch']);
+var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies']);
 
 
 datingController.controller('SearchUsersCtrl',['$scope','SearchService','PROFIL_EVENTS','$rootScope', function ($scope, SearchService, PROFIL_EVENTS, $rootScope) {
@@ -158,7 +158,7 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 }]); // End MapCtrl
 
 
-datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', 'InvitationService', 'ToastService', '$modal', 'WingNoteService', 'Lightbox', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService, InvitationService, ToastService, $modal, WingNoteService, Lightbox) {
+datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', 'InvitationService', 'ToastService', '$modal', 'WingNoteService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService, InvitationService, ToastService, $modal, WingNoteService) {
 
 	$scope.activeTab = 'profil';
 	
@@ -296,9 +296,9 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		myModal.$promise.then(myModal.show);
 	};
 
-	$scope.openLightboxModal = function (index) {
+	/*$scope.openLightboxModal = function (index) {
 	    Lightbox.openModal($scope.photos, index);
-	  };
+	};*/
 
 	$scope.addWingNote = function (wingNote) {
 		console.log(wingNote);
