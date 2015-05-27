@@ -588,6 +588,9 @@ body {
 	.middlePanel {
 		margin-top: 70px;
 	}
+	.middlePanelEncounters {
+		margin-top: 70px;
+	}
 	.popularityBtn {
 		margin-bottom: 5%;
 		padding: 6px 0;
@@ -635,6 +638,9 @@ body {
 		margin-top: 70px;
 	}
 	.middlePanel {
+		margin-top: 70px;
+	}
+	.middlePanelEncounters {
 		margin-top: 70px;
 	}
 	.popularityBtn {
@@ -686,6 +692,9 @@ body {
 		padding-top: 20%;
 	}
 	.middlePanel {
+		margin-top: 5%;
+	}
+	.middlePanelEncounters {
 		margin-top: 5%;
 	}
 	.profilImg {

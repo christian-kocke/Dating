@@ -10,10 +10,6 @@ datingController.controller('SearchUsersCtrl',['$scope','SearchService','PROFIL_
 	$scope.encounterError = "";
 	$scope.encounters = "";
 
-	$rootScope.$watch('filter.dob', function (slider) {
-		console.log(slider);
-	});
-
 	$scope.getFilters = function (filter) {
 		var now = parseInt((new Date).toLocaleFormat("%Y"));
 		var ageMin = filter.dob[0];
@@ -171,7 +167,9 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 
 	$scope.selected1 = true;
 
-	var myModal = $modal({scope: $scope, template: 'partials/wingnote.html', show: false});
+	var wingNoteModal = $modal({scope: $scope, template: 'partials/wingnote.html', show: false});
+
+	var deleteWingNoteModal = $modal({scope: $scope, template: 'partials/deleteWingnote.html', show: false});
 
 
 	$scope.$on(USER_EVENTS.profilLoadSucces, function (event) {
@@ -297,7 +295,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	};
 
 	$scope.openWingNote = function () {
-		myModal.$promise.then(myModal.show);
+		wingNoteModal.$promise.then(wingNoteModal.show);
 	};
 
 	$scope.displayWingNotes = function () {
@@ -308,7 +306,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 					wingNote.profil = profil;
 				});
 			});
-			console.log($scope.wingNotes);
+			console.log(wingNotes.length);
 		});
 	};
 
@@ -317,6 +315,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		wingNote.user_id = $rootScope.currentUser.id;
 		WingNoteService.add(wingNote).then(function (res) {
 			if(res) {
+				wingNoteModal.$promise.then(wingNoteModal.hide);
 				ToastService.show('The WingNote was posted succesfuly', 'success');
 			} else {
 				ToastService.show('You already posted a WingNote for '+$rootScope.visitedProfil.username, 'warning');
@@ -326,11 +325,17 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		});
 	};
 
+	$scope.openDeleteWingNote = function (wingNote) {
+		$scope.currentWingNote = wingNote;
+		deleteWingNoteModal.$promise.then(deleteWingNoteModal.show);
+	};
+
 	$scope.deleteWingNote = function (wingNote) {
 		WingNoteService.delete(wingNote).then(function () {
-			console.log("deleted");
+			$scope.displayWingNotes();
+			ToastService.show('The WingNote has been well deleted', 'success');
 		}, function () {
-			console.log("failed");
+			ToastService.show('An error occured while deleting the WingNote', 'danger');
 		});
 	};
 }]); // ./End ProfilCtrl

@@ -3,21 +3,21 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" aria-label="Close" ng-click="$hide()"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">WingNote</h4>
+				<h4 class="modal-title"> WingNote </h4>
 			</div>
 			<form novalidate name="wingNoteForm" ng-submit="wingNoteForm.$valid && addWingNote(wingNote)">
 				<div class="modal-body">
 					<div class="row text-center">
 					
-						<label for="text">Write someting nice about {{visitedProfil.username}} in the text zone below </label>
+						<label for="text"> Write someting nice about {{visitedProfil.username}} in the text zone below </label>
 						<textarea name="text" ng-model="wingNote.text" id="text" cols="60" rows="10" required></textarea>
 						
 					</div>
 					<span class="validationError text-center" ng-show="wingNoteForm.text.$error.required && wingNoteForm.text.$dirty">* You have to write someting</span>
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-default">Confirm</button>
-					<button type="button" class="btn btn-default" ng-click="$hide()">Cancel</button>
+					<button type="submit" class="btn btn-default"> Confirm </button>
+					<button type="button" class="btn btn-default" ng-click="$hide()"> Cancel </button>
 				</div>
 			</form>
 		</div>

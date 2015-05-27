@@ -71,7 +71,7 @@
 							<li role="presentation" class="greyTxt1"><a class="greyTxt1"><i class="fa fa-eye"></i> Profile visitors </a></li>
 							<li role="presentation" class="greyTxt1"><a class="greyTxt1"><i class="fa fa-thumbs-up"></i> Liked You <span class="badge pinkBG1"> 2 </span></a></li>
 							<li role="presentation" class="greyTxt1"><a class="greyTxt1"><i class="fa fa-heart"></i> Favorites </a></li>
-							<li role="presentation" class="greyTxt1" ng-click="setClass('comments')"><a class="greyTxt1"><i class="fa fa-comments"></i> Comments <span class="badge pinkBG1"> 5 </span></a></li>
+							<li role="presentation" class="greyTxt1" ng-click="setClass('comments'); displayWingNotes(); hideInfo = true; hideInvit = true;"><a class="greyTxt1"><i class="fa fa-comments"></i> Comments <span class="badge pinkBG1"> 5 </span></a></li>
 							<li role="presentation" class="greyTxt1"><a class="greyTxt1"><i class="fa fa-lock"></i> Blocked </a></li>
 							<li role="presentation" class="greyTxt1" ng-click="setClass('settings'); hideInfo = true; hideInvit = true;"><a class="greyTxt1"><i class="fa fa-gear"></i> Settings </a></li>
 						</ul><!-- class nav nav-pills nav-stacked -->
@@ -524,19 +524,30 @@
 
 				<!-- Comments Section -->
 				<div class="row" ng-show="activeTab === 'comments'">
-					<div class="col-xs-12">
-						<div class="media">
-							<div class="media-left media-middle">
-								<a href="#">
-									<img class="media-object" src="..." alt="...">
-								</a>
-							</div>
-							<div class="media-body">
-								<h4 class="media-heading"> Middle aligned media </h4>
-								Bonjour nceocneonceonceocneoencoec
-							</div>
-						</div>
+					<hr>
+					<div class="col-xs-12" ng-repeat="wingNote in wingNotes track by wingNote.id" ng-show="!!wingNotes.length">
+						<div class="col-xs-11">
+							<div class="media">
+								<div class="pull-left media-middle commentsContainer">
+									<a ng-href="#/user/{{wingNote.emitter_id}}">
+										<img class="commentPicture media-object" src="{{wingNote.profil.profil_path}}">
+									</a>
+								</div><!-- class pull-left media-middle -->
+								<div class="media-body">
+									<h4 class="media-heading"> {{wingNote.profil.username}} </h4>
+									{{wingNote.text}}
+								</div><!-- class media-body -->
+							</div><!-- class media -->
+						</div><!-- class col-xs-11 -->
+						<div class="col-xs-1">
+							<a class="btn btn-link pinkTxt pull-right" type="button" ng-click="openDeleteWingNote(wingNote)"><span class="glyphicon glyphicon-remove"></span></a>
+						</div><!-- class col-xs-1 -->
 					</div><!-- class col-xs-12 -->
+
+					<div class="col-xs-12" ng-hide="!!wingNotes.length">
+						<p class="lead text-center"> There is no comments in this section ! </p>
+					</div><!-- class col-xs-12 -->
+
 				</div><!-- class row -->
 
 			</div><!-- class panel panel-default middlePanel -->

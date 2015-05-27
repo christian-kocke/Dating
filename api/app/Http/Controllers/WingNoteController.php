@@ -106,6 +106,7 @@ class WingNoteController extends Controller {
 		{
 			return response()->json($wingNote->delete());
 		}
+		return response("Delete comment failed");
 	}
 
 }

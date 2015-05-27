@@ -183,7 +183,6 @@ class UserController extends Controller {
 
 		}
 		$filters = Utilities::str_replace_sql($filters);
-		error_log($filters);
 		$results = DB::select('select * from profils where '.$filters, $arguments);
 		return (count($results)) ? response()->json($results) : response("Search Failed", 470);
 		
