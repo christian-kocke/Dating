@@ -55,13 +55,17 @@ class WingNoteController extends Controller {
 	public function store($userId)
 	{
 
-		WingNote::create([
-			'text' => $this->_request->text,
-			'emitter_id' => $userId,
-			'receiver_id' => $this->_request->receiver_id
-		]);
+		$res = WingNote::whereEmitterIdAndReceiverId($userId, $this->_request->receiver_id)->get();
+		if(count($res) === 0)
+		{
+			WingNote::create([
+				'text' => $this->_request->text,
+				'emitter_id' => $userId,
+				'receiver_id' => $this->_request->receiver_id
+			]);
 
-		return response(1);
+			return response(1);
+		}
 	}
 
 	/**

@@ -307,8 +307,14 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	$scope.addWingNote = function (wingNote) {
 		wingNote.receiver_id = $rootScope.visitedProfil.id;
 		wingNote.user_id = $rootScope.currentUser.id;
-		WingNoteService.add(wingNote).then(function () {
-			ToastService.show('The WingNote was posted succesfuly', 'success');
+		WingNoteService.add(wingNote).then(function (res) {
+			if(res) {
+				ToastService.show('The WingNote was posted succesfuly', 'success');
+			} else {
+				ToastService.show('You already posted a WingNote for '+$rootScope.visitedProfil.username, 'warning');
+			}
+		}, function () {
+			ToastService.show('An error occured while sending your WingNote', 'danger');
 		});
 	};
 }]); // ./End ProfilCtrl
