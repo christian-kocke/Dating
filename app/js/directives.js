@@ -22,22 +22,6 @@ datingDirective.directive('passwordMatch', function () {
 	};
 });
 
-datingDirective.directive('dateModelFormat', function () {
-	return {
-		restrict: 'A',
-		require: 'ngModel',
-		link: function(scope, element, attrs, ngModel) {
-			ngModel.$parsers.push(function(value) {
-				var y = value.getYear();
-				var m = value.getMonth();
-				var d = value.getDay();
-				value = y+"-"+m+"-"+d;
-				console.log(value);
-			});
-		}
-	};
-});
-
 
 datingDirective.directive('passwordCheck',['$q','ValidationService', function ($q, ValidationService) {
 	return {
