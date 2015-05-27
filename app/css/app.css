@@ -250,6 +250,9 @@ form[name="updateForm"] .has-feedback .form-control-feedback {
 textarea, .textZone {
 	overflow: auto;
 }
+#wingnoteTxt {
+	width: 80%;
+}
 /* End Form Setting & Validator */
 
 
