@@ -334,17 +334,17 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	};
 }]); // ./End ProfilCtrl
 
-datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope','$route','$location','USER_EVENTS','$routeParams', function (UserService, $rootScope, $scope, $route, $location, USER_EVENTS, $routeParams) {
+datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope','$route','$location','USER_EVENTS','$routeParams','$datepicker', function (UserService, $rootScope, $scope, $route, $location, USER_EVENTS, $routeParams,$datepicker) {
 
 	$scope.submitted = false;
 	$scope.loading = false;
 	$scope.activated = false;
 	$scope.selected = 0;
 
+
 	$scope.register = function (user) {
 		$scope.loading = true;
 		user.invitation = ($routeParams.token) ? $routeParams.token : null;
-		user.dob = user.year+"-"+user.month+"-"+user.day;
 		UserService.create(user).then(function (res) {
 			if(parseInt(res)){
 				$rootScope.$broadcast(USER_EVENTS.registrationSuccess);
