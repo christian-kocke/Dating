@@ -36,6 +36,7 @@ class WingNoteController extends Controller {
 	{
 		$res = WingNote::where('receiver_id', $userId)->get();
 		return response()->json($res);
+
 	}
 
 	/**
@@ -100,7 +101,11 @@ class WingNoteController extends Controller {
 	 */
 	public function destroy($userId, $wingNoteId)
 	{
-		return response()->json(WingNote::find($wingNoteId)->delete());
+		$wingNote = WingNote::find($wingNoteId);
+		if($wingNote)
+		{
+			return response()->json($wingNote->delete());
+		}
 	}
 
 }
