@@ -11,9 +11,9 @@ datingService.factory('WingNoteService', ['$http', 'RESOURCE', function ($http, 
 			return $http	
 			.post(RESOURCE.user+'/'+wingNote.user_id+'/wingnote', wingNote)
 			.then(function (success) {
-
+				return success.data;
 			}, function (error) {
-
+				return error.data;
 			});
 		},
 		delete: function () {

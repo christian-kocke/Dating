@@ -308,6 +308,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		wingNote.receiver_id = $rootScope.visitedProfil.id;
 		wingNote.user_id = $rootScope.currentUser.id;
 		WingNoteService.add(wingNote).then(function (res) {
+			console.log(res);
 			if(res) {
 				ToastService.show('The WingNote was posted succesfuly', 'success');
 			} else {

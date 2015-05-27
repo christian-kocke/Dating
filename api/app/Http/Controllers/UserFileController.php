@@ -88,7 +88,7 @@ class UserFileController extends Controller {
 	public function show($id)
 	{
 
-		$filePath = DB::select('select img from users where id = ?', [$this->_user->id])[0]->img;
+		$filePath = DB::select('select profil_path from profils where id = ?', [$id])[0]->profil_path;
 		return response($filePath);
 
 	}
