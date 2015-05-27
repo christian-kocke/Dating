@@ -249,6 +249,7 @@ class UserController extends Controller {
 			$path_directory = $_SERVER['DOCUMENT_ROOT'].'/app/imgDrop/photos/user_'.$id;
 
 			try {
+				DB::delete("delete from wingnotes where emitter_id = ? OR receiver_id = ?", [$id, $id]);
 				DB::delete("delete from photos where user_id = ?", [$id]);
 				DB::delete("delete from profils where user_id = ?", [$id]);
 				DB::delete("delete from users where id = ?", [$id]);

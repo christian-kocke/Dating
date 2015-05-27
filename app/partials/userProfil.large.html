@@ -36,7 +36,7 @@
 		<div class="col-lg-3 col-md-4">
 			<div class="panel panel-default sidePanel text-center">
 
-				<!-- Profil picture -->
+				<!-- Profile picture -->
 				<div class="row"> 
 					<form class="dropzone" id="profilZone" dropzone="profilDropzoneConfig">
 						<img class="profilImg dz-default dz-message" ng-show="currentProfil.profil_path" ng-src="{{currentProfil.profil_path}}"/>
@@ -141,25 +141,25 @@
 
 					<div class="col-lg-4 col-md-5">
 						<h2 class="pinkTxt">
-							<i ng-show="activeTab === 'profil'" class="fa fa-heart"></i>
+							<i ng-show="activeTab === 'profile'" class="fa fa-heart"></i>
 							<i ng-show="activeTab === 'photos'" class="fa fa-camera"></i>
 							<i ng-show="activeTab === 'settings'" class="fa fa-gear fa-lg"></i>
 							<i ng-show="activeTab === 'update'" class="fa fa-pencil"></i>
 							<i ng-show="activeTab === 'comments'" class="fa fa-comments-o"></i>
 							{{activeTab | capitalize}}
-							<span ng-click="setClass('update');" ng-show="activeTab === 'profil'" class="glyphicon glyphicon-pencil greyTxt4 smallIcon"></span>
+							<span ng-click="setClass('update');" ng-show="activeTab === 'profile'" class="glyphicon glyphicon-pencil greyTxt4 smallIcon"></span>
 						</h2><!-- class pinkTxt -->
 					</div><!-- class col-lg-4 col-md-4 -->
 
 					<div class="col-lg-8 col-md-7 text-right">
-						<a class="btn btn-link pinkTxt closeUpdatePanel" type="button" ng-show="activeTab === 'update'"><span ng-click="setClass('profil');freeUpdateList();" class="glyphicon glyphicon-remove"></span></a>
-						<a class="btn sectionBtn btnShadow" ng-hide="activeTab === 'update'" ng-click="setClass('profil')" ng-class="getClass('profil')"><i class="fa fa-user"></i><small> Profile </small></a>
+						<a class="btn btn-link pinkTxt closeUpdatePanel" type="button" ng-show="activeTab === 'update'"><span ng-click="setClass('profile');freeUpdateList();" class="glyphicon glyphicon-remove"></span></a>
+						<a class="btn sectionBtn btnShadow" ng-hide="activeTab === 'update'" ng-click="setClass('profile')" ng-class="getClass('profile')"><i class="fa fa-user"></i><small> Profile </small></a>
 						<a class="btn sectionBtn btnShadow" ng-hide="activeTab === 'update'" ng-click="setClass('photos')" ng-class="getClass('photos')"><i class="fa fa-picture-o"></i><small> Photos </small></a>
 					</div><!-- class col-lg-8 col-md-8 text-right -->
 				</div><!-- class row -->
 
-				<!-- Profil Section -->
-				<div class="row" ng-show="activeTab === 'profil'">
+				<!-- Profile Section -->
+				<div class="row" ng-show="activeTab === 'profile'">
 
 					<!-- Numeric informations -->
 					<div class="row" style="padding-top: 3%;">

@@ -6,7 +6,7 @@
 			<div class="col-lg-3 col-md-4">
 				<div class="panel panel-default sidePanel text-center">
 					
-					<!-- Profil picture -->
+					<!-- Profile picture -->
 					<div class="row"> 
 						<img class="profilImg img-responsive" ng-src="{{visitedProfil.profil_path}}"/>
 					</div><!-- class drop-box -->
@@ -49,22 +49,22 @@
 					<div class="row">
 						<div class="col-lg-4">
 							<h2 class="pinkTxt">
-								<i ng-show="activeTab === 'profil'" class="fa fa-heart"></i>
+								<i ng-show="activeTab === 'profile'" class="fa fa-heart"></i>
 								<i ng-show="activeTab === 'photos'" class="fa fa-camera"></i>
 								{{activeTab | capitalize}}
 							</h2><!-- class pinkTxt -->
 						</div><!-- class col-lg-4 -->
 
 						<div class="col-lg-4 col-lg-offset-4 text-right">
-							<a class="btn sectionBtn btnShadow" ng-hide="activeTab === 'update'" ng-click="setClass('profil')" ng-class="getClass('profil')"><i class="fa fa-user"></i><small> Profile </small></a>
+							<a class="btn sectionBtn btnShadow" ng-hide="activeTab === 'update'" ng-click="setClass('profile')" ng-class="getClass('profile')"><i class="fa fa-user"></i><small> Profile </small></a>
 							<a class="btn sectionBtn btnShadow" ng-hide="activeTab === 'update'" ng-click="setClass('photos')" ng-class="getClass('photos')"><i class="fa fa-picture-o"></i><small> Photos </small></a>
 						</div><!-- class col-lg-4 col-lg-offset-4 text-right -->
 
 					</div><!-- class row -->
 
 
-					<!-- Profil Section -->
-					<div class="row" ng-show="activeTab === 'profil'">
+					<!-- Profile Section -->
+					<div class="row" ng-show="activeTab === 'profile'">
 
 						<!-- Numeric informations -->
 						<div class="row">
