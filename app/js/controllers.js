@@ -4,7 +4,6 @@
 
 var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies']);
 
-
 datingController.controller('SearchUsersCtrl',['$scope','SearchService','PROFIL_EVENTS','$rootScope', function ($scope, SearchService, PROFIL_EVENTS, $rootScope) {
 
 	$scope.updateList = {};
@@ -233,18 +232,6 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		});
 	};
 
-	$scope.displayWingNotes = function () {
-		WingNoteService.index($rootScope.currentUser.id).then(function (wingNotes) {
-			$scope.wingNotes = wingNotes;
-			angular.forEach($scope.wingNotes, function (wingNote) {
-				ProfilService.show(wingNote.emitter_id).then(function (profil) {
-					wingNote.profil = profil;
-				});
-			});
-			console.log($scope.wingNotes);
-		});
-	};
-
 	$scope.getClass = function (path) {
 		return ($scope.activeTab === path) ? "pinkBtn" : "greyBtn";
 	}; // End getClass()
@@ -313,9 +300,17 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		myModal.$promise.then(myModal.show);
 	};
 
-	/*$scope.openLightboxModal = function (index) {
-	    Lightbox.openModal($scope.photos, index);
-	};*/
+	$scope.displayWingNotes = function () {
+		WingNoteService.index($rootScope.currentUser.id).then(function (wingNotes) {
+			$scope.wingNotes = wingNotes;
+			angular.forEach($scope.wingNotes, function (wingNote) {
+				ProfilService.show(wingNote.emitter_id).then(function (profil) {
+					wingNote.profil = profil;
+				});
+			});
+			console.log($scope.wingNotes);
+		});
+	};
 
 	$scope.addWingNote = function (wingNote) {
 		wingNote.receiver_id = $rootScope.visitedProfil.user_id;
@@ -328,6 +323,14 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 			}
 		}, function () {
 			ToastService.show('An error occured while sending your WingNote', 'danger');
+		});
+	};
+
+	$scope.deleteWingNote = function (wingNote) {
+		WingNoteService.delete(wingNote).then(function () {
+			console.log("deleted");
+		}, function () {
+			console.log("failed");
 		});
 	};
 }]); // ./End ProfilCtrl

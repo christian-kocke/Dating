@@ -283,6 +283,9 @@ img[alt="sideImg"] {
 	height: 60px;
 	margin: 0 5%;
 }
+.commentPicture:hover {
+	box-shadow: 0 0 5px #FF7A85;
+}
 .carouselPicture {
 	border-radius: 10px;
 	width: 80px;
@@ -508,6 +511,9 @@ body {
 }
 .centerContent {
 	padding: 0 2% 5% 2%;
+}
+.commentsContainer {
+	padding: 0.5% 0;
 }
 /* End Containers Settings */
 

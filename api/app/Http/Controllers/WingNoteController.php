@@ -100,7 +100,7 @@ class WingNoteController extends Controller {
 	 */
 	public function destroy($userId, $wingNoteId)
 	{
-		return response(WingNote::find($wingNoteId)->delete());
+		return response()->json(WingNote::find($wingNoteId)->delete());
 	}
 
 }

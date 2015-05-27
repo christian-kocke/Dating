@@ -16,8 +16,14 @@ datingService.factory('WingNoteService', ['$http', 'RESOURCE', function ($http, 
 				return error.data;
 			});
 		},
-		delete: function () {
-
+		delete: function (wingNote) {
+			return $http
+			.delete(RESOURCE.user+'/'+wingNote.receiver_id+'/wingnote/'+wingNote.id)
+			.then(function (success) {
+				return success.data;
+			}, function (error) {
+				return error.data;
+			});
 		},
 		update: function () {
 

@@ -489,19 +489,24 @@
 				<!-- Comments Section -->
 				<div class="row" ng-show="activeTab === 'comments'">
 					<hr>
-					<div class="col-lg-12">
-						<div class="media" ng-repeat=" wingNote in wingNotes track by wingNote.id">
-							<div class="pull-left media-middle">
-								<a ng-href="#/user/{{wingNote.profil.user_id}}">
-									<img class="commentPicture media-object" src="{{wingNote.profil.profil_path}}">
-								</a>
-							</div>
-							<div class="media-body">
-								<h4 class="media-heading"> {{wingNote.profil.username}} </h4>
-								{{wingNote.text}}
-							</div>
-						</div>
-					</div><!-- class col-xs-12 -->
+					<div class="col-lg-12" ng-repeat=" wingNote in wingNotes track by wingNote.id">
+						<div class="col-lg-11">
+							<div class="media">
+								<div class="pull-left media-middle commentsContainer">
+									<a ng-href="#/user/{{wingNote.emitter_id}}">
+										<img class="commentPicture media-object" src="{{wingNote.profil.profil_path}}">
+									</a>
+								</div><!-- class pull-left media-middle -->
+								<div class="media-body">
+									<h4 class="media-heading"> {{wingNote.profil.username}} </h4>
+									{{wingNote.text}}
+								</div><!-- class media-body -->
+							</div><!-- class media -->
+						</div><!-- class col-lg-11 -->
+						<div class="col-lg-1">
+							<a class="btn btn-link pinkTxt pull-right" type="button" ng-click="deleteWingNote(wingNote)"><span class="glyphicon glyphicon-remove"></span></a>
+						</div><!-- class col-lg-1 -->
+					</div><!-- class col-lg-12 -->
 				</div><!-- class row -->
 
 			</div><!-- class panel panel-default middlePanel -->
