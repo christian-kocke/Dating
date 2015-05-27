@@ -166,11 +166,13 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 
 datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', 'InvitationService', 'ToastService', '$modal', 'WingNoteService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService, InvitationService, ToastService, $modal, WingNoteService) {
 
-	$scope.activeTab = 'profil';
+	$scope.activeTab = 'profile';
 	
 	$scope.photos = {};
 
 	$scope.updateList = {};
+
+	$scope.selected1 = true;
 
 
 	var myModal = $modal({scope: $scope, template: 'partials/wingnote.html', show: false});
