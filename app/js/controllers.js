@@ -4,11 +4,16 @@
 
 var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies']);
 
+
 datingController.controller('SearchUsersCtrl',['$scope','SearchService','PROFIL_EVENTS','$rootScope', function ($scope, SearchService, PROFIL_EVENTS, $rootScope) {
 
 	$scope.updateList = {};
 	$scope.encounterError = "";
 	$scope.encounters = "";
+
+	$rootScope.$watch('filter.dob', function (slider) {
+		console.log(slider);
+	});
 
 	$scope.getFilters = function (filter) {
 		var now = parseInt((new Date).toLocaleFormat("%Y"));
@@ -78,11 +83,13 @@ datingController.controller('ApplicationController',['$scope','USER_ROLES','Auth
 
 datingController.controller('UpdatePasswordCtrl',['$scope','$rootScope','USER_EVENTS','UserService', function ($scope, $rootScope, USER_EVENTS, UserService) {
 
+
 	$scope.updatePassword = function (pwd) {
 		UserService.update(pwd, $rootScope.currentUser.id).then(function (res) {
-			$rootScope.$broadcast(USER_EVENTS.passwordSuccess);
-			$scope.changePasswordForm.pwd = "";
+			$scope.pwd = {};
 			$scope.changePasswordForm.$setPristine();
+			console.log($scope.changePasswordForm);
+			$rootScope.$broadcast(USER_EVENTS.passwordSuccess);
 		}, function () {
 			$rootScope.$broadcast(USER_EVENTS.passwordFailed);
 		});	
@@ -159,17 +166,14 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 
 datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', 'InvitationService', 'ToastService', '$modal', 'WingNoteService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService, InvitationService, ToastService, $modal, WingNoteService) {
 
-	$scope.activeTab = 'profile';
+	$scope.activeTab = 'profil';
 	
 	$scope.photos = {};
 
 	$scope.updateList = {};
 
-	$scope.selected1 = true;
 
-	var wingNoteModal = $modal({scope: $scope, template: 'partials/wingnote.html', show: false});
-
-	var deleteWingNoteModal = $modal({scope: $scope, template: 'partials/deleteWingnote.html', show: false});
+	var myModal = $modal({scope: $scope, template: 'partials/wingnote.html', show: false});
 
 
 	$scope.$on(USER_EVENTS.profilLoadSucces, function (event) {
@@ -229,6 +233,18 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 			$scope.photos = photos;
 		});
 	};
+
+	$scope.displayWingNotes = function () {
+		WingNoteService.index($rootScope.currentUser.id).then(function (wingNotes) {
+			$scope.wingNotes = wingNotes;
+			/*for(var i = 0; i < wingNotes.length; i++) {
+				ProfilService.show(wingNotes.emitter_id).then(function (profil) {
+					$scope.wingNotes[i].profil = profil;
+				});
+			}*/
+		});
+		console.log($scope.wingNotes);
+	}
 
 	$scope.getClass = function (path) {
 		return ($scope.activeTab === path) ? "pinkBtn" : "greyBtn";
@@ -295,47 +311,25 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	};
 
 	$scope.openWingNote = function () {
-		wingNoteModal.$promise.then(wingNoteModal.show);
+		myModal.$promise.then(myModal.show);
 	};
 
-	$scope.displayWingNotes = function () {
-		WingNoteService.index($rootScope.currentUser.id).then(function (wingNotes) {
-			$scope.wingNotes = wingNotes;
-			angular.forEach($scope.wingNotes, function (wingNote) {
-				ProfilService.show(wingNote.emitter_id).then(function (profil) {
-					wingNote.profil = profil;
-				});
-			});
-			console.log(wingNotes.length);
-		});
-	};
+	/*$scope.openLightboxModal = function (index) {
+	    Lightbox.openModal($scope.photos, index);
+	};*/
 
 	$scope.addWingNote = function (wingNote) {
 		wingNote.receiver_id = $rootScope.visitedProfil.user_id;
 		wingNote.user_id = $rootScope.currentUser.id;
 		WingNoteService.add(wingNote).then(function (res) {
+			console.log(res);
 			if(res) {
-				wingNoteModal.$promise.then(wingNoteModal.hide);
 				ToastService.show('The WingNote was posted succesfuly', 'success');
 			} else {
 				ToastService.show('You already posted a WingNote for '+$rootScope.visitedProfil.username, 'warning');
 			}
 		}, function () {
 			ToastService.show('An error occured while sending your WingNote', 'danger');
-		});
-	};
-
-	$scope.openDeleteWingNote = function (wingNote) {
-		$scope.currentWingNote = wingNote;
-		deleteWingNoteModal.$promise.then(deleteWingNoteModal.show);
-	};
-
-	$scope.deleteWingNote = function (wingNote) {
-		WingNoteService.delete(wingNote).then(function () {
-			$scope.displayWingNotes();
-			ToastService.show('The WingNote has been well deleted', 'success');
-		}, function () {
-			ToastService.show('An error occured while deleting the WingNote', 'danger');
 		});
 	};
 }]); // ./End ProfilCtrl
