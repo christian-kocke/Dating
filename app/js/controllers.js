@@ -170,6 +170,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 
 	$scope.updateList = {};
 
+	$scope.selected1 = true;
 
 	var myModal = $modal({scope: $scope, template: 'partials/wingnote.html', show: false});
 
@@ -235,14 +236,14 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	$scope.displayWingNotes = function () {
 		WingNoteService.index($rootScope.currentUser.id).then(function (wingNotes) {
 			$scope.wingNotes = wingNotes;
-			/*for(var i = 0; i < wingNotes.length; i++) {
-				ProfilService.show(wingNotes.emitter_id).then(function (profil) {
-					$scope.wingNotes[i].profil = profil;
+			angular.forEach($scope.wingNotes, function (wingNote) {
+				ProfilService.show(wingNote.emitter_id).then(function (profil) {
+					wingNote.profil = profil;
 				});
-			}*/
+			});
+			console.log($scope.wingNotes);
 		});
-		console.log($scope.wingNotes);
-	}
+	};
 
 	$scope.getClass = function (path) {
 		return ($scope.activeTab === path) ? "pinkBtn" : "greyBtn";
@@ -320,7 +321,6 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		wingNote.receiver_id = $rootScope.visitedProfil.user_id;
 		wingNote.user_id = $rootScope.currentUser.id;
 		WingNoteService.add(wingNote).then(function (res) {
-			console.log(res);
 			if(res) {
 				ToastService.show('The WingNote was posted succesfuly', 'success');
 			} else {

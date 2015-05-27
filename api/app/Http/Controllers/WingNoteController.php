@@ -34,9 +34,8 @@ class WingNoteController extends Controller {
 	 */
 	public function index($userId)
 	{
-		$res = WingNote::where('receiver_id', $userId);
-		error_log(print_r($res, true));
-		/*return response()->json($res);*/
+		$res = WingNote::where('receiver_id', $userId)->get();
+		return response()->json($res);
 	}
 
 	/**
