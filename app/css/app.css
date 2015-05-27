@@ -277,6 +277,12 @@ img[alt="sideImg"] {
 	height: 80px;
 	margin: 0 auto;
 }
+.commentPicture {
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+	margin: 0 auto;
+}
 .carouselPicture {
 	border-radius: 10px;
 	width: 80px;

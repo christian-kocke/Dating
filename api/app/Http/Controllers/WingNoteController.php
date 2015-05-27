@@ -56,7 +56,6 @@ class WingNoteController extends Controller {
 	{
 
 		$res = WingNote::where('emitter_id', $userId)->where('receiver_id', $this->_request->receiver_id)->get();
-		error_log(count($res));
 		if(count($res) === 0)
 		{
 			WingNote::create([

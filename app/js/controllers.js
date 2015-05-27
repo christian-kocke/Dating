@@ -232,6 +232,12 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		});
 	};
 
+	$scope.displayWingNotes = function () {
+		WingNoteService.index($rootScope.currentUser.id).then(function (wingNotes) {
+			$scope.wingNotes = wingNotes;
+		});
+	}
+
 	$scope.getClass = function (path) {
 		return ($scope.activeTab === path) ? "pinkBtn" : "greyBtn";
 	}; // End getClass()
