@@ -90,7 +90,7 @@
 							<li class="greyTxt1"><i class="fa-li fa fa-eye"></i><a class="greyTxt1"> Profile visitors </a></li>
 							<li class="greyTxt1"><i class="fa-li fa fa-thumbs-up"></i><a class="greyTxt1"> Liked You <span class="badge pinkBG1"> 2 </span></a></li>
 							<li class="greyTxt1"><i class="fa-li fa fa-heart"></i><a class="greyTxt1"> Favorites </a></li>
-							<li class="greyTxt1"><i class="fa-li fa fa-comments"></i><a class="greyTxt1"> Comments <span class="badge pinkBG1"> 5 </span></a></li>
+							<li class="greyTxt1" ng-click="setClass('comments')"><i class="fa-li fa fa-comments"></i><a class="greyTxt1"> Comments <span class="badge pinkBG1"> 5 </span></a></li>
 							<li class="greyTxt1"><i class="fa-li fa fa-lock"></i><a class="greyTxt1"> Blocked </a></li>
 							<li class="greyTxt1" ng-click="setClass('settings')"><i class="fa-li fa fa-gear"></i><a class="greyTxt1"> Settings </a></li>
 						</ul><!-- class list-unstyled fa-ul text-left -->
@@ -129,7 +129,6 @@
 					</form><!-- invitationForm -->
 				</div><!-- class row -->
 			</div><!-- class panel panel-default sidePanel text-center -->
-
 		</div><!-- class col-lg-3 col-md-4 -->
 
 
@@ -137,6 +136,7 @@
 		<div class="col-lg-9 col-md-8">
 			<div class="panel panel-default middlePanel" ng-controller="MapCtrl">
 
+				<!-- Header Section -->
 				<div class="row">
 
 					<div class="col-lg-3 col-md-5">
@@ -145,6 +145,7 @@
 							<i ng-show="activeTab === 'photos'" class="fa fa-camera"></i>
 							<i ng-show="activeTab === 'settings'" class="fa fa-gear fa-lg"></i>
 							<i ng-show="activeTab === 'update'" class="fa fa-pencil"></i>
+							<i ng-show="activeTab === 'comments'" class="fa fa-comments-o"></i>
 							{{activeTab | capitalize}}
 							<span ng-click="setClass('update');" ng-show="activeTab === 'profil'" class="glyphicon glyphicon-pencil greyTxt4 smallIcon"></span>
 						</h2><!-- class pinkTxt -->
@@ -155,9 +156,7 @@
 						<a class="btn sectionBtn btnShadow" ng-hide="activeTab === 'update'" ng-click="setClass('profil')" ng-class="getClass('profil')"><i class="fa fa-user"></i><small> Profile </small></a>
 						<a class="btn sectionBtn btnShadow" ng-hide="activeTab === 'update'" ng-click="setClass('photos')" ng-class="getClass('photos')"><i class="fa fa-picture-o"></i><small> Photos </small></a>
 					</div><!-- class col-lg-9 col-md-8 text-right -->
-
 				</div><!-- class row -->
-
 
 				<!-- Profil Section -->
 				<div class="row" ng-show="activeTab === 'profil'">
@@ -267,9 +266,9 @@
 
 						</div><!-- class col-lg-7 col-md-7 thinBorders -->
 					</div><!-- class row -->
-
 				</div><!-- class row -->
 
+				<!-- Update Section -->
 				<div class="row" ng-show="activeTab === 'update'">
 					<div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">
 
@@ -467,9 +466,9 @@
 							<img ng-src="{{photo.thumbnail_path}}" alt="{{photo.id}}">
 						</a>
 					</div><!-- class photo-display -->
-
 				</div><!-- class row -->
 
+				<!-- Settings Section -->
 				<div class="row" ng-show="activeTab === 'settings'">
 
 					<div class="row">
@@ -485,7 +484,23 @@
 							<button type="button" class="btn btn-danger center-block" data-toggle="modal" data-target="#deleteAccountModal"> Delete Your Account </button>
 						</div><!-- class col-lg-12 col-md-12 -->
 					</div><!-- class row -->
+				</div><!-- class row -->
 
+				<!-- Comments Section -->
+				<div class="row" ng-show="activeTab === 'comments'">
+					<div class="col-lg-12">
+						<div class="media">
+							<div class="media-left media-middle">
+								<a href="#">
+									<img class="media-object" src="..." alt="...">
+								</a>
+							</div>
+							<div class="media-body">
+								<h4 class="media-heading"> Middle aligned media </h4>
+								Bonjour nceocneonceonceocneoencoec
+							</div>
+						</div>
+					</div><!-- class col-xs-12 -->
 				</div><!-- class row -->
 
 			</div><!-- class panel panel-default middlePanel -->

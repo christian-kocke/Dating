@@ -105,7 +105,7 @@
 				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group dobPaddings paddingLeft" ng-class="{'has-success': signUpForm.day.$valid, 'has-error': signUpForm.day.$invalid && signUpForm.day.$dirty}">
 
 					<label class="sr-only" for="day"> Day </label>
-					<input type="number" class="form-control" ng-model="user.day" aria-describedby="dayStatus" name="day" id="day" placeholder="DD" min="0" max="31" ng-maxlength="2" required>
+					<input type="number" class="form-control" ng-model="user.day" aria-describedby="dayStatus" name="day" id="day" placeholder="DD" min="1" max="31" ng-maxlength="2" required>
 
 					<!-- Errors -->
 					<span class="form-control-feedback" ng-show="signUpForm.day.$valid"></span>
@@ -119,7 +119,7 @@
 				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group dobPaddings" ng-class="{'has-success': signUpForm.month.$valid, 'has-error': signUpForm.month.$invalid && signUpForm.month.$dirty}">
 
 					<label class="sr-only" for="month"> Month </label>
-					<input type="number" class="form-control" ng-model="user.month" aria-describedby="monthStatus" name="month" id="month" placeholder="MM" min="0" max="12" ng-maxlength="2" required>
+					<input type="number" class="form-control" ng-model="user.month" aria-describedby="monthStatus" name="month" id="month" placeholder="MM" min="1" max="12" ng-maxlength="2" required>
 
 					<!-- Errors -->
 					<span class="form-control-feedback" ng-show="signUpForm.month.$valid"></span>
@@ -169,10 +169,10 @@
 			<div class="btn-group col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingLeft paddingRight" role="group" aria-label="Male / Female">
 
 				<input type="radio" name="checkbox" id="male" ng-model="user.gender" value="male" ng-required="!user.gender">
-				<label class="btn btn-default genderBtn" for="male"> Male </label>
+				<label class="btn btn-default genderBtn" for="male"> Male Looking </label>
 
 				<input type="radio" name="checkbox" id="female" ng-model="user.gender" value="female" ng-required="!user.gender">
-				<label class="btn btn-default genderBtn roundCorner" for="female"> Female </label>
+				<label class="btn btn-default genderBtn roundCorner" for="female"> Female Looking </label>
 
 				<span class="validationError" ng-show="signUpForm.gender.$error.required">* You have to select a gender !</span>
 				

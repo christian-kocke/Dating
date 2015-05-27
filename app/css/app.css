@@ -243,7 +243,7 @@ form[name="updateForm"] .has-feedback .form-control-feedback {
 .paddingRight {
 	padding-right: 0;
 }
-.roundCorner {
+.btn-group > .btn:not(:nth-of-type(1)):not(:last-child):not(.dropdown-toggle).roundCorner {
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
 }
@@ -733,6 +733,9 @@ body {
 	}
 	.middlePanel {
 		margin-top: 3%;
+	}
+	.middlePanelEncounters {
+		margin-top: 5%;
 	}
 	.profilImg {
 		width: 150px;
