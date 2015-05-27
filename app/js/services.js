@@ -24,7 +24,7 @@ datingService.factory('WingNoteService', ['$http', 'RESOURCE', function ($http, 
 		},
 		index: function (userId) {
 			return $http	
-			.get(RESOURCE.user+'/'+user_id+'/wingnote', wingNote)
+			.get(RESOURCE.user+'/'+userId+'/wingnote')
 			.then(function (success) {
 				return success.data;
 			}, function (error) {

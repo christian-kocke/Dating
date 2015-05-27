@@ -235,7 +235,13 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	$scope.displayWingNotes = function () {
 		WingNoteService.index($rootScope.currentUser.id).then(function (wingNotes) {
 			$scope.wingNotes = wingNotes;
+			for(var i = 0; i < wingNotes.length; i++) {
+				ProfilService.show(wingNotes.emitter_id).then(function (profil) {
+					$scope.wingNotes[i].profil = profil;
+				});
+			}
 		});
+		console.log($scope.wingNotes);
 	}
 
 	$scope.getClass = function (path) {
