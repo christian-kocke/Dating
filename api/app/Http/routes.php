@@ -28,7 +28,7 @@ Route::group(['middleware' => ['auth']], function()
 	Route::resource('user/profil', 'ProfilController');
 	Route::resource('user.photos', 'PhotosController');
 	Route::resource('user','UserController', ['except' => ['store', 'index']]);	
-
+	
 });
 
 

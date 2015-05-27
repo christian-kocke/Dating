@@ -21,6 +21,15 @@ datingService.factory('WingNoteService', ['$http', 'RESOURCE', function ($http, 
 		},
 		update: function () {
 
+		},
+		index: function (userId) {
+			return $http	
+			.get(RESOURCE.user+'/'+user_id+'/wingnote', wingNote)
+			.then(function (success) {
+				return success.data;
+			}, function (error) {
+				return error.data;
+			});
 		}
 	}
 }]);
