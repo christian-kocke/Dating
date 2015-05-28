@@ -95,8 +95,8 @@
 
 	</div><!-- class row -->
 
-	<div class="row">
-		<!-- Birth Date -->
+	<!--<div class="row">
+		 Birth Date
 		<div class="col-xs-12 form-group has-feedback" ng-class="{'has-success': signUpForm.dob.$valid, 'has-error': signUpForm.dob.$invalid && signUpForm.dob.$dirty}">
 			
 			<label class="greyTxt2" for="dob"> Date of birth <span class="red"> * </span></label>
@@ -106,8 +106,8 @@
 					<span class="glyphicon glyphicon-calendar"></span>
 				</span>
 				<input class="form-control" aria-describedby="dobStatus" ng-model="user.dob" data-use-native="true" data-date-format="yyyy-MM-dd" data-min-date="01-01-1930" data-max-date="today" data-autoclose="1" name="dob" id="dob" bs-datepicker type="text" placeholder="Your date of birth..." required>
-			</div><!-- class input-group -->
-		</div><!-- class col-xs-12 -->
+			</div><!-- class input-group
+		</div><!-- class col-xs-12
 	</div><!-- class row -->
 
 	<div class="row">
@@ -141,6 +141,7 @@
 					<span class="red">*</span>
 					<span class="glyphicon glyphicon-qrcode"></span>
 				</span>
+				 <div captcha options="captchaOptions" captcha  ng-model="captcha"></div>
 				<input type="text" class="form-control" ng-model="user.captcha" name="captcha" id="captcha" placeholder="Enter letters displayed"> 
 			</div><!-- class input-group -->
 		</div><!-- class col-xs-12 -->

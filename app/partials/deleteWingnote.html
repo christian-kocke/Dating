@@ -1,27 +1,20 @@
-<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" aria-label="Close" ng-click="$hide()"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title"> Delete a WingNote </h4>
-			</div>
-			
-			<div class="modal-body">
-				<label for="text"> Are you sure about deleting this WingNote ? </label>
-				<div class="media">
-					<div class="pull-left media-middle commentsContainer">
-						<img class="commentPicture media-object" src="{{currentWingNote.profil.profil_path}}">
-					</div><!-- class pull-left media-middle -->
-					<div class="media-body">
-						<h4 class="media-heading"> {{currentWingNote.profil.username}} </h4>
-						{{currentWingNote.text}}
-					</div><!-- class media-body -->
-				</div><!-- class media -->
-			</div>
-			<div class="modal-footer">
-				<button type="submit" class="btn btn-default" ng-click="deleteWingNote(currentWingNote); $hide();"> Yes </button>
-				<button type="button" class="btn btn-default" ng-click="$hide()"> No </button>
-			</div>
-		</div>
-	</div>
+<div class="modal-header">
+	<button type="button" class="close" aria-label="Close" ng-click="$close()"><span aria-hidden="true">&times;</span></button>
+	<h4 class="modal-title"> Delete a WingNote </h4>
+</div>
+<div class="modal-body">
+	<label for="text"> Are you sure about deleting this WingNote ? </label>
+	<div class="media">
+		<div class="pull-left media-middle commentsContainer">
+			<img class="commentPicture media-object" src="{{currentWingNote.profil.profil_path}}">
+		</div><!-- class pull-left media-middle -->
+		<div class="media-body">
+			<h4 class="media-heading"> {{currentWingNote.profil.username}} </h4>
+			{{currentWingNote.text}}
+		</div><!-- class media-body -->
+	</div><!-- class media -->
+</div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-default" ng-click="deleteWingNote(currentWingNote); $close();"> Yes </button>
+	<button type="button" class="btn btn-default" ng-click="$close()"> No </button>
 </div>
