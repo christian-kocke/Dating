@@ -2,24 +2,24 @@
 
 	<div class="row">
 		<!-- Username Input -->
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group has-feedback" ng-class="{'has-success': loginForm.email.$valid, 'has-error': loginForm.email.$invalid && loginForm.email.$dirty}"> 
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group has-feedback" ng-class="{'has-success': loginForm.username.$valid, 'has-error': loginForm.username.$invalid && loginForm.username.$dirty}"> 
 
-			<label class="sr-only" for="email"> Email </label>
+			<label class="sr-only" for="username"> Username </label>
 			<div class="input-group">
 				<span class="input-group-addon">
 					<i class="fa fa-user"></i>
 				</span>
-				<input type="text" class="form-control" ng-model="credentials.email" aria-describedby="emailStatus" name="email" id="email" placeholder="Email" ng-minlength="2" ng-maxlength="60" required>
+				<input type="text" class="form-control" ng-model="credentials.username" aria-describedby="usernameStatus" name="username" id="username" placeholder="username" ng-minlength="2" ng-maxlength="60" required>
 			</div><!-- class input-group -->
 
 			<!-- Errors -->
-			<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="loginForm.email.$valid" aria-hidden="true"></span>
-			<span id="emailStatus" class="sr-only"> (success) </span>
-			<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="loginForm.email.$invalid && loginForm.email.$dirty" aria-hidden="true"></span>
-			<span id="emailStatus" class="sr-only"> (warning) </span>
-			<span class="validationError" ng-show="loginForm.email.$error.minlength"> * The email has to be a least 2 characters </span>
-			<span class="validationError" ng-show="loginForm.email.$error.maxlength"> * The email can't be more than 60 characters </span>
-			<span class="validationError" ng-show="loginForm.email.$error.required && loginForm.email.$dirty"> *The email is required </span>
+			<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="loginForm.username.$valid" aria-hidden="true"></span>
+			<span id="usernameStatus" class="sr-only"> (success) </span>
+			<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="loginForm.username.$invalid && loginForm.username.$dirty" aria-hidden="true"></span>
+			<span id="usernameStatus" class="sr-only"> (warning) </span>
+			<span class="validationError" ng-show="loginForm.username.$error.minlength"> * The username has to be a least 2 characters </span>
+			<span class="validationError" ng-show="loginForm.username.$error.maxlength"> * The username can't be more than 60 characters </span>
+			<span class="validationError" ng-show="loginForm.username.$error.required && loginForm.username.$dirty"> *The username is required </span>
 
 		</div><!-- class col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
 

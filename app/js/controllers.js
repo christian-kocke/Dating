@@ -334,6 +334,8 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 			ToastService.show('An error occured while sending your WingNote', 'danger');
 		});
 	};
+
+	
 }]); // ./End ProfilCtrl
 
 datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope','$route','$location','USER_EVENTS','$routeParams','$datepicker', function (UserService, $rootScope, $scope, $route, $location, USER_EVENTS, $routeParams,$datepicker) {
