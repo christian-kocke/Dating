@@ -2,8 +2,7 @@
 
 /* Controllers */
 
-var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies']);
-
+var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies','ngTouch','angular-loading-bar','ngAnimate','bootstrapLightbox','ui.bootstrap']);
 
 datingController.controller('SearchUsersCtrl',['$scope','SearchService','PROFIL_EVENTS','$rootScope', function ($scope, SearchService, PROFIL_EVENTS, $rootScope) {
 
@@ -49,6 +48,7 @@ datingController.controller('ApplicationController',['$scope','USER_ROLES','Auth
 			} else {
 				$rootScope.sizeDevice = 'large';
 			}
+			console.log($rootScope.sizeDevice);
 		}
 	}; // End onload()
 
@@ -159,7 +159,7 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 }]); // End MapCtrl
 
 
-datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', 'InvitationService', 'ToastService', '$modal', 'WingNoteService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService, InvitationService, ToastService, $modal, WingNoteService) {
+datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', 'InvitationService', 'ToastService', 'WingNoteService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService, InvitationService, ToastService, WingNoteService) {
 
 	$scope.activeTab = 'profile';
 	
@@ -168,12 +168,6 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	$scope.updateList = {};
 
 	$scope.selected1 = true;
-
-
-	var wingNoteModal = $modal({scope: $scope, template: 'partials/wingnote.html', show: false});
-
-	var deleteWingNoteModal = $modal({scope: $scope, template: 'partials/deleteWingnote.html', show: false});
-
 
 	$scope.$on(USER_EVENTS.profilLoadSucces, function (event) {
 
@@ -281,7 +275,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	$scope.asyncAddToList = function (input) {
 		if(Object.keys(input)[0] === "location") {
 			MapService.geocodeAddress(input[Object.keys(input)[0]]).then(function (res) {
-				if( JSON.stringify(res[0].geometry.location) !== JSON.stringify($rootScope.currentProfil.location) ) {
+				if(JSON.stringify(res[0].geometry.location) !== JSON.stringify($rootScope.currentProfil.location) ) {
 					$scope.updateList[Object.keys(input)[0]] = res[0].geometry.location;
 				} else {
 					delete $scope.updateList[Object.keys(input)[0]];
@@ -299,8 +293,6 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	$scope.sendInvitation = function (email) {
 		$scope.loading = true;
 		InvitationService.send(email).then(function (res) {
-			$scope.invite = {};
-			$scope.invitationForm.$setPristine();
 			ToastService.show('The invitation was sent', 'success');
 		}, function () {
 			ToastService.show('The invitation was not sent', 'danger');
@@ -308,10 +300,6 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		.finally(function () {
 			$scope.loading = false;
 		});
-	};
-
-	$scope.openWingNote = function () {
-		wingNoteModal.$promise.then(wingNoteModal.show);
 	};
 
 	$scope.displayWingNotes = function () {
@@ -330,7 +318,6 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		wingNote.user_id = $rootScope.currentUser.id;
 		WingNoteService.add(wingNote).then(function (res) {
 			if(res) {
-				wingNoteModal.$promise.then(wingNoteModal.hide);
 				ToastService.show('The WingNote was posted succesfuly', 'success');
 			} else {
 				ToastService.show('You already posted a WingNote for '+$rootScope.visitedProfil.username, 'warning');
@@ -342,7 +329,6 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 
 	$scope.openDeleteWingNote = function (wingNote) {
 		$scope.currentWingNote = wingNote;
-		deleteWingNoteModal.$promise.then(deleteWingNoteModal.show);
 	};
 
 	$scope.deleteWingNote = function (wingNote) {
@@ -357,7 +343,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	
 }]); // ./End ProfilCtrl
 
-datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope','$route','$location','USER_EVENTS','$routeParams','$datepicker', function (UserService, $rootScope, $scope, $route, $location, USER_EVENTS, $routeParams,$datepicker) {
+datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope','$route','$location','USER_EVENTS','$routeParams', function (UserService, $rootScope, $scope, $route, $location, USER_EVENTS, $routeParams) {
 
 	$scope.submitted = false;
 	$scope.loading = false;
