@@ -99,7 +99,6 @@ class UserController extends Controller {
 	 */
 	public function authenticate()
 	{
-		
 		if(Auth::attempt(['id' => DB::select('select user_id from profils where username = ? limit 1', [$this->_request->input('username')])[0]->user_id, 'password' => $this->_request->input('password')], $this->_request->input('remember')))
 		{
 			$this->_user = Auth::user();

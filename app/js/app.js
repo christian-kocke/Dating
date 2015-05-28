@@ -56,7 +56,12 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
             profil: ['ProfilResolver', '$route', function resolveProfil (ProfilResolver, $route) {
                 return ProfilResolver.resolve(parseInt($route.current.params.id));
             }]
-        }
+        },
+        redirection: ['$rootScope','$route', function ($rootScope, $route) {
+            if($route.current.params.id === $rootScope.currentUser.id){
+                return '/profil';
+            }
+        }]
     }).
     when('/activation/:token', {
         templateUrl: 'partials/client-activation.html',
@@ -162,17 +167,17 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
         });
     });
 
-    $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
-        if(next && next.$$route){
-            var redirectionFunction = next.$$route.redirection;
-            if(redirectionFunction){
-                var route = $injector.invoke(redirectionFunction);
-                if(route){
-                    $location.path(route);
-                }
+$rootScope.$on('$routeChangeSuccess', function (event, next, current) {
+    if(next && next.$$route){
+        var redirectionFunction = next.$$route.redirection;
+        if(redirectionFunction){
+            var route = $injector.invoke(redirectionFunction);
+            if(route){
+                $location.path(route);
             }
         }
-    });
+    }
+});
 
 
     // Session
@@ -229,8 +234,8 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
         /*AuthService.retrieveUser().then(function (user) {
             $rootScope.currentUser = user;
         });*/
-        ToastService.show('Your profil has been well updated !', 'success');
-    });
+    ToastService.show('Your profil has been well updated !', 'success');
+});
 
     $rootScope.$on(USER_EVENTS.updateFailed, function () {
         var aToast = ngToast.create({
