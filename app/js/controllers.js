@@ -28,8 +28,8 @@ datingController.controller('SearchUsersCtrl',['$scope','SearchService','PROFIL_
 			$scope.filter.dob[1] = ageMax;
 		}, function () {
 			$scope.encounterError = "Sorry, no matches :(";
-			$rootScope.$broadcast(PROFIL_EVENTS.searchFailed);
-		});
+				$rootScope.$broadcast(PROFIL_EVENTS.searchFailed);
+			});
 		
 	};
 
@@ -88,7 +88,6 @@ datingController.controller('UpdatePasswordCtrl',['$scope','$rootScope','USER_EV
 		UserService.update(pwd, $rootScope.currentUser.id).then(function (res) {
 			$scope.pwd = {};
 			$scope.changePasswordForm.$setPristine();
-			console.log($scope.changePasswordForm);
 			$rootScope.$broadcast(USER_EVENTS.passwordSuccess);
 		}, function () {
 			$rootScope.$broadcast(USER_EVENTS.passwordFailed);
@@ -241,14 +240,13 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	$scope.displayWingNotes = function () {
 		WingNoteService.index($rootScope.currentUser.id).then(function (wingNotes) {
 			$scope.wingNotes = wingNotes;
-			/*for(var i = 0; i < wingNotes.length; i++) {
+			for(var i = 0; i < wingNotes.length; i++) {
 				ProfilService.show(wingNotes.emitter_id).then(function (profil) {
 					$scope.wingNotes[i].profil = profil;
 				});
-			}*/
+			}
 		});
-		console.log($scope.wingNotes);
-	}
+	};
 
 	$scope.getClass = function (path) {
 		return ($scope.activeTab === path) ? "pinkBtn" : "greyBtn";
@@ -312,6 +310,8 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		.finally(function () {
 			$scope.loading = false;
 		});
+		$scope.invite = "";
+		$scope.invitationForm.$setPristine();
 	};
 
 	$scope.openWingNote = function () {

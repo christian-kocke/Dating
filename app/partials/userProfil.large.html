@@ -100,11 +100,12 @@
 			</div><!-- class panel panel-default sidePanel text-center -->
 
 			<div class="panel panel-default sidePanel text-center">
-				<div class="row">
+				
+				<div class="row" ng-hide="loading">
 					<h5 class="text-center greyTxt2"> Send an invitation to a friend ! </h5>
 					<h6 class="text-center greyTxt2"> Just enter his email address. </h6>
 					<form novalidate name="invitationForm" ng-submit="invitationForm.$valid && sendInvitation(invite)">
-						<div class="col-lg-12 col-md-12 form-group has-feedback" ng-class="{'has-success': invitationForm.email.$valid, 'has-error': invitationForm.email.$invalid && invitationForm.email.$dirty}">
+						<div class="col-xs-12 form-group has-feedback" ng-class="{'has-success': invitationForm.email.$valid, 'has-error': invitationForm.email.$invalid && invitationForm.email.$dirty}">
 							<label class="sr-only" for="email"> Email </label>
 							<div class="input-group">
 								<span class="input-group-addon">
@@ -123,11 +124,16 @@
 							<span class="validationError" ng-show="invitationForm.email.$error.emailinvitationcheck && invitationForm.email.$dirty">* An invitation was already sent to this email</span>
 							<span class="form-control-feedback" ng-show="invitationForm.email.$pending.emailcheck"><i class="fa fa-circle-o-notch fa-spin"></i></span>
 
-						</div><!-- class col-lg-12 col-md-12 form-group has-feedback -->
+						</div><!-- class col-xs-12 form-group has-feedback -->
 
 						<button type="submit" class="btn btnShadow greyBtn"><small> Send invitation </small></button>
 					</form><!-- invitationForm -->
 				</div><!-- class row -->
+
+				<div class="row text-center" ng-show="loading">
+					<i class="fa fa-circle-o-notch fa-spin fa-4x"></i>
+				</div><!-- class row text-center -->
+
 			</div><!-- class panel panel-default sidePanel text-center -->
 		</div><!-- class col-lg-3 col-md-4 -->
 
@@ -170,7 +176,7 @@
 							<p><i class="fa fa-info-circle fa-lg"></i><strong> 5 </strong> Interests </p>
 						</div><!-- class col-lg-3 col-md-3 -->
 						<div class="col-lg-4 col-md-6">
-							<p><i class="fa fa-user-plus fa-lg"></i><strong> 18 </strong> Angel Recommended </p>
+							<p><i class="fa fa-user-plus fa-lg"></i><strong> 18 </strong> Angel Recommendation </p>
 						</div><!-- class col-lg-4 col-md-6 -->
 					</div><!-- class row -->
 
