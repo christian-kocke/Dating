@@ -496,6 +496,12 @@
 				<div class="row" ng-show="activeTab === 'photos'" ng-init="displayPhotos()">
 
 					<form class="dropzone" id="photoZone" dropzone="photosDropzoneConfig"></form>
+
+					<div id="links" class="photos-display">
+						<a ng-repeat="photo in photos track by photo.id" alt="{{photo.id}}" photoId="{{photo.id}}" ng-click="openLightboxModal(photo.id)">
+							<img ng-src="{{photo.thumbnail_path}}" alt="{{photo.id}}">
+						</a>
+					</div><!-- class photo-display -->
 				</div><!-- class row -->
 
 				<!-- Settings Section -->
