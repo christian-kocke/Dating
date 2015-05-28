@@ -11,10 +11,6 @@ datingController.controller('SearchUsersCtrl',['$scope','SearchService','PROFIL_
 	$scope.encounterError = "";
 	$scope.encounters = "";
 
-	$rootScope.$watch('filter.dob', function (slider) {
-		console.log(slider);
-	});
-
 	$scope.getFilters = function (filter) {
 		var now = new Date().getFullYear();
 		var ageMin = filter.dob[0];
@@ -27,10 +23,9 @@ datingController.controller('SearchUsersCtrl',['$scope','SearchService','PROFIL_
 			$scope.filter.dob[0] = ageMin;
 			$scope.filter.dob[1] = ageMax;
 		}, function () {
-			$scope.encounterError = "Sorry, no matches :(";
-				$rootScope.$broadcast(PROFIL_EVENTS.searchFailed);
-			});
-		
+			$scope.encounterError = "Sorry, no matches !";
+			$rootScope.$broadcast(PROFIL_EVENTS.searchFailed);
+		});
 	};
 
 }]); // End SearchUsersCtrl
@@ -303,6 +298,8 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	$scope.sendInvitation = function (email) {
 		$scope.loading = true;
 		InvitationService.send(email).then(function (res) {
+			$scope.invite = {};
+			$scope.invitationForm.$setPristine();
 			ToastService.show('The invitation was sent', 'success');
 		}, function () {
 			ToastService.show('The invitation was not sent', 'danger');
@@ -310,8 +307,6 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		.finally(function () {
 			$scope.loading = false;
 		});
-		$scope.invite = "";
-		$scope.invitationForm.$setPristine();
 	};
 
 	$scope.openWingNote = function () {
@@ -326,14 +321,8 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 					wingNote.profil = profil;
 				});
 			});
-			console.log(wingNotes.length);
 		});
 	};
-
-
-	/*$scope.openLightboxModal = function (index) {
-	    Lightbox.openModal($scope.photos, index);
-	};*/
 
 	$scope.addWingNote = function (wingNote) {
 		wingNote.receiver_id = $rootScope.visitedProfil.user_id;

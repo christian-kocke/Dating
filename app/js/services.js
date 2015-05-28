@@ -563,7 +563,7 @@ datingService.factory('SessionResolver',['$q','$rootScope','$location','Session'
 
 }]); // End SessionResolver
 
-datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENTS', 'MapService', '$q', function (ProfilService, $rootScope, USER_EVENTS, MapService, $q) {
+datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENTS', 'MapService', '$q','WingNoteService', function (ProfilService, $rootScope, USER_EVENTS, MapService, $q, WingNoteService) {
 
 	return {
 
@@ -574,8 +574,20 @@ datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENT
 				ProfilService.show(id).then(function (profil) {
 					ProfilService.indexPhotos(id).then(function (photos) {
 						profil.photos = photos;
-						$rootScope.visitedProfil = profil;
-						deferred.resolve();
+						WingNoteService.index(id).then(function (wingNotes) {
+							profil.wingNotes = wingNotes;
+							angular.forEach(profil.wingNotes, function (wingNote) {
+								ProfilService.show(wingNote.emitter_id).then(function (emitter) {
+									wingNote.emitter = emitter;
+									$rootScope.visitedProfil = profil;
+									deferred.resolve();
+								}, function () {
+									deferred.reject();
+								});
+							});
+						}, function () {
+							deferred.reject();
+						});
 					}, function () {
 						deferred.reject();
 					});
