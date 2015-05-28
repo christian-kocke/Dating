@@ -175,7 +175,9 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	$scope.selected1 = true;
 
 
-	var myModal = $modal({scope: $scope, template: 'partials/wingnote.html', show: false});
+	var wingNoteModal = $modal({scope: $scope, template: 'partials/wingnote.html', show: false});
+
+	var deleteWingNoteModal = $modal({scope: $scope, template: 'partials/deleteWingnote.html', show: false});
 
 
 	$scope.$on(USER_EVENTS.profilLoadSucces, function (event) {
@@ -313,8 +315,21 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	};
 
 	$scope.openWingNote = function () {
-		myModal.$promise.then(myModal.show);
+		wingNoteModal.$promise.then(wingNoteModal.show);
 	};
+
+	$scope.displayWingNotes = function () {
+		WingNoteService.index($rootScope.currentUser.id).then(function (wingNotes) {
+			$scope.wingNotes = wingNotes;
+			angular.forEach($scope.wingNotes, function (wingNote) {
+				ProfilService.show(wingNote.emitter_id).then(function (profil) {
+					wingNote.profil = profil;
+				});
+			});
+			console.log(wingNotes.length);
+		});
+	};
+
 
 	/*$scope.openLightboxModal = function (index) {
 	    Lightbox.openModal($scope.photos, index);
@@ -324,14 +339,28 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		wingNote.receiver_id = $rootScope.visitedProfil.user_id;
 		wingNote.user_id = $rootScope.currentUser.id;
 		WingNoteService.add(wingNote).then(function (res) {
-			console.log(res);
 			if(res) {
+				wingNoteModal.$promise.then(wingNoteModal.hide);
 				ToastService.show('The WingNote was posted succesfuly', 'success');
 			} else {
 				ToastService.show('You already posted a WingNote for '+$rootScope.visitedProfil.username, 'warning');
 			}
 		}, function () {
 			ToastService.show('An error occured while sending your WingNote', 'danger');
+		});
+	};
+
+	$scope.openDeleteWingNote = function (wingNote) {
+		$scope.currentWingNote = wingNote;
+		deleteWingNoteModal.$promise.then(deleteWingNoteModal.show);
+	};
+
+	$scope.deleteWingNote = function (wingNote) {
+		WingNoteService.delete(wingNote).then(function () {
+			$scope.displayWingNotes();
+			ToastService.show('The WingNote has been well deleted', 'success');
+		}, function () {
+			ToastService.show('An error occured while deleting the WingNote', 'danger');
 		});
 	};
 
