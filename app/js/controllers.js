@@ -4,7 +4,6 @@
 
 var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies']);
 
-
 datingController.controller('SearchUsersCtrl',['$scope','SearchService','PROFIL_EVENTS','$rootScope', function ($scope, SearchService, PROFIL_EVENTS, $rootScope) {
 
 	$scope.updateList = {};
@@ -79,13 +78,11 @@ datingController.controller('ApplicationController',['$scope','USER_ROLES','Auth
 
 datingController.controller('UpdatePasswordCtrl',['$scope','$rootScope','USER_EVENTS','UserService', function ($scope, $rootScope, USER_EVENTS, UserService) {
 
-
 	$scope.updatePassword = function (pwd) {
 		UserService.update(pwd, $rootScope.currentUser.id).then(function (res) {
-			$scope.pwd = {};
-			$scope.changePasswordForm.$setPristine();
-			console.log($scope.changePasswordForm);
 			$rootScope.$broadcast(USER_EVENTS.passwordSuccess);
+			$scope.changePasswordForm.pwd = "";
+			$scope.changePasswordForm.$setPristine();
 		}, function () {
 			$rootScope.$broadcast(USER_EVENTS.passwordFailed);
 		});	
@@ -170,8 +167,9 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 
 	$scope.selected1 = true;
 
+	var wingNoteModal = $modal({scope: $scope, template: 'partials/wingnote.html', show: false});
 
-	var myModal = $modal({scope: $scope, template: 'partials/wingnote.html', show: false});
+	var deleteWingNoteModal = $modal({scope: $scope, template: 'partials/deleteWingnote.html', show: false});
 
 
 	$scope.$on(USER_EVENTS.profilLoadSucces, function (event) {
@@ -231,18 +229,6 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 			$scope.photos = photos;
 		});
 	};
-
-	$scope.displayWingNotes = function () {
-		WingNoteService.index($rootScope.currentUser.id).then(function (wingNotes) {
-			$scope.wingNotes = wingNotes;
-			/*for(var i = 0; i < wingNotes.length; i++) {
-				ProfilService.show(wingNotes.emitter_id).then(function (profil) {
-					$scope.wingNotes[i].profil = profil;
-				});
-			}*/
-		});
-		console.log($scope.wingNotes);
-	}
 
 	$scope.getClass = function (path) {
 		return ($scope.activeTab === path) ? "pinkBtn" : "greyBtn";
@@ -309,19 +295,27 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	};
 
 	$scope.openWingNote = function () {
-		myModal.$promise.then(myModal.show);
+		wingNoteModal.$promise.then(wingNoteModal.show);
 	};
 
-	/*$scope.openLightboxModal = function (index) {
-	    Lightbox.openModal($scope.photos, index);
-	};*/
+	$scope.displayWingNotes = function () {
+		WingNoteService.index($rootScope.currentUser.id).then(function (wingNotes) {
+			$scope.wingNotes = wingNotes;
+			angular.forEach($scope.wingNotes, function (wingNote) {
+				ProfilService.show(wingNote.emitter_id).then(function (profil) {
+					wingNote.profil = profil;
+				});
+			});
+			console.log(wingNotes.length);
+		});
+	};
 
 	$scope.addWingNote = function (wingNote) {
 		wingNote.receiver_id = $rootScope.visitedProfil.user_id;
 		wingNote.user_id = $rootScope.currentUser.id;
 		WingNoteService.add(wingNote).then(function (res) {
-			console.log(res);
 			if(res) {
+				wingNoteModal.$promise.then(wingNoteModal.hide);
 				ToastService.show('The WingNote was posted succesfuly', 'success');
 			} else {
 				ToastService.show('You already posted a WingNote for '+$rootScope.visitedProfil.username, 'warning');
@@ -330,19 +324,33 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 			ToastService.show('An error occured while sending your WingNote', 'danger');
 		});
 	};
+
+	$scope.openDeleteWingNote = function (wingNote) {
+		$scope.currentWingNote = wingNote;
+		deleteWingNoteModal.$promise.then(deleteWingNoteModal.show);
+	};
+
+	$scope.deleteWingNote = function (wingNote) {
+		WingNoteService.delete(wingNote).then(function () {
+			$scope.displayWingNotes();
+			ToastService.show('The WingNote has been well deleted', 'success');
+		}, function () {
+			ToastService.show('An error occured while deleting the WingNote', 'danger');
+		});
+	};
 }]); // ./End ProfilCtrl
 
-datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope','$route','$location','USER_EVENTS','$routeParams','$datepicker', function (UserService, $rootScope, $scope, $route, $location, USER_EVENTS, $routeParams,$datepicker) {
+datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope','$route','$location','USER_EVENTS','$routeParams', function (UserService, $rootScope, $scope, $route, $location, USER_EVENTS, $routeParams) {
 
 	$scope.submitted = false;
 	$scope.loading = false;
 	$scope.activated = false;
 	$scope.selected = 0;
 
-
 	$scope.register = function (user) {
 		$scope.loading = true;
 		user.invitation = ($routeParams.token) ? $routeParams.token : null;
+		user.dob = user.year+"-"+user.month+"-"+user.day;
 		UserService.create(user).then(function (res) {
 			if(parseInt(res)){
 				$rootScope.$broadcast(USER_EVENTS.registrationSuccess);
