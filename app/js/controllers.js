@@ -365,21 +365,32 @@ datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope'
 	$scope.selected = 0;
 
 
-	$scope.register = function (user) {
-		$scope.loading = true;
-		user.invitation = ($routeParams.token) ? $routeParams.token : null;
-		UserService.create(user).then(function (res) {
-			if(parseInt(res)){
-				$rootScope.$broadcast(USER_EVENTS.registrationSuccess);
-				$scope.submitted = true;
-			}else{
-				$rootScope.$broadcast(USER_EVENTS.registrationFailed);
-			}
-		}, function () {
-			$rootScope.$broadcast(USER_EVENTS.registrationFailed);
-		}).finally(function () {
-			$scope.loading = false;
-		});
+	$scope.captchaOptions = {
+		imgPath: 'img/',
+		captcha: { 
+			numberOfImages: 5 
+		},
+        // use init callback to get captcha object
+        init: function (captcha) {
+        	$scope.captcha = captcha;
+        }
+    };
+
+    $scope.register = function (user) {
+    	$scope.loading = true;
+    	user.invitation = ($routeParams.token) ? $routeParams.token : null;
+    	UserService.create(user).then(function (res) {
+    		if(parseInt(res)){
+    			$rootScope.$broadcast(USER_EVENTS.registrationSuccess);
+    			$scope.submitted = true;
+    		}else{
+    			$rootScope.$broadcast(USER_EVENTS.registrationFailed);
+    		}
+    	}, function () {
+    		$rootScope.$broadcast(USER_EVENTS.registrationFailed);
+    	}).finally(function () {
+    		$scope.loading = false;
+    	});
 	}; // End register()
 
 	$scope.activate = function () {
