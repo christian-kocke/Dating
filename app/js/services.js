@@ -203,6 +203,16 @@ datingService.factory('ValidationService',['$http','RESOURCE', function ($http, 
 		});
 	};
 
+	validationService.isCaptchaValid = function (captcha) {
+		return $http
+		.post(RESOURCE.base+'/try', captcha)
+		.then(function (res) {
+			return !!res.data;
+		}, function () {
+			return false;
+		});
+	}
+
 	return validationService;
 
 }]);

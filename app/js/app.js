@@ -394,6 +394,7 @@ datingApp.constant('AUTH_EVENTS', {
     photos: '/api/public/user/photos',
     resetPassword: '/api/public/password',
     invitation: '/api/public/user/invitation',
+    base: '/api/public',
     templates: '/dating/app/partials'
 });
 

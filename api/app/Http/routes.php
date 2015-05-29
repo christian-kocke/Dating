@@ -15,6 +15,16 @@ Route::post('user/auth', 'UserController@authenticate');
 Route::post('user/activate', 'UserController@activate');
 Route::post('user/validation/email', 'UserValidationController@email');
 
+/*
+ * Visual Captcha routes
+ */
+Route::get('/start/{numberOfOptions}', 'CaptchaController@generate');
+Route::get('/image/{index}', 'CaptchaController@streamImage');
+Route::get('/audio', 'CaptchaController@streamAudio');
+Route::post('/try', 'CaptchaController@validateCaptcha');
+
+
+
 Route::resource('user','UserController', ['only' => ['store', 'index']]);
 
 Route::group(['middleware' => ['auth']], function()
