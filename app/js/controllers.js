@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies','ngTouch','angular-loading-bar','ngAnimate','bootstrapLightbox','ui.bootstrap']);
+var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies','ngTouch','ngAnimate','bootstrapLightbox','ui.bootstrap']);
 
 datingController.controller('SearchUsersCtrl',['$scope','SearchService','PROFIL_EVENTS','$rootScope', function ($scope, SearchService, PROFIL_EVENTS, $rootScope) {
 
@@ -48,7 +48,6 @@ datingController.controller('ApplicationController',['$scope','USER_ROLES','Auth
 			} else {
 				$rootScope.sizeDevice = 'large';
 			}
-			console.log($rootScope.sizeDevice);
 		}
 	}; // End onload()
 
@@ -159,7 +158,7 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 }]); // End MapCtrl
 
 
-datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', 'InvitationService', 'ToastService', 'WingNoteService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService, InvitationService, ToastService, WingNoteService) {
+datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', 'InvitationService', 'ToastService', 'WingNoteService','$modal','Lightbox', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService, InvitationService, ToastService, WingNoteService, $modal, Lightbox) {
 
 	$scope.activeTab = 'profile';
 	
@@ -225,6 +224,10 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		ProfilService.indexPhotos($rootScope.currentUser.id).then(function (photos) {
 			$scope.photos = photos;
 		});
+	};
+
+	$scope.openLightboxModal = function (index) {
+		Lightbox.openModal($scope.photos, index);
 	};
 
 	$scope.displayWingNotes = function () {
@@ -313,6 +316,15 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		});
 	};
 
+	$scope.open = function (size) {
+
+		var addWingNoteModal = $modal.open({
+			animation: true,
+			templateUrl: 'partials/wingnote.html',
+			controller: 'ProfilCtrl',
+		});
+	};
+
 	$scope.addWingNote = function (wingNote) {
 		wingNote.receiver_id = $rootScope.visitedProfil.user_id;
 		wingNote.user_id = $rootScope.currentUser.id;
@@ -388,6 +400,13 @@ datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope'
 			});
 		}
 	}; // End activate()
+
+	$scope.open = function($event) {
+		$event.preventDefault();
+		$event.stopPropagation();
+
+		$scope.opened = true;
+	};
 
 }]); // End RegistrarCtrl
 

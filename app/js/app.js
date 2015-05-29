@@ -57,11 +57,11 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
                 return ProfilResolver.resolve(parseInt($route.current.params.id));
             }]
         },
-        /*redirection: ['$rootScope','$route', function ($rootScope, $route) {
+        redirection: ['$rootScope','$route', function ($rootScope, $route) {
             if($route.current.params.id === $rootScope.currentUser.id){
                 return '/profil';
             }
-        }]*/
+        }]
     }).
     when('/activation/:token', {
         templateUrl: 'partials/client-activation.html',
@@ -114,7 +114,6 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
                 $rootScope.sizeDevice = 'large';
             }
         }
-        console.log($rootScope.sizeDevice);
         $rootScope.$apply();
     });
 
