@@ -1,3 +1,5 @@
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
 /* Fonts Includes */
 @font-face {
 	font-family: 'Open Sans';
@@ -495,6 +497,7 @@ body {
 }
 .fa-ul li {
 	margin: 4% 0;
+	cursor: pointer;
 }
 .thinBorders {
 	border: 0.5px solid #F6F6F6;

@@ -2,7 +2,7 @@
 
 /* App Module */
 
-var datingApp = angular.module('datingApp',['ngRoute','datingControllers','datingServices','ngToast', 'ngAnimate','datingFilters','datingDirectives','datingAnimations', 'mgcrea.ngStrap', 'ui.bootstrap-slider']);
+var datingApp = angular.module('datingApp',['ngRoute','datingControllers','datingServices','ngToast', 'ngAnimate','datingFilters','datingDirectives','datingAnimations', 'ui.bootstrap-slider']);
 
 datingApp.config(['$routeProvider','$locationProvider', function($routeProvider, $locationProvider) {
 
@@ -151,7 +151,7 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
         }
 
         $rootScope.$on('$routeChangeStart', function (event, next, current) {
-            if(next && next.data){
+            if(next && next.data) {
                 var authorizedRoles = next.data.authorizedRoles;
                 if (!AuthService.isAuthorized(authorizedRoles)) {
                     event.preventDefault();
@@ -165,6 +165,7 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
                 }
             }
         });
+
     });
 
 $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
@@ -231,11 +232,8 @@ $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
 
     // Update Profil Username
     $rootScope.$on(USER_EVENTS.updateSuccess, function () {
-        /*AuthService.retrieveUser().then(function (user) {
-            $rootScope.currentUser = user;
-        });*/
-    ToastService.show('Your profil has been well updated !', 'success');
-});
+        ToastService.show('Your profil has been well updated !', 'success');
+    });
 
     $rootScope.$on(USER_EVENTS.updateFailed, function () {
         var aToast = ngToast.create({
@@ -324,6 +322,7 @@ $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
     $rootScope.$on(PROFIL_EVENTS.searchFailed, function (event) {
         ToastService.show('Nobody was founded try to be less exigent !', 'warning');
     });
+
 }]);
 
 datingApp.config(['$httpProvider', function ($httpProvider) {
