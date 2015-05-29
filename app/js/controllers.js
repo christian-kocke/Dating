@@ -3,7 +3,7 @@
 /* Controllers */
 
 
-var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies','ngTouch','ngAnimate','bootstrapLightbox','ui.bootstrap']);
+var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies','ngTouch','ngAnimate','bootstrapLightbox','ui.bootstrap', 'visualCaptcha']);
 
 
 datingController.controller('SearchUsersCtrl',['$scope','SearchService','PROFIL_EVENTS','$rootScope', function ($scope, SearchService, PROFIL_EVENTS, $rootScope) {
@@ -358,7 +358,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 }]); // ./End ProfilCtrl
 
 
-datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope','$route','$location','USER_EVENTS','$routeParams','$datepicker', 'ValidationService', '$q', function (UserService, $rootScope, $scope, $route, $location, USER_EVENTS, $routeParams, $datepicker, ValidationService, $q) {
+datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope','$route','$location','USER_EVENTS','$routeParams', 'ValidationService', '$q', function (UserService, $rootScope, $scope, $route, $location, USER_EVENTS, $routeParams, ValidationService, $q) {
 
 	$scope.submitted = false;
 	$scope.loading = false;
@@ -388,6 +388,7 @@ datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope'
     			value: $scope.captcha.getCaptchaData().value
     		};
     		ValidationService.isCaptchaValid(captchaValues).then(function (valid) {
+    			console.log(valid);
     			if(valid) {
     				deferred.resolve();
     			} else {
@@ -437,7 +438,7 @@ datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope'
 	$scope.open = function($event) {
 		$event.preventDefault();
 		$event.stopPropagation();
-
+		console.log('click');
 		$scope.opened = true;
 	};
 

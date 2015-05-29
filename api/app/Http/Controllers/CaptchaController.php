@@ -61,7 +61,7 @@ class CaptchaController extends Controller {
 		$oldAudioOption = $this->getValidAudioOption();
 
         // Reset the session data
-		//Session::flush();
+		Session::put( 'captcha', []);
 
         // Avoid the next IF failing if a string with a number is sent
 		$numberOfOptions = intval( $numberOfOptions );
@@ -85,26 +85,26 @@ class CaptchaController extends Controller {
 			$image[ 'value' ] = $randomValue;
 		}
 
-		Session::put( 'images', $images );
+		Session::push( 'captcha.images', $images );
 
         // Select a random image option, pluck current valid image option
 		do {
 			$newImageOption = $this->utilArraySample( $this->getImageOptions() );
 		} while ( $oldImageOption && $oldImageOption[ 'path' ] == $newImageOption[ 'path' ] );
-
-		Session::push( 'validImageOption', $newImageOption );
+		
+		Session::push( 'captcha.validImageOption', $newImageOption );
 
         // Select a random audio option, pluck current valid audio option
 		do {
 			$newAudioOption = $this->utilArraySample( $this->audioOptions );
 		} while ( $oldAudioOption && $oldAudioOption[ 'path' ] == $newAudioOption[ 'path' ] );
 
-		Session::push( 'validAudioOption', $newAudioOption );
+		Session::push( 'captcha.validAudioOption', $newAudioOption );
 
         // Set random hashes for audio and image field names, and add it in the frontend data object
 		$validImageOption = $this->getValidImageOption();
 	
-		Session::push( 'frontendData', Array(
+		Session::push( 'captcha.frontendData', Array(
 			'values' => $imageValues,
 			'imageName' => $validImageOption[ 'name' ],
 			'imageFieldName' => $this->utilRandomHex( 10 ),
@@ -121,7 +121,7 @@ class CaptchaController extends Controller {
 		$audioOption = $this->getValidAudioOption();
         $audioFileName = isset( $audioOption ) ? $audioOption[ 'path' ] : ''; // If there's no audioOption, we set the file name as empty
         $audioFilePath = $this->assetsPath . '/audios/' . $audioFileName;
-        error_log("ok");
+      
         // If the file name is empty, we skip any work and return a 404 response
         if ( !empty( $audioFileName ) ) {
             // We need to replace '.mp3' with '.ogg' if the fileType === 'ogg'
@@ -167,25 +167,27 @@ class CaptchaController extends Controller {
 
     public function validateCaptcha(Request $request)
     {
-    	error_log(print_r($this->getValidImageOption(), true));
+    	return response((string) ($this->validateImage($request->input('value')) || $this->validateAudio($request->input('value'))));
     }
 
     // Get data to be used by the frontend
     public function getFrontendData() 
     {
-    	return Session::get( 'frontendData' )[0];
+    	
+    	return Session::get( 'captcha.frontendData' )[0];
     }
 
     // Get the current validImageOption
     public function getValidImageOption() 
     {
-    	return Session::get( 'validImageOption' )[0];
+    	return Session::get( 'captcha.validImageOption' )[0];
     }
 
     // Get the current validAudioOption
     public function getValidAudioOption() 
     {
-    	return Session::get( 'validAudioOption' )[0];
+    	
+    	return Session::get( 'captcha.validAudioOption' )[0];
     }
 
     // Validate the sent image value with the validImageOption
@@ -207,7 +209,7 @@ class CaptchaController extends Controller {
     // Return generated image options
     public function getImageOptions() 
     {
-    	return Session::get( 'images' );
+    	return Session::get( 'captcha.images' )[0];
     }
 
     // Return generated image option at index
@@ -244,6 +246,7 @@ class CaptchaController extends Controller {
     // Return samples from array
     private function utilArraySample( $arr, $count = null ) 
     {
+    	
     	if ( !$count || $count == 1 ) {
     		return $arr[ array_rand( $arr ) ];
     	} else {

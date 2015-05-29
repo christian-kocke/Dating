@@ -100,13 +100,13 @@
 		<div class="col-xs-12 form-group has-feedback" ng-class="{'has-success': signUpForm.dob.$valid, 'has-error': signUpForm.dob.$invalid && signUpForm.dob.$dirty}">
 			
 			<label class="greyTxt2" for="dob"> Date of birth <span class="red"> * </span></label>
-			<p class="input-group">
+			<div class="input-group">
 				<span class="input-group-addon">
 					<span class="red">*</span>
 					<span class="glyphicon glyphicon-calendar"></span>
 				</span>
-				<input type="date" name="dob" id="id" class="form-control" aria-describedby="dobStatus" datepicker-popup ng-model="user.dob" is-open="opened" datepicker-mode="year" show-button-bar="false" min-date="'1930-01-01'" max-date="today" date-disabled="disabled(date, mode)" ng-required="true" placeholder="Your date of birth..." ng-click="open($event)"/>
-			</p>
+				<input class="form-control" aria-describedby="dobStatus" ng-model="user.dob" data-use-native="true" data-date-format="yyyy-MM-dd" data-min-date="01-01-1930" data-max-date="today" data-autoclose="1" name="dob" id="dob" bs-datepicker type="text" placeholder="Your date of birth..." required>
+			</div><!-- class input-group -->
 		</div><!-- class col-xs-12 -->
 	</div><!-- class row -->
 
@@ -141,14 +141,9 @@
 					<span class="red">*</span>
 					<span class="glyphicon glyphicon-qrcode"></span>
 				</span>
-<<<<<<< HEAD
-=======
-				<div captcha options="captchaOptions" captcha  ng-model="captcha"></div>
->>>>>>> origin/master
 				<input type="text" class="form-control" ng-model="user.captcha" name="captcha" id="captcha" placeholder="Enter letters displayed"> 
 			</div>class input-group -->
 			<div captcha options="captchaOptions"></div>
-			<button ng-click="isCaptchaValid()">test</button>
 		</div><!-- class col-xs-12 -->
 	</div><!-- class row -->
 
