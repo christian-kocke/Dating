@@ -442,7 +442,11 @@ img[alt="sideImg"] {
 }
 /* End Registration Settings */
 
-
+/* Captcha styles */
+.visualCaptcha {
+	text-align: center;
+}
+/* End Captcha styles */
 
 
 /* Containers Settings */

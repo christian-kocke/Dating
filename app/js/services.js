@@ -581,20 +581,33 @@ datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENT
 			if(id) {
 				var deferred = $q.defer();
 
-				ProfilService.show(id).then(function (profil) {
-					ProfilService.indexPhotos(id).then(function (photos) {
-						profil.photos = photos;
-						WingNoteService.index(id).then(function (wingNotes) {
+				ProfilService.show(id).then(function (profil) { // load profil
+
+					ProfilService.indexPhotos(id).then(function (photos) { // load photos
+
+						profil.photos = photos; 
+
+						WingNoteService.index(id).then(function (wingNotes) { // load wingnotes
+
 							profil.wingNotes = wingNotes;
-							angular.forEach(profil.wingNotes, function (wingNote) {
-								ProfilService.show(wingNote.emitter_id).then(function (emitter) {
-									wingNote.emitter = emitter;
-									$rootScope.visitedProfil = profil;
-									deferred.resolve();
-								}, function () {
-									deferred.reject();
+
+							if( ! wingNotes) {
+								$rootScope.visitedProfil = profil;
+								deferred.resolve();
+							} else {
+								angular.forEach(profil.wingNotes, function (wingNote) { // load wingnote profils
+
+									ProfilService.show(wingNote.emitter_id).then(function (emitter) {
+
+										wingNote.emitter = emitter;
+
+									}, function () {
+										deferred.reject();
+									});
 								});
-							});
+								$rootScope.visitedProfil = profil;
+								deferred.resolve();
+							}
 						}, function () {
 							deferred.reject();
 						});
