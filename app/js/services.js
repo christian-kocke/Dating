@@ -626,7 +626,7 @@ datingService.factory('ProfilResolver',['ProfilService','PhotosService','$rootSc
 										deferred.reject();
 									});
 								});
-								
+								$rootScope.visitedProfil = profil;
 								deferred.resolve();
 							}
 							
