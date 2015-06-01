@@ -285,8 +285,9 @@ var width = Math.max(400, dimensions.imageDisplayWidth + 32);
       // store the modal instance so we can close it manually if we need to
       Lightbox.modalInstance = $modal.open({
         'templateUrl': Lightbox.templateUrl,
-        'controller': [function () {
-          
+        'controller': ['$scope', function ($scope) {
+          $scope.Lightbox =  Lightbox;
+
           Lightbox.keyboardNavEnabled = true;
         }],
         'windowClass': 'lightbox-modal'
