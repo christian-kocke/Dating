@@ -247,6 +247,12 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	$scope.deleteImage = function (image) {
 		PhotosService.delete($rootScope.currentUser.id, image.id).then(function (res) {
 			if(res) {
+				Lightbox.closeModal();
+				for(var i = 0;i < $scope.photos.length; i++) {
+					if($scope.photos[i].id === image.id) {
+						delete $scope.photos[i];
+					}
+				}
 				ToastService.show('Photo deleted', 'success');
 			} else {
 				ToastService.show('Photo delete failed', 'warning');
