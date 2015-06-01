@@ -470,7 +470,7 @@
 
 
 					<ul class="list-inline photosList" id="gallery">
-						<li ng-repeat="photo in photos">
+						<li ng-repeat="photo in photos track by photo.id">
 							<a ng-click="openLightboxModal($index)">
 								<img ng-src="{{photo.thumbnail_path}}" class="img-circle" alt="{{photo.description}}">
 							</a>

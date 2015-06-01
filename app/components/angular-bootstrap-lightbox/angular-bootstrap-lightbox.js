@@ -278,16 +278,18 @@ var width = Math.max(400, dimensions.imageDisplayWidth + 32);
      * @name     openModal
      * @memberOf bootstrapLightbox.Lightbox
      */
-     Lightbox.openModal = function (newImages, newIndex) {
+     Lightbox.openModal = function (newImages, newIndex, scope) {
       Lightbox.images = newImages;
       Lightbox.setImage(newIndex);
 
       // store the modal instance so we can close it manually if we need to
       Lightbox.modalInstance = $modal.open({
         'templateUrl': Lightbox.templateUrl,
+        'scope': scope,
         'controller': ['$scope', function ($scope) {
           $scope.Lightbox =  Lightbox;
-
+          console.log(Lightbox.images);
+          $scope.description = Lightbox.getImageCaption(Lightbox.image);
           Lightbox.keyboardNavEnabled = true;
         }],
         'windowClass': 'lightbox-modal'

@@ -158,16 +158,6 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 
 }]); // End MapCtrl
 
-datingController.controller('UpdateCtrl',['$scope','ProfilService', function ($scope, ProfilService) {
-
-	$scope.newDesc = function (id) {
-		console.log('here');
-		PhotosService.update($rootScope.currentUser.id, id).then(function () {
-			console.log("deleted");
-		});
-	};
-
-}]);
 
 datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', 'InvitationService', 'ToastService', 'WingNoteService','$modal','Lightbox','PhotosService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService, InvitationService, ToastService, WingNoteService, $modal, Lightbox, PhotosService) {
 
@@ -178,6 +168,8 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	$scope.updateList = {};
 
 	$scope.selected1 = true;
+
+	$scope.updateDesc = false;
 
 	$scope.$on(USER_EVENTS.profilLoadSucces, function (event) {
 
@@ -238,7 +230,31 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	};
 
 	$scope.openLightboxModal = function (index) {
-		Lightbox.openModal($scope.photos, index);
+		Lightbox.openModal($scope.photos, index, $scope);
+	};
+
+	$scope.newDesc = function (image) {
+		PhotosService.update($rootScope.currentUser.id, image).then(function (res) {
+			if(res) {
+				ToastService.show('Description updated', 'success');
+			} else {
+				ToastService.show('Description update failed', 'warning');
+			}
+		}, function () {
+			ToastService.show('Description update failed', 'warning');
+		});
+	};
+
+	$scope.deleteImage = function (image) {
+		PhotosService.delete($rootScope.currentUser.id, image.id).then(function (res) {
+			if(res) {
+				ToastService.show('Photo deleted', 'success');
+			} else {
+				ToastService.show('Photo delete failed', 'warning');
+			}
+		}, function () {
+			ToastService.show('Photo delete failed', 'warning');
+		});
 	};
 
 	$scope.displayWingNotes = function () {

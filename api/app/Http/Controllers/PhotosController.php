@@ -101,7 +101,7 @@ class PhotosController extends Controller {
 	 */
 	public function update($userId, $photoId)
 	{
-		error_log(print_r($photoId, true));
+		if(DB::update('update photos set description = ? where id = ?', [$this->_request->description, $photoId])) return response(1);
 	}
 
 	/**
@@ -113,7 +113,7 @@ class PhotosController extends Controller {
 	 */
 	public function destroy($userId, $photoId)
 	{
-		//
+		if(DB::update('delete from photos where id = ?', [$photoId])) return response(1);
 	}
 
 }

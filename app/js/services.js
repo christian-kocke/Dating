@@ -270,11 +270,19 @@ datingService.factory('PhotosService',['$http','RESOURCE','$rootScope', function
 		});
 	};
 
-	photosService.update = function (userId, id) {
+	photosService.update = function (userId, image) {
 		return $http
-		.put(RESOURCE.user+'/'+userId+'/photos', id)
+		.put(RESOURCE.user+'/'+userId+'/photos/'+image.id, image)
 		.then(function (res) {
-			return res.data;
+			return !!res.data;
+		});
+	};
+
+	photosService.delete = function (userId, imageId) {
+		return $http
+		.delete(RESOURCE.user+'/'+userId+'/photos/'+imageId)
+		.then(function (res) {
+			return !!res.data;
 		});
 	};
 
