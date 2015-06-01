@@ -288,7 +288,6 @@ var width = Math.max(400, dimensions.imageDisplayWidth + 32);
         'scope': scope,
         'controller': ['$scope', function ($scope) {
           $scope.Lightbox =  Lightbox;
-          console.log(Lightbox.images);
           $scope.description = Lightbox.getImageCaption(Lightbox.image);
           Lightbox.keyboardNavEnabled = true;
         }],

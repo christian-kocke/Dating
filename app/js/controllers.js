@@ -98,7 +98,6 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 	$scope.loading = false;
 
 	$scope.initialize = function (address) {
-		console.log("loading map");
 		$scope.geocoder = new google.maps.Geocoder();
 
 		MapService.geocodeAddress(address).then(function (results) {
@@ -422,7 +421,6 @@ datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope'
     			value: $scope.captcha.getCaptchaData().value
     		};
     		ValidationService.isCaptchaValid(captchaValues).then(function (valid) {
-    			console.log(valid);
     			if(valid) {
     				deferred.resolve();
     			} else {
@@ -472,7 +470,6 @@ datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope'
 	$scope.open = function($event) {
 		$event.preventDefault();
 		$event.stopPropagation();
-		console.log('click');
 		$scope.opened = true;
 	};
 
