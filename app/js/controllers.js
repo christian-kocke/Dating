@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies','ngTouch','ngAnimate','angular-loading-bar','bootstrapLightbox','ui.bootstrap']);
+var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies','ngTouch','ngAnimate','angular-loading-bar','bootstrapLightbox','ui.bootstrap','visualCaptcha']);
 
 datingController.controller('SearchUsersCtrl',['$scope','SearchService','PROFIL_EVENTS','$rootScope', function ($scope, SearchService, PROFIL_EVENTS, $rootScope) {
 
@@ -98,6 +98,7 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 	$scope.loading = false;
 
 	$scope.initialize = function (address) {
+		console.log("loading map");
 		$scope.geocoder = new google.maps.Geocoder();
 
 		MapService.geocodeAddress(address).then(function (results) {
@@ -365,7 +366,8 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	
 }]); // ./End ProfilCtrl
 
-datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope','$route','$location','USER_EVENTS','$routeParams', function (UserService, $rootScope, $scope, $route, $location, USER_EVENTS, $routeParams) {
+
+datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope','$route','$location','USER_EVENTS','$routeParams', 'ValidationService', '$q', function (UserService, $rootScope, $scope, $route, $location, USER_EVENTS, $routeParams, ValidationService, $q) {
 
 	$scope.submitted = false;
 	$scope.loading = false;
@@ -374,9 +376,10 @@ datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope'
 
 
 	$scope.captchaOptions = {
-		imgPath: 'img/',
+		imgPath: 'components/visual-captcha-angular/img/',
 		captcha: { 
-			numberOfImages: 5 
+			numberOfImages: 5 ,
+			url: '/api/public'
 		},
         // use init callback to get captcha object
         init: function (captcha) {
@@ -384,19 +387,49 @@ datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope'
         }
     };
 
+    $scope.isCaptchaValid = function () {
+
+    	var deferred = $q.defer();
+
+    	if($scope.captcha.getCaptchaData().valid) {
+    		var captchaValues = {
+    			name: $scope.captcha.getCaptchaData().name,
+    			value: $scope.captcha.getCaptchaData().value
+    		};
+    		ValidationService.isCaptchaValid(captchaValues).then(function (valid) {
+    			console.log(valid);
+    			if(valid) {
+    				deferred.resolve();
+    			} else {
+    				deferred.reject();
+    			}
+    		}, function (error) {
+    			deferred.reject();
+    		});
+    	} else {
+    		deferred.reject();
+    	}
+
+    	return deferred.promise;
+    };
+
     $scope.register = function (user) {
     	$scope.loading = true;
-    	user.invitation = ($routeParams.token) ? $routeParams.token : null;
-    	UserService.create(user).then(function (res) {
-    		if(parseInt(res)){
-    			$rootScope.$broadcast(USER_EVENTS.registrationSuccess);
-    			$scope.submitted = true;
-    		}else{
+    	$scope.isCaptchaValid().then(function (success) {
+    		user.invitation = ($routeParams.token) ? $routeParams.token : null;
+    		UserService.create(user).then(function (res) {
+    			if(parseInt(res)){
+    				$rootScope.$broadcast(USER_EVENTS.registrationSuccess);
+    				$scope.submitted = true;
+    			}else{
+    				$rootScope.$broadcast(USER_EVENTS.registrationFailed);
+    			}
+    		}, function () {
     			$rootScope.$broadcast(USER_EVENTS.registrationFailed);
-    		}
-    	}, function () {
-    		$rootScope.$broadcast(USER_EVENTS.registrationFailed);
-    	}).finally(function () {
+    		}).finally(function () {
+    			$scope.loading = false;
+    		});
+    	}, function (error) {
     		$scope.loading = false;
     	});
 	}; // End register()
@@ -414,7 +447,7 @@ datingController.controller('RegistrarCtrl',['UserService','$rootScope','$scope'
 	$scope.open = function($event) {
 		$event.preventDefault();
 		$event.stopPropagation();
-
+		console.log('click');
 		$scope.opened = true;
 	};
 
