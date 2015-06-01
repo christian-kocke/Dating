@@ -100,6 +100,7 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 	$scope.loading = false;
 
 	$scope.initialize = function (address) {
+		console.log("loading map");
 		$scope.geocoder = new google.maps.Geocoder();
 
 		MapService.geocodeAddress(address).then(function (results) {

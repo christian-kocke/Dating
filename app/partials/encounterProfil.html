@@ -1,7 +1,7 @@
 <div class="container-fluid" ng-controller="ProfilCtrl">
 
-	<div ng-if="sizeDevice === 'large' || sizeDevice === 'medium'" ng-include="'partials/encounterProfil.large.html'"></div>
+	<div ng-if="sizeDevice === 'large' || sizeDevice === 'medium'" ng-include="'partials/encounterProfil.large.html'" onload=""></div>
 
-	<div ng-if="typeDevice === 'mobile' || sizeDevice === 'tablet'" ng-include="'partials/encounterProfil.small.html'"></div>
+	<div ng-if="typeDevice === 'mobile' || sizeDevice === 'tablet'" ng-include="'partials/encounterProfil.small.html'" onload=""></div>
 
 </div><!-- class container-fluid -->

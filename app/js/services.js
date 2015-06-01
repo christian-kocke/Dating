@@ -581,6 +581,12 @@ datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENT
 			if(id) {
 				var deferred = $q.defer();
 
+				deferred.promise.then(function () {
+					$rootScope.$broadcast(USER_EVENTS.profilLoadSucces);
+				}, function () {
+					$rootScope.$broadcast(USER_EVENTS.profilLoadFailed);
+				});
+
 				ProfilService.show(id).then(function (profil) { // load profil
 
 					ProfilService.indexPhotos(id).then(function (photos) { // load photos
@@ -605,9 +611,10 @@ datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENT
 										deferred.reject();
 									});
 								});
-								$rootScope.visitedProfil = profil;
+								
 								deferred.resolve();
 							}
+							
 						}, function () {
 							deferred.reject();
 						});
