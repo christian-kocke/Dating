@@ -627,6 +627,7 @@ datingService.factory('ProfilResolver',['ProfilService','PhotosService','$rootSc
 									});
 								});
 								$rootScope.visitedProfil = profil;
+								console.log($rootScope.visitedProfil);
 								deferred.resolve();
 							}
 							

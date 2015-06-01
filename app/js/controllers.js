@@ -352,6 +352,8 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		WingNoteService.add(wingNote).then(function (res) {
 			if(res) {
 				ToastService.show('The WingNote was posted succesfuly', 'success');
+				wingNote.emitter = $rootScope.currentProfil;
+				$rootScope.visitedProfil.wingNotes.unshift(wingNote);
 			} else {
 				ToastService.show('You already posted a WingNote for '+$rootScope.visitedProfil.username, 'warning');
 			}

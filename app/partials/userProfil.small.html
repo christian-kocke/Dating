@@ -498,12 +498,16 @@
 					<form class="dropzone" id="photoZone" dropzone="photosDropzoneConfig"></form>
 
 					<ul class="list-inline photosList" id="gallery">
-						<li ng-repeat="photo in photos">
+						<li ng-repeat="photo in photos track by photo.id">
 							<a ng-click="openLightboxModal($index)">
 								<img ng-src="{{photo.thumbnail_path}}" class="img-circle" alt="{{photo.description}}">
 							</a>
 						</li>
 					</ul><!-- class list-inline photosList -->
+
+					<div class="col-xs-12" ng-hide="!!photos.length">
+						<p class="lead text-center"> There are no photos in this section ! </p>
+					</div><!-- class col-xs-12 -->
 					
 				</div><!-- class row -->
 
@@ -528,8 +532,8 @@
 				<!-- Comments Section -->
 				<div class="row" ng-show="activeTab === 'comments'">
 					<hr>
-					<div class="col-xs-12" ng-repeat="wingNote in wingNotes track by wingNote.id" ng-show="!!wingNotes.length">
-						<div class="col-xs-11">
+					<div class="row" ng-repeat="wingNote in wingNotes track by wingNote.id" ng-show="!!wingNotes.length">
+						<div class="col-xs-12 col-sm-11">
 							<div class="media">
 								<div class="pull-left media-middle commentsContainer">
 									<a ng-href="#/user/{{wingNote.emitter_id}}">
@@ -542,13 +546,13 @@
 								</div><!-- class media-body -->
 							</div><!-- class media -->
 						</div><!-- class col-xs-11 -->
-						<div class="col-xs-1">
+						<div class="col-sm-1">
 							<a class="btn btn-link pinkTxt pull-right" type="button" ng-click="openDeleteWingNote(wingNote)"><span class="glyphicon glyphicon-remove"></span></a>
 						</div><!-- class col-xs-1 -->
 					</div><!-- class col-xs-12 -->
 
 					<div class="col-xs-12" ng-hide="!!wingNotes.length">
-						<p class="lead text-center"> There is no comments in this section ! </p>
+						<p class="lead text-center"> There are no comments in this section ! </p>
 					</div><!-- class col-xs-12 -->
 
 				</div><!-- class row -->
