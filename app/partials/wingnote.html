@@ -2,7 +2,7 @@
 	<button type="button" class="close" aria-label="Close" ng-click="$close()"><span aria-hidden="true">&times;</span></button>
 	<h4 class="modal-title"> WingNote </h4>
 </div>
-<form novalidate name="wingNoteForm" ng-submit="wingNoteForm.$valid && addWingNote(wingNote)">
+<form novalidate name="wingNoteForm" ng-submit="wingNoteForm.$valid && addWingNote(wingNote); $close();">
 	<div class="modal-body">
 		<div class="row text-center">
 

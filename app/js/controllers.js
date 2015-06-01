@@ -256,17 +256,6 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		});
 	};
 
-	$scope.displayWingNotes = function () {
-		WingNoteService.index($rootScope.currentUser.id).then(function (wingNotes) {
-			$scope.wingNotes = wingNotes;
-			for(var i = 0; i < wingNotes.length; i++) {
-				ProfilService.show(wingNotes.emitter_id).then(function (profil) {
-					$scope.wingNotes[i].profil = profil;
-				});
-			}
-		});
-	};
-
 	$scope.getClass = function (path) {
 		return ($scope.activeTab === path) ? "pinkBtn" : "greyBtn";
 	}; // End getClass()
@@ -344,7 +333,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 
 	$scope.openWingNote = function () {
 
-		var addWingNoteModal = $modal.open({
+		$scope.addWingNoteModal = $modal.open({
 			animation: true,
 			templateUrl: 'partials/wingnote.html',
 			controller: 'ProfilCtrl',
