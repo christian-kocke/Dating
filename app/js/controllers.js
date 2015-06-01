@@ -343,7 +343,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		});
 	};
 
-	$scope.open = function () {
+	$scope.openWingNote = function () {
 
 		var addWingNoteModal = $modal.open({
 			animation: true,
