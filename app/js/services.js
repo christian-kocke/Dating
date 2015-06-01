@@ -588,7 +588,7 @@ datingService.factory('SessionResolver',['$q','$rootScope','$location','Session'
 
 }]); // End SessionResolver
 
-datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENTS', 'MapService', '$q','WingNoteService', function (ProfilService, $rootScope, USER_EVENTS, MapService, $q, WingNoteService) {
+datingService.factory('ProfilResolver',['ProfilService','PhotosService','$rootScope','USER_EVENTS', 'MapService', '$q','WingNoteService', function (ProfilService, PhotosService, $rootScope, USER_EVENTS, MapService, $q, WingNoteService) {
 
 	return {
 
@@ -604,7 +604,7 @@ datingService.factory('ProfilResolver',['ProfilService','$rootScope','USER_EVENT
 
 				ProfilService.show(id).then(function (profil) { // load profil
 
-					ProfilService.indexPhotos(id).then(function (photos) { // load photos
+					PhotosService.index(id).then(function (photos) { // load photos
 
 						profil.photos = photos; 
 
