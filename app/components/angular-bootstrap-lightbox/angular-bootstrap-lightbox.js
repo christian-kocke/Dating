@@ -1,9 +1,7 @@
 /**
  * @namespace bootstrapLightbox
  */
-angular.module('bootstrapLightbox', [
-  'ui.bootstrap'
-]);
+ angular.module('bootstrapLightbox', ['ui.bootstrap']);
 
 // optional dependencies
 try {
@@ -19,8 +17,8 @@ angular.module('bootstrapLightbox').run(['$templateCache', function($templateCac
   'use strict';
 
   $templateCache.put('lightbox.html',
-    "<div class=modal-body ng-swipe-left=Lightbox.nextImage() ng-swipe-right=Lightbox.prevImage()><div class=lightbox-nav><button class=close aria-hidden=true ng-click=$dismiss()>×</button><div class=btn-group><a class=\"btn btn-xs btn-default\" ng-click=Lightbox.prevImage()>‹ Previous</a> <a ng-href={{Lightbox.imageUrl}} target=_blank class=\"btn btn-xs btn-default\" title=\"Open in new tab\">Open image in new tab</a> <a class=\"btn btn-xs btn-default\" ng-click=Lightbox.nextImage()>Next ›</a></div></div><div class=lightbox-image-container><div class=lightbox-image-caption><span>{{Lightbox.imageCaption}}</span></div><img lightbox-src={{Lightbox.imageUrl}} alt=\"\"></div></div>"
-  );
+    "<div class=modal-body ng-swipe-left=Lightbox.nextImage() ng-swipe-right=Lightbox.prevImage()><div class=lightbox-nav><button type=\"button\" class=\"close\" aria-label=\"Close\" ng-click=\"$dismiss()\"><span aria-hidden=\"true\">&times;</span></button></div><div class=lightbox-image-container><div class=lightbox-image-caption><h4 ng-hide=\"updateDesc\" class=\"modal-title\"><span>{{Lightbox.imageCaption}}</span><span ng-click=\"updateDesc = true\" class=\"glyphicon glyphicon-pencil greyTxt4 smallIcon\"></span></h4><div class=\"input-group\" ng-show=\"updateDesc\"><input class=\"form-control\" type=\"text\" ng-blur=\"updateDesc = false\" name=\"description\" id=\"description\" placeholder=\"Description...\" autofocus><span class=\"input-group-btn\"><button class=\"btn btn-default\" type=\"button\" ng-click=\"newDesc(Lightbox.imageId)\"> OK </button></span></div><!-- class input-group --></div><img lightbox-src=\"{{Lightbox.imageUrl}}\" alt=\"{{Lightbox.imageCaption}}\"></div></div><button type=\"button\" class=\"btn btn-link deletePhoto pinkTxt\"> Delete </button>"
+    );
 
 }]);
 /**
@@ -28,8 +26,8 @@ angular.module('bootstrapLightbox').run(['$templateCache', function($templateCac
  * @classdesc Service for loading an image.
  * @memberOf  bootstrapLightbox
  */
-angular.module('bootstrapLightbox').service('ImageLoader', ['$q',
-    function ($q) {
+ angular.module('bootstrapLightbox').service('ImageLoader', ['$q',
+  function ($q) {
   /**
    * Load the image at the given URL.
    * @param    {String} url
@@ -39,7 +37,7 @@ angular.module('bootstrapLightbox').service('ImageLoader', ['$q',
    * @name     load
    * @memberOf bootstrapLightbox.ImageLoader
    */
-  this.load = function (url) {
+   this.load = function (url) {
     var deferred = $q.defer();
 
     var image = new Image();
@@ -48,12 +46,12 @@ angular.module('bootstrapLightbox').service('ImageLoader', ['$q',
     image.onload = function () {
       // check image properties for possible errors
       if ((typeof this.complete === 'boolean' && this.complete === false) ||
-          (typeof this.naturalWidth === 'number' && this.naturalWidth === 0)) {
+        (typeof this.naturalWidth === 'number' && this.naturalWidth === 0)) {
         deferred.reject();
-      }
+    }
 
-      deferred.resolve(image);
-    };
+    deferred.resolve(image);
+  };
 
     // when the image fails to load
     image.onerror = function () {
@@ -71,14 +69,14 @@ angular.module('bootstrapLightbox').service('ImageLoader', ['$q',
  * @classdesc Lightbox service.
  * @memberOf  bootstrapLightbox
  */
-angular.module('bootstrapLightbox').provider('Lightbox', function () {
+ angular.module('bootstrapLightbox').provider('Lightbox', function () {
   /**
    * Template URL passed into `$modal.open()`.
    * @type     {String}
    * @name     templateUrl
    * @memberOf bootstrapLightbox.Lightbox
    */
-  this.templateUrl = 'lightbox.html';
+   this.templateUrl = 'partials/lightbox.html';
 
   /**
    * @param    {*} image An element in the array of images.
@@ -87,8 +85,8 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
    * @name     getImageUrl
    * @memberOf bootstrapLightbox.Lightbox
    */
-  this.getImageUrl = function (image) {
-    return image.url;
+   this.getImageUrl = function (image) {
+    return image.path;
   };
 
   /**
@@ -98,8 +96,19 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
    * @name     getImageCaption
    * @memberOf bootstrapLightbox.Lightbox
    */
-  this.getImageCaption = function (image) {
-    return image.caption;
+   this.getImageCaption = function (image) {
+    return image.description;
+  };
+
+  /**
+   * @param    {*} image An element in the array of images.
+   * @return   {String} The caption of the given image.
+   * @type     {Function}
+   * @name     getImageId
+   * @memberOf bootstrapLightbox.Lightbox
+   */
+   this.getImageId = function (image) {
+    return image.id;
   };
 
   /**
@@ -114,7 +123,7 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
    * @name     calculateImageDimensionLimits
    * @memberOf bootstrapLightbox.Lightbox
    */
-  this.calculateImageDimensionLimits = function (dimensions) {
+   this.calculateImageDimensionLimits = function (dimensions) {
     if (dimensions.windowWidth >= 768) {
       return {
         // 92px = 2 * (30px margin of .modal-dialog
@@ -132,7 +141,7 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
         // 52px = 2 * (10px margin of .modal-dialog
         //             + 1px border of .modal-content
         //             + 15px padding of .modal-body)
-        'maxWidth': dimensions.windowWidth - 52,
+'maxWidth': dimensions.windowWidth - 52,
         // 86px = 52px as above
         //        + 34px outer height of .lightbox-nav
         'maxHeight': dimensions.windowHeight - 86
@@ -151,11 +160,11 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
    * @name     calculateModalDimensions
    * @memberOf bootstrapLightbox.Lightbox
    */
-  this.calculateModalDimensions = function (dimensions) {
+   this.calculateModalDimensions = function (dimensions) {
     // 400px = arbitrary min width
     // 32px = 2 * (1px border of .modal-content
     //             + 15px padding of .modal-body)
-    var width = Math.max(400, dimensions.imageDisplayWidth + 32);
+var width = Math.max(400, dimensions.imageDisplayWidth + 32);
 
     // 200px = arbitrary min height
     // 66px = 32px as above
@@ -182,10 +191,10 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
   };
 
   this.$get = ['$document', '$injector', '$modal', '$timeout', 'ImageLoader',
-      function ($document, $injector, $modal, $timeout, ImageLoader) {
+  function ($document, $injector, $modal, $timeout, ImageLoader) {
     // optional dependency
     var cfpLoadingBar = $injector.has('cfpLoadingBar') ?
-      $injector.get('cfpLoadingBar'): null;
+    $injector.get('cfpLoadingBar'): null;
 
     var Lightbox = {};
 
@@ -195,7 +204,7 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
      * @name     images
      * @memberOf bootstrapLightbox.Lightbox
      */
-    Lightbox.images = [];
+     Lightbox.images = [];
 
     /**
      * The index in the `Lightbox.images` aray of the image that is currently
@@ -204,13 +213,14 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
      * @name     index
      * @memberOf bootstrapLightbox.Lightbox
      */
-    Lightbox.index = -1;
+     Lightbox.index = -1;
 
     // set the configurable properties and methods, the defaults of which are
     // defined above
     Lightbox.templateUrl = this.templateUrl;
     Lightbox.getImageUrl = this.getImageUrl;
     Lightbox.getImageCaption = this.getImageCaption;
+    Lightbox.getImageId = this.getImageId;
     Lightbox.calculateImageDimensionLimits = this.calculateImageDimensionLimits;
     Lightbox.calculateModalDimensions = this.calculateModalDimensions;
 
@@ -221,7 +231,7 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
      * @name     keyboardNavEnabled
      * @memberOf bootstrapLightbox.Lightbox
      */
-    Lightbox.keyboardNavEnabled = false;
+     Lightbox.keyboardNavEnabled = false;
 
     /**
      * The image currently shown in the lightbox.
@@ -229,7 +239,7 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
      * @name     image
      * @memberOf bootstrapLightbox.Lightbox
      */
-    Lightbox.image = {};
+     Lightbox.image = {};
 
     /**
      * The UI Bootstrap modal instance. See {@link
@@ -238,7 +248,7 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
      * @name     modalInstance
      * @memberOf bootstrapLightbox.Lightbox
      */
-    Lightbox.modalInstance = null;
+     Lightbox.modalInstance = null;
 
     /**
      * The URL of the current image. This is a property of the service rather
@@ -268,17 +278,15 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
      * @name     openModal
      * @memberOf bootstrapLightbox.Lightbox
      */
-    Lightbox.openModal = function (newImages, newIndex) {
+     Lightbox.openModal = function (newImages, newIndex) {
       Lightbox.images = newImages;
       Lightbox.setImage(newIndex);
 
       // store the modal instance so we can close it manually if we need to
       Lightbox.modalInstance = $modal.open({
         'templateUrl': Lightbox.templateUrl,
-        'controller': ['$scope', function ($scope) {
-          // $scope is the modal scope, a child of $rootScope
-          $scope.Lightbox = Lightbox;
-
+        'controller': [function () {
+          
           Lightbox.keyboardNavEnabled = true;
         }],
         'windowClass': 'lightbox-modal'
@@ -313,7 +321,7 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
      * @name     closeModal
      * @memberOf bootstrapLightbox.Lightbox
      */
-    Lightbox.closeModal = function (result) {
+     Lightbox.closeModal = function (result) {
       return Lightbox.modalInstance.close(result);
     };
 
@@ -326,7 +334,7 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
      * @name     setImage
      * @memberOf bootstrapLightbox.Lightbox
      */
-    Lightbox.setImage = function (newIndex) {
+     Lightbox.setImage = function (newIndex) {
       if (!(newIndex in Lightbox.images)) {
         throw 'Invalid image.';
       }
@@ -345,7 +353,6 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
           cfpLoadingBar.complete();
         }
       };
-
       var imageUrl = Lightbox.getImageUrl(Lightbox.images[newIndex]);
 
       // load the image before setting it, so everything in the view is updated
@@ -357,6 +364,7 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
         // set the url and caption
         Lightbox.imageUrl = imageUrl;
         Lightbox.imageCaption = Lightbox.getImageCaption(Lightbox.image);
+        Lightbox.imageId = Lightbox.getImageId(Lightbox.image);
       }, function () {
         success();
 
@@ -373,7 +381,7 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
      * @name     firstImage
      * @memberOf bootstrapLightbox.Lightbox
      */
-    Lightbox.firstImage = function () {
+     Lightbox.firstImage = function () {
       Lightbox.setImage(0);
     };
 
@@ -383,7 +391,7 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
      * @name     prevImage
      * @memberOf bootstrapLightbox.Lightbox
      */
-    Lightbox.prevImage = function () {
+     Lightbox.prevImage = function () {
       Lightbox.setImage((Lightbox.index - 1 + Lightbox.images.length) %
         Lightbox.images.length);
     };
@@ -394,7 +402,7 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
      * @name     nextImage
      * @memberOf bootstrapLightbox.Lightbox
      */
-    Lightbox.nextImage = function () {
+     Lightbox.nextImage = function () {
       Lightbox.setImage((Lightbox.index + 1) % Lightbox.images.length);
     };
 
@@ -404,7 +412,7 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
      * @name     lastImage
      * @memberOf bootstrapLightbox.Lightbox
      */
-    Lightbox.lastImage = function () {
+     Lightbox.lastImage = function () {
       Lightbox.setImage(Lightbox.images.length - 1);
     };
 
@@ -418,7 +426,7 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
      * @name     setImages
      * @memberOf bootstrapLightbox.Lightbox
      */
-    Lightbox.setImages = function (newImages) {
+     Lightbox.setImages = function (newImages) {
       Lightbox.images = newImages;
       Lightbox.setImage(Lightbox.index);
     };
@@ -437,23 +445,23 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
 
       switch (event.which) {
       case 39: // right arrow key
-        method = 'nextImage';
-        break;
+      method = 'nextImage';
+      break;
       case 37: // left arrow key
-        method = 'prevImage';
-        break;
-      }
+      method = 'prevImage';
+      break;
+    }
 
-      if (method !== null && ['input', 'textarea'].indexOf(
-          event.target.tagName.toLowerCase()) === -1) {
+    if (method !== null && ['input', 'textarea'].indexOf(
+      event.target.tagName.toLowerCase()) === -1) {
         // the view doesn't update without a manual digest
-        $timeout(function () {
-          Lightbox[method]();
-        });
+      $timeout(function () {
+        Lightbox[method]();
+      });
 
-        event.preventDefault();
-      }
-    });
+      event.preventDefault();
+    }
+  });
 
     return Lightbox;
   }];
@@ -465,8 +473,8 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
  *   element and its relevant parent elements within the modal.
  * @memberOf  bootstrapLightbox
  */
-angular.module('bootstrapLightbox').directive('lightboxSrc', ['$window',
-    'ImageLoader', 'Lightbox', function ($window, ImageLoader, Lightbox) {
+ angular.module('bootstrapLightbox').directive('lightboxSrc', ['$window',
+  'ImageLoader', 'Lightbox', function ($window, ImageLoader, Lightbox) {
   // Calculate the dimensions to display the image. The max dimensions override
   // the min dimensions if they conflict.
   var calculateImageDisplayDimensions = function (dimensions) {
@@ -558,7 +566,7 @@ angular.module('bootstrapLightbox').directive('lightboxSrc', ['$window',
             'maxWidth': 3000,
             'maxHeight': 3000,
           }, imageDimensionLimits)
-        );
+          );
 
         // calculate the dimensions of the modal container
         var modalDimensions = Lightbox.calculateModalDimensions({
@@ -578,19 +586,19 @@ angular.module('bootstrapLightbox').directive('lightboxSrc', ['$window',
         // background, which is .modal-content
         angular.element(
           document.querySelector('.lightbox-modal .modal-dialog')
-        ).css({
-          'width': modalDimensions.width + 'px'
-        });
+          ).css({
+            'width': modalDimensions.width + 'px'
+          });
 
         // .modal-content has no width specified; if we set the width on
         // .modal-content and not on .modal-dialog, .modal-dialog retains its
         // default width of 600px and that places .modal-content off center
         angular.element(
           document.querySelector('.lightbox-modal .modal-content')
-        ).css({
-          'height': modalDimensions.height + 'px'
-        });
-      };
+          ).css({
+            'height': modalDimensions.height + 'px'
+          });
+        };
 
       // load the new image whenever the attr changes
       scope.$watch(function () {

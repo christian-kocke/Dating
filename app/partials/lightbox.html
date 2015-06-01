@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <div class="lightbox-nav">
+        <button type="button" class="close" aria-label="Close" ng-click="$dismiss()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="lightbox-image-caption">
+        <h4 ng-hide="updateDesc" class="modal-title">
+            <span>{{Lightbox.imageCaption}}</span>
+            <span ng-click="updateDesc = true" class="glyphicon glyphicon-pencil greyTxt4 smallIcon"></span>
+        </h4>
+        <div class="input-group" ng-show="updateDesc">
+            <input class="form-control" type="text" ng-blur="updateDesc = false" name="description" id="description" placeholder="Description..." autofocus>
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button" ng-click="newDesc(Lightbox.imageId)"> OK </button>
+            </span>
+        </div><!-- class input-group -->
+    </div>
+</div>
+<div class="modal-body lightbox-image-container" ng-swipe-left="Lightbox.nextImage()" ng-swipe-right="Lightbox.prevImage()">
+    <img lightbox-src="{{Lightbox.imageUrl}}" alt="{{Lightbox.imageCaption}}">
+</div>
+<button type="button" class="btn btn-link deletePhoto pinkTxt"> Delete </button>

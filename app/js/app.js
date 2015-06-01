@@ -169,11 +169,11 @@ datingApp.config(['$routeProvider','$locationProvider', function($routeProvider,
     });
 
 $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
-    if(next && next.$$route){
+    if(next && next.$$route) {
         var redirectionFunction = next.$$route.redirection;
-        if(redirectionFunction){
+        if(redirectionFunction) {
             var route = $injector.invoke(redirectionFunction);
-            if(route){
+            if(route) {
                 $location.path(route);
             }
         }
@@ -390,7 +390,6 @@ datingApp.constant('AUTH_EVENTS', {
     user: '/api/public/user',
     userFiles: '/api/public/user/file',
     profil: '/api/public/user/profil',
-    photos: '/api/public/user/photos',
     resetPassword: '/api/public/password',
     invitation: '/api/public/user/invitation',
     templates: '/dating/app/partials'

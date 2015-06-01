@@ -88,9 +88,7 @@ class PhotosController extends Controller {
 	 */
 	public function show($userId, $photoId)
 	{
-		$photos = DB::select('select * from photos where user_id = ? and id = ?', [$userId, $photoId]);
-		
-		return response()->json($photos);
+		//
 	}
 
 
@@ -103,7 +101,7 @@ class PhotosController extends Controller {
 	 */
 	public function update($userId, $photoId)
 	{
-		//
+		error_log(print_r($photoId, true));
 	}
 
 	/**

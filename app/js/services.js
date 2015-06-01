@@ -248,6 +248,29 @@ datingService.factory('UserService',['$http','RESOURCE', function ($http, RESOUR
 	return userService;
 }]);
 
+datingService.factory('PhotosService',['$http','RESOURCE','$rootScope', function ($http, RESOURCE) {
+
+	var photosService = {};
+
+	photosService.index = function (userId) {
+		return $http
+		.get(RESOURCE.user+'/'+userId+'/photos')
+		.then(function (res) {
+			return res.data;
+		});
+	};
+
+	photosService.update = function (userId, id) {
+		return $http
+		.put(RESOURCE.user+'/'+userId+'/photos', id)
+		.then(function (res) {
+			return res.data;
+		});
+	};
+
+	return photosService;
+}]);
+
 datingService.factory('ProfilService',['$http','RESOURCE','$rootScope', function ($http, RESOURCE, $rootScope) {
 
 	var profilService = {};
@@ -259,22 +282,6 @@ datingService.factory('ProfilService',['$http','RESOURCE','$rootScope', function
 			return res.data;
 		});
 	};
-
-	profilService.indexPhotos = function (userId) {
-		return $http
-		.get(RESOURCE.user+'/'+userId+'/photos')
-		.then(function (res) {
-			return res.data;
-		});
-	};
-
-	profilService.showPhotos = function (userId, photoId) {
-		return $http
-		.get(RESOURCE.user+'/'+$userId+'/photos/'+photoId)
-		.then(function (res) {
-			return res.data;
-		});
-	}
 
 	profilService.update = function (profil) {
 		return $http

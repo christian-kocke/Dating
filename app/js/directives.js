@@ -22,6 +22,20 @@ datingDirective.directive('passwordMatch', function () {
 	};
 });
 
+datingDirective.directive('autofocus', ['$timeout', function ($timeout) {
+	return {
+		restrict: 'A',
+		link : function ($scope, $element) {
+			$scope.$watch('updateDesc', function (update) {
+				if(update) {
+					$timeout(function() {
+						$element[0].focus();
+					});
+				}
+			});
+		}
+	}
+}]);
 
 datingDirective.directive('passwordCheck',['$q','ValidationService', function ($q, ValidationService) {
 	return {

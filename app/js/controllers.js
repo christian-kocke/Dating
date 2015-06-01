@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies','ngTouch','ngAnimate','bootstrapLightbox','ui.bootstrap']);
+var datingController = angular.module('datingControllers', ['angularFileUpload', 'ngToast', 'ngCookies','ngTouch','ngAnimate','angular-loading-bar','bootstrapLightbox','ui.bootstrap']);
 
 datingController.controller('SearchUsersCtrl',['$scope','SearchService','PROFIL_EVENTS','$rootScope', function ($scope, SearchService, PROFIL_EVENTS, $rootScope) {
 
@@ -157,8 +157,18 @@ datingController.controller('MapCtrl',['$scope','$rootScope','ToastService','MAP
 
 }]); // End MapCtrl
 
+datingController.controller('UpdateCtrl',['$scope','ProfilService', function ($scope, ProfilService) {
 
-datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', 'InvitationService', 'ToastService', 'WingNoteService','$modal','Lightbox', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService, InvitationService, ToastService, WingNoteService, $modal, Lightbox) {
+	$scope.newDesc = function (id) {
+		console.log('here');
+		PhotosService.update($rootScope.currentUser.id, id).then(function () {
+			console.log("deleted");
+		});
+	};
+
+}]);
+
+datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RESOURCE','ProfilService','UtilityService','USER_EVENTS','$route', 'MapService', 'InvitationService', 'ToastService', 'WingNoteService','$modal','Lightbox','PhotosService', function ($scope, $cookies, $rootScope, RESOURCE, ProfilService, UtilityService, USER_EVENTS, $route, MapService, InvitationService, ToastService, WingNoteService, $modal, Lightbox, PhotosService) {
 
 	$scope.activeTab = 'profile';
 	
@@ -221,7 +231,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	};
 
 	$scope.displayPhotos = function () {
-		ProfilService.indexPhotos($rootScope.currentUser.id).then(function (photos) {
+		PhotosService.index($rootScope.currentUser.id).then(function (photos) {
 			$scope.photos = photos;
 		});
 	};

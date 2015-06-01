@@ -469,13 +469,13 @@
 					<form class="dropzone" id="photoZone" dropzone="photosDropzoneConfig"></form>
 
 
-					<ul class="list-inline" id="gallery">
+					<ul class="list-inline photosList" id="gallery">
 						<li ng-repeat="photo in photos">
-							<a ng-click="Lightbox.openModal(photos, $index)">
-								<img ng-src="{{photo.thumbnail_path}}" class="img-circle" alt="" style="width: 6em;">
+							<a ng-click="openLightboxModal($index)">
+								<img ng-src="{{photo.thumbnail_path}}" class="img-circle" alt="{{photo.description}}">
 							</a>
 						</li>
-					</ul>
+					</ul><!-- class list-inline photosList -->
 
 				</div><!-- class row -->
 

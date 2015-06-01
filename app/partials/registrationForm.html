@@ -100,13 +100,13 @@
 		<div class="col-xs-12 form-group has-feedback" ng-class="{'has-success': signUpForm.dob.$valid, 'has-error': signUpForm.dob.$invalid && signUpForm.dob.$dirty}">
 			
 			<label class="greyTxt2" for="dob"> Date of birth <span class="red"> * </span></label>
-			<p class="input-group">
+			<div class="input-group">
 				<span class="input-group-addon">
 					<span class="red">*</span>
 					<span class="glyphicon glyphicon-calendar"></span>
 				</span>
 				<input type="date" name="dob" id="id" class="form-control" aria-describedby="dobStatus" datepicker-popup ng-model="user.dob" is-open="opened" datepicker-mode="year" show-button-bar="false" min-date="'1930-01-01'" max-date="today" date-disabled="disabled(date, mode)" ng-required="true" placeholder="Your date of birth..." ng-click="open($event)"/>
-			</p>
+			</div>
 		</div><!-- class col-xs-12 -->
 	</div><!-- class row -->
 
