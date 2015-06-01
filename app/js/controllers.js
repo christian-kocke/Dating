@@ -343,7 +343,7 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 		});
 	};
 
-	$scope.open = function (size) {
+	$scope.open = function () {
 
 		var addWingNoteModal = $modal.open({
 			animation: true,
@@ -367,7 +367,16 @@ datingController.controller('ProfilCtrl',['$scope', '$cookies','$rootScope','RES
 	};
 
 	$scope.openDeleteWingNote = function (wingNote) {
+
 		$scope.currentWingNote = wingNote;
+
+		var wingNoteModal = $modal.open({
+			scope: $scope,
+			animation: true,
+			templateUrl: 'partials/deleteWingNote.html',
+			controller: 'ProfilCtrl'
+		});
+		
 	};
 
 	$scope.deleteWingNote = function (wingNote) {
